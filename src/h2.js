@@ -8,83 +8,83 @@ import { calculateResolution } from "./utilities";
 
 function calculatePatternResolution(pattern, size)
 {
-	const positions = Array.from(pattern.notes, note => note.position)
+  const positions = Array.from(pattern.notes, note => note.position)
   return calculateResolution(positions, size);
 }
 
 function parseHydrogenJs(result)
 {
-  	// fixme:
-  	// this parsing often assumes there's >=2 elements
+    // fixme:
+    // this parsing often assumes there's >=2 elements
 
-  	// this "zero" here is presumably an artefact of xml --> json representation
-  	const instrumentElements = result.song.instrumentList[0].instrument;
+    // this "zero" here is presumably an artefact of xml --> json representation
+    const instrumentElements = result.song.instrumentList[0].instrument;
 
-  	// instruments
-  	// [  { id, name } ]
-  	const instrumentArray = Array.from(
-  		instrumentElements,
-  		function(element){
-  			return {"id" : parseInt(element.id), "name" : element.name };
-  		}
-  	);
+    // instruments
+    // [  { id, name } ]
+    const instrumentArray = Array.from(
+      instrumentElements,
+      function(element){
+        return {"id" : parseInt(element.id), "name" : element.name };
+      }
+    );
 
-  	const patternElements = result.song.patternList[0].pattern;
+    const patternElements = result.song.patternList[0].pattern;
 
-  	// patterns
-  	// [  { name, size, notes } ]
-  	const patternArray = Array.from(
-  		patternElements,
-  		function(element){
-  			const noteElements = element.noteList[0].note;
-  			let notes = [];
-  			if( noteElements )
-  			{
-  				// notes 
-  				// [ {position, instrument(id}]
-	  			notes = Array.from(
-	  				noteElements,
-	  				function(noteElement){
-	  					return {"position" : parseInt(noteElement.position), "instrument" : parseInt(noteElement.instrument)};
-	  				}
-	  			);
-  			}
-  			return {
-  				"size" : parseInt(element.size), 
-  				"name" : element.name,
-  				"notes" : notes
-  			};
-  		}
-  	);
+    // patterns
+    // [  { name, size, notes } ]
+    const patternArray = Array.from(
+      patternElements,
+      function(element){
+        const noteElements = element.noteList[0].note;
+        let notes = [];
+        if( noteElements )
+        {
+          // notes 
+          // [ {position, instrument(id}]
+          notes = Array.from(
+            noteElements,
+            function(noteElement){
+              return {"position" : parseInt(noteElement.position), "instrument" : parseInt(noteElement.instrument)};
+            }
+          );
+        }
+        return {
+          "size" : parseInt(element.size), 
+          "name" : element.name,
+          "notes" : notes
+        };
+      }
+    );
 
-  	// transform pattern to a managable data
-  	const patternsWithTracks = Array.from(
-  		patternArray,
-  		function(pattern)
-  		{	
-  			const resolution = calculatePatternResolution(pattern, pattern.size);
-  			let instrumentNotes = { };
-  			for( const instrument of instrumentArray )
-  			{
-	  			const relevantNotes = pattern.notes.filter( 
-	  				note => (note.instrument == instrument.id)
-	  			);
-	  			const relevantHits = Array.from(
-	  				relevantNotes,
-	  				note => note.position
-	  			);
-	  			instrumentNotes[ instrument.id.toString() ] = relevantHits;
-  			}
-  			pattern.resolution = resolution;
-  			pattern.instrumentNotes = instrumentNotes;
-  			return pattern;
-  		}
-  	);
+    // transform pattern to a managable data
+    const patternsWithTracks = Array.from(
+      patternArray,
+      function(pattern)
+      { 
+        const resolution = calculatePatternResolution(pattern, pattern.size);
+        let instrumentNotes = { };
+        for( const instrument of instrumentArray )
+        {
+          const relevantNotes = pattern.notes.filter( 
+            note => (note.instrument == instrument.id)
+          );
+          const relevantHits = Array.from(
+            relevantNotes,
+            note => note.position
+          );
+          instrumentNotes[ instrument.id.toString() ] = relevantHits;
+        }
+        pattern.resolution = resolution;
+        pattern.instrumentNotes = instrumentNotes;
+        return pattern;
+      }
+    );
 
-  	return {
-  		"instruments" : instrumentArray,
-  		"patterns" : patternsWithTracks
-  	}
+    return {
+      "instruments" : instrumentArray,
+      "patterns" : patternsWithTracks
+    }
 }
 
 async function parseHydrogenPromise(xmlString)
