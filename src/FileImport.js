@@ -9,17 +9,20 @@ class FileImport extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state ={
-      file: null,
-      content: null
-    }
     this.onChange = this.onChange.bind(this)
   }
 
   onChange(e) {
     const fileObject = e.target.files[0]
     const reader = new FileReader()
-    reader.onload = loadEvent => this.setState( { file: fileObject, content : loadEvent.target.result})
+    reader.onload = loadEvent => {
+      if( this.props.onImport )
+      {
+        this.props.onImport(
+          { file: fileObject, content : loadEvent.target.result}
+        );
+      }
+    }
     reader.readAsText(fileObject);
   }
 
