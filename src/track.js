@@ -5,7 +5,7 @@ class track
   
   constructor(patternArray, resolution)
   {
-    if(s.length == 0)
+    if(patternArray.length == 0)
     {
       throw new Error("patternArray must not be zero length");
     }
