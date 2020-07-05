@@ -2,42 +2,14 @@
 
 import track from "./track"
 import xml2js from "xml2js";
+import { calculateResolution } from "./utilities";
 
 // let's think about the data representation needed
 
-function calculatePatternResolution(pattern)
+function calculatePatternResolution(pattern, size)
 {
-	// hydrogen treats 48 as a beat
-	const basesToTry = [
-		48, // beat
-		24, // 1/2 beat
-		16, // 1/3 beat
-		12, // 1/4
-		8, // 1/6 
-		6, // 1/8
-		4, // 1/12
-		3, // 1/16
-		2, // 1/24
-		1 // 1/48
-	];
-
-	for( const b of basesToTry )
-	{
-		let allNotesPass = true;
-		for( const note of pattern.notes )
-		{
-			if( (note.position % b) != 0 )
-			{
-				allNotesPass = false;
-				break;
-			}
-		}
-		if(allNotesPass)
-		{
-			return b;
-		}
-	}
-	throw new Exception("Failed to predict base");
+	const positions = Array.from(pattern.notes, note => note.position)
+  return calculateResolution(positions, size);
 }
 
 function parseHydrogenJs(result)
@@ -90,7 +62,7 @@ function parseHydrogenJs(result)
   		patternArray,
   		function(pattern)
   		{	
-  			const resolution = calculatePatternResolution(pattern);
+  			const resolution = calculatePatternResolution(pattern, pattern.size);
   			let instrumentNotes = { };
   			for( const instrument of instrumentArray )
   			{
