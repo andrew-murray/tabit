@@ -63,7 +63,7 @@ function parseHydrogenJs(result)
       function(pattern)
       { 
         const resolution = calculatePatternResolution(pattern, pattern.size);
-        let instrumentNotes = { };
+        let instrumentTracks = {};
         for( const instrument of instrumentArray )
         {
           const relevantNotes = pattern.notes.filter( 
@@ -73,10 +73,10 @@ function parseHydrogenJs(result)
             relevantNotes,
             note => note.position
           );
-          instrumentNotes[ instrument.id.toString() ] = relevantHits;
+          instrumentTracks[ instrument.id.toString() ] = track.fromPositions( relevantHits, pattern.size, resolution);
         }
         pattern.resolution = resolution;
-        pattern.instrumentNotes = instrumentNotes;
+        pattern.instrumentTracks = instrumentTracks;
         return pattern;
       }
     );

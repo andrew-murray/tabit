@@ -76,12 +76,12 @@ class track
     return points;
   }
 
-  static trackFromPositions(positions, size)
+  static fromPositions(positions, size, resolution = null)
   {
-    const resolution = calculateResolution( positions, size );
+    const resolutionToUse = resolution ?? calculateResolution( positions, size );
     return new track( 
-      track.representPoints(positions, resolution, size), 
-      resolution 
+      track.representPoints(positions, resolutionToUse, size), 
+      resolutionToUse
     );
   }
 }
