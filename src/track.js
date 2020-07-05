@@ -5,7 +5,7 @@ class track
   
   constructor(patternArray, resolution)
   {
-    if(patternArray.length == 0)
+    if(patternArray.length === 0)
     {
       throw new Error("patternArray must not be zero length");
     }
@@ -24,14 +24,14 @@ class track
     {
       throw new Error("size must be greater than zero");
     }
-    if( size < resolution || (size % resolution) != 0)
+    if( size < resolution || (size % resolution) !== 0)
     {
       throw new Error("resolution must be less than size and divide it evenly");
     }
     let s = new Array(size / resolution).fill(0);
     for( const p of points )
     {
-      if( (p % resolution) != 0)
+      if( (p % resolution) !== 0)
       {
         throw new Error("Failed to represent point " + p.toString() + " at resolution " + resolution.toString());
       }
@@ -51,7 +51,7 @@ class track
 
     const totalLength = (this.resolution * this.rep.length);
     const points = this.toPoints();
-    const rep = track.representPoints(points, formatResolution, size);
+    const rep = track.representPoints(points, formatResolution, totalLength);
     if(!rep)
     {
       return null;
@@ -70,7 +70,7 @@ class track
       const indicator = this.rep[arrayIndex];
       if(indicator)
       {
-        points.push( resolution * arrayIndex )
+        points.push( this.resolution * arrayIndex )
       }
     }
     return points;
@@ -86,5 +86,4 @@ class track
   }
 }
 
-module.exports = track;
-module.exports.default = track;
+export default track;

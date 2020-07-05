@@ -25,7 +25,7 @@ function calculateResolution(positions, size)
     let allNotesPass = true;
     for( const p of implicitPositions )
     {
-      if( (p % b) != 0 )
+      if( (p % b) !== 0 )
       {
         allNotesPass = false;
         break;

@@ -67,7 +67,7 @@ function parseHydrogenJs(result)
         for( const instrument of instrumentArray )
         {
           const relevantNotes = pattern.notes.filter( 
-            note => (note.instrument == instrument.id)
+            note => (note.instrument === instrument.id)
           );
           const relevantHits = Array.from(
             relevantNotes,
@@ -94,4 +94,4 @@ async function parseHydrogenPromise(xmlString)
   return parser.parseStringPromise(xmlString).then(parseHydrogenJs);
 }
 
-module.exports.parseHydrogenPromise = parseHydrogenPromise;
+export default { parseHydrogenPromise };
