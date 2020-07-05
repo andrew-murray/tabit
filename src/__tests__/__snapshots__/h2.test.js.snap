@@ -1,0 +1,5656 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`h2 parsing 1`] = `
+Object {
+  "instruments": Array [
+    Object {
+      "id": 18,
+      "name": Array [
+        "Stick",
+      ],
+    },
+    Object {
+      "id": 0,
+      "name": Array [
+        "Kick",
+      ],
+    },
+    Object {
+      "id": 20,
+      "name": Array [
+        "Stick",
+      ],
+    },
+    Object {
+      "id": 1,
+      "name": Array [
+        "Stick",
+      ],
+    },
+    Object {
+      "id": 17,
+      "name": Array [
+        "Kick",
+      ],
+    },
+    Object {
+      "id": 22,
+      "name": Array [
+        "tom02",
+      ],
+    },
+    Object {
+      "id": 2,
+      "name": Array [
+        "Snare Jazz",
+      ],
+    },
+    Object {
+      "id": 13,
+      "name": Array [
+        "Snare 1",
+      ],
+    },
+    Object {
+      "id": 10,
+      "name": Array [
+        "Djembe4 Slap",
+      ],
+    },
+    Object {
+      "id": 11,
+      "name": Array [
+        "Djembe4 Tone",
+      ],
+    },
+    Object {
+      "id": 12,
+      "name": Array [
+        "Djembe4 Bass",
+      ],
+    },
+    Object {
+      "id": 16,
+      "name": Array [
+        "Shaker",
+      ],
+    },
+    Object {
+      "id": 21,
+      "name": Array [
+        "Shaker",
+      ],
+    },
+  ],
+  "patterns": Array [
+    Object {
+      "instrumentNotes": Object {
+        "0": Array [
+          0,
+          48,
+          144,
+          192,
+        ],
+        "1": Array [],
+        "10": Array [],
+        "11": Array [],
+        "12": Array [],
+        "13": Array [],
+        "16": Array [],
+        "17": Array [
+          0,
+          24,
+          48,
+          72,
+          120,
+          144,
+          192,
+          216,
+          240,
+          288,
+        ],
+        "18": Array [
+          72,
+          120,
+          240,
+          288,
+        ],
+        "2": Array [
+          0,
+          72,
+          120,
+          240,
+        ],
+        "20": Array [],
+        "21": Array [],
+        "22": Array [],
+      },
+      "name": Array [
+        "===== 2mG =====",
+      ],
+      "notes": Array [
+        Object {
+          "instrument": 0,
+          "position": 0,
+        },
+        Object {
+          "instrument": 2,
+          "position": 0,
+        },
+        Object {
+          "instrument": 17,
+          "position": 0,
+        },
+        Object {
+          "instrument": 17,
+          "position": 24,
+        },
+        Object {
+          "instrument": 0,
+          "position": 48,
+        },
+        Object {
+          "instrument": 17,
+          "position": 48,
+        },
+        Object {
+          "instrument": 18,
+          "position": 72,
+        },
+        Object {
+          "instrument": 2,
+          "position": 72,
+        },
+        Object {
+          "instrument": 17,
+          "position": 72,
+        },
+        Object {
+          "instrument": 18,
+          "position": 120,
+        },
+        Object {
+          "instrument": 2,
+          "position": 120,
+        },
+        Object {
+          "instrument": 17,
+          "position": 120,
+        },
+        Object {
+          "instrument": 0,
+          "position": 144,
+        },
+        Object {
+          "instrument": 17,
+          "position": 144,
+        },
+        Object {
+          "instrument": 0,
+          "position": 192,
+        },
+        Object {
+          "instrument": 17,
+          "position": 192,
+        },
+        Object {
+          "instrument": 17,
+          "position": 216,
+        },
+        Object {
+          "instrument": 18,
+          "position": 240,
+        },
+        Object {
+          "instrument": 2,
+          "position": 240,
+        },
+        Object {
+          "instrument": 17,
+          "position": 240,
+        },
+        Object {
+          "instrument": 18,
+          "position": 288,
+        },
+        Object {
+          "instrument": 17,
+          "position": 288,
+        },
+      ],
+      "resolution": 24,
+      "size": 336,
+    },
+    Object {
+      "instrumentNotes": Object {
+        "0": Array [
+          0,
+          312,
+        ],
+        "1": Array [],
+        "10": Array [],
+        "11": Array [
+          24,
+          72,
+          96,
+          144,
+          168,
+          216,
+          264,
+          312,
+        ],
+        "12": Array [
+          0,
+          240,
+        ],
+        "13": Array [],
+        "16": Array [],
+        "17": Array [],
+        "18": Array [
+          96,
+          192,
+          264,
+        ],
+        "2": Array [
+          96,
+          192,
+          264,
+          312,
+        ],
+        "20": Array [],
+        "21": Array [
+          0,
+          72,
+          96,
+          168,
+          192,
+          216,
+          240,
+          312,
+        ],
+        "22": Array [],
+      },
+      "name": Array [
+        "1-heartbeat",
+      ],
+      "notes": Array [
+        Object {
+          "instrument": 0,
+          "position": 0,
+        },
+        Object {
+          "instrument": 12,
+          "position": 0,
+        },
+        Object {
+          "instrument": 21,
+          "position": 0,
+        },
+        Object {
+          "instrument": 11,
+          "position": 24,
+        },
+        Object {
+          "instrument": 11,
+          "position": 72,
+        },
+        Object {
+          "instrument": 21,
+          "position": 72,
+        },
+        Object {
+          "instrument": 2,
+          "position": 96,
+        },
+        Object {
+          "instrument": 11,
+          "position": 96,
+        },
+        Object {
+          "instrument": 21,
+          "position": 96,
+        },
+        Object {
+          "instrument": 18,
+          "position": 96,
+        },
+        Object {
+          "instrument": 11,
+          "position": 144,
+        },
+        Object {
+          "instrument": 11,
+          "position": 168,
+        },
+        Object {
+          "instrument": 21,
+          "position": 168,
+        },
+        Object {
+          "instrument": 2,
+          "position": 192,
+        },
+        Object {
+          "instrument": 18,
+          "position": 192,
+        },
+        Object {
+          "instrument": 21,
+          "position": 192,
+        },
+        Object {
+          "instrument": 11,
+          "position": 216,
+        },
+        Object {
+          "instrument": 21,
+          "position": 216,
+        },
+        Object {
+          "instrument": 12,
+          "position": 240,
+        },
+        Object {
+          "instrument": 21,
+          "position": 240,
+        },
+        Object {
+          "instrument": 2,
+          "position": 264,
+        },
+        Object {
+          "instrument": 18,
+          "position": 264,
+        },
+        Object {
+          "instrument": 11,
+          "position": 264,
+        },
+        Object {
+          "instrument": 0,
+          "position": 312,
+        },
+        Object {
+          "instrument": 2,
+          "position": 312,
+        },
+        Object {
+          "instrument": 11,
+          "position": 312,
+        },
+        Object {
+          "instrument": 21,
+          "position": 312,
+        },
+      ],
+      "resolution": 24,
+      "size": 336,
+    },
+    Object {
+      "instrumentNotes": Object {
+        "0": Array [
+          0,
+          48,
+          72,
+          192,
+          288,
+        ],
+        "1": Array [],
+        "10": Array [],
+        "11": Array [
+          24,
+          72,
+          96,
+          144,
+          168,
+          216,
+          264,
+          312,
+        ],
+        "12": Array [
+          0,
+          240,
+        ],
+        "13": Array [],
+        "16": Array [],
+        "17": Array [],
+        "18": Array [
+          96,
+          240,
+        ],
+        "2": Array [
+          96,
+          192,
+          264,
+          312,
+        ],
+        "20": Array [],
+        "21": Array [
+          0,
+          72,
+          96,
+          168,
+          192,
+          216,
+          240,
+          312,
+        ],
+        "22": Array [],
+      },
+      "name": Array [
+        "1-withbass",
+      ],
+      "notes": Array [
+        Object {
+          "instrument": 0,
+          "position": 0,
+        },
+        Object {
+          "instrument": 12,
+          "position": 0,
+        },
+        Object {
+          "instrument": 21,
+          "position": 0,
+        },
+        Object {
+          "instrument": 11,
+          "position": 24,
+        },
+        Object {
+          "instrument": 0,
+          "position": 48,
+        },
+        Object {
+          "instrument": 11,
+          "position": 72,
+        },
+        Object {
+          "instrument": 21,
+          "position": 72,
+        },
+        Object {
+          "instrument": 0,
+          "position": 72,
+        },
+        Object {
+          "instrument": 2,
+          "position": 96,
+        },
+        Object {
+          "instrument": 18,
+          "position": 96,
+        },
+        Object {
+          "instrument": 11,
+          "position": 96,
+        },
+        Object {
+          "instrument": 21,
+          "position": 96,
+        },
+        Object {
+          "instrument": 11,
+          "position": 144,
+        },
+        Object {
+          "instrument": 11,
+          "position": 168,
+        },
+        Object {
+          "instrument": 21,
+          "position": 168,
+        },
+        Object {
+          "instrument": 2,
+          "position": 192,
+        },
+        Object {
+          "instrument": 21,
+          "position": 192,
+        },
+        Object {
+          "instrument": 0,
+          "position": 192,
+        },
+        Object {
+          "instrument": 11,
+          "position": 216,
+        },
+        Object {
+          "instrument": 21,
+          "position": 216,
+        },
+        Object {
+          "instrument": 12,
+          "position": 240,
+        },
+        Object {
+          "instrument": 21,
+          "position": 240,
+        },
+        Object {
+          "instrument": 18,
+          "position": 240,
+        },
+        Object {
+          "instrument": 2,
+          "position": 264,
+        },
+        Object {
+          "instrument": 11,
+          "position": 264,
+        },
+        Object {
+          "instrument": 0,
+          "position": 288,
+        },
+        Object {
+          "instrument": 2,
+          "position": 312,
+        },
+        Object {
+          "instrument": 11,
+          "position": 312,
+        },
+        Object {
+          "instrument": 21,
+          "position": 312,
+        },
+      ],
+      "resolution": 24,
+      "size": 336,
+    },
+    Object {
+      "instrumentNotes": Object {
+        "0": Array [
+          0,
+          48,
+          72,
+          192,
+          312,
+        ],
+        "1": Array [
+          48,
+          96,
+          192,
+          240,
+          288,
+        ],
+        "10": Array [],
+        "11": Array [
+          24,
+          72,
+          96,
+          144,
+          168,
+          216,
+          264,
+          312,
+        ],
+        "12": Array [
+          0,
+          240,
+        ],
+        "13": Array [],
+        "16": Array [],
+        "17": Array [
+          0,
+          24,
+          144,
+          216,
+          312,
+        ],
+        "18": Array [
+          96,
+          240,
+          288,
+        ],
+        "2": Array [
+          96,
+          192,
+          264,
+          312,
+        ],
+        "20": Array [],
+        "21": Array [
+          0,
+          72,
+          96,
+          168,
+          192,
+          216,
+          240,
+          312,
+        ],
+        "22": Array [],
+      },
+      "name": Array [
+        "1-lunchtime",
+      ],
+      "notes": Array [
+        Object {
+          "instrument": 0,
+          "position": 0,
+        },
+        Object {
+          "instrument": 12,
+          "position": 0,
+        },
+        Object {
+          "instrument": 21,
+          "position": 0,
+        },
+        Object {
+          "instrument": 17,
+          "position": 0,
+        },
+        Object {
+          "instrument": 11,
+          "position": 24,
+        },
+        Object {
+          "instrument": 17,
+          "position": 24,
+        },
+        Object {
+          "instrument": 0,
+          "position": 48,
+        },
+        Object {
+          "instrument": 1,
+          "position": 48,
+        },
+        Object {
+          "instrument": 11,
+          "position": 72,
+        },
+        Object {
+          "instrument": 21,
+          "position": 72,
+        },
+        Object {
+          "instrument": 0,
+          "position": 72,
+        },
+        Object {
+          "instrument": 2,
+          "position": 96,
+        },
+        Object {
+          "instrument": 18,
+          "position": 96,
+        },
+        Object {
+          "instrument": 11,
+          "position": 96,
+        },
+        Object {
+          "instrument": 21,
+          "position": 96,
+        },
+        Object {
+          "instrument": 1,
+          "position": 96,
+        },
+        Object {
+          "instrument": 11,
+          "position": 144,
+        },
+        Object {
+          "instrument": 17,
+          "position": 144,
+        },
+        Object {
+          "instrument": 11,
+          "position": 168,
+        },
+        Object {
+          "instrument": 21,
+          "position": 168,
+        },
+        Object {
+          "instrument": 2,
+          "position": 192,
+        },
+        Object {
+          "instrument": 21,
+          "position": 192,
+        },
+        Object {
+          "instrument": 0,
+          "position": 192,
+        },
+        Object {
+          "instrument": 1,
+          "position": 192,
+        },
+        Object {
+          "instrument": 11,
+          "position": 216,
+        },
+        Object {
+          "instrument": 21,
+          "position": 216,
+        },
+        Object {
+          "instrument": 17,
+          "position": 216,
+        },
+        Object {
+          "instrument": 12,
+          "position": 240,
+        },
+        Object {
+          "instrument": 21,
+          "position": 240,
+        },
+        Object {
+          "instrument": 18,
+          "position": 240,
+        },
+        Object {
+          "instrument": 1,
+          "position": 240,
+        },
+        Object {
+          "instrument": 2,
+          "position": 264,
+        },
+        Object {
+          "instrument": 11,
+          "position": 264,
+        },
+        Object {
+          "instrument": 18,
+          "position": 288,
+        },
+        Object {
+          "instrument": 1,
+          "position": 288,
+        },
+        Object {
+          "instrument": 2,
+          "position": 312,
+        },
+        Object {
+          "instrument": 11,
+          "position": 312,
+        },
+        Object {
+          "instrument": 21,
+          "position": 312,
+        },
+        Object {
+          "instrument": 0,
+          "position": 312,
+        },
+        Object {
+          "instrument": 17,
+          "position": 312,
+        },
+      ],
+      "resolution": 24,
+      "size": 336,
+    },
+    Object {
+      "instrumentNotes": Object {
+        "0": Array [
+          0,
+          48,
+          72,
+          192,
+          312,
+        ],
+        "1": Array [
+          0,
+          48,
+          96,
+          144,
+          192,
+          240,
+          288,
+        ],
+        "10": Array [],
+        "11": Array [
+          24,
+          72,
+          144,
+          192,
+          216,
+          264,
+          288,
+          312,
+        ],
+        "12": Array [
+          0,
+          96,
+          168,
+        ],
+        "13": Array [],
+        "16": Array [],
+        "17": Array [
+          24,
+          216,
+          312,
+        ],
+        "18": Array [
+          96,
+          240,
+          288,
+        ],
+        "2": Array [
+          96,
+          192,
+          264,
+          312,
+        ],
+        "20": Array [],
+        "21": Array [
+          0,
+          72,
+          96,
+          168,
+          192,
+          216,
+          240,
+          312,
+        ],
+        "22": Array [],
+      },
+      "name": Array [
+        "1-lunchtime-dj",
+      ],
+      "notes": Array [
+        Object {
+          "instrument": 0,
+          "position": 0,
+        },
+        Object {
+          "instrument": 21,
+          "position": 0,
+        },
+        Object {
+          "instrument": 1,
+          "position": 0,
+        },
+        Object {
+          "instrument": 12,
+          "position": 0,
+        },
+        Object {
+          "instrument": 17,
+          "position": 24,
+        },
+        Object {
+          "instrument": 11,
+          "position": 24,
+        },
+        Object {
+          "instrument": 0,
+          "position": 48,
+        },
+        Object {
+          "instrument": 1,
+          "position": 48,
+        },
+        Object {
+          "instrument": 21,
+          "position": 72,
+        },
+        Object {
+          "instrument": 0,
+          "position": 72,
+        },
+        Object {
+          "instrument": 11,
+          "position": 72,
+        },
+        Object {
+          "instrument": 2,
+          "position": 96,
+        },
+        Object {
+          "instrument": 18,
+          "position": 96,
+        },
+        Object {
+          "instrument": 21,
+          "position": 96,
+        },
+        Object {
+          "instrument": 1,
+          "position": 96,
+        },
+        Object {
+          "instrument": 12,
+          "position": 96,
+        },
+        Object {
+          "instrument": 1,
+          "position": 144,
+        },
+        Object {
+          "instrument": 11,
+          "position": 144,
+        },
+        Object {
+          "instrument": 21,
+          "position": 168,
+        },
+        Object {
+          "instrument": 12,
+          "position": 168,
+        },
+        Object {
+          "instrument": 2,
+          "position": 192,
+        },
+        Object {
+          "instrument": 21,
+          "position": 192,
+        },
+        Object {
+          "instrument": 0,
+          "position": 192,
+        },
+        Object {
+          "instrument": 1,
+          "position": 192,
+        },
+        Object {
+          "instrument": 11,
+          "position": 192,
+        },
+        Object {
+          "instrument": 21,
+          "position": 216,
+        },
+        Object {
+          "instrument": 17,
+          "position": 216,
+        },
+        Object {
+          "instrument": 11,
+          "position": 216,
+        },
+        Object {
+          "instrument": 21,
+          "position": 240,
+        },
+        Object {
+          "instrument": 18,
+          "position": 240,
+        },
+        Object {
+          "instrument": 1,
+          "position": 240,
+        },
+        Object {
+          "instrument": 2,
+          "position": 264,
+        },
+        Object {
+          "instrument": 11,
+          "position": 264,
+        },
+        Object {
+          "instrument": 18,
+          "position": 288,
+        },
+        Object {
+          "instrument": 1,
+          "position": 288,
+        },
+        Object {
+          "instrument": 11,
+          "position": 288,
+        },
+        Object {
+          "instrument": 2,
+          "position": 312,
+        },
+        Object {
+          "instrument": 0,
+          "position": 312,
+        },
+        Object {
+          "instrument": 17,
+          "position": 312,
+        },
+        Object {
+          "instrument": 21,
+          "position": 312,
+        },
+        Object {
+          "instrument": 11,
+          "position": 312,
+        },
+      ],
+      "resolution": 24,
+      "size": 336,
+    },
+    Object {
+      "instrumentNotes": Object {
+        "0": Array [
+          0,
+          48,
+          72,
+          192,
+          312,
+        ],
+        "1": Array [
+          0,
+          48,
+          96,
+          144,
+          192,
+          288,
+        ],
+        "10": Array [],
+        "11": Array [
+          72,
+          96,
+          120,
+          192,
+          240,
+          264,
+          288,
+        ],
+        "12": Array [
+          0,
+          168,
+          312,
+        ],
+        "13": Array [],
+        "16": Array [],
+        "17": Array [
+          24,
+          240,
+          312,
+        ],
+        "18": Array [
+          96,
+          240,
+          288,
+        ],
+        "2": Array [
+          96,
+          192,
+          264,
+          312,
+        ],
+        "20": Array [],
+        "21": Array [
+          0,
+          72,
+          96,
+          168,
+          192,
+          216,
+          240,
+          312,
+        ],
+        "22": Array [],
+      },
+      "name": Array [
+        "1-lunchtime-dj-best",
+      ],
+      "notes": Array [
+        Object {
+          "instrument": 0,
+          "position": 0,
+        },
+        Object {
+          "instrument": 21,
+          "position": 0,
+        },
+        Object {
+          "instrument": 1,
+          "position": 0,
+        },
+        Object {
+          "instrument": 12,
+          "position": 0,
+        },
+        Object {
+          "instrument": 17,
+          "position": 24,
+        },
+        Object {
+          "instrument": 0,
+          "position": 48,
+        },
+        Object {
+          "instrument": 1,
+          "position": 48,
+        },
+        Object {
+          "instrument": 21,
+          "position": 72,
+        },
+        Object {
+          "instrument": 0,
+          "position": 72,
+        },
+        Object {
+          "instrument": 11,
+          "position": 72,
+        },
+        Object {
+          "instrument": 2,
+          "position": 96,
+        },
+        Object {
+          "instrument": 18,
+          "position": 96,
+        },
+        Object {
+          "instrument": 21,
+          "position": 96,
+        },
+        Object {
+          "instrument": 1,
+          "position": 96,
+        },
+        Object {
+          "instrument": 11,
+          "position": 96,
+        },
+        Object {
+          "instrument": 11,
+          "position": 120,
+        },
+        Object {
+          "instrument": 1,
+          "position": 144,
+        },
+        Object {
+          "instrument": 21,
+          "position": 168,
+        },
+        Object {
+          "instrument": 12,
+          "position": 168,
+        },
+        Object {
+          "instrument": 2,
+          "position": 192,
+        },
+        Object {
+          "instrument": 0,
+          "position": 192,
+        },
+        Object {
+          "instrument": 1,
+          "position": 192,
+        },
+        Object {
+          "instrument": 11,
+          "position": 192,
+        },
+        Object {
+          "instrument": 21,
+          "position": 192,
+        },
+        Object {
+          "instrument": 21,
+          "position": 216,
+        },
+        Object {
+          "instrument": 21,
+          "position": 240,
+        },
+        Object {
+          "instrument": 18,
+          "position": 240,
+        },
+        Object {
+          "instrument": 11,
+          "position": 240,
+        },
+        Object {
+          "instrument": 17,
+          "position": 240,
+        },
+        Object {
+          "instrument": 11,
+          "position": 264,
+        },
+        Object {
+          "instrument": 2,
+          "position": 264,
+        },
+        Object {
+          "instrument": 18,
+          "position": 288,
+        },
+        Object {
+          "instrument": 1,
+          "position": 288,
+        },
+        Object {
+          "instrument": 11,
+          "position": 288,
+        },
+        Object {
+          "instrument": 0,
+          "position": 312,
+        },
+        Object {
+          "instrument": 17,
+          "position": 312,
+        },
+        Object {
+          "instrument": 21,
+          "position": 312,
+        },
+        Object {
+          "instrument": 12,
+          "position": 312,
+        },
+        Object {
+          "instrument": 2,
+          "position": 312,
+        },
+      ],
+      "resolution": 24,
+      "size": 336,
+    },
+    Object {
+      "instrumentNotes": Object {
+        "0": Array [
+          0,
+          48,
+          72,
+          240,
+          312,
+        ],
+        "1": Array [
+          0,
+          48,
+          96,
+          144,
+          240,
+          288,
+        ],
+        "10": Array [
+          48,
+          120,
+          240,
+          288,
+        ],
+        "11": Array [
+          24,
+          96,
+          216,
+        ],
+        "12": Array [
+          0,
+          72,
+          192,
+          264,
+        ],
+        "13": Array [],
+        "16": Array [],
+        "17": Array [
+          24,
+          192,
+          312,
+        ],
+        "18": Array [
+          96,
+          192,
+          288,
+        ],
+        "2": Array [
+          96,
+          192,
+          264,
+          312,
+        ],
+        "20": Array [],
+        "21": Array [
+          0,
+          72,
+          96,
+          168,
+          192,
+          216,
+          240,
+          312,
+        ],
+        "22": Array [],
+      },
+      "name": Array [
+        "1-lunchtime-best-trans",
+      ],
+      "notes": Array [
+        Object {
+          "instrument": 0,
+          "position": 0,
+        },
+        Object {
+          "instrument": 21,
+          "position": 0,
+        },
+        Object {
+          "instrument": 1,
+          "position": 0,
+        },
+        Object {
+          "instrument": 12,
+          "position": 0,
+        },
+        Object {
+          "instrument": 17,
+          "position": 24,
+        },
+        Object {
+          "instrument": 11,
+          "position": 24,
+        },
+        Object {
+          "instrument": 0,
+          "position": 48,
+        },
+        Object {
+          "instrument": 1,
+          "position": 48,
+        },
+        Object {
+          "instrument": 10,
+          "position": 48,
+        },
+        Object {
+          "instrument": 21,
+          "position": 72,
+        },
+        Object {
+          "instrument": 0,
+          "position": 72,
+        },
+        Object {
+          "instrument": 12,
+          "position": 72,
+        },
+        Object {
+          "instrument": 2,
+          "position": 96,
+        },
+        Object {
+          "instrument": 18,
+          "position": 96,
+        },
+        Object {
+          "instrument": 21,
+          "position": 96,
+        },
+        Object {
+          "instrument": 1,
+          "position": 96,
+        },
+        Object {
+          "instrument": 11,
+          "position": 96,
+        },
+        Object {
+          "instrument": 10,
+          "position": 120,
+        },
+        Object {
+          "instrument": 1,
+          "position": 144,
+        },
+        Object {
+          "instrument": 21,
+          "position": 168,
+        },
+        Object {
+          "instrument": 2,
+          "position": 192,
+        },
+        Object {
+          "instrument": 21,
+          "position": 192,
+        },
+        Object {
+          "instrument": 12,
+          "position": 192,
+        },
+        Object {
+          "instrument": 18,
+          "position": 192,
+        },
+        Object {
+          "instrument": 17,
+          "position": 192,
+        },
+        Object {
+          "instrument": 21,
+          "position": 216,
+        },
+        Object {
+          "instrument": 11,
+          "position": 216,
+        },
+        Object {
+          "instrument": 21,
+          "position": 240,
+        },
+        Object {
+          "instrument": 10,
+          "position": 240,
+        },
+        Object {
+          "instrument": 0,
+          "position": 240,
+        },
+        Object {
+          "instrument": 1,
+          "position": 240,
+        },
+        Object {
+          "instrument": 2,
+          "position": 264,
+        },
+        Object {
+          "instrument": 12,
+          "position": 264,
+        },
+        Object {
+          "instrument": 18,
+          "position": 288,
+        },
+        Object {
+          "instrument": 1,
+          "position": 288,
+        },
+        Object {
+          "instrument": 10,
+          "position": 288,
+        },
+        Object {
+          "instrument": 0,
+          "position": 312,
+        },
+        Object {
+          "instrument": 17,
+          "position": 312,
+        },
+        Object {
+          "instrument": 21,
+          "position": 312,
+        },
+        Object {
+          "instrument": 2,
+          "position": 312,
+        },
+      ],
+      "resolution": 24,
+      "size": 336,
+    },
+    Object {
+      "instrumentNotes": Object {
+        "0": Array [
+          0,
+          48,
+          72,
+          192,
+          312,
+        ],
+        "1": Array [
+          0,
+          48,
+          96,
+          144,
+          192,
+          240,
+          288,
+        ],
+        "10": Array [],
+        "11": Array [
+          72,
+          96,
+          120,
+          192,
+          216,
+          264,
+          288,
+        ],
+        "12": Array [
+          0,
+          168,
+          240,
+          312,
+        ],
+        "13": Array [],
+        "16": Array [],
+        "17": Array [
+          24,
+          216,
+          312,
+        ],
+        "18": Array [
+          96,
+          240,
+          288,
+        ],
+        "2": Array [
+          96,
+          192,
+          264,
+          312,
+        ],
+        "20": Array [],
+        "21": Array [
+          0,
+          72,
+          96,
+          168,
+          192,
+          216,
+          240,
+          312,
+        ],
+        "22": Array [],
+      },
+      "name": Array [
+        "1-lunchtime-dj#3",
+      ],
+      "notes": Array [
+        Object {
+          "instrument": 0,
+          "position": 0,
+        },
+        Object {
+          "instrument": 21,
+          "position": 0,
+        },
+        Object {
+          "instrument": 1,
+          "position": 0,
+        },
+        Object {
+          "instrument": 12,
+          "position": 0,
+        },
+        Object {
+          "instrument": 17,
+          "position": 24,
+        },
+        Object {
+          "instrument": 0,
+          "position": 48,
+        },
+        Object {
+          "instrument": 1,
+          "position": 48,
+        },
+        Object {
+          "instrument": 21,
+          "position": 72,
+        },
+        Object {
+          "instrument": 0,
+          "position": 72,
+        },
+        Object {
+          "instrument": 11,
+          "position": 72,
+        },
+        Object {
+          "instrument": 2,
+          "position": 96,
+        },
+        Object {
+          "instrument": 18,
+          "position": 96,
+        },
+        Object {
+          "instrument": 21,
+          "position": 96,
+        },
+        Object {
+          "instrument": 1,
+          "position": 96,
+        },
+        Object {
+          "instrument": 11,
+          "position": 96,
+        },
+        Object {
+          "instrument": 11,
+          "position": 120,
+        },
+        Object {
+          "instrument": 1,
+          "position": 144,
+        },
+        Object {
+          "instrument": 21,
+          "position": 168,
+        },
+        Object {
+          "instrument": 12,
+          "position": 168,
+        },
+        Object {
+          "instrument": 2,
+          "position": 192,
+        },
+        Object {
+          "instrument": 21,
+          "position": 192,
+        },
+        Object {
+          "instrument": 0,
+          "position": 192,
+        },
+        Object {
+          "instrument": 1,
+          "position": 192,
+        },
+        Object {
+          "instrument": 11,
+          "position": 192,
+        },
+        Object {
+          "instrument": 21,
+          "position": 216,
+        },
+        Object {
+          "instrument": 17,
+          "position": 216,
+        },
+        Object {
+          "instrument": 11,
+          "position": 216,
+        },
+        Object {
+          "instrument": 21,
+          "position": 240,
+        },
+        Object {
+          "instrument": 18,
+          "position": 240,
+        },
+        Object {
+          "instrument": 1,
+          "position": 240,
+        },
+        Object {
+          "instrument": 12,
+          "position": 240,
+        },
+        Object {
+          "instrument": 2,
+          "position": 264,
+        },
+        Object {
+          "instrument": 11,
+          "position": 264,
+        },
+        Object {
+          "instrument": 18,
+          "position": 288,
+        },
+        Object {
+          "instrument": 1,
+          "position": 288,
+        },
+        Object {
+          "instrument": 11,
+          "position": 288,
+        },
+        Object {
+          "instrument": 0,
+          "position": 312,
+        },
+        Object {
+          "instrument": 17,
+          "position": 312,
+        },
+        Object {
+          "instrument": 21,
+          "position": 312,
+        },
+        Object {
+          "instrument": 12,
+          "position": 312,
+        },
+        Object {
+          "instrument": 2,
+          "position": 312,
+        },
+      ],
+      "resolution": 24,
+      "size": 336,
+    },
+    Object {
+      "instrumentNotes": Object {
+        "0": Array [
+          0,
+          192,
+          288,
+        ],
+        "1": Array [],
+        "10": Array [],
+        "11": Array [],
+        "12": Array [],
+        "13": Array [],
+        "16": Array [],
+        "17": Array [],
+        "18": Array [
+          96,
+          240,
+        ],
+        "2": Array [
+          96,
+          240,
+        ],
+        "20": Array [],
+        "21": Array [],
+        "22": Array [],
+      },
+      "name": Array [
+        "1-0303",
+      ],
+      "notes": Array [
+        Object {
+          "instrument": 0,
+          "position": 0,
+        },
+        Object {
+          "instrument": 18,
+          "position": 96,
+        },
+        Object {
+          "instrument": 2,
+          "position": 96,
+        },
+        Object {
+          "instrument": 0,
+          "position": 192,
+        },
+        Object {
+          "instrument": 2,
+          "position": 240,
+        },
+        Object {
+          "instrument": 18,
+          "position": 240,
+        },
+        Object {
+          "instrument": 0,
+          "position": 288,
+        },
+      ],
+      "resolution": 48,
+      "size": 336,
+    },
+    Object {
+      "instrumentNotes": Object {
+        "0": Array [
+          0,
+          24,
+          96,
+          192,
+          240,
+          288,
+        ],
+        "1": Array [],
+        "10": Array [],
+        "11": Array [],
+        "12": Array [],
+        "13": Array [],
+        "16": Array [],
+        "17": Array [],
+        "18": Array [
+          72,
+          144,
+        ],
+        "2": Array [
+          72,
+          96,
+          144,
+          216,
+          240,
+          288,
+          312,
+        ],
+        "20": Array [],
+        "21": Array [],
+        "22": Array [],
+      },
+      "name": Array [
+        "3-0303-GOMeeting",
+      ],
+      "notes": Array [
+        Object {
+          "instrument": 0,
+          "position": 0,
+        },
+        Object {
+          "instrument": 0,
+          "position": 24,
+        },
+        Object {
+          "instrument": 18,
+          "position": 72,
+        },
+        Object {
+          "instrument": 2,
+          "position": 72,
+        },
+        Object {
+          "instrument": 0,
+          "position": 96,
+        },
+        Object {
+          "instrument": 2,
+          "position": 96,
+        },
+        Object {
+          "instrument": 18,
+          "position": 144,
+        },
+        Object {
+          "instrument": 2,
+          "position": 144,
+        },
+        Object {
+          "instrument": 0,
+          "position": 192,
+        },
+        Object {
+          "instrument": 2,
+          "position": 216,
+        },
+        Object {
+          "instrument": 0,
+          "position": 240,
+        },
+        Object {
+          "instrument": 2,
+          "position": 240,
+        },
+        Object {
+          "instrument": 0,
+          "position": 288,
+        },
+        Object {
+          "instrument": 2,
+          "position": 288,
+        },
+        Object {
+          "instrument": 2,
+          "position": 312,
+        },
+      ],
+      "resolution": 24,
+      "size": 336,
+    },
+    Object {
+      "instrumentNotes": Object {
+        "0": Array [],
+        "1": Array [],
+        "10": Array [],
+        "11": Array [],
+        "12": Array [],
+        "13": Array [],
+        "16": Array [],
+        "17": Array [],
+        "18": Array [],
+        "2": Array [
+          0,
+          24,
+          72,
+          96,
+          144,
+          168,
+          216,
+          240,
+          288,
+          312,
+        ],
+        "20": Array [],
+        "21": Array [],
+        "22": Array [],
+      },
+      "name": Array [
+        "4-funsnare",
+      ],
+      "notes": Array [
+        Object {
+          "instrument": 2,
+          "position": 0,
+        },
+        Object {
+          "instrument": 2,
+          "position": 24,
+        },
+        Object {
+          "instrument": 2,
+          "position": 72,
+        },
+        Object {
+          "instrument": 2,
+          "position": 96,
+        },
+        Object {
+          "instrument": 2,
+          "position": 144,
+        },
+        Object {
+          "instrument": 2,
+          "position": 168,
+        },
+        Object {
+          "instrument": 2,
+          "position": 216,
+        },
+        Object {
+          "instrument": 2,
+          "position": 240,
+        },
+        Object {
+          "instrument": 2,
+          "position": 288,
+        },
+        Object {
+          "instrument": 2,
+          "position": 312,
+        },
+      ],
+      "resolution": 24,
+      "size": 336,
+    },
+    Object {
+      "instrumentNotes": Object {
+        "0": Array [],
+        "1": Array [],
+        "10": Array [],
+        "11": Array [],
+        "12": Array [],
+        "13": Array [],
+        "16": Array [],
+        "17": Array [],
+        "18": Array [],
+        "2": Array [
+          0,
+          24,
+          72,
+          96,
+          168,
+          240,
+          288,
+        ],
+        "20": Array [],
+        "21": Array [],
+        "22": Array [],
+      },
+      "name": Array [
+        "5-funsnare",
+      ],
+      "notes": Array [
+        Object {
+          "instrument": 2,
+          "position": 0,
+        },
+        Object {
+          "instrument": 2,
+          "position": 24,
+        },
+        Object {
+          "instrument": 2,
+          "position": 72,
+        },
+        Object {
+          "instrument": 2,
+          "position": 96,
+        },
+        Object {
+          "instrument": 2,
+          "position": 168,
+        },
+        Object {
+          "instrument": 2,
+          "position": 240,
+        },
+        Object {
+          "instrument": 2,
+          "position": 288,
+        },
+      ],
+      "resolution": 24,
+      "size": 336,
+    },
+    Object {
+      "instrumentNotes": Object {
+        "0": Array [
+          0,
+          96,
+          192,
+          240,
+          288,
+        ],
+        "1": Array [],
+        "10": Array [],
+        "11": Array [
+          0,
+          48,
+          60,
+          120,
+          132,
+          144,
+          168,
+          180,
+          204,
+          216,
+          252,
+          264,
+          300,
+          312,
+          324,
+        ],
+        "12": Array [
+          24,
+          72,
+          96,
+          192,
+          228,
+          276,
+          288,
+        ],
+        "13": Array [],
+        "16": Array [],
+        "17": Array [],
+        "18": Array [
+          48,
+          144,
+        ],
+        "2": Array [],
+        "20": Array [],
+        "21": Array [],
+        "22": Array [],
+      },
+      "name": Array [
+        "anew",
+      ],
+      "notes": Array [
+        Object {
+          "instrument": 0,
+          "position": 0,
+        },
+        Object {
+          "instrument": 11,
+          "position": 0,
+        },
+        Object {
+          "instrument": 12,
+          "position": 24,
+        },
+        Object {
+          "instrument": 18,
+          "position": 48,
+        },
+        Object {
+          "instrument": 11,
+          "position": 48,
+        },
+        Object {
+          "instrument": 11,
+          "position": 60,
+        },
+        Object {
+          "instrument": 12,
+          "position": 72,
+        },
+        Object {
+          "instrument": 0,
+          "position": 96,
+        },
+        Object {
+          "instrument": 12,
+          "position": 96,
+        },
+        Object {
+          "instrument": 11,
+          "position": 120,
+        },
+        Object {
+          "instrument": 11,
+          "position": 132,
+        },
+        Object {
+          "instrument": 18,
+          "position": 144,
+        },
+        Object {
+          "instrument": 11,
+          "position": 144,
+        },
+        Object {
+          "instrument": 11,
+          "position": 168,
+        },
+        Object {
+          "instrument": 11,
+          "position": 180,
+        },
+        Object {
+          "instrument": 0,
+          "position": 192,
+        },
+        Object {
+          "instrument": 12,
+          "position": 192,
+        },
+        Object {
+          "instrument": 11,
+          "position": 204,
+        },
+        Object {
+          "instrument": 11,
+          "position": 216,
+        },
+        Object {
+          "instrument": 12,
+          "position": 228,
+        },
+        Object {
+          "instrument": 0,
+          "position": 240,
+        },
+        Object {
+          "instrument": 11,
+          "position": 252,
+        },
+        Object {
+          "instrument": 11,
+          "position": 264,
+        },
+        Object {
+          "instrument": 12,
+          "position": 276,
+        },
+        Object {
+          "instrument": 0,
+          "position": 288,
+        },
+        Object {
+          "instrument": 12,
+          "position": 288,
+        },
+        Object {
+          "instrument": 11,
+          "position": 300,
+        },
+        Object {
+          "instrument": 11,
+          "position": 312,
+        },
+        Object {
+          "instrument": 11,
+          "position": 324,
+        },
+      ],
+      "resolution": 12,
+      "size": 336,
+    },
+    Object {
+      "instrumentNotes": Object {
+        "0": Array [
+          0,
+          96,
+          192,
+          240,
+        ],
+        "1": Array [],
+        "10": Array [
+          240,
+        ],
+        "11": Array [
+          24,
+          60,
+          84,
+          132,
+          156,
+        ],
+        "12": Array [
+          0,
+          48,
+          96,
+          120,
+          168,
+          192,
+          216,
+          264,
+        ],
+        "13": Array [],
+        "16": Array [],
+        "17": Array [],
+        "18": Array [
+          48,
+          144,
+          216,
+          264,
+        ],
+        "2": Array [],
+        "20": Array [],
+        "21": Array [],
+        "22": Array [],
+      },
+      "name": Array [
+        "anew#2",
+      ],
+      "notes": Array [
+        Object {
+          "instrument": 0,
+          "position": 0,
+        },
+        Object {
+          "instrument": 12,
+          "position": 0,
+        },
+        Object {
+          "instrument": 11,
+          "position": 24,
+        },
+        Object {
+          "instrument": 18,
+          "position": 48,
+        },
+        Object {
+          "instrument": 12,
+          "position": 48,
+        },
+        Object {
+          "instrument": 11,
+          "position": 60,
+        },
+        Object {
+          "instrument": 11,
+          "position": 84,
+        },
+        Object {
+          "instrument": 0,
+          "position": 96,
+        },
+        Object {
+          "instrument": 12,
+          "position": 96,
+        },
+        Object {
+          "instrument": 12,
+          "position": 120,
+        },
+        Object {
+          "instrument": 11,
+          "position": 132,
+        },
+        Object {
+          "instrument": 18,
+          "position": 144,
+        },
+        Object {
+          "instrument": 11,
+          "position": 156,
+        },
+        Object {
+          "instrument": 12,
+          "position": 168,
+        },
+        Object {
+          "instrument": 0,
+          "position": 192,
+        },
+        Object {
+          "instrument": 12,
+          "position": 192,
+        },
+        Object {
+          "instrument": 18,
+          "position": 216,
+        },
+        Object {
+          "instrument": 12,
+          "position": 216,
+        },
+        Object {
+          "instrument": 0,
+          "position": 240,
+        },
+        Object {
+          "instrument": 10,
+          "position": 240,
+        },
+        Object {
+          "instrument": 12,
+          "position": 264,
+        },
+        Object {
+          "instrument": 18,
+          "position": 264,
+        },
+      ],
+      "resolution": 12,
+      "size": 288,
+    },
+    Object {
+      "instrumentNotes": Object {
+        "0": Array [
+          0,
+          96,
+          192,
+          240,
+        ],
+        "1": Array [],
+        "10": Array [],
+        "11": Array [
+          24,
+          60,
+          84,
+          144,
+          156,
+          216,
+          228,
+        ],
+        "12": Array [
+          0,
+          48,
+          96,
+          120,
+          168,
+          192,
+          240,
+          264,
+        ],
+        "13": Array [],
+        "16": Array [],
+        "17": Array [],
+        "18": Array [
+          48,
+          144,
+          216,
+          264,
+        ],
+        "2": Array [],
+        "20": Array [],
+        "21": Array [],
+        "22": Array [],
+      },
+      "name": Array [
+        "anew#4",
+      ],
+      "notes": Array [
+        Object {
+          "instrument": 0,
+          "position": 0,
+        },
+        Object {
+          "instrument": 12,
+          "position": 0,
+        },
+        Object {
+          "instrument": 11,
+          "position": 24,
+        },
+        Object {
+          "instrument": 18,
+          "position": 48,
+        },
+        Object {
+          "instrument": 12,
+          "position": 48,
+        },
+        Object {
+          "instrument": 11,
+          "position": 60,
+        },
+        Object {
+          "instrument": 11,
+          "position": 84,
+        },
+        Object {
+          "instrument": 0,
+          "position": 96,
+        },
+        Object {
+          "instrument": 12,
+          "position": 96,
+        },
+        Object {
+          "instrument": 12,
+          "position": 120,
+        },
+        Object {
+          "instrument": 18,
+          "position": 144,
+        },
+        Object {
+          "instrument": 11,
+          "position": 144,
+        },
+        Object {
+          "instrument": 11,
+          "position": 156,
+        },
+        Object {
+          "instrument": 12,
+          "position": 168,
+        },
+        Object {
+          "instrument": 0,
+          "position": 192,
+        },
+        Object {
+          "instrument": 12,
+          "position": 192,
+        },
+        Object {
+          "instrument": 18,
+          "position": 216,
+        },
+        Object {
+          "instrument": 11,
+          "position": 216,
+        },
+        Object {
+          "instrument": 11,
+          "position": 228,
+        },
+        Object {
+          "instrument": 0,
+          "position": 240,
+        },
+        Object {
+          "instrument": 12,
+          "position": 240,
+        },
+        Object {
+          "instrument": 12,
+          "position": 264,
+        },
+        Object {
+          "instrument": 18,
+          "position": 264,
+        },
+      ],
+      "resolution": 12,
+      "size": 288,
+    },
+    Object {
+      "instrumentNotes": Object {
+        "0": Array [],
+        "1": Array [],
+        "10": Array [],
+        "11": Array [],
+        "12": Array [],
+        "13": Array [],
+        "16": Array [],
+        "17": Array [],
+        "18": Array [],
+        "2": Array [],
+        "20": Array [],
+        "21": Array [],
+        "22": Array [],
+      },
+      "name": Array [
+        "anew#8",
+      ],
+      "notes": Array [],
+      "resolution": 48,
+      "size": 192,
+    },
+    Object {
+      "instrumentNotes": Object {
+        "0": Array [
+          0,
+          96,
+          192,
+          240,
+        ],
+        "1": Array [
+          96,
+          240,
+        ],
+        "10": Array [
+          240,
+        ],
+        "11": Array [
+          0,
+          96,
+          108,
+        ],
+        "12": Array [
+          24,
+          36,
+          72,
+          132,
+          144,
+          168,
+          192,
+          216,
+          264,
+        ],
+        "13": Array [],
+        "16": Array [],
+        "17": Array [
+          0,
+          192,
+          264,
+          276,
+        ],
+        "18": Array [
+          48,
+          144,
+          216,
+          264,
+        ],
+        "2": Array [
+          0,
+          96,
+          204,
+          216,
+          240,
+          252,
+        ],
+        "20": Array [],
+        "21": Array [],
+        "22": Array [],
+      },
+      "name": Array [
+        "bagels",
+      ],
+      "notes": Array [
+        Object {
+          "instrument": 0,
+          "position": 0,
+        },
+        Object {
+          "instrument": 11,
+          "position": 0,
+        },
+        Object {
+          "instrument": 17,
+          "position": 0,
+        },
+        Object {
+          "instrument": 2,
+          "position": 0,
+        },
+        Object {
+          "instrument": 12,
+          "position": 24,
+        },
+        Object {
+          "instrument": 12,
+          "position": 36,
+        },
+        Object {
+          "instrument": 18,
+          "position": 48,
+        },
+        Object {
+          "instrument": 12,
+          "position": 72,
+        },
+        Object {
+          "instrument": 0,
+          "position": 96,
+        },
+        Object {
+          "instrument": 11,
+          "position": 96,
+        },
+        Object {
+          "instrument": 1,
+          "position": 96,
+        },
+        Object {
+          "instrument": 2,
+          "position": 96,
+        },
+        Object {
+          "instrument": 11,
+          "position": 108,
+        },
+        Object {
+          "instrument": 12,
+          "position": 132,
+        },
+        Object {
+          "instrument": 18,
+          "position": 144,
+        },
+        Object {
+          "instrument": 12,
+          "position": 144,
+        },
+        Object {
+          "instrument": 12,
+          "position": 168,
+        },
+        Object {
+          "instrument": 0,
+          "position": 192,
+        },
+        Object {
+          "instrument": 12,
+          "position": 192,
+        },
+        Object {
+          "instrument": 17,
+          "position": 192,
+        },
+        Object {
+          "instrument": 2,
+          "position": 204,
+        },
+        Object {
+          "instrument": 12,
+          "position": 216,
+        },
+        Object {
+          "instrument": 18,
+          "position": 216,
+        },
+        Object {
+          "instrument": 2,
+          "position": 216,
+        },
+        Object {
+          "instrument": 10,
+          "position": 240,
+        },
+        Object {
+          "instrument": 0,
+          "position": 240,
+        },
+        Object {
+          "instrument": 1,
+          "position": 240,
+        },
+        Object {
+          "instrument": 2,
+          "position": 240,
+        },
+        Object {
+          "instrument": 2,
+          "position": 252,
+        },
+        Object {
+          "instrument": 12,
+          "position": 264,
+        },
+        Object {
+          "instrument": 18,
+          "position": 264,
+        },
+        Object {
+          "instrument": 17,
+          "position": 264,
+        },
+        Object {
+          "instrument": 17,
+          "position": 276,
+        },
+      ],
+      "resolution": 12,
+      "size": 288,
+    },
+    Object {
+      "instrumentNotes": Object {
+        "0": Array [
+          0,
+          96,
+          192,
+          240,
+          288,
+          384,
+          480,
+          528,
+        ],
+        "1": Array [
+          48,
+          144,
+          240,
+          336,
+          432,
+          528,
+        ],
+        "10": Array [
+          240,
+          528,
+        ],
+        "11": Array [
+          0,
+          96,
+          108,
+          288,
+          384,
+          396,
+        ],
+        "12": Array [
+          24,
+          36,
+          72,
+          132,
+          144,
+          168,
+          192,
+          216,
+          264,
+          312,
+          324,
+          360,
+          420,
+          432,
+          456,
+          480,
+          504,
+          552,
+        ],
+        "13": Array [],
+        "16": Array [
+          12,
+          24,
+          60,
+          72,
+          108,
+          120,
+          156,
+          168,
+          204,
+          216,
+          252,
+          264,
+          300,
+          312,
+          348,
+          360,
+          396,
+          408,
+          444,
+          456,
+          492,
+          504,
+          540,
+          552,
+        ],
+        "17": Array [
+          0,
+          96,
+          192,
+          264,
+          276,
+          288,
+          384,
+          480,
+          552,
+          564,
+        ],
+        "18": Array [
+          48,
+          144,
+          216,
+          264,
+          336,
+          432,
+          504,
+          552,
+        ],
+        "2": Array [
+          48,
+          144,
+          216,
+          240,
+          264,
+          276,
+          336,
+          432,
+          492,
+          504,
+          540,
+        ],
+        "20": Array [],
+        "21": Array [
+          0,
+          36,
+          48,
+          84,
+          96,
+          132,
+          144,
+          180,
+          192,
+          228,
+          240,
+          276,
+          288,
+          324,
+          336,
+          372,
+          384,
+          420,
+          432,
+          468,
+          480,
+          516,
+          528,
+          564,
+        ],
+        "22": Array [],
+      },
+      "name": Array [
+        "bagelssnarrres",
+      ],
+      "notes": Array [
+        Object {
+          "instrument": 0,
+          "position": 0,
+        },
+        Object {
+          "instrument": 11,
+          "position": 0,
+        },
+        Object {
+          "instrument": 17,
+          "position": 0,
+        },
+        Object {
+          "instrument": 21,
+          "position": 0,
+        },
+        Object {
+          "instrument": 16,
+          "position": 12,
+        },
+        Object {
+          "instrument": 12,
+          "position": 24,
+        },
+        Object {
+          "instrument": 16,
+          "position": 24,
+        },
+        Object {
+          "instrument": 12,
+          "position": 36,
+        },
+        Object {
+          "instrument": 21,
+          "position": 36,
+        },
+        Object {
+          "instrument": 18,
+          "position": 48,
+        },
+        Object {
+          "instrument": 2,
+          "position": 48,
+        },
+        Object {
+          "instrument": 21,
+          "position": 48,
+        },
+        Object {
+          "instrument": 1,
+          "position": 48,
+        },
+        Object {
+          "instrument": 16,
+          "position": 60,
+        },
+        Object {
+          "instrument": 12,
+          "position": 72,
+        },
+        Object {
+          "instrument": 16,
+          "position": 72,
+        },
+        Object {
+          "instrument": 21,
+          "position": 84,
+        },
+        Object {
+          "instrument": 0,
+          "position": 96,
+        },
+        Object {
+          "instrument": 11,
+          "position": 96,
+        },
+        Object {
+          "instrument": 21,
+          "position": 96,
+        },
+        Object {
+          "instrument": 17,
+          "position": 96,
+        },
+        Object {
+          "instrument": 11,
+          "position": 108,
+        },
+        Object {
+          "instrument": 16,
+          "position": 108,
+        },
+        Object {
+          "instrument": 16,
+          "position": 120,
+        },
+        Object {
+          "instrument": 12,
+          "position": 132,
+        },
+        Object {
+          "instrument": 21,
+          "position": 132,
+        },
+        Object {
+          "instrument": 18,
+          "position": 144,
+        },
+        Object {
+          "instrument": 12,
+          "position": 144,
+        },
+        Object {
+          "instrument": 2,
+          "position": 144,
+        },
+        Object {
+          "instrument": 21,
+          "position": 144,
+        },
+        Object {
+          "instrument": 1,
+          "position": 144,
+        },
+        Object {
+          "instrument": 16,
+          "position": 156,
+        },
+        Object {
+          "instrument": 12,
+          "position": 168,
+        },
+        Object {
+          "instrument": 16,
+          "position": 168,
+        },
+        Object {
+          "instrument": 21,
+          "position": 180,
+        },
+        Object {
+          "instrument": 0,
+          "position": 192,
+        },
+        Object {
+          "instrument": 12,
+          "position": 192,
+        },
+        Object {
+          "instrument": 17,
+          "position": 192,
+        },
+        Object {
+          "instrument": 21,
+          "position": 192,
+        },
+        Object {
+          "instrument": 16,
+          "position": 204,
+        },
+        Object {
+          "instrument": 12,
+          "position": 216,
+        },
+        Object {
+          "instrument": 18,
+          "position": 216,
+        },
+        Object {
+          "instrument": 2,
+          "position": 216,
+        },
+        Object {
+          "instrument": 16,
+          "position": 216,
+        },
+        Object {
+          "instrument": 21,
+          "position": 228,
+        },
+        Object {
+          "instrument": 10,
+          "position": 240,
+        },
+        Object {
+          "instrument": 0,
+          "position": 240,
+        },
+        Object {
+          "instrument": 1,
+          "position": 240,
+        },
+        Object {
+          "instrument": 2,
+          "position": 240,
+        },
+        Object {
+          "instrument": 21,
+          "position": 240,
+        },
+        Object {
+          "instrument": 16,
+          "position": 252,
+        },
+        Object {
+          "instrument": 12,
+          "position": 264,
+        },
+        Object {
+          "instrument": 18,
+          "position": 264,
+        },
+        Object {
+          "instrument": 17,
+          "position": 264,
+        },
+        Object {
+          "instrument": 2,
+          "position": 264,
+        },
+        Object {
+          "instrument": 16,
+          "position": 264,
+        },
+        Object {
+          "instrument": 17,
+          "position": 276,
+        },
+        Object {
+          "instrument": 2,
+          "position": 276,
+        },
+        Object {
+          "instrument": 21,
+          "position": 276,
+        },
+        Object {
+          "instrument": 0,
+          "position": 288,
+        },
+        Object {
+          "instrument": 17,
+          "position": 288,
+        },
+        Object {
+          "instrument": 11,
+          "position": 288,
+        },
+        Object {
+          "instrument": 21,
+          "position": 288,
+        },
+        Object {
+          "instrument": 16,
+          "position": 300,
+        },
+        Object {
+          "instrument": 12,
+          "position": 312,
+        },
+        Object {
+          "instrument": 16,
+          "position": 312,
+        },
+        Object {
+          "instrument": 12,
+          "position": 324,
+        },
+        Object {
+          "instrument": 21,
+          "position": 324,
+        },
+        Object {
+          "instrument": 18,
+          "position": 336,
+        },
+        Object {
+          "instrument": 2,
+          "position": 336,
+        },
+        Object {
+          "instrument": 21,
+          "position": 336,
+        },
+        Object {
+          "instrument": 1,
+          "position": 336,
+        },
+        Object {
+          "instrument": 16,
+          "position": 348,
+        },
+        Object {
+          "instrument": 12,
+          "position": 360,
+        },
+        Object {
+          "instrument": 16,
+          "position": 360,
+        },
+        Object {
+          "instrument": 21,
+          "position": 372,
+        },
+        Object {
+          "instrument": 0,
+          "position": 384,
+        },
+        Object {
+          "instrument": 11,
+          "position": 384,
+        },
+        Object {
+          "instrument": 21,
+          "position": 384,
+        },
+        Object {
+          "instrument": 17,
+          "position": 384,
+        },
+        Object {
+          "instrument": 11,
+          "position": 396,
+        },
+        Object {
+          "instrument": 16,
+          "position": 396,
+        },
+        Object {
+          "instrument": 16,
+          "position": 408,
+        },
+        Object {
+          "instrument": 12,
+          "position": 420,
+        },
+        Object {
+          "instrument": 21,
+          "position": 420,
+        },
+        Object {
+          "instrument": 18,
+          "position": 432,
+        },
+        Object {
+          "instrument": 12,
+          "position": 432,
+        },
+        Object {
+          "instrument": 2,
+          "position": 432,
+        },
+        Object {
+          "instrument": 21,
+          "position": 432,
+        },
+        Object {
+          "instrument": 1,
+          "position": 432,
+        },
+        Object {
+          "instrument": 16,
+          "position": 444,
+        },
+        Object {
+          "instrument": 12,
+          "position": 456,
+        },
+        Object {
+          "instrument": 16,
+          "position": 456,
+        },
+        Object {
+          "instrument": 21,
+          "position": 468,
+        },
+        Object {
+          "instrument": 0,
+          "position": 480,
+        },
+        Object {
+          "instrument": 17,
+          "position": 480,
+        },
+        Object {
+          "instrument": 12,
+          "position": 480,
+        },
+        Object {
+          "instrument": 21,
+          "position": 480,
+        },
+        Object {
+          "instrument": 2,
+          "position": 492,
+        },
+        Object {
+          "instrument": 16,
+          "position": 492,
+        },
+        Object {
+          "instrument": 18,
+          "position": 504,
+        },
+        Object {
+          "instrument": 12,
+          "position": 504,
+        },
+        Object {
+          "instrument": 2,
+          "position": 504,
+        },
+        Object {
+          "instrument": 16,
+          "position": 504,
+        },
+        Object {
+          "instrument": 21,
+          "position": 516,
+        },
+        Object {
+          "instrument": 0,
+          "position": 528,
+        },
+        Object {
+          "instrument": 1,
+          "position": 528,
+        },
+        Object {
+          "instrument": 10,
+          "position": 528,
+        },
+        Object {
+          "instrument": 21,
+          "position": 528,
+        },
+        Object {
+          "instrument": 2,
+          "position": 540,
+        },
+        Object {
+          "instrument": 16,
+          "position": 540,
+        },
+        Object {
+          "instrument": 18,
+          "position": 552,
+        },
+        Object {
+          "instrument": 17,
+          "position": 552,
+        },
+        Object {
+          "instrument": 12,
+          "position": 552,
+        },
+        Object {
+          "instrument": 16,
+          "position": 552,
+        },
+        Object {
+          "instrument": 17,
+          "position": 564,
+        },
+        Object {
+          "instrument": 21,
+          "position": 564,
+        },
+      ],
+      "resolution": 12,
+      "size": 576,
+    },
+    Object {
+      "instrumentNotes": Object {
+        "0": Array [
+          0,
+          24,
+          72,
+          96,
+          192,
+          264,
+          336,
+          384,
+          408,
+          432,
+          528,
+          600,
+        ],
+        "1": Array [],
+        "10": Array [
+          48,
+          120,
+          240,
+          288,
+          384,
+          456,
+          576,
+          624,
+        ],
+        "11": Array [
+          24,
+          96,
+          216,
+          360,
+          432,
+          552,
+        ],
+        "12": Array [
+          0,
+          72,
+          192,
+          264,
+          336,
+          408,
+          528,
+          600,
+        ],
+        "13": Array [],
+        "16": Array [],
+        "17": Array [],
+        "18": Array [
+          48,
+          144,
+          240,
+          480,
+          576,
+        ],
+        "2": Array [
+          48,
+          144,
+          240,
+          288,
+          312,
+          384,
+          480,
+          576,
+          624,
+          648,
+        ],
+        "20": Array [],
+        "21": Array [
+          0,
+          48,
+          72,
+          96,
+          144,
+          168,
+          192,
+          240,
+          264,
+          288,
+          312,
+          336,
+          384,
+          408,
+          432,
+          480,
+          504,
+          528,
+          576,
+          600,
+          624,
+          648,
+        ],
+        "22": Array [],
+      },
+      "name": Array [
+        "2",
+      ],
+      "notes": Array [
+        Object {
+          "instrument": 0,
+          "position": 0,
+        },
+        Object {
+          "instrument": 12,
+          "position": 0,
+        },
+        Object {
+          "instrument": 21,
+          "position": 0,
+        },
+        Object {
+          "instrument": 0,
+          "position": 24,
+        },
+        Object {
+          "instrument": 11,
+          "position": 24,
+        },
+        Object {
+          "instrument": 2,
+          "position": 48,
+        },
+        Object {
+          "instrument": 18,
+          "position": 48,
+        },
+        Object {
+          "instrument": 10,
+          "position": 48,
+        },
+        Object {
+          "instrument": 21,
+          "position": 48,
+        },
+        Object {
+          "instrument": 0,
+          "position": 72,
+        },
+        Object {
+          "instrument": 12,
+          "position": 72,
+        },
+        Object {
+          "instrument": 21,
+          "position": 72,
+        },
+        Object {
+          "instrument": 0,
+          "position": 96,
+        },
+        Object {
+          "instrument": 11,
+          "position": 96,
+        },
+        Object {
+          "instrument": 21,
+          "position": 96,
+        },
+        Object {
+          "instrument": 10,
+          "position": 120,
+        },
+        Object {
+          "instrument": 2,
+          "position": 144,
+        },
+        Object {
+          "instrument": 18,
+          "position": 144,
+        },
+        Object {
+          "instrument": 21,
+          "position": 144,
+        },
+        Object {
+          "instrument": 21,
+          "position": 168,
+        },
+        Object {
+          "instrument": 0,
+          "position": 192,
+        },
+        Object {
+          "instrument": 12,
+          "position": 192,
+        },
+        Object {
+          "instrument": 21,
+          "position": 192,
+        },
+        Object {
+          "instrument": 11,
+          "position": 216,
+        },
+        Object {
+          "instrument": 2,
+          "position": 240,
+        },
+        Object {
+          "instrument": 18,
+          "position": 240,
+        },
+        Object {
+          "instrument": 10,
+          "position": 240,
+        },
+        Object {
+          "instrument": 21,
+          "position": 240,
+        },
+        Object {
+          "instrument": 0,
+          "position": 264,
+        },
+        Object {
+          "instrument": 12,
+          "position": 264,
+        },
+        Object {
+          "instrument": 21,
+          "position": 264,
+        },
+        Object {
+          "instrument": 2,
+          "position": 288,
+        },
+        Object {
+          "instrument": 10,
+          "position": 288,
+        },
+        Object {
+          "instrument": 21,
+          "position": 288,
+        },
+        Object {
+          "instrument": 2,
+          "position": 312,
+        },
+        Object {
+          "instrument": 21,
+          "position": 312,
+        },
+        Object {
+          "instrument": 0,
+          "position": 336,
+        },
+        Object {
+          "instrument": 12,
+          "position": 336,
+        },
+        Object {
+          "instrument": 21,
+          "position": 336,
+        },
+        Object {
+          "instrument": 11,
+          "position": 360,
+        },
+        Object {
+          "instrument": 2,
+          "position": 384,
+        },
+        Object {
+          "instrument": 0,
+          "position": 384,
+        },
+        Object {
+          "instrument": 10,
+          "position": 384,
+        },
+        Object {
+          "instrument": 21,
+          "position": 384,
+        },
+        Object {
+          "instrument": 0,
+          "position": 408,
+        },
+        Object {
+          "instrument": 12,
+          "position": 408,
+        },
+        Object {
+          "instrument": 21,
+          "position": 408,
+        },
+        Object {
+          "instrument": 0,
+          "position": 432,
+        },
+        Object {
+          "instrument": 11,
+          "position": 432,
+        },
+        Object {
+          "instrument": 21,
+          "position": 432,
+        },
+        Object {
+          "instrument": 10,
+          "position": 456,
+        },
+        Object {
+          "instrument": 2,
+          "position": 480,
+        },
+        Object {
+          "instrument": 18,
+          "position": 480,
+        },
+        Object {
+          "instrument": 21,
+          "position": 480,
+        },
+        Object {
+          "instrument": 21,
+          "position": 504,
+        },
+        Object {
+          "instrument": 0,
+          "position": 528,
+        },
+        Object {
+          "instrument": 12,
+          "position": 528,
+        },
+        Object {
+          "instrument": 21,
+          "position": 528,
+        },
+        Object {
+          "instrument": 11,
+          "position": 552,
+        },
+        Object {
+          "instrument": 2,
+          "position": 576,
+        },
+        Object {
+          "instrument": 18,
+          "position": 576,
+        },
+        Object {
+          "instrument": 10,
+          "position": 576,
+        },
+        Object {
+          "instrument": 21,
+          "position": 576,
+        },
+        Object {
+          "instrument": 0,
+          "position": 600,
+        },
+        Object {
+          "instrument": 12,
+          "position": 600,
+        },
+        Object {
+          "instrument": 21,
+          "position": 600,
+        },
+        Object {
+          "instrument": 2,
+          "position": 624,
+        },
+        Object {
+          "instrument": 10,
+          "position": 624,
+        },
+        Object {
+          "instrument": 21,
+          "position": 624,
+        },
+        Object {
+          "instrument": 2,
+          "position": 648,
+        },
+        Object {
+          "instrument": 21,
+          "position": 648,
+        },
+      ],
+      "resolution": 24,
+      "size": 672,
+    },
+    Object {
+      "instrumentNotes": Object {
+        "0": Array [
+          0,
+          48,
+          96,
+          144,
+          192,
+          240,
+          264,
+        ],
+        "1": Array [],
+        "10": Array [],
+        "11": Array [
+          36,
+          48,
+          72,
+          132,
+          144,
+          168,
+          216,
+          240,
+          252,
+          276,
+        ],
+        "12": Array [
+          0,
+          84,
+          180,
+        ],
+        "13": Array [],
+        "16": Array [],
+        "17": Array [],
+        "18": Array [
+          24,
+          72,
+          120,
+          168,
+          216,
+        ],
+        "2": Array [],
+        "20": Array [],
+        "21": Array [
+          0,
+          36,
+          72,
+          120,
+          144,
+          192,
+          228,
+          264,
+        ],
+        "22": Array [],
+      },
+      "name": Array [
+        "Pattern 23",
+      ],
+      "notes": Array [
+        Object {
+          "instrument": 21,
+          "position": 0,
+        },
+        Object {
+          "instrument": 0,
+          "position": 0,
+        },
+        Object {
+          "instrument": 12,
+          "position": 0,
+        },
+        Object {
+          "instrument": 18,
+          "position": 24,
+        },
+        Object {
+          "instrument": 21,
+          "position": 36,
+        },
+        Object {
+          "instrument": 11,
+          "position": 36,
+        },
+        Object {
+          "instrument": 0,
+          "position": 48,
+        },
+        Object {
+          "instrument": 11,
+          "position": 48,
+        },
+        Object {
+          "instrument": 21,
+          "position": 72,
+        },
+        Object {
+          "instrument": 18,
+          "position": 72,
+        },
+        Object {
+          "instrument": 11,
+          "position": 72,
+        },
+        Object {
+          "instrument": 12,
+          "position": 84,
+        },
+        Object {
+          "instrument": 0,
+          "position": 96,
+        },
+        Object {
+          "instrument": 21,
+          "position": 120,
+        },
+        Object {
+          "instrument": 18,
+          "position": 120,
+        },
+        Object {
+          "instrument": 11,
+          "position": 132,
+        },
+        Object {
+          "instrument": 21,
+          "position": 144,
+        },
+        Object {
+          "instrument": 0,
+          "position": 144,
+        },
+        Object {
+          "instrument": 11,
+          "position": 144,
+        },
+        Object {
+          "instrument": 18,
+          "position": 168,
+        },
+        Object {
+          "instrument": 11,
+          "position": 168,
+        },
+        Object {
+          "instrument": 12,
+          "position": 180,
+        },
+        Object {
+          "instrument": 21,
+          "position": 192,
+        },
+        Object {
+          "instrument": 0,
+          "position": 192,
+        },
+        Object {
+          "instrument": 18,
+          "position": 216,
+        },
+        Object {
+          "instrument": 11,
+          "position": 216,
+        },
+        Object {
+          "instrument": 21,
+          "position": 228,
+        },
+        Object {
+          "instrument": 0,
+          "position": 240,
+        },
+        Object {
+          "instrument": 11,
+          "position": 240,
+        },
+        Object {
+          "instrument": 11,
+          "position": 252,
+        },
+        Object {
+          "instrument": 21,
+          "position": 264,
+        },
+        Object {
+          "instrument": 0,
+          "position": 264,
+        },
+        Object {
+          "instrument": 11,
+          "position": 276,
+        },
+      ],
+      "resolution": 12,
+      "size": 288,
+    },
+    Object {
+      "instrumentNotes": Object {
+        "0": Array [
+          0,
+          48,
+          144,
+          192,
+        ],
+        "1": Array [],
+        "10": Array [],
+        "11": Array [],
+        "12": Array [],
+        "13": Array [],
+        "16": Array [],
+        "17": Array [
+          0,
+          24,
+          48,
+          72,
+          120,
+          144,
+          192,
+          216,
+          240,
+          288,
+        ],
+        "18": Array [
+          72,
+          120,
+          240,
+          288,
+        ],
+        "2": Array [
+          0,
+          72,
+          120,
+          240,
+        ],
+        "20": Array [],
+        "21": Array [],
+        "22": Array [],
+      },
+      "name": Array [
+        "Acropolice",
+      ],
+      "notes": Array [
+        Object {
+          "instrument": 0,
+          "position": 0,
+        },
+        Object {
+          "instrument": 2,
+          "position": 0,
+        },
+        Object {
+          "instrument": 17,
+          "position": 0,
+        },
+        Object {
+          "instrument": 17,
+          "position": 24,
+        },
+        Object {
+          "instrument": 0,
+          "position": 48,
+        },
+        Object {
+          "instrument": 17,
+          "position": 48,
+        },
+        Object {
+          "instrument": 18,
+          "position": 72,
+        },
+        Object {
+          "instrument": 2,
+          "position": 72,
+        },
+        Object {
+          "instrument": 17,
+          "position": 72,
+        },
+        Object {
+          "instrument": 18,
+          "position": 120,
+        },
+        Object {
+          "instrument": 2,
+          "position": 120,
+        },
+        Object {
+          "instrument": 17,
+          "position": 120,
+        },
+        Object {
+          "instrument": 0,
+          "position": 144,
+        },
+        Object {
+          "instrument": 17,
+          "position": 144,
+        },
+        Object {
+          "instrument": 0,
+          "position": 192,
+        },
+        Object {
+          "instrument": 17,
+          "position": 192,
+        },
+        Object {
+          "instrument": 17,
+          "position": 216,
+        },
+        Object {
+          "instrument": 18,
+          "position": 240,
+        },
+        Object {
+          "instrument": 2,
+          "position": 240,
+        },
+        Object {
+          "instrument": 17,
+          "position": 240,
+        },
+        Object {
+          "instrument": 18,
+          "position": 288,
+        },
+        Object {
+          "instrument": 17,
+          "position": 288,
+        },
+      ],
+      "resolution": 24,
+      "size": 336,
+    },
+    Object {
+      "instrumentNotes": Object {
+        "0": Array [
+          0,
+          48,
+          96,
+          144,
+          192,
+          240,
+          288,
+          324,
+        ],
+        "1": Array [],
+        "10": Array [],
+        "11": Array [],
+        "12": Array [],
+        "13": Array [],
+        "16": Array [],
+        "17": Array [],
+        "18": Array [
+          36,
+          72,
+          120,
+          168,
+          228,
+          264,
+        ],
+        "2": Array [],
+        "20": Array [],
+        "21": Array [],
+        "22": Array [],
+      },
+      "name": Array [
+        "===tune-in-7===",
+      ],
+      "notes": Array [
+        Object {
+          "instrument": 0,
+          "position": 0,
+        },
+        Object {
+          "instrument": 18,
+          "position": 36,
+        },
+        Object {
+          "instrument": 0,
+          "position": 48,
+        },
+        Object {
+          "instrument": 18,
+          "position": 72,
+        },
+        Object {
+          "instrument": 0,
+          "position": 96,
+        },
+        Object {
+          "instrument": 18,
+          "position": 120,
+        },
+        Object {
+          "instrument": 0,
+          "position": 144,
+        },
+        Object {
+          "instrument": 18,
+          "position": 168,
+        },
+        Object {
+          "instrument": 0,
+          "position": 192,
+        },
+        Object {
+          "instrument": 18,
+          "position": 228,
+        },
+        Object {
+          "instrument": 0,
+          "position": 240,
+        },
+        Object {
+          "instrument": 18,
+          "position": 264,
+        },
+        Object {
+          "instrument": 0,
+          "position": 288,
+        },
+        Object {
+          "instrument": 0,
+          "position": 324,
+        },
+      ],
+      "resolution": 12,
+      "size": 336,
+    },
+    Object {
+      "instrumentNotes": Object {
+        "0": Array [
+          0,
+          12,
+          36,
+          48,
+          96,
+          132,
+          168,
+          192,
+          204,
+          216,
+          264,
+          300,
+        ],
+        "1": Array [],
+        "10": Array [
+          24,
+          60,
+          120,
+          144,
+          192,
+          228,
+          288,
+          312,
+        ],
+        "11": Array [
+          12,
+          48,
+          108,
+          180,
+          216,
+          276,
+        ],
+        "12": Array [
+          0,
+          36,
+          96,
+          132,
+          168,
+          204,
+          264,
+          300,
+        ],
+        "13": Array [],
+        "16": Array [
+          0,
+          24,
+          36,
+          48,
+          72,
+          84,
+          96,
+          120,
+          132,
+          144,
+          156,
+          168,
+          192,
+          204,
+          216,
+          240,
+          252,
+          264,
+          288,
+          300,
+          312,
+          324,
+        ],
+        "17": Array [],
+        "18": Array [
+          72,
+          240,
+        ],
+        "2": Array [
+          24,
+          72,
+          120,
+          144,
+          156,
+          192,
+          240,
+          288,
+          312,
+          324,
+        ],
+        "20": Array [],
+        "21": Array [],
+        "22": Array [],
+      },
+      "name": Array [
+        "7-4-toomuch-re1",
+      ],
+      "notes": Array [
+        Object {
+          "instrument": 12,
+          "position": 0,
+        },
+        Object {
+          "instrument": 16,
+          "position": 0,
+        },
+        Object {
+          "instrument": 0,
+          "position": 0,
+        },
+        Object {
+          "instrument": 11,
+          "position": 12,
+        },
+        Object {
+          "instrument": 0,
+          "position": 12,
+        },
+        Object {
+          "instrument": 10,
+          "position": 24,
+        },
+        Object {
+          "instrument": 2,
+          "position": 24,
+        },
+        Object {
+          "instrument": 16,
+          "position": 24,
+        },
+        Object {
+          "instrument": 12,
+          "position": 36,
+        },
+        Object {
+          "instrument": 16,
+          "position": 36,
+        },
+        Object {
+          "instrument": 0,
+          "position": 36,
+        },
+        Object {
+          "instrument": 11,
+          "position": 48,
+        },
+        Object {
+          "instrument": 16,
+          "position": 48,
+        },
+        Object {
+          "instrument": 0,
+          "position": 48,
+        },
+        Object {
+          "instrument": 10,
+          "position": 60,
+        },
+        Object {
+          "instrument": 2,
+          "position": 72,
+        },
+        Object {
+          "instrument": 16,
+          "position": 72,
+        },
+        Object {
+          "instrument": 18,
+          "position": 72,
+        },
+        Object {
+          "instrument": 16,
+          "position": 84,
+        },
+        Object {
+          "instrument": 12,
+          "position": 96,
+        },
+        Object {
+          "instrument": 16,
+          "position": 96,
+        },
+        Object {
+          "instrument": 0,
+          "position": 96,
+        },
+        Object {
+          "instrument": 11,
+          "position": 108,
+        },
+        Object {
+          "instrument": 10,
+          "position": 120,
+        },
+        Object {
+          "instrument": 2,
+          "position": 120,
+        },
+        Object {
+          "instrument": 16,
+          "position": 120,
+        },
+        Object {
+          "instrument": 12,
+          "position": 132,
+        },
+        Object {
+          "instrument": 16,
+          "position": 132,
+        },
+        Object {
+          "instrument": 0,
+          "position": 132,
+        },
+        Object {
+          "instrument": 2,
+          "position": 144,
+        },
+        Object {
+          "instrument": 10,
+          "position": 144,
+        },
+        Object {
+          "instrument": 16,
+          "position": 144,
+        },
+        Object {
+          "instrument": 2,
+          "position": 156,
+        },
+        Object {
+          "instrument": 16,
+          "position": 156,
+        },
+        Object {
+          "instrument": 12,
+          "position": 168,
+        },
+        Object {
+          "instrument": 16,
+          "position": 168,
+        },
+        Object {
+          "instrument": 0,
+          "position": 168,
+        },
+        Object {
+          "instrument": 11,
+          "position": 180,
+        },
+        Object {
+          "instrument": 10,
+          "position": 192,
+        },
+        Object {
+          "instrument": 2,
+          "position": 192,
+        },
+        Object {
+          "instrument": 16,
+          "position": 192,
+        },
+        Object {
+          "instrument": 0,
+          "position": 192,
+        },
+        Object {
+          "instrument": 12,
+          "position": 204,
+        },
+        Object {
+          "instrument": 16,
+          "position": 204,
+        },
+        Object {
+          "instrument": 0,
+          "position": 204,
+        },
+        Object {
+          "instrument": 11,
+          "position": 216,
+        },
+        Object {
+          "instrument": 16,
+          "position": 216,
+        },
+        Object {
+          "instrument": 0,
+          "position": 216,
+        },
+        Object {
+          "instrument": 10,
+          "position": 228,
+        },
+        Object {
+          "instrument": 2,
+          "position": 240,
+        },
+        Object {
+          "instrument": 16,
+          "position": 240,
+        },
+        Object {
+          "instrument": 18,
+          "position": 240,
+        },
+        Object {
+          "instrument": 16,
+          "position": 252,
+        },
+        Object {
+          "instrument": 12,
+          "position": 264,
+        },
+        Object {
+          "instrument": 16,
+          "position": 264,
+        },
+        Object {
+          "instrument": 0,
+          "position": 264,
+        },
+        Object {
+          "instrument": 11,
+          "position": 276,
+        },
+        Object {
+          "instrument": 10,
+          "position": 288,
+        },
+        Object {
+          "instrument": 2,
+          "position": 288,
+        },
+        Object {
+          "instrument": 16,
+          "position": 288,
+        },
+        Object {
+          "instrument": 12,
+          "position": 300,
+        },
+        Object {
+          "instrument": 16,
+          "position": 300,
+        },
+        Object {
+          "instrument": 0,
+          "position": 300,
+        },
+        Object {
+          "instrument": 2,
+          "position": 312,
+        },
+        Object {
+          "instrument": 10,
+          "position": 312,
+        },
+        Object {
+          "instrument": 16,
+          "position": 312,
+        },
+        Object {
+          "instrument": 2,
+          "position": 324,
+        },
+        Object {
+          "instrument": 16,
+          "position": 324,
+        },
+      ],
+      "resolution": 12,
+      "size": 336,
+    },
+    Object {
+      "instrumentNotes": Object {
+        "0": Array [
+          0,
+          12,
+          36,
+          48,
+          96,
+          132,
+          168,
+          192,
+          204,
+          216,
+          264,
+          300,
+        ],
+        "1": Array [],
+        "10": Array [
+          24,
+          60,
+          120,
+          144,
+          192,
+          228,
+          288,
+          312,
+        ],
+        "11": Array [
+          12,
+          48,
+          108,
+          180,
+          216,
+          276,
+        ],
+        "12": Array [
+          0,
+          36,
+          96,
+          132,
+          168,
+          204,
+          264,
+          300,
+        ],
+        "13": Array [],
+        "16": Array [],
+        "17": Array [],
+        "18": Array [
+          24,
+          72,
+          120,
+          240,
+          288,
+        ],
+        "2": Array [
+          24,
+          72,
+          120,
+          144,
+          156,
+          192,
+          240,
+          288,
+          312,
+          324,
+        ],
+        "20": Array [],
+        "21": Array [
+          0,
+          24,
+          36,
+          48,
+          72,
+          84,
+          96,
+          120,
+          132,
+          144,
+          156,
+          168,
+          192,
+          204,
+          216,
+          240,
+          252,
+          264,
+          288,
+          300,
+          312,
+          324,
+        ],
+        "22": Array [],
+      },
+      "name": Array [
+        "7-4-toomuch-shk2",
+      ],
+      "notes": Array [
+        Object {
+          "instrument": 12,
+          "position": 0,
+        },
+        Object {
+          "instrument": 0,
+          "position": 0,
+        },
+        Object {
+          "instrument": 21,
+          "position": 0,
+        },
+        Object {
+          "instrument": 11,
+          "position": 12,
+        },
+        Object {
+          "instrument": 0,
+          "position": 12,
+        },
+        Object {
+          "instrument": 10,
+          "position": 24,
+        },
+        Object {
+          "instrument": 2,
+          "position": 24,
+        },
+        Object {
+          "instrument": 18,
+          "position": 24,
+        },
+        Object {
+          "instrument": 21,
+          "position": 24,
+        },
+        Object {
+          "instrument": 12,
+          "position": 36,
+        },
+        Object {
+          "instrument": 0,
+          "position": 36,
+        },
+        Object {
+          "instrument": 21,
+          "position": 36,
+        },
+        Object {
+          "instrument": 11,
+          "position": 48,
+        },
+        Object {
+          "instrument": 0,
+          "position": 48,
+        },
+        Object {
+          "instrument": 21,
+          "position": 48,
+        },
+        Object {
+          "instrument": 10,
+          "position": 60,
+        },
+        Object {
+          "instrument": 2,
+          "position": 72,
+        },
+        Object {
+          "instrument": 18,
+          "position": 72,
+        },
+        Object {
+          "instrument": 21,
+          "position": 72,
+        },
+        Object {
+          "instrument": 21,
+          "position": 84,
+        },
+        Object {
+          "instrument": 12,
+          "position": 96,
+        },
+        Object {
+          "instrument": 0,
+          "position": 96,
+        },
+        Object {
+          "instrument": 21,
+          "position": 96,
+        },
+        Object {
+          "instrument": 11,
+          "position": 108,
+        },
+        Object {
+          "instrument": 10,
+          "position": 120,
+        },
+        Object {
+          "instrument": 2,
+          "position": 120,
+        },
+        Object {
+          "instrument": 18,
+          "position": 120,
+        },
+        Object {
+          "instrument": 21,
+          "position": 120,
+        },
+        Object {
+          "instrument": 12,
+          "position": 132,
+        },
+        Object {
+          "instrument": 0,
+          "position": 132,
+        },
+        Object {
+          "instrument": 21,
+          "position": 132,
+        },
+        Object {
+          "instrument": 2,
+          "position": 144,
+        },
+        Object {
+          "instrument": 10,
+          "position": 144,
+        },
+        Object {
+          "instrument": 21,
+          "position": 144,
+        },
+        Object {
+          "instrument": 2,
+          "position": 156,
+        },
+        Object {
+          "instrument": 21,
+          "position": 156,
+        },
+        Object {
+          "instrument": 12,
+          "position": 168,
+        },
+        Object {
+          "instrument": 0,
+          "position": 168,
+        },
+        Object {
+          "instrument": 21,
+          "position": 168,
+        },
+        Object {
+          "instrument": 11,
+          "position": 180,
+        },
+        Object {
+          "instrument": 10,
+          "position": 192,
+        },
+        Object {
+          "instrument": 2,
+          "position": 192,
+        },
+        Object {
+          "instrument": 0,
+          "position": 192,
+        },
+        Object {
+          "instrument": 21,
+          "position": 192,
+        },
+        Object {
+          "instrument": 12,
+          "position": 204,
+        },
+        Object {
+          "instrument": 0,
+          "position": 204,
+        },
+        Object {
+          "instrument": 21,
+          "position": 204,
+        },
+        Object {
+          "instrument": 11,
+          "position": 216,
+        },
+        Object {
+          "instrument": 0,
+          "position": 216,
+        },
+        Object {
+          "instrument": 21,
+          "position": 216,
+        },
+        Object {
+          "instrument": 10,
+          "position": 228,
+        },
+        Object {
+          "instrument": 2,
+          "position": 240,
+        },
+        Object {
+          "instrument": 18,
+          "position": 240,
+        },
+        Object {
+          "instrument": 21,
+          "position": 240,
+        },
+        Object {
+          "instrument": 21,
+          "position": 252,
+        },
+        Object {
+          "instrument": 12,
+          "position": 264,
+        },
+        Object {
+          "instrument": 0,
+          "position": 264,
+        },
+        Object {
+          "instrument": 21,
+          "position": 264,
+        },
+        Object {
+          "instrument": 11,
+          "position": 276,
+        },
+        Object {
+          "instrument": 10,
+          "position": 288,
+        },
+        Object {
+          "instrument": 2,
+          "position": 288,
+        },
+        Object {
+          "instrument": 21,
+          "position": 288,
+        },
+        Object {
+          "instrument": 18,
+          "position": 288,
+        },
+        Object {
+          "instrument": 12,
+          "position": 300,
+        },
+        Object {
+          "instrument": 0,
+          "position": 300,
+        },
+        Object {
+          "instrument": 21,
+          "position": 300,
+        },
+        Object {
+          "instrument": 2,
+          "position": 312,
+        },
+        Object {
+          "instrument": 10,
+          "position": 312,
+        },
+        Object {
+          "instrument": 21,
+          "position": 312,
+        },
+        Object {
+          "instrument": 2,
+          "position": 324,
+        },
+        Object {
+          "instrument": 21,
+          "position": 324,
+        },
+      ],
+      "resolution": 12,
+      "size": 336,
+    },
+    Object {
+      "instrumentNotes": Object {
+        "0": Array [
+          0,
+          24,
+          72,
+          96,
+        ],
+        "1": Array [],
+        "10": Array [],
+        "11": Array [],
+        "12": Array [
+          0,
+          12,
+          24,
+          36,
+          60,
+          72,
+          96,
+          108,
+          120,
+          144,
+        ],
+        "13": Array [],
+        "16": Array [],
+        "17": Array [],
+        "18": Array [
+          36,
+          60,
+          120,
+          144,
+        ],
+        "2": Array [
+          36,
+          60,
+          120,
+        ],
+        "20": Array [],
+        "21": Array [
+          0,
+          24,
+          36,
+          60,
+          96,
+          120,
+          144,
+          156,
+        ],
+        "22": Array [],
+      },
+      "name": Array [
+        "7-Acropolis",
+      ],
+      "notes": Array [
+        Object {
+          "instrument": 0,
+          "position": 0,
+        },
+        Object {
+          "instrument": 12,
+          "position": 0,
+        },
+        Object {
+          "instrument": 21,
+          "position": 0,
+        },
+        Object {
+          "instrument": 12,
+          "position": 12,
+        },
+        Object {
+          "instrument": 0,
+          "position": 24,
+        },
+        Object {
+          "instrument": 12,
+          "position": 24,
+        },
+        Object {
+          "instrument": 21,
+          "position": 24,
+        },
+        Object {
+          "instrument": 2,
+          "position": 36,
+        },
+        Object {
+          "instrument": 18,
+          "position": 36,
+        },
+        Object {
+          "instrument": 12,
+          "position": 36,
+        },
+        Object {
+          "instrument": 21,
+          "position": 36,
+        },
+        Object {
+          "instrument": 2,
+          "position": 60,
+        },
+        Object {
+          "instrument": 18,
+          "position": 60,
+        },
+        Object {
+          "instrument": 12,
+          "position": 60,
+        },
+        Object {
+          "instrument": 21,
+          "position": 60,
+        },
+        Object {
+          "instrument": 0,
+          "position": 72,
+        },
+        Object {
+          "instrument": 12,
+          "position": 72,
+        },
+        Object {
+          "instrument": 0,
+          "position": 96,
+        },
+        Object {
+          "instrument": 12,
+          "position": 96,
+        },
+        Object {
+          "instrument": 21,
+          "position": 96,
+        },
+        Object {
+          "instrument": 12,
+          "position": 108,
+        },
+        Object {
+          "instrument": 2,
+          "position": 120,
+        },
+        Object {
+          "instrument": 18,
+          "position": 120,
+        },
+        Object {
+          "instrument": 12,
+          "position": 120,
+        },
+        Object {
+          "instrument": 21,
+          "position": 120,
+        },
+        Object {
+          "instrument": 18,
+          "position": 144,
+        },
+        Object {
+          "instrument": 12,
+          "position": 144,
+        },
+        Object {
+          "instrument": 21,
+          "position": 144,
+        },
+        Object {
+          "instrument": 21,
+          "position": 156,
+        },
+      ],
+      "resolution": 12,
+      "size": 168,
+    },
+    Object {
+      "instrumentNotes": Object {
+        "0": Array [
+          0,
+          48,
+          144,
+          192,
+        ],
+        "1": Array [],
+        "10": Array [],
+        "11": Array [],
+        "12": Array [
+          0,
+          24,
+          48,
+          72,
+          120,
+          144,
+          192,
+          216,
+          240,
+          288,
+        ],
+        "13": Array [],
+        "16": Array [],
+        "17": Array [],
+        "18": Array [
+          72,
+          120,
+          240,
+          288,
+        ],
+        "2": Array [
+          72,
+          120,
+          240,
+        ],
+        "20": Array [],
+        "21": Array [
+          0,
+          48,
+          72,
+          120,
+          192,
+          240,
+          288,
+          312,
+        ],
+        "22": Array [],
+      },
+      "name": Array [
+        "7-Acro-half",
+      ],
+      "notes": Array [
+        Object {
+          "instrument": 0,
+          "position": 0,
+        },
+        Object {
+          "instrument": 12,
+          "position": 0,
+        },
+        Object {
+          "instrument": 21,
+          "position": 0,
+        },
+        Object {
+          "instrument": 12,
+          "position": 24,
+        },
+        Object {
+          "instrument": 0,
+          "position": 48,
+        },
+        Object {
+          "instrument": 12,
+          "position": 48,
+        },
+        Object {
+          "instrument": 21,
+          "position": 48,
+        },
+        Object {
+          "instrument": 18,
+          "position": 72,
+        },
+        Object {
+          "instrument": 12,
+          "position": 72,
+        },
+        Object {
+          "instrument": 21,
+          "position": 72,
+        },
+        Object {
+          "instrument": 2,
+          "position": 72,
+        },
+        Object {
+          "instrument": 18,
+          "position": 120,
+        },
+        Object {
+          "instrument": 12,
+          "position": 120,
+        },
+        Object {
+          "instrument": 21,
+          "position": 120,
+        },
+        Object {
+          "instrument": 2,
+          "position": 120,
+        },
+        Object {
+          "instrument": 0,
+          "position": 144,
+        },
+        Object {
+          "instrument": 12,
+          "position": 144,
+        },
+        Object {
+          "instrument": 0,
+          "position": 192,
+        },
+        Object {
+          "instrument": 12,
+          "position": 192,
+        },
+        Object {
+          "instrument": 21,
+          "position": 192,
+        },
+        Object {
+          "instrument": 12,
+          "position": 216,
+        },
+        Object {
+          "instrument": 18,
+          "position": 240,
+        },
+        Object {
+          "instrument": 2,
+          "position": 240,
+        },
+        Object {
+          "instrument": 12,
+          "position": 240,
+        },
+        Object {
+          "instrument": 21,
+          "position": 240,
+        },
+        Object {
+          "instrument": 18,
+          "position": 288,
+        },
+        Object {
+          "instrument": 12,
+          "position": 288,
+        },
+        Object {
+          "instrument": 21,
+          "position": 288,
+        },
+        Object {
+          "instrument": 21,
+          "position": 312,
+        },
+      ],
+      "resolution": 24,
+      "size": 336,
+    },
+    Object {
+      "instrumentNotes": Object {
+        "0": Array [],
+        "1": Array [],
+        "10": Array [
+          48,
+          144,
+          240,
+        ],
+        "11": Array [
+          0,
+          84,
+          108,
+          192,
+        ],
+        "12": Array [
+          24,
+          60,
+          120,
+          156,
+          216,
+          252,
+          276,
+          288,
+          312,
+        ],
+        "13": Array [],
+        "16": Array [],
+        "17": Array [],
+        "18": Array [],
+        "2": Array [],
+        "20": Array [],
+        "21": Array [],
+        "22": Array [],
+      },
+      "name": Array [
+        "7-3",
+      ],
+      "notes": Array [
+        Object {
+          "instrument": 11,
+          "position": 0,
+        },
+        Object {
+          "instrument": 12,
+          "position": 24,
+        },
+        Object {
+          "instrument": 10,
+          "position": 48,
+        },
+        Object {
+          "instrument": 12,
+          "position": 60,
+        },
+        Object {
+          "instrument": 11,
+          "position": 84,
+        },
+        Object {
+          "instrument": 11,
+          "position": 108,
+        },
+        Object {
+          "instrument": 12,
+          "position": 120,
+        },
+        Object {
+          "instrument": 10,
+          "position": 144,
+        },
+        Object {
+          "instrument": 12,
+          "position": 156,
+        },
+        Object {
+          "instrument": 11,
+          "position": 192,
+        },
+        Object {
+          "instrument": 12,
+          "position": 216,
+        },
+        Object {
+          "instrument": 10,
+          "position": 240,
+        },
+        Object {
+          "instrument": 12,
+          "position": 252,
+        },
+        Object {
+          "instrument": 12,
+          "position": 276,
+        },
+        Object {
+          "instrument": 12,
+          "position": 288,
+        },
+        Object {
+          "instrument": 12,
+          "position": 312,
+        },
+      ],
+      "resolution": 12,
+      "size": 336,
+    },
+    Object {
+      "instrumentNotes": Object {
+        "0": Array [
+          0,
+          72,
+          144,
+          192,
+          240,
+        ],
+        "1": Array [],
+        "10": Array [],
+        "11": Array [],
+        "12": Array [],
+        "13": Array [],
+        "16": Array [],
+        "17": Array [],
+        "18": Array [
+          24,
+          48,
+          96,
+          120,
+          168,
+          216,
+          288,
+        ],
+        "2": Array [
+          24,
+          48,
+          60,
+          96,
+          120,
+          132,
+          168,
+          216,
+          228,
+          288,
+        ],
+        "20": Array [],
+        "21": Array [],
+        "22": Array [],
+      },
+      "name": Array [
+        "7-5n2",
+      ],
+      "notes": Array [
+        Object {
+          "instrument": 0,
+          "position": 0,
+        },
+        Object {
+          "instrument": 18,
+          "position": 24,
+        },
+        Object {
+          "instrument": 2,
+          "position": 24,
+        },
+        Object {
+          "instrument": 18,
+          "position": 48,
+        },
+        Object {
+          "instrument": 2,
+          "position": 48,
+        },
+        Object {
+          "instrument": 2,
+          "position": 60,
+        },
+        Object {
+          "instrument": 0,
+          "position": 72,
+        },
+        Object {
+          "instrument": 18,
+          "position": 96,
+        },
+        Object {
+          "instrument": 2,
+          "position": 96,
+        },
+        Object {
+          "instrument": 18,
+          "position": 120,
+        },
+        Object {
+          "instrument": 2,
+          "position": 120,
+        },
+        Object {
+          "instrument": 2,
+          "position": 132,
+        },
+        Object {
+          "instrument": 0,
+          "position": 144,
+        },
+        Object {
+          "instrument": 18,
+          "position": 168,
+        },
+        Object {
+          "instrument": 2,
+          "position": 168,
+        },
+        Object {
+          "instrument": 0,
+          "position": 192,
+        },
+        Object {
+          "instrument": 18,
+          "position": 216,
+        },
+        Object {
+          "instrument": 2,
+          "position": 216,
+        },
+        Object {
+          "instrument": 2,
+          "position": 228,
+        },
+        Object {
+          "instrument": 0,
+          "position": 240,
+        },
+        Object {
+          "instrument": 18,
+          "position": 288,
+        },
+        Object {
+          "instrument": 2,
+          "position": 288,
+        },
+      ],
+      "resolution": 12,
+      "size": 336,
+    },
+    Object {
+      "instrumentNotes": Object {
+        "0": Array [
+          0,
+          48,
+          84,
+          120,
+          168,
+          192,
+          216,
+          252,
+        ],
+        "1": Array [],
+        "10": Array [],
+        "11": Array [],
+        "12": Array [],
+        "13": Array [],
+        "16": Array [
+          0,
+          12,
+          24,
+          36,
+          48,
+          108,
+          120,
+          144,
+          204,
+          216,
+          240,
+          252,
+          264,
+          288,
+        ],
+        "17": Array [],
+        "18": Array [
+          144,
+          240,
+          288,
+        ],
+        "2": Array [
+          144,
+          240,
+          288,
+        ],
+        "20": Array [],
+        "21": Array [],
+        "22": Array [],
+      },
+      "name": Array [
+        "7-nate",
+      ],
+      "notes": Array [
+        Object {
+          "instrument": 0,
+          "position": 0,
+        },
+        Object {
+          "instrument": 16,
+          "position": 0,
+        },
+        Object {
+          "instrument": 16,
+          "position": 12,
+        },
+        Object {
+          "instrument": 16,
+          "position": 24,
+        },
+        Object {
+          "instrument": 16,
+          "position": 36,
+        },
+        Object {
+          "instrument": 0,
+          "position": 48,
+        },
+        Object {
+          "instrument": 16,
+          "position": 48,
+        },
+        Object {
+          "instrument": 0,
+          "position": 84,
+        },
+        Object {
+          "instrument": 16,
+          "position": 108,
+        },
+        Object {
+          "instrument": 0,
+          "position": 120,
+        },
+        Object {
+          "instrument": 16,
+          "position": 120,
+        },
+        Object {
+          "instrument": 18,
+          "position": 144,
+        },
+        Object {
+          "instrument": 2,
+          "position": 144,
+        },
+        Object {
+          "instrument": 16,
+          "position": 144,
+        },
+        Object {
+          "instrument": 0,
+          "position": 168,
+        },
+        Object {
+          "instrument": 0,
+          "position": 192,
+        },
+        Object {
+          "instrument": 16,
+          "position": 204,
+        },
+        Object {
+          "instrument": 0,
+          "position": 216,
+        },
+        Object {
+          "instrument": 16,
+          "position": 216,
+        },
+        Object {
+          "instrument": 18,
+          "position": 240,
+        },
+        Object {
+          "instrument": 2,
+          "position": 240,
+        },
+        Object {
+          "instrument": 16,
+          "position": 240,
+        },
+        Object {
+          "instrument": 0,
+          "position": 252,
+        },
+        Object {
+          "instrument": 16,
+          "position": 252,
+        },
+        Object {
+          "instrument": 16,
+          "position": 264,
+        },
+        Object {
+          "instrument": 18,
+          "position": 288,
+        },
+        Object {
+          "instrument": 2,
+          "position": 288,
+        },
+        Object {
+          "instrument": 16,
+          "position": 288,
+        },
+      ],
+      "resolution": 12,
+      "size": 336,
+    },
+  ],
+}
+`;

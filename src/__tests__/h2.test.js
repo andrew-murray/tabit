@@ -3,8 +3,10 @@
 import h2 from "../h2"
 import fs from "fs"
 
-test('unit test h2', () => {
-  expect(3).toBe(3);
+test('h2 parsing', () => {
   const testXml = fs.readFileSync("./test_data/too_much_garlic.h2song");
-  h2.parseHydrogen(testXml.toString());
+  h2.parseHydrogenPromise(testXml.toString()).then(function(result)
+  {
+  	expect(result).toMatchSnapshot();
+  });
 });

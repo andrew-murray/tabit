@@ -7,10 +7,40 @@ import xml2js from "xml2js";
 
 function calculatePatternResolution(pattern)
 {
-	return 1;
+	// hydrogen treats 48 as a beat
+	const basesToTry = [
+		48, // beat
+		24, // 1/2 beat
+		16, // 1/3 beat
+		12, // 1/4
+		8, // 1/6 
+		6, // 1/8
+		4, // 1/12
+		3, // 1/16
+		2, // 1/24
+		1 // 1/48
+	];
+
+	for( const b of basesToTry )
+	{
+		let allNotesPass = true;
+		for( const note of pattern.notes )
+		{
+			if( (note.position % b) != 0 )
+			{
+				allNotesPass = false;
+				break;
+			}
+		}
+		if(allNotesPass)
+		{
+			return b;
+		}
+	}
+	throw new Exception("Failed to predict base");
 }
 
-function parseHydrogenJs(err,result)
+function parseHydrogenJs(result)
 {
   	// fixme:
   	// this parsing often assumes there's >=2 elements
@@ -55,40 +85,41 @@ function parseHydrogenJs(err,result)
   		}
   	);
 
-
-  	// for now let's not worry about kinda anything
-  	// let's just pull the notes apart by instrument
-
-  	const patternWithTracks = Array.from(
+  	// transform pattern to a managable data
+  	const patternsWithTracks = Array.from(
   		patternArray,
   		function(pattern)
   		{	
   			const resolution = calculatePatternResolution(pattern);
-  			const instrumentNotes = Array.from(
-  				instrumentArray, 
-  				function(instrument)
-  				{
-  					const instrumentID = instrument.id;
-		  			const instrumentNotes = pattern.notes.filter( 
-		  				note => (note.instrument == instrumentID)
-		  			);
-		  			// in hydrogen it seems that each beat is a size of 48, let's use that too for now
-		  			const instrumentHits = Array.from(
-		  				instrumentNotes,
-		  				note => note.position
-		  			);
-		  			return instrumentHits;
-  				})
+  			let instrumentNotes = { };
+  			for( const instrument of instrumentArray )
+  			{
+	  			const relevantNotes = pattern.notes.filter( 
+	  				note => (note.instrument == instrument.id)
+	  			);
+	  			const relevantHits = Array.from(
+	  				relevantNotes,
+	  				note => note.position
+	  			);
+	  			instrumentNotes[ instrument.id.toString() ] = relevantHits;
+  			}
+  			pattern.resolution = resolution;
+  			pattern.instrumentNotes = instrumentNotes;
+  			return pattern;
   		}
   	);
 
+  	return {
+  		"instruments" : instrumentArray,
+  		"patterns" : patternsWithTracks
+  	}
 }
 
-function parseHydrogen(xmlString)
+async function parseHydrogenPromise(xmlString)
 {
   let parser = new xml2js.Parser();
 
-  parser.parseString(xmlString, parseHydrogenJs);
+  return parser.parseStringPromise(xmlString).then(parseHydrogenJs);
 }
 
-module.exports.parseHydrogen = parseHydrogen;
+module.exports.parseHydrogenPromise = parseHydrogenPromise;
