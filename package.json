@@ -9,7 +9,8 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1",
-    "react-test-renderer": "^16.13.1"
+    "react-test-renderer": "^16.13.1",
+    "xml2js": "^0.4.23"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -33,6 +34,5 @@
     ]
   },
   "devDependencies": {
-    "xml2js": "^0.4.23"
   }
 }
