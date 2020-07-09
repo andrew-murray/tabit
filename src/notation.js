@@ -75,8 +75,7 @@ class notation
     return config.lineMark + lineWithBeats + config.lineMark;
   }
 
-  /*
-  function notationFromInstrumentAndTrack(
+  static fromInstrumentAndTrack(
     instrument,
     trackDict,
     formatConfig = {}
@@ -90,7 +89,7 @@ class notation
       }
     }
 
-    let config = Object.assign( Object.assign({}, DEFAULT_FORMAT_CONFIG), formatConfig );
+    let config = Object.assign( Object.assign({}, notation.DEFAULT_FORMAT_CONFIG), formatConfig );
 
     let instrumentTracks = Object.values(trackDict);
     if(instrumentTracks.length == 0)
@@ -100,42 +99,46 @@ class notation
 
     // turn the tracks, into one char string
 
-    const patternLength = instrumentTracks[0].size;
+    const patternSize = instrumentTracks[0].length();
     const patternResolution = instrumentTracks[0].resolution;
-    const notationLength = instrumentTracks[0].size / instrumentTracks[0].resolution;
+    const notationLength = instrumentTracks[0].length() / instrumentTracks[0].resolution;
     // we only format tracks to the correct resolution
-    let patternString = config.restMark.repeat(notationLength);
-    for( let charIndex = 0; charIndex < blankString.length; ++charIndex)
+    let patternArray = Array(notationLength).fill(config.restMark);
+    for( let charIndex = 0; charIndex < patternArray.length; ++charIndex)
     {
       // todo: handle collisions
       for( const [trackID, trackSymbol] of Object.entries(instrument) )
       {
-        const track = trackDict[trackID];
-        if( track.rep[charIndex] == 1 )
+        const trackInstance = trackDict[trackID];
+        if( trackInstance != null && trackInstance.rep[charIndex] == 1 )
         {
-          patternString[charIndex] = trackSymbol;
+          patternArray[charIndex] = trackSymbol;
         }
       }
     }
+    const patternString = patternArray.join("");
 
     // handle lines and beatMarkers
-
-
-    let lineArray = chunkString( patternString, config.lineResolution );
+    let lineArray = notation.chunkString( patternString, config.lineResolution );
 
 
     let formattedLineArray = [];
     // add numbers on the first line
-
-
-
+    if( config.showBeatNumbers )
+    {
+      formattedLineArray.push( notation.formatLineWithMarkers( 
+        config, 
+        notation.createNumberMarker(config, patternResolution, patternSize), 
+        patternResolution 
+      ) );
+    }
     for( let i = 0; i < lineArray.length; ++i )
     {
-      formattedLineArray.push( formatLineWithMarkers( lineArray[i], line));
+      formattedLineArray.push( notation.formatLineWithMarkers( config, lineArray[i], patternResolution ));
     }
 
+    return formattedLineArray.join("\n");
   }
-  */
 };
 
 export default notation;

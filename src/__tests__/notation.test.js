@@ -169,3 +169,6 @@ test('unit test formatLineWithMarkers', () => {
   // FIXME: The testing of formatLineWithMarkers is not as thorough as other functions
 });
 
+test('unit test notationFromInstrumentAndTrack', () => {
+  // FIXME: The testing of fromInstrumentAndTrack is not as thorough as other functions
+});
