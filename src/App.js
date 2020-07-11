@@ -157,7 +157,7 @@ class App extends React.Component
               <Typography noWrap={true}>
               <List>
                 {(this.state.patterns ?? []).map( (pattern, index) => (
-                  <ListItem button key={"drawer-pattern" + index.toString()}>
+                  <ListItem button key={"drawer-pattern" + index.toString()} onClick={() => this.selectPattern(index)}>
                     <ListItemText primary={pattern.name} />
                   </ListItem>
                 ))}
