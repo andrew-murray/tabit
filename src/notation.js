@@ -1,4 +1,3 @@
-import track from "./track";
 
 class notation
 {
@@ -15,7 +14,7 @@ class notation
   };
 
   static validateConfig(config, patternResolution) {
-    if( patternResolution != null && ( config.beatResolution % patternResolution ) != 0 )
+    if( patternResolution != null && ( config.beatResolution % patternResolution ) !== 0 )
     {
       throw new Error("patternResolution doesn't divide beatResolution");
     }
@@ -42,7 +41,7 @@ class notation
     {
       throw new Error("(patternResolution, patternSize) arguments <= 0");
     }
-    if( ( patternSize % patternResolution) != 0 )
+    if( ( patternSize % patternResolution) !== 0 )
     {
       throw new Error("patternSize,doesn't divide patternResolution");
     }
@@ -81,18 +80,18 @@ class notation
     formatConfig = {}
   )
   {
-    for( const [propName, propValue] of Object.entries(formatConfig))
+    for( const propName of Object.keys(formatConfig))
     {
-      if(!config.hasOwnProperty(propName))
+      if(!notation.DEFAULT_FORMAT_CONFIG.hasOwnProperty(propName))
       {
-        throw new Exception("passed unrecognised property " + propName);
+        throw new Error("passed unrecognised property " + propName);
       }
     }
 
     let config = Object.assign( Object.assign({}, notation.DEFAULT_FORMAT_CONFIG), formatConfig );
 
     let instrumentTracks = Object.values(trackDict);
-    if(instrumentTracks.length == 0)
+    if(instrumentTracks.length === 0)
     {
       return "";
     }
@@ -110,7 +109,7 @@ class notation
       for( const [trackID, trackSymbol] of Object.entries(instrument) )
       {
         const trackInstance = trackDict[trackID];
-        if( trackInstance != null && trackInstance.rep[charIndex] == 1 )
+        if( trackInstance != null && trackInstance.rep[charIndex] === 1 )
         {
           patternArray[charIndex] = trackSymbol;
         }
