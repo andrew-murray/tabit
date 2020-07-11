@@ -65,23 +65,12 @@ class App extends React.Component
   // todo: this is a separate component!
   renderPattern(pattern)
   {
-    let parts = [];
-    for( const [id, part] of Object.entries(pattern.instrumentTracks))
-    {
-      // todo: === expected but doesnt work, unclear how these types dont match
-      const foundElement = this.state.instruments.find( element => (element.id == id) );
-      if( foundElement == null )
-      {
-        continue;
-      }
-      parts.push( [foundElement.name, part] );
-    }
     return ( 
       <div>
         <h1>{pattern.name}</h1>
         <Pattern 
           instruments={this.state.instruments} 
-          parts={parts}
+          tracks ={pattern.instrumentTracks}
           />
       </div>
     );
