@@ -10,16 +10,12 @@ import { Alert } from '@material-ui/lab';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
 // drawer
-// import { makeStyles } from '@material-ui/core/styles'; // function-style-api
-// import { withStyles } from '@material-ui/styles'; // class-style-api
 import Drawer from '@material-ui/core/Drawer';
-import AppBar from '@material-ui/core/AppBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import ListItem from '@material-ui/core/ListItem';
-// import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 
 // mui theme config
@@ -126,13 +122,6 @@ class App extends React.Component
       <div className={classes.root}>
         <ThemeProvider theme={theme}>
           <CssBaseline />
-          <AppBar position="fixed" className={classes.appBar}>
-            <Toolbar>
-              <Typography variant="h6" noWrap>
-                tabit
-              </Typography>
-            </Toolbar>
-          </AppBar>
           <Drawer
             variant="persistent"
             className={classes.drawer}
@@ -141,7 +130,6 @@ class App extends React.Component
               // paper: classes.drawerPaper,
             }}
           >
-            <Toolbar />
             <div className={classes.drawerContainer}>
               <Typography noWrap={true}>
               <List>
@@ -154,10 +142,7 @@ class App extends React.Component
               </Typography>
             </div>
           </Drawer>
-          <main className={classes.content}>
-            <Toolbar />
-            {mainContent}
-          </main>
+          {mainContent}
         </ThemeProvider>
       </div>
     );
