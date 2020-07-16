@@ -41,7 +41,7 @@ class Pattern extends React.Component
 
   render() {
     return (
-      <div className="Pattern">
+      <div className="Pattern" style={{"font-family": "Roboto Mono", "textAlign": "left"}}>
         { this.formatText().map((x,index) => <p>{x}</p>) }
       </div>
     );
