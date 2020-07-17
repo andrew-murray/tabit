@@ -13,6 +13,16 @@ class notation
     "lineResolution" : 48 * 8
   };
 
+  static FORMAT_CONFIG_STRINGS = [
+    ["restMark",["-", ".", " "]],
+    ["numberRestMark",["-", ".", " "]]
+  ];
+
+  static FORMAT_CONFIG_BOOLS = [
+    "showBeatMark",
+    "showBeatNumbers"
+  ];
+
   static validateConfig(config, patternResolution) {
     if( patternResolution != null && ( config.beatResolution % patternResolution ) !== 0 )
     {

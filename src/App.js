@@ -17,11 +17,15 @@ import Typography from '@material-ui/core/Typography';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 
+// notationSettings
+
+import FormatSettings from "./formatSettings";
+
 // mui theme config
 let theme = createMuiTheme( { 
   palette: { 
     type: 'dark',
-    primary: { main: '#3f51b5' },
+    primary: { main: '#36d9be' },
     secondary: { main: '#f50057' }
    } 
 } );
@@ -81,12 +85,13 @@ class App extends React.Component
       const optionalAlert = showAlert ? ( <Alert severity="error">{this.state.loadedFile} contained no patterns! Try another.</Alert> )
                                       : "";
       return (
-        <div className="App">
+        <div>
           <h2>tabit</h2>
           <FileImport
             onImport={this.handleFileImport.bind(this)}
             />
             {optionalAlert}
+          <FormatSettings />  
         </div>
       );      
     }
@@ -105,9 +110,9 @@ class App extends React.Component
         const patternToRender = this.state.patterns[this.state.selectedPattern];
         patternContent = this.renderPattern(patternToRender);
       }
-
+       
       return (
-        <div className="App">
+        <div>
           {patternContent}
         </div>
       );
@@ -117,29 +122,26 @@ class App extends React.Component
   render() {
     const classes = this.props;
     const patternsReady = this.state.patterns != null;
-    let mainContent = this.renderMainContent();
+    const mainContent = this.renderMainContent();
     return (
-      <div className={classes.root}>
+      <div className="App">
         <ThemeProvider theme={theme}>
           <CssBaseline />
           <Drawer
-            variant="persistent"
             className={classes.drawer}
+            variant="persistent"
             open={patternsReady}
-            classes={{
-              // paper: classes.drawerPaper,
-            }}
           >
             <div className={classes.drawerContainer}>
-              <Typography noWrap={true}>
               <List>
                 {(this.state.patterns ?? []).map( (pattern, index) => (
                   <ListItem button key={"drawer-pattern" + index.toString()} onClick={() => this.selectPattern(index)}>
-                    <ListItemText primary={pattern.name} />
+                    <Typography noWrap={true}>
+                      <ListItemText primary={pattern.name} />
+                    </Typography>
                   </ListItem>
                 ))}
               </List>
-              </Typography>
             </div>
           </Drawer>
           {mainContent}
