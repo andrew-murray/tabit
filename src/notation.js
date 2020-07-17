@@ -42,9 +42,6 @@ class notation
     return str.match(new RegExp('.{1,' + chunkSize + '}', 'g'));
   }
 
-  // in javascript strings are immutable
-  // various parts of this code, have to be fixed!
-
   static createNumberMarker(config, patternResolution, patternSize)
   {
     if( patternResolution <= 0 || patternSize <= 0 )
