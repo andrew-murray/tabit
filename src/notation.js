@@ -57,7 +57,8 @@ class notation
 
     // note, this assumes that each line makes this match evenly
     // but ... there's nothing you can do in that case really
-    const lineLength = Math.min(patternSize, config.lineResolution);
+    // FIXME: Things associated with lineResolution don't currently work
+    const lineLength = patternSize; // Math.min(patternSize, config.lineResolution);
     let beatCount = Math.ceil(lineLength / config.beatResolution);
 
     let numberMarkerArray = Array.from( Array(lineLength / patternResolution), e => config.numberRestMark );
@@ -125,8 +126,8 @@ class notation
     const patternString = patternArray.join("");
 
     // handle lines and beatMarkers
-    let lineArray = notation.chunkString( patternString, config.lineResolution );
-
+    // FIXME: things associated with lineResolution don't work very well right now
+    let lineArray = [ patternString ]; // notation.chunkString( patternString, config.lineResolution / patternResolution );
 
     let formattedLineArray = [];
     // add numbers on the first line

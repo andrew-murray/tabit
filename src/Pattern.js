@@ -21,7 +21,7 @@ class Pattern extends React.Component
   // this is taken from the notation formatAsPage code
   formatText()
   {
-    let configOverride = {};
+    let configOverride = this.props.config;
     let page = [];
     for( const [instrumentName, instrument] of Pattern.hardCodedInstruments )
     {
@@ -41,8 +41,8 @@ class Pattern extends React.Component
 
   render() {
     return (
-      <div className="Pattern" style={{"font-family": "Roboto Mono", "textAlign": "left"}}>
-        { this.formatText().map((x,index) => <p>{x}</p>) }
+      <div className="Pattern" style={{"fontFamily": "Roboto Mono", "textAlign": "left", whiteSpace:"pre"}}>
+        { this.formatText().map((x,index) => <p key={index.toString()}>{x}</p>) }
       </div>
     );
   }

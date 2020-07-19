@@ -7,6 +7,7 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import Select from '@material-ui/core/Select';
+import Divider from "@material-ui/core/Divider";
 
 import notation from "./notation";
 
@@ -26,22 +27,28 @@ function camelToReadable(s)
   return spacedString[0].toUpperCase() + spacedString.slice(1);
 }
 
-export default function SimpleSelect() {
+function FormatSettings(props) {
   const classes = useStyles();
   // todo: change to multiple useState calls?
-  let [state, setState] = React.useState(notation.DEFAULT_FORMAT_CONFIG);
 
-  function itemText(value)
+  function stateToItem(value)
   {
     return value === " " ? "space" : value;
   }
 
+  function itemToState(value)
+  {
+    return value === "space" ? " " : value;
+  }
+
   const handleOptionChange = (event) => {
-    setState({...state, [event.target.name]: event.target.value});
+    const updatedState = {...props.settings, [event.target.name]: itemToState(event.target.value)};
+    props.onChange(updatedState);
   };
 
   const handleCheckedChange = (event) => {
-    setState({...state, [event.target.name]: event.target.checked});
+    const updatedState = {...props.settings, [event.target.name]: event.target.checked};
+    props.onChange(updatedState);
   };
 
   function createOptionMenu(name, options)
@@ -53,11 +60,11 @@ export default function SimpleSelect() {
         <Select
           labelId={"settings-option-" + name + "-labelID"}
           id={"settings-option-" + name + "-id"}
-          value={state[name]}
+          value={stateToItem(props.settings[name])}
           name={name}
           onChange={handleOptionChange}
         >
-          {options.map((op) => <MenuItem key={"settings-menu-item-" + name + "-" + op} value={itemText(op)}>{itemText(op)}</MenuItem>)}
+          {options.map((op) => <MenuItem key={"settings-menu-item-" + name + "-" + op} value={stateToItem(op)}>{stateToItem(op)}</MenuItem>)}
         </Select>
       </FormControl>
     );
@@ -67,7 +74,7 @@ export default function SimpleSelect() {
   {
     return (
       <FormControlLabel
-        control={<Switch checked={state[name]} onChange={handleCheckedChange} name={name} />}
+        control={<Switch checked={props.settings[name]} onChange={handleCheckedChange} name={name} />}
         label={camelToReadable(name)}
         key={"switch-"+name}
       />
@@ -75,9 +82,16 @@ export default function SimpleSelect() {
   };
 
   return (
-    <FormGroup row className={classes.root}>
-      {notation.FORMAT_CONFIG_STRINGS.map( op => createOptionMenu( op[0], op[1] ) ) }
-      {notation.FORMAT_CONFIG_BOOLS.map( op => createBoolControl( op )) }
+    <FormGroup className={classes.root}>
+      {notation.FORMAT_CONFIG_STRINGS.map( op => createOptionMenu( op[0], op[1] ) ).reduce((prev, curr) => [prev, <Divider/>, curr])}
+      <Divider/>
+      {notation.FORMAT_CONFIG_BOOLS.map( op => createBoolControl( op )).reduce((prev, curr) => [prev, <Divider/>, curr]) }
     </FormGroup>
   );
 }
+
+const DefaultSettings = notation.DEFAULT_FORMAT_CONFIG; 
+
+
+export { FormatSettings, DefaultSettings }
+export default FormatSettings;

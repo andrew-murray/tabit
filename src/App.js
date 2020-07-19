@@ -1,4 +1,5 @@
 import React from 'react';
+import clsx from 'clsx';
 import FileImport from "./FileImport";
 import Pattern from "./Pattern";
 import h2 from './h2';
@@ -13,13 +14,16 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import List from '@material-ui/core/List';
-import Typography from '@material-ui/core/Typography';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
+import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+
 // notationSettings
 
-import FormatSettings from "./formatSettings";
+import {FormatSettings, DefaultSettings} from "./formatSettings";
 
 // mui theme config
 let theme = createMuiTheme( { 
@@ -39,7 +43,9 @@ class App extends React.Component
       instruments : null,
       patterns : null,
       selectedPattern : null,
-      loadedFile : null
+      loadedFile : null,
+      settingsOpen : false,
+      formatSettings : Object.assign({}, DefaultSettings)
     };
   }
 
@@ -62,16 +68,14 @@ class App extends React.Component
   }
 
   // todo: this is a separate component!
-  renderPattern(pattern)
+  renderPattern(pattern, settings)
   {
-    return ( 
-      <div>
-        <h1>{pattern.name}</h1>
-        <Pattern 
-          instruments={this.state.instruments} 
-          tracks ={pattern.instrumentTracks}
-          />
-      </div>
+    return (
+      <Pattern 
+        instruments={this.state.instruments} 
+        tracks={pattern.instrumentTracks}
+        config={this.state.formatSettings}
+        />
     );
   }
 
@@ -91,13 +95,13 @@ class App extends React.Component
             onImport={this.handleFileImport.bind(this)}
             />
             {optionalAlert}
-          <FormatSettings />  
         </div>
       );      
     }
     else
     {
       let patternContent = null;
+      // default title 
       if( this.state.selectedPattern == null )
       {
         patternContent = [];
@@ -111,10 +115,55 @@ class App extends React.Component
         patternContent = this.renderPattern(patternToRender);
       }
        
+      const handleDrawerOpen = () => {
+        this.setState( {settingsOpen : true} );
+      };
+
+      const handleDrawerClose = () => {
+        this.setState( {settingsOpen : false} );
+      };
+
+      const settingsChangeCallback = (config) => {
+        this.setState( { formatSettings: config } );
+      };
+
+      const classes = this.props;
+
+      // ugh 95%, seems flex doesn't solve everything
       return (
-        <div>
+        <React.Fragment>
+          <div style={{display:"flex", width: "95%"}}> 
+            <div className="content-title" style={{flexGrow:1}}>
+            </div>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              edge="end"
+              onClick={handleDrawerOpen}
+              className={clsx(this.state.settingsOpen && classes.hide)}
+            >
+              <MenuIcon />
+            </IconButton>
+          </div>
           {patternContent}
+
+      <Drawer
+        className={classes.drawer}
+        variant="persistent"
+        anchor="right"
+        open={this.state.settingsOpen}
+        classes={{
+          paper: classes.drawerPaper
+        }}
+      >
+        <div className={classes.drawerHeader}>
+          <IconButton onClick={handleDrawerClose}>
+              <ChevronRightIcon />
+          </IconButton>
         </div>
+        <FormatSettings onChange={settingsChangeCallback} settings={this.state.formatSettings}/>  
+        </Drawer>
+        </React.Fragment>
       );
     }
   }
@@ -136,9 +185,7 @@ class App extends React.Component
               <List>
                 {(this.state.patterns ?? []).map( (pattern, index) => (
                   <ListItem button key={"drawer-pattern" + index.toString()} onClick={() => this.selectPattern(index)}>
-                    <Typography noWrap={true}>
                       <ListItemText primary={pattern.name} />
-                    </Typography>
                   </ListItem>
                 ))}
               </List>
