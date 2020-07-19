@@ -10,12 +10,15 @@ class notation
     "beatResolution" : 48,
     "showBeatMark" : true,
     "showBeatNumbers" : true,
-    "lineResolution" : 48 * 8
+    // lineResolution needs to be determined on a per-pattern-basis 
+    // so let's just not cut the lines apart, by default
+    "lineResolution" : 48 * 16
   };
 
   static FORMAT_CONFIG_STRINGS = [
     ["restMark",["-", ".", " "]],
-    ["numberRestMark",["-", ".", " "]]
+    ["numberRestMark",["-", ".", " "]],
+    ["beatResolution",["24", "48", "96"]]
   ];
 
   static FORMAT_CONFIG_BOOLS = [
