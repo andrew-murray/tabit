@@ -4,79 +4,118 @@
             "id": 18,
             "name": [
                 "Stick"
-            ]
+            ],
+            "volume": 0.258621,
+            "muted": true,
+            "gain": 0.45
         },
         {
             "id": 0,
             "name": [
                 "Kick"
-            ]
+            ],
+            "volume": 1.5,
+            "muted": false,
+            "gain": 1.7
         },
         {
             "id": 20,
             "name": [
                 "Stick"
-            ]
+            ],
+            "volume": 0.193966,
+            "muted": false,
+            "gain": 1
         },
         {
             "id": 1,
             "name": [
                 "Stick"
-            ]
+            ],
+            "volume": 0.232759,
+            "muted": false,
+            "gain": 1.2
         },
         {
             "id": 17,
             "name": [
                 "Kick"
-            ]
+            ],
+            "volume": 1.31897,
+            "muted": false,
+            "gain": 2.15
         },
         {
             "id": 22,
             "name": [
                 "tom02"
-            ]
+            ],
+            "volume": 0.65,
+            "muted": false,
+            "gain": 1
         },
         {
             "id": 2,
             "name": [
                 "Snare Jazz"
-            ]
+            ],
+            "volume": 1,
+            "muted": false,
+            "gain": 0.85
         },
         {
             "id": 13,
             "name": [
                 "Snare 1"
-            ]
+            ],
+            "volume": 0.35,
+            "muted": false,
+            "gain": 0.4
         },
         {
             "id": 10,
             "name": [
                 "Djembe4 Slap"
-            ]
+            ],
+            "volume": 0.206897,
+            "muted": false,
+            "gain": 1
         },
         {
             "id": 11,
             "name": [
                 "Djembe4 Tone"
-            ]
+            ],
+            "volume": 0.452586,
+            "muted": false,
+            "gain": 0.95
         },
         {
             "id": 12,
             "name": [
                 "Djembe4 Bass"
-            ]
+            ],
+            "volume": 0.50431,
+            "muted": false,
+            "gain": 3.1
         },
         {
             "id": 16,
             "name": [
                 "Shaker"
-            ]
+            ],
+            "volume": 0.530172,
+            "muted": false,
+            "gain": 2.2
         },
         {
             "id": 21,
             "name": [
                 "Shaker"
-            ]
+            ],
+            "volume": 1.5,
+            "muted": false,
+            "gain": 1.5
         }
     ],
     "patterns": [

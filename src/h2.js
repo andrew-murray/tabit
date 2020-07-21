@@ -25,7 +25,7 @@ function parseHydrogenJs(result)
     const instrumentArray = Array.from(
       instrumentElements,
       function(element){
-        return {"id" : parseInt(element.id), "name" : element.name };
+        return {"id" : parseInt(element.id), "name" : element.name, "volume" : parseFloat(element.volume), "muted" : element.isMuted[0] === "true", "gain" : parseFloat(element.gain)};
       }
     );
 
