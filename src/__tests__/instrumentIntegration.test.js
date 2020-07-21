@@ -3,7 +3,7 @@
 import fs from "fs"
 
 import notation from "../notation"
-import { DEFAULT_INSTRUMENT_SYMBOLS, figureDjembes, figureShakers } from "../instrumentation"
+import { DEFAULT_INSTRUMENT_SYMBOLS, figureDjembes, figureShakers, figureSnares } from "../instrumentation"
 
 
 test('instrumentation garlic - djembes', () => {
@@ -27,11 +27,24 @@ test('instrumentation garlic - shakers', () => {
   const correctShakers = [
     { 
       "Shaker" : {
-        "10" : DEFAULT_INSTRUMENT_SYMBOLS["Shaker Ghost"], 
-        "11" : DEFAULT_INSTRUMENT_SYMBOLS["Shaker Accent"]
+        "16" : DEFAULT_INSTRUMENT_SYMBOLS["Shaker Ghost"], 
+        "21" : DEFAULT_INSTRUMENT_SYMBOLS["Shaker Accent"]
       }
     }
   ];
-  console.log(state.instruments);
   expect(shakers).toEqual(correctShakers);
+});
+
+test('instrumentation garlic - snares', () => {
+  const state = JSON.parse(fs.readFileSync("./test_data/too_much_garlic.json"));
+  const snares = figureSnares( state.instruments, DEFAULT_INSTRUMENT_SYMBOLS );
+  const correctSnares = [
+    { 
+      "Snare" : {
+        "13" : DEFAULT_INSTRUMENT_SYMBOLS["Snare Ghost"], 
+        "2" : DEFAULT_INSTRUMENT_SYMBOLS["Snare Accent"]
+      }
+    }
+  ];
+  expect(snares).toEqual(correctSnares);
 });

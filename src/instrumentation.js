@@ -75,9 +75,64 @@ function figureDjembes(instrumentsRaw, symbolConfig)
   }
 }
 
-function figureShakers(instrumentsRaw, symbolConfig)
+// used by snare/shaker
+function manageAccentOrGhost(instrumentTracks, instrumentName, accentSymbol, ghostSymbol)
 {
-  return [];
+  let outputInstruments = [];
+  if(instrumentTracks.length == 2)
+  {
+    const t0 = instrumentTracks[0];
+    const t1 = instrumentTracks[1];
+    // attempt to determine ghost/accent
+    const zeroLouder = t0.volume > t1.volume || (t0.volume == t1.volume && t0.gain > t1.gain);
+    let mapping = {};
+    mapping[ t0.id.toString() ] = zeroLouder ? accentSymbol : ghostSymbol;
+    mapping[ t1.id.toString() ] = zeroLouder ? ghostSymbol : accentSymbol;
+    let outputInstrument = {};
+    outputInstrument[instrumentName] = mapping;
+    outputInstruments.push( outputInstrument );
+  }
+  else // if 1 it must be an accent, if >= 3 ... I don't want to try and assign ghosts/accents
+  {
+    // I don't want to support ghost/accent here right now
+    for( const track of instrumentTracks )
+    {
+      let mapping = {};
+      mapping[ track.id.toString() ] = accentSymbol;
+      let outputInstrument = {};
+      outputInstrument[instrumentName] = mapping;
+      outputInstruments.push(
+        outputInstrument
+      );
+    }
+  }
+  return outputInstruments;
+
 }
 
-export { DEFAULT_INSTRUMENT_SYMBOLS, figureDjembes, figureShakers };
+function figureShakers(instrumentsRaw, symbolConfig)
+{
+  const instruments = normalizeInstrumentsForFiguring(instrumentsRaw);
+  // todo: support common alternative shakers? Tambourine?
+  const shakerTracks = instruments.filter( (inst) => ( inst.name.includes("shaker") ) );
+  return manageAccentOrGhost( 
+    shakerTracks, 
+    "Shaker", 
+    symbolConfig["Shaker Accent"],
+    symbolConfig["Shaker Ghost"]
+  );
+}
+
+function figureSnares(instrumentsRaw, symbolConfig)
+{
+  const instruments = normalizeInstrumentsForFiguring(instrumentsRaw);
+  const snareTracks = instruments.filter( (inst) => ( inst.name.includes("snare") ) );
+  return manageAccentOrGhost( 
+    snareTracks, 
+    "Snare", 
+    symbolConfig["Snare Accent"],
+    symbolConfig["Snare Ghost"]
+  );
+}
+
+export { DEFAULT_INSTRUMENT_SYMBOLS, figureDjembes, figureShakers, figureSnares };
