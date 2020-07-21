@@ -34,9 +34,6 @@ export default function InstrumentConfig(props) {
   });
 
   const handleChange = (event) => {
-    let gridCopy = Array.from(state.instrumentMask);
-    
-    gridCopy()
     setState({ ...state, [event.target.name]: event.target.checked });
   };
 
@@ -57,7 +54,7 @@ export default function InstrumentConfig(props) {
         </FormControl>
     );
   };
-  
+
   return (
     <FormGroup className={classes.root} row>
       {[...Array(props.instruments.length).keys()].map(x=>createColumn(props.instruments[x].name, x))}
