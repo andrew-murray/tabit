@@ -24,6 +24,7 @@ import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 // notationSettings
 
 import {FormatSettings, DefaultSettings} from "./formatSettings";
+import InstrumentConfig from "./instrumentConfig";
 
 // mui theme config
 let theme = createMuiTheme( { 
@@ -70,12 +71,22 @@ class App extends React.Component
   // todo: this is a separate component!
   renderPattern(pattern, settings)
   {
+    const changeInstrumentsCallback = (instruments) => {
+      this.setState( { instruments : instruments } );
+    }
+
     return (
-      <Pattern 
-        instruments={this.state.instruments} 
-        tracks={pattern.instrumentTracks}
-        config={this.state.formatSettings}
+      <React.Fragment>
+        <InstrumentConfig 
+          instruments={this.state.instruments}
+          onChange={changeInstrumentsCallback}
         />
+        <Pattern 
+          instruments={this.state.instruments} 
+          tracks={pattern.instrumentTracks}
+          config={this.state.formatSettings}
+        />
+      </React.Fragment>
     );
   }
 
