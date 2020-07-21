@@ -43,6 +43,7 @@ function createObjects(state)
   return state;
 }
 
+// andy instrument mapping
 const configuredInstrumentMappings = [
   ["Bottom Bass", {"0" : "O", "18" : "X"}],
   ["Mid Bass", {"1" : "X", "17" : "O"}], 
