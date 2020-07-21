@@ -30,13 +30,13 @@ function parseHydrogenJs(result)
     );
 
     const patternElements = result.song.patternList[0].pattern;
-
     // patterns
     // [  { name, size, notes } ]
     const patternArray = Array.from(
       patternElements,
       function(element){
         const noteElements = element.noteList[0].note;
+        const patternSize = parseInt(element.size);
         let notes = [];
         if( noteElements )
         {
@@ -48,9 +48,14 @@ function parseHydrogenJs(result)
               return {"position" : parseInt(noteElement.position), "instrument" : parseInt(noteElement.instrument)};
             }
           );
+
+          // hydrogen permits you to have notes that reach past the pattern size, 
+          // they then get revealed when you extend the pattern, 
+          // here's an easy point to get rid of them, we don't want them to factor into any calculations
+          notes = notes.filter( n => n.position < patternSize );
         }
         return {
-          "size" : parseInt(element.size), 
+          "size" : patternSize, 
           "name" : element.name,
           "notes" : notes
         };
