@@ -25,6 +25,7 @@ import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 
 import {FormatSettings, DefaultSettings} from "./formatSettings";
 import InstrumentConfig from "./instrumentConfig";
+import { figureInstruments, DEFAULT_INSTRUMENT_SYMBOLS } from "./instrumentation";
 
 // mui theme config
 let theme = createMuiTheme( { 
@@ -54,8 +55,9 @@ class App extends React.Component
   {
     // e = { file : , content : }
     h2.parseHydrogenPromise(e.content).then(h => {
+      const assessedInstruments = figureInstruments(h.instruments, DEFAULT_INSTRUMENT_SYMBOLS, h.patterns);
       this.setState({
-        instruments : h.instruments,
+        instruments : assessedInstruments,
         patterns : h.patterns,
         selectedPattern : h.patterns.length === 0 ? null : 0,
         loadedFile : e.file.name
@@ -74,13 +76,14 @@ class App extends React.Component
     const changeInstrumentsCallback = (instruments) => {
       this.setState( { instruments : instruments } );
     }
-
-    return (
-      <React.Fragment>
+    /*
         <InstrumentConfig 
           instruments={this.state.instruments}
           onChange={changeInstrumentsCallback}
         />
+    */
+    return (
+      <React.Fragment>
         <Pattern 
           instruments={this.state.instruments} 
           tracks={pattern.instrumentTracks}

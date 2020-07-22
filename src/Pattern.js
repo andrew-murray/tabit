@@ -9,21 +9,13 @@ class Pattern extends React.Component
     };
   }
 
-  static hardCodedInstruments = [
-    ["Bottom Bass", {"0" : "O", "18" : "X"}],
-    ["Mid Bass", {"1" : "X", "17" : "O"}], 
-    ["Shaker", {"16" : "x", "21" : "X"}],
-    ["Snare", {"2" : "X", "13" : "-"}], 
-    ["Djembe", {"10" : "S", "11" : "t", "12" : "O"}]
-  ];
-
   // remove me and relpace with me with something way better
   // this is taken from the notation formatAsPage code
-  formatText()
+  formatText(instruments)
   {
     let configOverride = this.props.config;
     let page = [];
-    for( const [instrumentName, instrument] of Pattern.hardCodedInstruments )
+    for( const [instrumentName, instrument] of instruments )
     {
       const notationString = notation.fromInstrumentAndTrack(
         instrument,
@@ -42,7 +34,7 @@ class Pattern extends React.Component
   render() {
     return (
       <div className="Pattern" style={{"fontFamily": "Roboto Mono", "textAlign": "left", whiteSpace:"pre"}}>
-        { this.formatText().map((x,index) => <p key={index.toString()}>{x}</p>) }
+        { this.formatText(this.props.instruments).map((x,index) => <p key={index.toString()}>{x}</p>) }
       </div>
     );
   }

@@ -10,7 +10,7 @@ function findHCF(x, y) {
    }
 
    // Now apply Euclid's algorithm to the two numbers.
-   while (Math.max(x, y) % Math.min(x, y) != 0) {
+   while (Math.max(x, y) % Math.min(x, y) !== 0) {
       if (x > y) {
          x %= y;
       }
@@ -43,7 +43,7 @@ class track
 
   empty()
   {
-    return this.rep.reduce( (a,b) => ( a + b ) ) == 0;
+    return this.rep.reduce( (a,b) => ( a + b ) ) === 0;
   }
 
   _sumOverlapsOfArrays(a,b)
@@ -61,16 +61,16 @@ class track
 
   countOverlaps(other)
   {
-    if( this.resolution == other.resolution )
+    if( this.resolution === other.resolution )
     {
-      return _sumOverlapsOfArrays( this.rep, other.rep );
+      return this._sumOverlapsOfArrays( this.rep, other.rep );
     }
     else
     {
       const hcf = findHCF(this.resolution, other.resolution);
       const a = this.formatResolution( hcf );
       const b = other.formatResolution( hcf );
-      return _sumOverlapsOfArrays( a.rep, b.rep );
+      return this._sumOverlapsOfArrays( a.rep, b.rep );
     }
   }
 

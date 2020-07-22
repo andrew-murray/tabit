@@ -1,5 +1,3 @@
-import track from "./track";
-
 const DEFAULT_INSTRUMENT_SYMBOLS = {
   "Djembe Slap" : "S",
   "Djembe Tone" : "t",
@@ -32,7 +30,7 @@ function figureDjembes(instrumentsRaw, symbolConfig)
 {
   const instruments = normalizeInstrumentsForFiguring(instrumentsRaw);
   const djembeTracks = instruments.filter( (inst) => inst.name.includes("djembe") );
-  if(djembeTracks.length == 0)
+  if(djembeTracks.length === 0)
   {
     return [];
   }
@@ -46,7 +44,7 @@ function figureDjembes(instrumentsRaw, symbolConfig)
     {
       let parityCheck = slapArray[i] + toneArray[i] + bassArray[i];
       // failed to figure out how djembes work return empty array
-      if(parityCheck != 1)
+      if(parityCheck !== 1)
       {
         return [];
       }
@@ -80,12 +78,12 @@ function figureDjembes(instrumentsRaw, symbolConfig)
 function manageAccentOrGhost(instrumentTracks, instrumentName, accentSymbol, ghostSymbol)
 {
   let outputInstruments = [];
-  if(instrumentTracks.length == 2)
+  if(instrumentTracks.length === 2)
   {
     const t0 = instrumentTracks[0];
     const t1 = instrumentTracks[1];
     // attempt to determine ghost/accent
-    const zeroLouder = t0.volume > t1.volume || (t0.volume == t1.volume && t0.gain > t1.gain);
+    const zeroLouder = t0.volume > t1.volume || (t0.volume === t1.volume && t0.gain > t1.gain);
     let mapping = {};
     mapping[ t0.id.toString() ] = zeroLouder ? accentSymbol : ghostSymbol;
     mapping[ t1.id.toString() ] = zeroLouder ? ghostSymbol : accentSymbol;
@@ -187,7 +185,7 @@ function figureClickyInstruments(instrumentsRaw, symbolConfig, patterns)
   let collated = [];
   for( let candidate = 0; candidate < Math.floor(relevantTracks.length/2); ++candidate )
   {
-    if( trackIsClick[candidate*2] != trackIsClick[candidate*2+1] )
+    if( trackIsClick[candidate*2] !== trackIsClick[candidate*2+1] )
     {
       const clickTrack = trackIsClick[candidate*2] ? relevantTracks[candidate*2] : relevantTracks[candidate*2+1];
       const hitTrack = trackIsClick[candidate*2] ? relevantTracks[candidate*2+1] : relevantTracks[candidate*2];
@@ -201,7 +199,7 @@ function figureClickyInstruments(instrumentsRaw, symbolConfig, patterns)
   }
 
   // If there's a remainder instrument and there's no click
-  if( ((relevantTracks.length % 2 ) != 0) && !trackIsClick[ relevantTracks.length - 1 ] )
+  if( ((relevantTracks.length % 2 ) !== 0) && !trackIsClick[ relevantTracks.length - 1 ] )
   {
     const lastTrack = relevantTracks[relevantTracks.length - 1];
     const instrumentName = lastTrack.name.includes("tom") ? "Tom" : "Bass";
@@ -241,7 +239,7 @@ function figureInstruments(instrumentsRaw, symbolConfig, patterns)
         instrumentUsed = true;
       }
     }
-    if(instrumentUsed == false)
+    if(instrumentUsed === false)
     {
       let mapping = {};
       mapping[ inst.id.toString() ] = symbolConfig["Default"];
