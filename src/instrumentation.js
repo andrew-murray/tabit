@@ -10,7 +10,8 @@ const DEFAULT_INSTRUMENT_SYMBOLS = {
   "Shaker Accent" : "X",
   "Click" : "X",
   "Bass" : "O",
-  "Tom" : "O"
+  "Tom" : "O",
+  "Default" : "X"
 };
 
 function normalizeInstrumentsForFiguring(instruments)
@@ -66,7 +67,7 @@ function figureDjembes(instrumentsRaw, symbolConfig)
         djembeMapping[ djembeTracks[i].id.toString() ] = symbolConfig["Djembe Bass"];
       }
     }
-    return [ { "Djembe" : djembeMapping } ];
+    return [ [ "Djembe", djembeMapping ] ];
   }
   else
   {
@@ -88,9 +89,7 @@ function manageAccentOrGhost(instrumentTracks, instrumentName, accentSymbol, gho
     let mapping = {};
     mapping[ t0.id.toString() ] = zeroLouder ? accentSymbol : ghostSymbol;
     mapping[ t1.id.toString() ] = zeroLouder ? ghostSymbol : accentSymbol;
-    let outputInstrument = {};
-    outputInstrument[instrumentName] = mapping;
-    outputInstruments.push( outputInstrument );
+    outputInstruments.push([instrumentName, mapping] );  
   }
   else // if 1 it must be an accent, if >= 3 ... I don't want to try and assign ghosts/accents
   {
@@ -99,11 +98,7 @@ function manageAccentOrGhost(instrumentTracks, instrumentName, accentSymbol, gho
     {
       let mapping = {};
       mapping[ track.id.toString() ] = accentSymbol;
-      let outputInstrument = {};
-      outputInstrument[instrumentName] = mapping;
-      outputInstruments.push(
-        outputInstrument
-      );
+      outputInstruments.push([instrumentName, mapping] );  
     }
   }
   return outputInstruments;
@@ -138,4 +133,123 @@ function figureSnares(instrumentsRaw, symbolConfig)
   );
 }
 
-export { DEFAULT_INSTRUMENT_SYMBOLS, figureDjembes, figureShakers, figureSnares };
+function activeInstruments(patterns)
+{
+  let nonTrivialInstruments = new Set();
+  for( const p of patterns )
+  {
+    for(const [instrumentID, part] of Object.entries(p.instrumentTracks))
+    {
+      if( !part.empty() )
+      {
+        nonTrivialInstruments.add(parseInt(instrumentID));
+      }
+    }
+  }
+  return nonTrivialInstruments;
+}
+
+function countInstrumentOverlapForAllTracks(aid, bid, patterns)
+{
+  let count = 0;
+  for( const p of patterns )
+  {
+    const aTrack = p.instrumentTracks[aid];
+    const bTrack = p.instrumentTracks[bid];
+    if( aTrack != null && bTrack != null )
+    {
+      count += aTrack.countOverlap( bTrack );
+    }
+  }
+  return count;
+}
+
+function figureClickyInstruments(instrumentsRaw, symbolConfig, patterns)
+{
+  const instruments = normalizeInstrumentsForFiguring(instrumentsRaw);
+  const worthwhileInstruments = activeInstruments(patterns);
+  const relevantTracks = instruments.filter( (inst) => ( worthwhileInstruments.has(inst.id) &&
+    !inst.name.includes("djembe") &&
+    ( inst.name.includes("click") || 
+    inst.name.includes("stick") || 
+    inst.name.includes("tom") || 
+    inst.name.includes("bass") ||
+    inst.name.includes("kick") )
+  ) );
+
+  const trackIsClick = Array.from(
+    relevantTracks,
+    (t) => t.name.includes("click") || t.name.includes("stick")
+  );
+  // we rioritise the early tracks
+  // and hope for the best
+
+  let collated = [];
+  for( let candidate = 0; candidate < Math.floor(relevantTracks.length/2); ++candidate )
+  {
+    if( trackIsClick[candidate*2] != trackIsClick[candidate*2+1] )
+    {
+      const clickTrack = trackIsClick[candidate*2] ? relevantTracks[candidate*2] : relevantTracks[candidate*2+1];
+      const hitTrack = trackIsClick[candidate*2] ? relevantTracks[candidate*2+1] : relevantTracks[candidate*2];
+      const instrumentIsTom = hitTrack.name.includes("tom");
+      const instrumentName = instrumentIsTom ? "Tom" : "Bass";
+      let mapping = {};
+      mapping[hitTrack.id.toString()] = symbolConfig[instrumentName];
+      mapping[clickTrack.id.toString()] = symbolConfig["Click"];
+      collated.push([instrumentName, mapping] );  
+    }
+  }
+
+  // If there's a remainder instrument and there's no click
+  if( ((relevantTracks.length % 2 ) != 0) && !trackIsClick[ relevantTracks.length - 1 ] )
+  {
+    const lastTrack = relevantTracks[relevantTracks.length - 1];
+    const instrumentName = lastTrack.name.includes("tom") ? "Tom" : "Bass";
+    let mapping = {};
+    mapping[lastTrack.id.toString()] = symbolConfig[instrumentName];
+    collated.push([instrumentName, mapping] );  
+  }
+
+  return collated;
+}
+
+function figureInstruments(instrumentsRaw, symbolConfig, patterns)
+{
+  let output = [];
+  output = output.concat( figureClickyInstruments( instrumentsRaw, symbolConfig, patterns ) );
+  output = output.concat( figureDjembes( instrumentsRaw, symbolConfig ) );
+  output = output.concat( figureSnares( instrumentsRaw, symbolConfig ) );
+  output = output.concat( figureShakers( instrumentsRaw, symbolConfig ) );
+
+  // we ignore track used by multiple instruments
+
+  // but attempt to cover "instrument not recognised anywhere"
+
+  const worthwhileInstruments = activeInstruments(patterns);
+
+  for(const inst of instrumentsRaw)
+  {
+    if( !worthwhileInstruments.has(inst.id) )
+    {
+      continue;
+    }
+    let instrumentUsed = false;
+    for( const op of output)
+    {
+      if( inst.id.toString() in op[1] ) 
+      {
+        instrumentUsed = true;
+      }
+    }
+    if(instrumentUsed == false)
+    {
+      let mapping = {};
+      mapping[ inst.id.toString() ] = symbolConfig["Default"];
+      output.push( [inst.name[0], mapping] );
+    }
+  }
+  
+  return output; 
+}
+
+export { DEFAULT_INSTRUMENT_SYMBOLS, figureClickyInstruments, figureDjembes, figureShakers, figureSnares, figureInstruments };

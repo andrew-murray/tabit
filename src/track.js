@@ -1,5 +1,28 @@
 import { calculateResolution } from "./utilities"
 
+// stolen from https://studymaths.co.uk/topics/findingHCFWithJavaScript.php
+function findHCF(x, y) {
+
+   // If the input numbers are less than 1 return an error message.
+   if (x < 1 || y < 1) {
+    throw new Error("x<1 || y<1");
+      // return "Please enter values greater than zero.";
+   }
+
+   // Now apply Euclid's algorithm to the two numbers.
+   while (Math.max(x, y) % Math.min(x, y) != 0) {
+      if (x > y) {
+         x %= y;
+      }
+      else {
+         y %= x;
+      }
+   }
+   
+   // When the while loop finishes the minimum of x and y is the HCF.
+   return Math.min(x, y);
+}
+
 class track
 {
   
@@ -16,6 +39,39 @@ class track
   length()
   {
     return this.rep.length * this.resolution;
+  }
+
+  empty()
+  {
+    return this.rep.reduce( (a,b) => ( a + b ) ) == 0;
+  }
+
+  _sumOverlapsOfArrays(a,b)
+  {
+    let count = 0;
+    for( let i = 0; i < a.length; ++i)
+    {
+      if(a[i] && b[i])
+      {
+        count++;
+      }
+    }
+    return count;
+  }
+
+  countOverlaps(other)
+  {
+    if( this.resolution == other.resolution )
+    {
+      return _sumOverlapsOfArrays( this.rep, other.rep );
+    }
+    else
+    {
+      const hcf = findHCF(this.resolution, other.resolution);
+      const a = this.formatResolution( hcf );
+      const b = other.formatResolution( hcf );
+      return _sumOverlapsOfArrays( a.rep, b.rep );
+    }
   }
 
   static representPoints(points, resolution, size)
