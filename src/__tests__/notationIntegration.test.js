@@ -83,3 +83,31 @@ test('notation kuva', () => {
   const output = formatAsPage( state, configuredInstrumentMappings );
   expect(output).toMatchSnapshot();
 });
+
+const cumulusInstrumentMappings = [
+  ["Bass", {"0" : "O", "1" : "X"}],
+  ["Snare 1", { "2" : "X"}],
+  ["Snare 2", { "4" : "X"}],
+  ["Tom", {"5" : "O", "3" : "X"}]
+];
+
+test('notation cumulus', () => {
+  const state = createObjects(JSON.parse(fs.readFileSync("./test_data/cumulus.json")));
+  const output = formatAsPage( state, cumulusInstrumentMappings );
+  expect(output).toMatchSnapshot();
+});
+
+
+const thatGuyInstrumentMappings = [
+  ["Bottom Bass ", {"0" : "O", "1" : "X"}],
+  ["Mid Bass", {"6" : "O", "8" : "X"}],
+  ["Djembe", {"2" : "S", "3" : "t", "4" : "O"}],
+  ["Shaker", {"5" : "X"}],
+  ["Snare", {"7" : "X", "9" : "-"}],
+];
+
+test('notation that_guy', () => {
+  let state = createObjects(JSON.parse(fs.readFileSync("./test_data/that_guy.json")));
+  const output = formatAsPage( state, thatGuyInstrumentMappings );
+  expect(output).toMatchSnapshot();
+});
