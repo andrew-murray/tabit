@@ -84,11 +84,14 @@ test('notation kuva', () => {
   expect(output).toMatchSnapshot();
 });
 
+// note, this wouldn't quite be figured out by our instrument logic
+// we would get 1 snare, and the tom and the click would be separate
+
 const cumulusInstrumentMappings = [
   ["Bass", {"0" : "O", "1" : "X"}],
   ["Snare 1", { "2" : "X"}],
   ["Snare 2", { "4" : "X"}],
-  ["Tom", {"5" : "O", "3" : "X"}]
+  ["Tom", {"5" : "O", "3" : "X"}] 
 ];
 
 test('notation cumulus', () => {
