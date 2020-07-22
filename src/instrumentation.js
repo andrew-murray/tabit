@@ -127,6 +127,9 @@ function figureSnares(instrumentsRaw, symbolConfig)
 {
   const instruments = normalizeInstrumentsForFiguring(instrumentsRaw);
   const snareTracks = instruments.filter( (inst) => ( inst.name.includes("snare") ) );
+  // todo: we currently assume 2 snares is accent/ghost ... but I think it's relatively
+  // common to be 2 snare parts too, I think the algorithm here is check patterns to
+  // see if they overlap ... if the "ghosts" overlap the "hits" sometimes, assume 2 parts
   return manageAccentOrGhost( 
     snareTracks, 
     "Snare", 
