@@ -39,4 +39,4 @@ function calculateResolution(positions, size)
   throw new Error("Failed to predict base");
 }
 
-exports.calculateResolution = calculateResolution;
+export { calculateResolution };
