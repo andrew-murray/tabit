@@ -12,53 +12,121 @@ const useStyles = makeStyles((theme) => ({
   },
   formControl: {
     margin: theme.spacing(1),
-  },
+  }
 }));
 
-export default function InstrumentConfig(props) {
+function InstrumentConfig(props) {
   const classes = useStyles();
 
-  const currentInstruments = 3;
-  const currentTracks = props.instruments.length;
+  const handleChange = (x,y, event) => {
+    const instrumentID = props.instrumentIndex[x].id;
+    const oldInstrumentIndex = props.instruments.findIndex( instrument => instrumentID in instrument[1]);
+    const dstInstrumentIndex = y;
+    if( oldInstrumentIndex === dstInstrumentIndex )
+    {
+      return;
+    }
+    const oldInstrument = props.instruments[oldInstrumentIndex];
+    let replacedSrcInstrument = [
+      "",
+      {}
+    ];
+    if( oldInstrument != null )
+    {
+      replacedSrcInstrument[0] = oldInstrument[0];
+      for( const key of Object.keys(oldInstrument[1]) )
+      {
+        if( key !== instrumentID.toString() )
+        {
+          replacedSrcInstrument[1][key] = oldInstrument[1][key];
+        }
+      }
+    }
+    let dstInstrument = [
+      props.instruments[dstInstrumentIndex][0],
+      Object.assign({}, props.instruments[dstInstrumentIndex][1] )
+    ];
+    if(oldInstrument != null )
+    {
+      dstInstrument[1][instrumentID.toString()] = oldInstrument[1][instrumentID];
+    }
+    else
+    {
+      dstInstrument[1][instrumentID.toString()] = "X";
+    }
 
-  let instrumentMask = [];
+    let replacedInstruments = [];
 
-  for( let i = 0; i < currentInstruments; ++i )
-  {
-    instrumentMask.push(Array(currentTracks).fill(0));
-  }
-
-  const [state, setState] = React.useState({
-    instrumentMask : instrumentMask,
-    instrumentNames: ["djembe", "bass", "snare"]
-  });
-
-  const handleChange = (event) => {
-    setState({ ...state, [event.target.name]: event.target.checked });
+    for(let instrumentIndex = 0; instrumentIndex < props.instruments.length; ++instrumentIndex)
+    {
+      if( instrumentIndex === oldInstrumentIndex )
+      {
+        replacedInstruments.push( replacedSrcInstrument );
+      }
+      else if( instrumentIndex === dstInstrumentIndex )
+      {
+        replacedInstruments.push( dstInstrument )
+      }
+      else
+      {
+        replacedInstruments.push( props.instruments[instrumentIndex] );
+      }
+    }
+    props.onChange(replacedInstruments);
   };
 
   const createLabel = (x,y) => {
-    return( <FormControlLabel
-      control={<Checkbox checked={state.instrumentMask[y][x]} onChange={handleChange} name={x.toString() + "," + y.toString()} />}
-    />
-    );
+    if( x === 0 )
+    {
+      return( <FormControlLabel
+        control={<Checkbox checked={props.instrumentMask[x] === y} onChange={(e) => handleChange(x,y,e)} name={x + "," + y.toString()} />}
+        label={props.instruments[y][0]}
+        labelPlacement="start"
+      />
+      );
+    }
+    else
+    {
+      return( <FormControlLabel
+        control={<Checkbox checked={props.instrumentMask[x] === y} onChange={(e) => handleChange(x,y,e)} name={x + "," + y.toString()} />}
+      />
+      );
+    }
   };
 
   const createColumn = (title, trackIndex) => {    
     return (
-        <FormControl component="fieldset" className={classes.formControl} key={"track-form-" + title}>
+        <FormControl component="fieldset" className={classes.formControl} key={"track-form-" + trackIndex.toString() + "-" + title}>
           <FormLabel component="legend">{title}</FormLabel>
           <FormGroup>
-            {[...Array(state.instrumentNames.length).keys()].map(y => createLabel(trackIndex,y))}
+          {[...Array(props.instruments.length).keys()].map(y => createLabel(trackIndex, y))}
           </FormGroup>
         </FormControl>
     );
   };
-
   return (
     <FormGroup className={classes.root} row>
-      {[...Array(props.instruments.length).keys()].map(x=>createColumn(props.instruments[x].name, x))}
+      {[...Array(props.instrumentIndex.length).keys()].map(x=>createColumn(props.instrumentIndex[x].name, x))}
     </FormGroup>
   );
 }
 
+function createInstrumentMask(instrumentIndex, instruments)
+{
+  let instrumentMask = Array(instrumentIndex.length);
+  for( let baseInstrumentIndex = 0; baseInstrumentIndex < instrumentIndex.length; ++baseInstrumentIndex )
+  {
+    const baseInstrumentId = instrumentIndex[baseInstrumentIndex].id;
+    for( let targetInstrumentIndex = 0; targetInstrumentIndex < instruments.length; ++targetInstrumentIndex)
+    {
+      const target = instruments[targetInstrumentIndex];
+      if(baseInstrumentId.toString() in target[1])
+      {
+        instrumentMask[baseInstrumentIndex] = targetInstrumentIndex;
+      }
+    }
+  }
+  return instrumentMask;
+}
+
+export { createInstrumentMask, InstrumentConfig };

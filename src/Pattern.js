@@ -1,5 +1,17 @@
 import React from 'react';
 import notation from "./notation"
+import { withStyles } from '@material-ui/core/styles';
+
+const useStyles = theme => ({
+  root: {
+    "margin-bottom": theme.spacing(2),
+    fontFamily: "Roboto Mono",
+    textAlign: "left",
+    whiteSpace:"pre"
+  },
+});
+
+// const classes = useStyles();
 
 class Pattern extends React.Component
 {
@@ -32,12 +44,13 @@ class Pattern extends React.Component
   }
 
   render() {
+    const { classes } = this.props;
     return (
-      <div className="Pattern" style={{"fontFamily": "Roboto Mono", "textAlign": "left", whiteSpace:"pre"}}>
+      <div className={classes.root}>
         { this.formatText(this.props.instruments).map((x,index) => <p key={index.toString()}>{x}</p>) }
       </div>
     );
   }
 }
 
-export default Pattern;
+export default withStyles(useStyles)(Pattern);

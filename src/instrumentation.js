@@ -131,6 +131,7 @@ function figureSnares(instrumentsRaw, symbolConfig)
   );
 }
 
+
 function activeInstruments(patterns)
 {
   let nonTrivialInstruments = new Set();
@@ -142,6 +143,20 @@ function activeInstruments(patterns)
       {
         nonTrivialInstruments.add(parseInt(instrumentID));
       }
+    }
+  }
+  return nonTrivialInstruments;
+}
+
+function activeInstrumentation(instrumentIndex, patterns)
+{
+  const active = activeInstruments(patterns);
+  let nonTrivialInstruments = [];
+  for( const inst of instrumentIndex)
+  {
+    if( active.has(inst.id) )
+    {
+      nonTrivialInstruments.push( inst );
     }
   }
   return nonTrivialInstruments;
@@ -250,4 +265,4 @@ function figureInstruments(instrumentsRaw, symbolConfig, patterns)
   return output; 
 }
 
-export { DEFAULT_INSTRUMENT_SYMBOLS, figureClickyInstruments, figureDjembes, figureShakers, figureSnares, figureInstruments };
+export { activeInstrumentation, DEFAULT_INSTRUMENT_SYMBOLS, figureClickyInstruments, figureDjembes, figureShakers, figureSnares, figureInstruments };

@@ -20,12 +20,11 @@ import ListItemText from '@material-ui/core/ListItemText';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-
 // notationSettings
 
 import {FormatSettings, DefaultSettings} from "./formatSettings";
-import InstrumentConfig from "./instrumentConfig";
-import { figureInstruments, DEFAULT_INSTRUMENT_SYMBOLS } from "./instrumentation";
+import {createInstrumentMask, InstrumentConfig} from "./instrumentConfig";
+import { activeInstrumentation, figureInstruments, DEFAULT_INSTRUMENT_SYMBOLS } from "./instrumentation";
 
 // mui theme config
 let theme = createMuiTheme( { 
@@ -43,6 +42,8 @@ class App extends React.Component
     super(props);
     this.state = {
       instruments : null,
+      instrumentIndex : null,
+      instrumentMask : null,
       patterns : null,
       selectedPattern : null,
       loadedFile : null,
@@ -56,7 +57,10 @@ class App extends React.Component
     // e = { file : , content : }
     h2.parseHydrogenPromise(e.content).then(h => {
       const assessedInstruments = figureInstruments(h.instruments, DEFAULT_INSTRUMENT_SYMBOLS, h.patterns);
+      const instrumentIndex = activeInstrumentation(h.instruments, h.patterns);
       this.setState({
+        instrumentIndex : instrumentIndex,
+        instrumentMask : createInstrumentMask(instrumentIndex, assessedInstruments),
         instruments : assessedInstruments,
         patterns : h.patterns,
         selectedPattern : h.patterns.length === 0 ? null : 0,
@@ -70,24 +74,28 @@ class App extends React.Component
     this.setState( { selectedPattern: patternIndex } );
   }
 
+
   // todo: this is a separate component!
   renderPattern(pattern, settings)
   {
     const changeInstrumentsCallback = (instruments) => {
-      this.setState( { instruments : instruments } );
+      this.setState( {
+        instruments : instruments,
+        instrumentMask : createInstrumentMask(this.state.instrumentIndex, instruments)
+      } );
     }
-    /*
-        <InstrumentConfig 
-          instruments={this.state.instruments}
-          onChange={changeInstrumentsCallback}
-        />
-    */
     return (
       <React.Fragment>
         <Pattern 
           instruments={this.state.instruments} 
           tracks={pattern.instrumentTracks}
           config={this.state.formatSettings}
+        />
+        <InstrumentConfig
+          instruments={this.state.instruments}
+          instrumentIndex={this.state.instrumentIndex}
+          instrumentMask={this.state.instrumentMask}
+          onChange={changeInstrumentsCallback}
         />
       </React.Fragment>
     );
