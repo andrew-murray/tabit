@@ -121,6 +121,7 @@ class App extends React.Component
       return (
         <div>
           <h2>tabit</h2>
+          <p>I read .h2songs.</p>
           <FileImport
             onImport={this.handleFileImport.bind(this)}
             />
