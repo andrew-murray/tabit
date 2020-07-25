@@ -14,6 +14,7 @@ import TableRow from '@material-ui/core/TableRow';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
+import EditIcon from '@material-ui/icons/Edit';
 
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -92,6 +93,7 @@ function InstrumentConfig(props) {
   };
 
   const [renamingInstrument, setRenamingInstrument] = React.useState(-1);
+  let [nameState, setNameState] = React.useState("");
 
   const createCell = (x,y) =>
   {
@@ -123,10 +125,8 @@ function InstrumentConfig(props) {
     );
   };
 
-  let [nameState, setNameState] = React.useState("");
   const renameInstrument = (e)  => 
   {
-    const blankInstruments = [ ];
     if( renamingInstrument == props.instruments.length )
     {
       const extraInstrument = [ nameState, {} ];
@@ -148,6 +148,28 @@ function InstrumentConfig(props) {
   // that could be because the dialog and the table content are all one component
   // I should try and fix that first
   // otherwise, it's just that shoving react in the middle is too slow
+
+  const [editSymbol, setEditSymbol] = React.useState(-1);
+  let [editSymbolState, setEditSymbolState] = React.useState("");
+
+  const startEditingSymbol = (x) =>
+  {
+    const instrumentID = props.instrumentIndex[x].id;
+    const instrumentIndex = props.instruments.findIndex( instrument => instrumentID in instrument[1]);
+    const currentSymbol = props.instruments[instrumentIndex][1][instrumentID];
+    setEditSymbolState(currentSymbol);
+    setEditSymbol(x);
+  };
+
+  const changeSymbol = (e) =>
+  {
+    const instrumentID = props.instrumentIndex[editSymbol].id;
+    const instrumentIndex = props.instruments.findIndex( instrument => instrumentID in instrument[1]);
+    let replacedInstruments = Array.from(props.instruments);
+    replacedInstruments[instrumentIndex][1][instrumentID] = editSymbolState;
+    props.onChange(replacedInstruments);
+    setEditSymbol(-1);
+  };
 
   return (
     <React.Fragment>
@@ -175,12 +197,36 @@ function InstrumentConfig(props) {
           </Button>
         </DialogActions>
       </Dialog>
+      <Dialog open={editSymbol >= 0} onClose={(e)=>setEditSymbol(-1)} aria-labelledby="form-dialog-title">
+        <DialogTitle id="form-dialog-title"></DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Enter notation symbol
+          </DialogContentText>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            fullWidth
+            value={editSymbolState}
+            onChange={(e)=>setEditSymbolState(e.target.value)}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={(e)=>setEditSymbol(-1)} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={changeSymbol} color="primary">
+            Confirm
+          </Button>
+        </DialogActions>
+      </Dialog>
       <TableContainer>
         <Table className={classes.table} aria-label="simple table">
           <TableHead>
             <TableRow>
               <TableCell> Instrument </TableCell>
-              {[...Array(props.instrumentIndex.length).keys()].map(x=><TableCell>{props.instrumentIndex[x].name}</TableCell>)}
+              {[...Array(props.instrumentIndex.length).keys()].map(x=><TableCell><Button onClick={(e)=>startEditingSymbol(x)} >{props.instrumentIndex[x].name}</Button></TableCell>)}
             </TableRow>
           </TableHead>
           <TableBody>
