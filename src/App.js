@@ -26,6 +26,8 @@ import {FormatSettings, DefaultSettings} from "./formatSettings";
 import {createInstrumentMask, InstrumentConfig} from "./instrumentConfig";
 import { activeInstrumentation, figureInstruments, DEFAULT_INSTRUMENT_SYMBOLS } from "./instrumentation";
 
+import Grid from '@material-ui/core/Grid';
+
 // mui theme config
 let theme = createMuiTheme( { 
   palette: { 
@@ -91,12 +93,18 @@ class App extends React.Component
           tracks={pattern.instrumentTracks}
           config={this.state.formatSettings}
         />
-        <InstrumentConfig
-          instruments={this.state.instruments}
-          instrumentIndex={this.state.instrumentIndex}
-          instrumentMask={this.state.instrumentMask}
-          onChange={changeInstrumentsCallback}
-        />
+        <Grid container>
+        <Grid item xs={2} />
+        <Grid item xs={8}>
+          <InstrumentConfig
+            instruments={this.state.instruments}
+            instrumentIndex={this.state.instrumentIndex}
+            instrumentMask={this.state.instrumentMask}
+            onChange={changeInstrumentsCallback}
+          />
+        </Grid>
+        <Grid item xs={2} />
+        </Grid>
       </React.Fragment>
     );
   }

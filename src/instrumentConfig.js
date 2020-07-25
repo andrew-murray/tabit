@@ -1,10 +1,15 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import FormLabel from '@material-ui/core/FormLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+
+// table
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -75,39 +80,42 @@ function InstrumentConfig(props) {
     props.onChange(replacedInstruments);
   };
 
-  const createLabel = (x,y) => {
-    if( x === 0 )
-    {
-      return( <FormControlLabel
-        control={<Checkbox checked={props.instrumentMask[x] === y} onChange={(e) => handleChange(x,y,e)} name={x + "," + y.toString()} />}
-        label={props.instruments[y][0]}
-        labelPlacement="start"
-      />
+  const createCell = (x,y) =>
+  {
+      return ( 
+        <TableCell>
+        <FormControlLabel
+          control={<Checkbox checked={props.instrumentMask[x] === y} onChange={(e) => handleChange(x,y,e)} name={x + "," + y.toString()} />}
+        />
+        </TableCell>
       );
-    }
-    else
-    {
-      return( <FormControlLabel
-        control={<Checkbox checked={props.instrumentMask[x] === y} onChange={(e) => handleChange(x,y,e)} name={x + "," + y.toString()} />}
-      />
-      );
-    }
-  };
 
-  const createColumn = (title, trackIndex) => {    
+  }
+
+  const createMatchingRow = (y) =>
+  {
     return (
-        <FormControl component="fieldset" className={classes.formControl} key={"track-form-" + trackIndex.toString() + "-" + title}>
-          <FormLabel component="legend">{title}</FormLabel>
-          <FormGroup>
-          {[...Array(props.instruments.length).keys()].map(y => createLabel(trackIndex, y))}
-          </FormGroup>
-        </FormControl>
+      <TableRow>
+        <TableCell component="th" scope="row">{props.instruments[y][0]}</TableCell>
+        {[...Array(props.instrumentIndex.length).keys()].map(x=>createCell(x,y))}
+      </TableRow>
     );
   };
+
   return (
-    <FormGroup className={classes.root} row>
-      {[...Array(props.instrumentIndex.length).keys()].map(x=>createColumn(props.instrumentIndex[x].name, x))}
-    </FormGroup>
+    <TableContainer>
+      <Table className={classes.table} aria-label="simple table">
+        <TableHead>
+          <TableRow>
+            <TableCell> Instrument </TableCell>
+            {[...Array(props.instrumentIndex.length).keys()].map(x=><TableCell>{props.instrumentIndex[x].name}</TableCell>)}
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {[...Array(props.instruments.length).keys()].map(y=>createMatchingRow(y))}
+        </TableBody>
+      </Table>
+    </TableContainer>
   );
 }
 
