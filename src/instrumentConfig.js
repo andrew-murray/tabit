@@ -122,11 +122,33 @@ function InstrumentConfig(props) {
       </TableRow>
     );
   };
+
+  let [nameState, setNameState] = React.useState("");
   const renameInstrument = (e)  => 
   {
-    console.log("renameInstrument fired");
+    const blankInstruments = [ ];
+    if( renamingInstrument == props.instruments.length )
+    {
+      const extraInstrument = [ nameState, {} ];
+      let replacedInstruments = Array.from( props.instruments );
+      replacedInstruments.push(extraInstrument);
+      props.onChange(replacedInstruments);
+    }
+    else
+    {
+      let replacedInstruments = Array.from( props.instruments );
+      replacedInstruments[renamingInstrument][0] = nameState;
+      props.onChange(replacedInstruments);
+    }
     setRenamingInstrument(-1);
+    setNameState("");
   };
+
+  // todo: The text field is very slow
+  // that could be because the dialog and the table content are all one component
+  // I should try and fix that first
+  // otherwise, it's just that shoving react in the middle is too slow
+
   return (
     <React.Fragment>
       <Dialog open={renamingInstrument >= 0} onClose={(e)=>setRenamingInstrument(-1)} aria-labelledby="form-dialog-title">
@@ -140,6 +162,8 @@ function InstrumentConfig(props) {
             margin="dense"
             id="name"
             fullWidth
+            value={nameState}
+            onChange={(e)=>setNameState(e.target.value)}
           />
         </DialogContent>
         <DialogActions>
