@@ -11,6 +11,17 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 
+import AddBoxIcon from '@material-ui/icons/AddBox';
+import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+
+import TextField from '@material-ui/core/TextField';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -80,6 +91,8 @@ function InstrumentConfig(props) {
     props.onChange(replacedInstruments);
   };
 
+  const [renamingInstrument, setRenamingInstrument] = React.useState(-1);
+
   const createCell = (x,y) =>
   {
       return ( 
@@ -89,33 +102,70 @@ function InstrumentConfig(props) {
         />
         </TableCell>
       );
-
   }
 
   const createMatchingRow = (y) =>
   {
     return (
       <TableRow>
-        <TableCell component="th" scope="row">{props.instruments[y][0]}</TableCell>
+        <TableCell component="th" scope="row"><Button onClick={(e)=>setRenamingInstrument(y)}>{props.instruments[y][0]}</Button></TableCell>
         {[...Array(props.instrumentIndex.length).keys()].map(x=>createCell(x,y))}
       </TableRow>
     );
   };
 
+  const createEditRow = () =>
+  {
+    return (
+      <TableRow>
+        <TableCell component="th" scope="row"><IconButton onClick={(e)=>setRenamingInstrument(props.instruments.length)} aria-label="add"><AddBoxIcon/></IconButton></TableCell>
+      </TableRow>
+    );
+  };
+  const renameInstrument = (e)  => 
+  {
+    console.log("renameInstrument fired");
+    setRenamingInstrument(-1);
+  };
   return (
-    <TableContainer>
-      <Table className={classes.table} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell> Instrument </TableCell>
-            {[...Array(props.instrumentIndex.length).keys()].map(x=><TableCell>{props.instrumentIndex[x].name}</TableCell>)}
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {[...Array(props.instruments.length).keys()].map(y=>createMatchingRow(y))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <React.Fragment>
+      <Dialog open={renamingInstrument >= 0} onClose={(e)=>setRenamingInstrument(-1)} aria-labelledby="form-dialog-title">
+        <DialogTitle id="form-dialog-title"></DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Enter instrument name
+          </DialogContentText>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            fullWidth
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={(e)=>setRenamingInstrument(-1)} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={renameInstrument} color="primary">
+            Confirm
+          </Button>
+        </DialogActions>
+      </Dialog>
+      <TableContainer>
+        <Table className={classes.table} aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell> Instrument </TableCell>
+              {[...Array(props.instrumentIndex.length).keys()].map(x=><TableCell>{props.instrumentIndex[x].name}</TableCell>)}
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {[...Array(props.instruments.length).keys()].map(y=>createMatchingRow(y))}
+            {createEditRow()}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </React.Fragment>
   );
 }
 
