@@ -14,7 +14,6 @@ import TableRow from '@material-ui/core/TableRow';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
-import EditIcon from '@material-ui/icons/Edit';
 
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -22,15 +21,20 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import { withStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
-  },
-  formControl: {
-    margin: theme.spacing(1),
   }
 }));
+
+const ThinFormControlLabel = withStyles({
+  root: {
+    marginLeft: 0,
+    marginRight: 0
+  }
+})(FormControlLabel);
 
 function InstrumentConfig(props) {
   const classes = useStyles();
@@ -98,8 +102,10 @@ function InstrumentConfig(props) {
   const createCell = (x,y) =>
   {
       return ( 
-        <TableCell>
-        <FormControlLabel
+        <TableCell
+          align="center"
+        >
+        <ThinFormControlLabel
           control={<Checkbox checked={props.instrumentMask[x] === y} onChange={(e) => handleChange(x,y,e)} name={x + "," + y.toString()} />}
         />
         </TableCell>
@@ -127,7 +133,7 @@ function InstrumentConfig(props) {
 
   const renameInstrument = (e)  => 
   {
-    if( renamingInstrument == props.instruments.length )
+    if( renamingInstrument === props.instruments.length )
     {
       const extraInstrument = [ nameState, {} ];
       let replacedInstruments = Array.from( props.instruments );
