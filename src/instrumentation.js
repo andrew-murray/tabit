@@ -162,21 +162,6 @@ function activeInstrumentation(instrumentIndex, patterns)
   return nonTrivialInstruments;
 }
 
-function countInstrumentOverlapForAllTracks(aid, bid, patterns)
-{
-  let count = 0;
-  for( const p of patterns )
-  {
-    const aTrack = p.instrumentTracks[aid];
-    const bTrack = p.instrumentTracks[bid];
-    if( aTrack != null && bTrack != null )
-    {
-      count += aTrack.countOverlap( bTrack );
-    }
-  }
-  return count;
-}
-
 function figureClickyInstruments(instrumentsRaw, symbolConfig, patterns)
 {
   const instruments = normalizeInstrumentsForFiguring(instrumentsRaw);
