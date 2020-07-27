@@ -45,6 +45,12 @@ const InlinableIconButton = withStyles({
   }
 })(IconButton);
 
+const CenterTableCell = withStyles({
+  root: {
+    textAlign: "center"
+  }
+})(TableCell);
+
 function InstrumentConfig(props) {
   const classes = useStyles();
 
@@ -251,7 +257,7 @@ function InstrumentConfig(props) {
           <TableHead>
             <TableRow>
               <TableCell> Instrument </TableCell>
-              {[...Array(props.instrumentIndex.length).keys()].map(x=><TableCell><Typography>{props.instrumentIndex[x].name}</Typography><InlinableIconButton onClick={(e)=>startEditingSymbol(x)} ><EditIcon fontSize="small"/></InlinableIconButton></TableCell>)}
+              {[...Array(props.instrumentIndex.length).keys()].map(x=><CenterTableCell><Typography>{props.instrumentIndex[x].name}</Typography><InlinableIconButton onClick={(e)=>startEditingSymbol(x)} ><EditIcon fontSize="small"/></InlinableIconButton></CenterTableCell>)}
             </TableRow>
           </TableHead>
           <TableBody>
