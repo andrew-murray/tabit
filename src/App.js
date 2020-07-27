@@ -18,6 +18,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 
 import IconButton from '@material-ui/core/IconButton';
+import Button from '@material-ui/core/Button';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 // notationSettings
@@ -28,6 +29,10 @@ import { activeInstrumentation, figureInstruments, DEFAULT_INSTRUMENT_SYMBOLS } 
 
 import Grid from '@material-ui/core/Grid';
 
+// load static data
+import kuva from "./kuva.json";
+import track from "./track";
+
 // mui theme config
 let theme = createMuiTheme( { 
   palette: { 
@@ -36,7 +41,6 @@ let theme = createMuiTheme( {
     secondary: { main: '#f50057' }
    } 
 } );
-
 
 class App extends React.Component
 {
@@ -109,6 +113,39 @@ class App extends React.Component
     );
   }
 
+
+
+  loadExample()
+  {
+    const createObjects = (state) => 
+    {
+      // the instruments currently work as simple objects
+      // we need to create tracks!
+      for( let pattern of state.patterns )
+      {
+        let replacedTracks = {};
+        // todo: find a more compact way of doing this
+        for( const [id, trackData] of Object.entries(pattern.instrumentTracks) )
+        {
+          replacedTracks[id] = new track( trackData.rep, trackData.resolution );
+        }
+        pattern.instrumentTracks = replacedTracks;
+      }
+      return state;
+    }
+    const k = createObjects(kuva);
+    const assessedInstruments = figureInstruments(k.instruments, DEFAULT_INSTRUMENT_SYMBOLS, k.patterns);
+    const instrumentIndex = activeInstrumentation(k.instruments, k.patterns);
+    this.setState({
+      instrumentIndex : instrumentIndex,
+      instrumentMask : createInstrumentMask(instrumentIndex, assessedInstruments),
+      instruments : assessedInstruments,
+      patterns : k.patterns,
+      selectedPattern : k.patterns.length === 0 ? null : 0,
+      loadedFile : "kuva.example"
+    });
+  }
+
   // todo: this will go away eventually, once I choose how to load a file
   // (though it should obviously be another component anyway)
   renderMainContent()
@@ -121,7 +158,9 @@ class App extends React.Component
       return (
         <div>
           <h2>tabit</h2>
-          <p>I read .h2songs.</p>
+          <p>I read .h2songs and write tab</p>
+          <Button variant="contained" onClick={this.loadExample.bind(this)}>See an example</Button>
+          <p>Or import your own</p>
           <FileImport
             onImport={this.handleFileImport.bind(this)}
             />
