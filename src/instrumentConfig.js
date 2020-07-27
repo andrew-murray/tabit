@@ -12,8 +12,10 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 
 import AddBoxIcon from '@material-ui/icons/AddBox';
+import EditIcon from '@material-ui/icons/Edit';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
+import ClearIcon from '@material-ui/icons/Clear';
 
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -22,6 +24,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { withStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,6 +38,12 @@ const ThinFormControlLabel = withStyles({
     marginRight: 0
   }
 })(FormControlLabel);
+
+const InlinableIconButton = withStyles({
+  root: {
+    padding: 2
+  }
+})(IconButton);
 
 function InstrumentConfig(props) {
   const classes = useStyles();
@@ -96,6 +105,12 @@ function InstrumentConfig(props) {
     props.onChange(replacedInstruments);
   };
 
+  const removeInstrument = (y) => 
+  {
+    let replacedInstruments = props.instruments.slice(0,y).concat(props.instruments.slice(y+1));
+    props.onChange(replacedInstruments);
+  };
+
   const [renamingInstrument, setRenamingInstrument] = React.useState(-1);
   let [nameState, setNameState] = React.useState("");
 
@@ -116,7 +131,11 @@ function InstrumentConfig(props) {
   {
     return (
       <TableRow>
-        <TableCell component="th" scope="row"><Button onClick={(e)=>setRenamingInstrument(y)}>{props.instruments[y][0]}</Button></TableCell>
+        <TableCell component="th" scope="row">
+          <Typography>{props.instruments[y][0]}</Typography>
+          <InlinableIconButton onClick={(e)=>setRenamingInstrument(y)}><EditIcon fontSize="small"/></InlinableIconButton>
+          <InlinableIconButton onClick={(e)=>{removeInstrument(y);}}><ClearIcon fontSize="small"/></InlinableIconButton>
+        </TableCell>
         {[...Array(props.instrumentIndex.length).keys()].map(x=>createCell(x,y))}
       </TableRow>
     );
@@ -232,7 +251,7 @@ function InstrumentConfig(props) {
           <TableHead>
             <TableRow>
               <TableCell> Instrument </TableCell>
-              {[...Array(props.instrumentIndex.length).keys()].map(x=><TableCell><Button onClick={(e)=>startEditingSymbol(x)} >{props.instrumentIndex[x].name}</Button></TableCell>)}
+              {[...Array(props.instrumentIndex.length).keys()].map(x=><TableCell><Typography>{props.instrumentIndex[x].name}</Typography><InlinableIconButton onClick={(e)=>startEditingSymbol(x)} ><EditIcon fontSize="small"/></InlinableIconButton></TableCell>)}
             </TableRow>
           </TableHead>
           <TableBody>
