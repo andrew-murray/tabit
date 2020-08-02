@@ -7,7 +7,9 @@
             ],
             "volume": 1,
             "muted": false,
-            "gain": 3.65
+            "gain": 3.65,
+            "drumkit": "GMkit",
+            "filename": "kick_Dry_b.flac"
         },
         {
             "id": 1,
@@ -16,7 +18,9 @@
             ],
             "volume": 0.69,
             "muted": false,
-            "gain": 1
+            "gain": 1,
+            "drumkit": "GMkit",
+            "filename": "stick_Woody.flac"
         },
         {
             "id": 2,
@@ -25,7 +29,9 @@
             ],
             "volume": 1,
             "muted": true,
-            "gain": 0.6
+            "gain": 0.6,
+            "drumkit": "GMkit",
+            "filename": "sn_Jazz_c.flac"
         },
         {
             "id": 4,
@@ -34,7 +40,9 @@
             ],
             "volume": 1,
             "muted": false,
-            "gain": 1
+            "gain": 1,
+            "drumkit": "GMkit",
+            "filename": "sn_Wet_b.flac"
         },
         {
             "id": 3,
@@ -43,7 +51,9 @@
             ],
             "volume": 0.88,
             "muted": false,
-            "gain": 1
+            "gain": 1,
+            "drumkit": "GMkit",
+            "filename": "clap_Dry_c.flac"
         },
         {
             "id": 5,
@@ -52,7 +62,9 @@
             ],
             "volume": 0.96,
             "muted": false,
-            "gain": 1
+            "gain": 1,
+            "drumkit": "GMkit",
+            "filename": "tom_Rock_lo.flac"
         },
         {
             "id": 6,
@@ -61,7 +73,9 @@
             ],
             "volume": 0.89,
             "muted": true,
-            "gain": 1
+            "gain": 1,
+            "drumkit": "GMkit",
+            "filename": "hhc_Dry_a.flac"
         },
         {
             "id": 7,
@@ -70,7 +84,9 @@
             ],
             "volume": 1,
             "muted": true,
-            "gain": 1
+            "gain": 1,
+            "drumkit": "GMkit",
+            "filename": "tom_Rock_mid.flac"
         },
         {
             "id": 8,
@@ -79,7 +95,9 @@
             ],
             "volume": 0.89,
             "muted": true,
-            "gain": 1
+            "gain": 1,
+            "drumkit": "GMkit",
+            "filename": "hhp_Dry_a.flac"
         },
         {
             "id": 9,
@@ -88,7 +106,9 @@
             ],
             "volume": 1,
             "muted": true,
-            "gain": 1
+            "gain": 1,
+            "drumkit": "GMkit",
+            "filename": "tom_Rock_hi.flac"
         },
         {
             "id": 10,
@@ -97,7 +117,9 @@
             ],
             "volume": 0.8,
             "muted": true,
-            "gain": 1
+            "gain": 1,
+            "drumkit": "GMkit",
+            "filename": "hhc_Rock_b.flac"
         },
         {
             "id": 11,
@@ -106,7 +128,9 @@
             ],
             "volume": 0.8,
             "muted": true,
-            "gain": 1
+            "gain": 1,
+            "drumkit": "GMkit",
+            "filename": "misc_Cowbell.flac"
         },
         {
             "id": 12,
@@ -115,7 +139,9 @@
             ],
             "volume": 0.8,
             "muted": true,
-            "gain": 1
+            "gain": 1,
+            "drumkit": "GMkit",
+            "filename": "cym_Jazz.flac"
         },
         {
             "id": 13,
@@ -124,7 +150,9 @@
             ],
             "volume": 0.69,
             "muted": true,
-            "gain": 1
+            "gain": 1,
+            "drumkit": "GMkit",
+            "filename": "cra_Rock_a.flac"
         },
         {
             "id": 14,
@@ -133,7 +161,9 @@
             ],
             "volume": 0.8,
             "muted": true,
-            "gain": 1
+            "gain": 1,
+            "drumkit": "GMkit",
+            "filename": "cym_Rock_b.flac"
         },
         {
             "id": 15,
@@ -142,7 +172,9 @@
             ],
             "volume": 0.77,
             "muted": true,
-            "gain": 1
+            "gain": 1,
+            "drumkit": "GMkit",
+            "filename": "cra_Jazz.flac"
         }
     ],
     "patterns": [

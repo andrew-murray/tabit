@@ -40,7 +40,7 @@ test('h2 parsing - that_guy', async() => {
     return JSON.stringify(result, null, 4);
   });
   const resultJSON = await resultJSONPromise;
-  fs.writeFileSync(testJSON, resultJSON);
+  // fs.writeFileSync(testJSON, resultJSON);
   const expectedJSON = String(fs.readFileSync(testJSON));
   return expect(resultJSON).toEqual(expectedJSON); 
 });
@@ -54,7 +54,7 @@ test('h2 parsing - cumulus', async () => {
     return JSON.stringify(result, null, 4);
   });
   const resultJSON = await resultJSONPromise;
-  fs.writeFileSync(testJSON, resultJSON);
+  // fs.writeFileSync(testJSON, resultJSON);
   const expectedJSON = String(fs.readFileSync(testJSON));
   return expect(resultJSON).toEqual(expectedJSON);
 });

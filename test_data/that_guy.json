@@ -7,7 +7,9 @@
             ],
             "volume": 0.646552,
             "muted": false,
-            "gain": 1
+            "gain": 1,
+            "drumkit": "GMkit",
+            "filename": "kick_Dry_b.flac"
         },
         {
             "id": 1,
@@ -16,7 +18,9 @@
             ],
             "volume": 0.206897,
             "muted": false,
-            "gain": 1
+            "gain": 1,
+            "drumkit": "GMkit",
+            "filename": "stick_Woody.flac"
         },
         {
             "id": 6,
@@ -25,7 +29,9 @@
             ],
             "volume": 1.15086,
             "muted": false,
-            "gain": 1
+            "gain": 1,
+            "drumkit": "The Black Pearl 1.0",
+            "filename": "PearlKick-Softest.wav"
         },
         {
             "id": 8,
@@ -34,7 +40,9 @@
             ],
             "volume": 0.155172,
             "muted": false,
-            "gain": 1
+            "gain": 1,
+            "drumkit": "GMkit",
+            "filename": "stick_Woody.flac"
         },
         {
             "id": 4,
@@ -43,7 +51,9 @@
             ],
             "volume": 0.568965,
             "muted": false,
-            "gain": 1
+            "gain": 1,
+            "drumkit": "circAfrique v4",
+            "filename": "Djembe2 Bass.wav"
         },
         {
             "id": 3,
@@ -52,7 +62,9 @@
             ],
             "volume": 0.465517,
             "muted": false,
-            "gain": 1
+            "gain": 1,
+            "drumkit": "circAfrique v4",
+            "filename": "Djembe2 Tone.wav"
         },
         {
             "id": 2,
@@ -61,7 +73,9 @@
             ],
             "volume": 0.310345,
             "muted": false,
-            "gain": 1
+            "gain": 1,
+            "drumkit": "circAfrique v4",
+            "filename": "Djembe2 Slap.wav"
         },
         {
             "id": 5,
@@ -70,7 +84,9 @@
             ],
             "volume": 0.336207,
             "muted": false,
-            "gain": 1
+            "gain": 1,
+            "drumkit": "TR808EmulationKit",
+            "filename": "808_Shaker.flac"
         },
         {
             "id": 7,
@@ -79,7 +95,9 @@
             ],
             "volume": 0.258621,
             "muted": false,
-            "gain": 1
+            "gain": 1,
+            "drumkit": "GMkit",
+            "filename": "sn_Wet_b.flac"
         },
         {
             "id": 9,
@@ -88,7 +106,9 @@
             ],
             "volume": 0.0517241,
             "muted": false,
-            "gain": 1
+            "gain": 1,
+            "drumkit": "GMkit",
+            "filename": "sn_Wet_b.flac"
         }
     ],
     "patterns": [

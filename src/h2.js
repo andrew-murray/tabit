@@ -25,7 +25,20 @@ function parseHydrogenJs(result)
     const instrumentArray = Array.from(
       instrumentElements,
       function(element){
-        return {"id" : parseInt(element.id), "name" : element.name, "volume" : parseFloat(element.volume), "muted" : element.isMuted[0] === "true", "gain" : parseFloat(element.gain)};
+        const instrumentComponent = element.instrumentComponent[0];
+        let inst = {
+          "id" : parseInt(element.id), 
+          "name" : element.name,
+           "volume" : parseFloat(element.volume), 
+           "muted" : element.isMuted[0] === "true",
+           "gain" : parseFloat(element.gain),
+           "drumkit" : element.drumkit[0]
+        };
+        if( "layer" in instrumentComponent )
+        {
+          inst["filename"] = instrumentComponent.layer[0].filename[0];
+        }
+        return inst;
       }
     );
 

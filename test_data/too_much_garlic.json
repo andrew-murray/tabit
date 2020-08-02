@@ -7,7 +7,9 @@
             ],
             "volume": 0.258621,
             "muted": true,
-            "gain": 0.45
+            "gain": 0.45,
+            "drumkit": "GMkit",
+            "filename": "stick_Woody.flac"
         },
         {
             "id": 0,
@@ -16,7 +18,9 @@
             ],
             "volume": 1.5,
             "muted": false,
-            "gain": 1.7
+            "gain": 1.7,
+            "drumkit": "GMkit",
+            "filename": "kick_Dry_b.flac"
         },
         {
             "id": 20,
@@ -25,7 +29,8 @@
             ],
             "volume": 0.193966,
             "muted": false,
-            "gain": 1
+            "gain": 1,
+            "drumkit": "DeathMetal"
         },
         {
             "id": 1,
@@ -34,7 +39,9 @@
             ],
             "volume": 0.232759,
             "muted": false,
-            "gain": 1.2
+            "gain": 1.2,
+            "drumkit": "GMkit",
+            "filename": "stick_Woody.flac"
         },
         {
             "id": 17,
@@ -43,7 +50,9 @@
             ],
             "volume": 1.31897,
             "muted": false,
-            "gain": 2.15
+            "gain": 2.15,
+            "drumkit": "GMkit",
+            "filename": "kick_Dry_b.flac"
         },
         {
             "id": 22,
@@ -52,7 +61,8 @@
             ],
             "volume": 0.65,
             "muted": false,
-            "gain": 1
+            "gain": 1,
+            "drumkit": "DeathMetal"
         },
         {
             "id": 2,
@@ -61,7 +71,9 @@
             ],
             "volume": 1,
             "muted": false,
-            "gain": 0.85
+            "gain": 0.85,
+            "drumkit": "GMkit",
+            "filename": "sn_Jazz_c.flac"
         },
         {
             "id": 13,
@@ -70,7 +82,8 @@
             ],
             "volume": 0.35,
             "muted": false,
-            "gain": 0.4
+            "gain": 0.4,
+            "drumkit": "DeathMetal"
         },
         {
             "id": 10,
@@ -79,7 +92,9 @@
             ],
             "volume": 0.206897,
             "muted": false,
-            "gain": 1
+            "gain": 1,
+            "drumkit": "circAfrique v4",
+            "filename": "Djembe4 Slap.wav"
         },
         {
             "id": 11,
@@ -88,7 +103,9 @@
             ],
             "volume": 0.452586,
             "muted": false,
-            "gain": 0.95
+            "gain": 0.95,
+            "drumkit": "circAfrique v4",
+            "filename": "Djembe4 Tone.wav"
         },
         {
             "id": 12,
@@ -97,7 +114,9 @@
             ],
             "volume": 0.50431,
             "muted": false,
-            "gain": 3.1
+            "gain": 3.1,
+            "drumkit": "circAfrique v4",
+            "filename": "Djembe4 Bass.wav"
         },
         {
             "id": 16,
@@ -106,7 +125,9 @@
             ],
             "volume": 0.530172,
             "muted": false,
-            "gain": 2.2
+            "gain": 2.2,
+            "drumkit": "TR808EmulationKit",
+            "filename": "808_Shaker.flac"
         },
         {
             "id": 21,
@@ -115,7 +136,9 @@
             ],
             "volume": 1.5,
             "muted": false,
-            "gain": 1.5
+            "gain": 1.5,
+            "drumkit": "TR808EmulationKit",
+            "filename": "808_Shaker.flac"
         }
     ],
     "patterns": [
