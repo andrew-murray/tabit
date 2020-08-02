@@ -37,6 +37,8 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import kuva from "./kuva.json";
 import track from "./track";
 
+import SoundBoard from "./SoundBoard";
+
 // mui theme config
 let theme = createMuiTheme( { 
   palette: { 
@@ -98,6 +100,7 @@ class App extends React.Component
     }
     return (
       <React.Fragment>
+        <SoundBoard instruments={this.state.instruments} instrumentIndex={this.state.instrumentIndex} tracks={pattern.instrumentTracks}/>
         <Pattern 
           instruments={this.state.instruments} 
           tracks={pattern.instrumentTracks}
