@@ -1,0 +1,2582 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<drumkit_info xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.hydrogen-music.org/drumkit">
+ <name>JazzFunkKit</name>
+ <author>Orange Tree Samples / Oddtime</author>
+ <info>Low Kick 20x14 Gretsch - Aquarian modern vintage on both sides; felt strips on both sides. Medium DW felt beater.
+
+Kick 15x15 Ludwig - 30's era mahogany marching snare with its original calf-skin head on the resonant side; Remo pin stripe on the batter side. Medium DW felt beater.
+
+Snare 14x5.5 Ludwig - 20's era (rare; with no badge) chrome over brass 8-lug. Fiberskyn Ambassador head on top; Diplomat snare-side bottom.
+
+Rack Tom 12x8 Gretsch - 6-ply maple/gum satin pink flame wrap; stop-sign badge. Fiberskyn Diplomat head on top; clear Diplomat head on bottom.
+
+Floor Tom 14x14 Gretsch - Coated ambassador head on top; Aquarian Classic Clear on bottom.
+
+Hi-hat Top: 13.75'' K. Zildjian - Istanbul 60's era.
+Bottom: 14'' A. Zildjian - Istanbul 70's era top hat used as a bottom hat.
+
+Ride 1 22'' Istanbul Agop - Jazz ride special edition TW prototype.
+
+Ride 2 21'' Bosphorus - Flat ride Master's series.
+
+WAV samples, Kontakt and SFZ format available at:
+www.orangetreesamples.com/blog/free-jazz-funk-drum-sample-library
+
+Hydrogen drumkit format by Oddtime.
+
+License Agreement:
+Orange Tree Samples produced all of these sounds and retains all rights to these sounds.
+You may use the samples included for commercial or non-commercial music productions. You do not need to credit Orange Tree Samples.
+This license to use the sounds granted to the original purchaser of the sounds and is not transferable without the consent of Orange Tree Samples.
+You may not create any other sample-based product that uses sounds from Orange Tree Samples. This includes making other sample libraries that use Orange Tree Samples sounds as source material.
+You may not copy, edit, distribute or sell the original soundsets without the written permission of Orange Tree Samples.
+The software is provided to the user "as is". Orange Tree Samples makes no warranties, either express or implied, with respect to the software and associated materials provided to the user, including but not limited to any warranty of fitness for a particular purpose. Orange Tree Samples does not warrant that the functions contained in the software will meet your requirements, or that the operation of the software will be uninterrupted or error-free, or that defects in the software will be corrected.
+Orange Tree Samples does not warrant or make any representations regarding the use or the results of the use of the software or any documentation provided therewith in terms of their correctness, accuracy, reliability, or otherwise. No information or advice given by Orange Tree Samples shall create a warranty or in any way increase the scope of this warranty.
+Orange Tree Samples is not liable for any claims or damages whatsoever, including property damage, personal injury, intellectual property infringement, loss of profits, or interruption of business, or for any special, consequential or incidental damages, however caused.
+
+Copyright 2008 Orange Tree Samples, All Rights Reserved
+Website: http://www.orangetreesamples.com
+Email: admin@orangetreesamples.com</info>
+ <license>Copyright 2008 Orange Tree Samples, All Rights Reserved</license>
+ <image></image>
+ <imageLicense>undefined license</imageLicense>
+ <componentList>
+  <drumkitComponent>
+   <id>0</id>
+   <name>Main</name>
+   <volume>1</volume>
+  </drumkitComponent>
+ </componentList>
+ <instrumentList>
+  <instrument>
+   <id>33</id>
+   <name>kick - sn off</name>
+   <volume>1</volume>
+   <isMuted>false</isMuted>
+   <pan_L>1</pan_L>
+   <pan_R>1</pan_R>
+   <randomPitchFactor>0</randomPitchFactor>
+   <gain>1</gain>
+   <applyVelocity>true</applyVelocity>
+   <filterActive>false</filterActive>
+   <filterCutoff>1</filterCutoff>
+   <filterResonance>0</filterResonance>
+   <Attack>0</Attack>
+   <Decay>0</Decay>
+   <Sustain>1</Sustain>
+   <Release>1000</Release>
+   <muteGroup>-1</muteGroup>
+   <midiOutChannel>-1</midiOutChannel>
+   <midiOutNote>36</midiOutNote>
+   <isStopNote>false</isStopNote>
+   <sampleSelectionAlgo>VELOCITY</sampleSelectionAlgo>
+   <isHihat>-1</isHihat>
+   <lower_cc>0</lower_cc>
+   <higher_cc>127</higher_cc>
+   <FX1Level>0</FX1Level>
+   <FX2Level>0</FX2Level>
+   <FX3Level>0</FX3Level>
+   <FX4Level>0</FX4Level>
+   <instrumentComponent>
+    <component_id>0</component_id>
+    <gain>1</gain>
+    <layer>
+     <filename>kick - snares off - 1.flac</filename>
+     <min>0</min>
+     <max>0.2</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>kick - snares off - 2.flac</filename>
+     <min>0.2</min>
+     <max>0.4</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>kick - snares off - 3.flac</filename>
+     <min>0.4</min>
+     <max>0.6</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>kick - snares off - 4.flac</filename>
+     <min>0.6</min>
+     <max>0.8</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>kick - snares off - 5.flac</filename>
+     <min>0.8</min>
+     <max>1</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+   </instrumentComponent>
+  </instrument>
+  <instrument>
+   <id>34</id>
+   <name>kick - sn on</name>
+   <volume>1</volume>
+   <isMuted>false</isMuted>
+   <pan_L>1</pan_L>
+   <pan_R>1</pan_R>
+   <randomPitchFactor>0</randomPitchFactor>
+   <gain>1</gain>
+   <applyVelocity>true</applyVelocity>
+   <filterActive>false</filterActive>
+   <filterCutoff>1</filterCutoff>
+   <filterResonance>0</filterResonance>
+   <Attack>0</Attack>
+   <Decay>0</Decay>
+   <Sustain>1</Sustain>
+   <Release>1000</Release>
+   <muteGroup>-1</muteGroup>
+   <midiOutChannel>-1</midiOutChannel>
+   <midiOutNote>37</midiOutNote>
+   <isStopNote>false</isStopNote>
+   <sampleSelectionAlgo>VELOCITY</sampleSelectionAlgo>
+   <isHihat>-1</isHihat>
+   <lower_cc>0</lower_cc>
+   <higher_cc>127</higher_cc>
+   <FX1Level>0</FX1Level>
+   <FX2Level>0</FX2Level>
+   <FX3Level>0</FX3Level>
+   <FX4Level>0</FX4Level>
+   <instrumentComponent>
+    <component_id>0</component_id>
+    <gain>1</gain>
+    <layer>
+     <filename>kick - snares on - 1.flac</filename>
+     <min>0</min>
+     <max>0.17</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>kick - snares on - 2.flac</filename>
+     <min>0.167</min>
+     <max>0.333</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>kick - snares on - 3.flac</filename>
+     <min>0.333</min>
+     <max>0.5</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>kick - snares on - 4.flac</filename>
+     <min>0.5</min>
+     <max>0.667</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>kick - snares on - 5.flac</filename>
+     <min>0.667</min>
+     <max>0.833</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>kick - snares on - 6.flac</filename>
+     <min>0.833</min>
+     <max>1</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+   </instrumentComponent>
+  </instrument>
+  <instrument>
+   <id>30</id>
+   <name>bop kick - sn off</name>
+   <volume>1</volume>
+   <isMuted>false</isMuted>
+   <pan_L>1</pan_L>
+   <pan_R>1</pan_R>
+   <randomPitchFactor>0</randomPitchFactor>
+   <gain>1</gain>
+   <applyVelocity>true</applyVelocity>
+   <filterActive>false</filterActive>
+   <filterCutoff>1</filterCutoff>
+   <filterResonance>0</filterResonance>
+   <Attack>0</Attack>
+   <Decay>0</Decay>
+   <Sustain>1</Sustain>
+   <Release>1000</Release>
+   <muteGroup>-1</muteGroup>
+   <midiOutChannel>-1</midiOutChannel>
+   <midiOutNote>38</midiOutNote>
+   <isStopNote>false</isStopNote>
+   <sampleSelectionAlgo>VELOCITY</sampleSelectionAlgo>
+   <isHihat>-1</isHihat>
+   <lower_cc>0</lower_cc>
+   <higher_cc>127</higher_cc>
+   <FX1Level>0</FX1Level>
+   <FX2Level>0</FX2Level>
+   <FX3Level>0</FX3Level>
+   <FX4Level>0</FX4Level>
+   <instrumentComponent>
+    <component_id>0</component_id>
+    <gain>1</gain>
+    <layer>
+     <filename>bop kick - snares off - 1.flac</filename>
+     <min>0</min>
+     <max>0.167</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>bop kick - snares off - 2.flac</filename>
+     <min>0.167</min>
+     <max>0.333</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>bop kick - snares off - 3.flac</filename>
+     <min>0.333</min>
+     <max>0.5</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>bop kick - snares off - 4.flac</filename>
+     <min>0.5</min>
+     <max>0.667</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>bop kick - snares off - 5.flac</filename>
+     <min>0.667</min>
+     <max>0.833</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>bop kick - snares off - 6.flac</filename>
+     <min>0.833</min>
+     <max>1</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+   </instrumentComponent>
+  </instrument>
+  <instrument>
+   <id>1</id>
+   <name>bop kick - sn on</name>
+   <volume>1</volume>
+   <isMuted>false</isMuted>
+   <pan_L>1</pan_L>
+   <pan_R>1</pan_R>
+   <randomPitchFactor>0</randomPitchFactor>
+   <gain>1</gain>
+   <applyVelocity>true</applyVelocity>
+   <filterActive>false</filterActive>
+   <filterCutoff>1</filterCutoff>
+   <filterResonance>0</filterResonance>
+   <Attack>0</Attack>
+   <Decay>0</Decay>
+   <Sustain>1</Sustain>
+   <Release>1000</Release>
+   <muteGroup>-1</muteGroup>
+   <midiOutChannel>-1</midiOutChannel>
+   <midiOutNote>39</midiOutNote>
+   <isStopNote>false</isStopNote>
+   <sampleSelectionAlgo>VELOCITY</sampleSelectionAlgo>
+   <isHihat>-1</isHihat>
+   <lower_cc>0</lower_cc>
+   <higher_cc>127</higher_cc>
+   <FX1Level>0</FX1Level>
+   <FX2Level>0</FX2Level>
+   <FX3Level>0</FX3Level>
+   <FX4Level>0</FX4Level>
+   <instrumentComponent>
+    <component_id>0</component_id>
+    <gain>1</gain>
+    <layer>
+     <filename>bop kick - snares on - 1.flac</filename>
+     <min>0</min>
+     <max>0.1</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>bop kick - snares on - 2.flac</filename>
+     <min>0.1</min>
+     <max>0.2</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>bop kick - snares on - 3.flac</filename>
+     <min>0.2</min>
+     <max>0.3</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>bop kick - snares on - 4.flac</filename>
+     <min>0.3</min>
+     <max>0.4</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>bop kick - snares on - 5.flac</filename>
+     <min>0.4</min>
+     <max>0.5</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>bop kick - snares on - 6.flac</filename>
+     <min>0.5</min>
+     <max>0.6</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>bop kick - snares on - 7.flac</filename>
+     <min>0.6</min>
+     <max>0.7</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>bop kick - snares on - 8.flac</filename>
+     <min>0.7</min>
+     <max>0.8</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>bop kick - snares on - 9.flac</filename>
+     <min>0.8</min>
+     <max>0.9</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>bop kick - snares on - 91.flac</filename>
+     <min>0.9</min>
+     <max>1</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+   </instrumentComponent>
+  </instrument>
+  <instrument>
+   <id>6</id>
+   <name>snare - on </name>
+   <volume>1.06034</volume>
+   <isMuted>false</isMuted>
+   <pan_L>1</pan_L>
+   <pan_R>1</pan_R>
+   <randomPitchFactor>0</randomPitchFactor>
+   <gain>1</gain>
+   <applyVelocity>true</applyVelocity>
+   <filterActive>false</filterActive>
+   <filterCutoff>1</filterCutoff>
+   <filterResonance>0</filterResonance>
+   <Attack>0</Attack>
+   <Decay>0</Decay>
+   <Sustain>1</Sustain>
+   <Release>1000</Release>
+   <muteGroup>-1</muteGroup>
+   <midiOutChannel>-1</midiOutChannel>
+   <midiOutNote>40</midiOutNote>
+   <isStopNote>false</isStopNote>
+   <sampleSelectionAlgo>VELOCITY</sampleSelectionAlgo>
+   <isHihat>-1</isHihat>
+   <lower_cc>0</lower_cc>
+   <higher_cc>127</higher_cc>
+   <FX1Level>0</FX1Level>
+   <FX2Level>0</FX2Level>
+   <FX3Level>0</FX3Level>
+   <FX4Level>0</FX4Level>
+   <instrumentComponent>
+    <component_id>0</component_id>
+    <gain>1</gain>
+    <layer>
+     <filename>snare - snares on - 1.flac</filename>
+     <min>0</min>
+     <max>0.0625</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>snare - snares on - 2.flac</filename>
+     <min>0.0625</min>
+     <max>0.125</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>snare - snares on - 3.flac</filename>
+     <min>0.125</min>
+     <max>0.1875</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>snare - snares on - 4.flac</filename>
+     <min>0.1875</min>
+     <max>0.25</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>snare - snares on - 5.flac</filename>
+     <min>0.25</min>
+     <max>0.3125</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>snare - snares on - 6.flac</filename>
+     <min>0.3125</min>
+     <max>0.375</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>snare - snares on - 7.flac</filename>
+     <min>0.375</min>
+     <max>0.4375</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>snare - snares on - 8.flac</filename>
+     <min>0.4375</min>
+     <max>0.5</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>snare - snares on - 9.flac</filename>
+     <min>0.5</min>
+     <max>0.5625</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>snare - snares on - 91.flac</filename>
+     <min>0.5625</min>
+     <max>0.625</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>snare - snares on - 92.flac</filename>
+     <min>0.625</min>
+     <max>0.6875</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>snare - snares on - 93.flac</filename>
+     <min>0.6875</min>
+     <max>0.75</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>snare - snares on - 94.flac</filename>
+     <min>0.75</min>
+     <max>0.8125</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>snare - snares on - 95.flac</filename>
+     <min>0.8125</min>
+     <max>0.875</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>snare - snares on - 96.flac</filename>
+     <min>0.875</min>
+     <max>0.9375</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>snare - snares on - 97.flac</filename>
+     <min>0.9375</min>
+     <max>1</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+   </instrumentComponent>
+  </instrument>
+  <instrument>
+   <id>11</id>
+   <name>rimshot - sn on</name>
+   <volume>1.06034</volume>
+   <isMuted>false</isMuted>
+   <pan_L>1</pan_L>
+   <pan_R>1</pan_R>
+   <randomPitchFactor>0</randomPitchFactor>
+   <gain>1</gain>
+   <applyVelocity>true</applyVelocity>
+   <filterActive>false</filterActive>
+   <filterCutoff>1</filterCutoff>
+   <filterResonance>0</filterResonance>
+   <Attack>0</Attack>
+   <Decay>0</Decay>
+   <Sustain>1</Sustain>
+   <Release>1000</Release>
+   <muteGroup>-1</muteGroup>
+   <midiOutChannel>-1</midiOutChannel>
+   <midiOutNote>41</midiOutNote>
+   <isStopNote>false</isStopNote>
+   <sampleSelectionAlgo>VELOCITY</sampleSelectionAlgo>
+   <isHihat>-1</isHihat>
+   <lower_cc>0</lower_cc>
+   <higher_cc>127</higher_cc>
+   <FX1Level>0</FX1Level>
+   <FX2Level>0</FX2Level>
+   <FX3Level>0</FX3Level>
+   <FX4Level>0</FX4Level>
+   <instrumentComponent>
+    <component_id>0</component_id>
+    <gain>1</gain>
+    <layer>
+     <filename>rimshot - snares on - 1.flac</filename>
+     <min>0</min>
+     <max>0.111111</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>rimshot - snares on - 2.flac</filename>
+     <min>0.111111</min>
+     <max>0.222222</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>rimshot - snares on - 3.flac</filename>
+     <min>0.222222</min>
+     <max>0.333333</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>rimshot - snares on - 4.flac</filename>
+     <min>0.333333</min>
+     <max>0.444444</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>rimshot - snares on - 5.flac</filename>
+     <min>0.444444</min>
+     <max>0.555555</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>rimshot - snares on - 6.flac</filename>
+     <min>0.555555</min>
+     <max>0.666666</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>rimshot - snares on - 7.flac</filename>
+     <min>0.666666</min>
+     <max>0.777777</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>rimshot - snares on - 8.flac</filename>
+     <min>0.777777</min>
+     <max>0.888888</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>rimshot - snares on - 9.flac</filename>
+     <min>0.888888</min>
+     <max>1</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+   </instrumentComponent>
+  </instrument>
+  <instrument>
+   <id>7</id>
+   <name>stick - sn on </name>
+   <volume>1</volume>
+   <isMuted>false</isMuted>
+   <pan_L>1</pan_L>
+   <pan_R>1</pan_R>
+   <randomPitchFactor>0</randomPitchFactor>
+   <gain>1</gain>
+   <applyVelocity>true</applyVelocity>
+   <filterActive>false</filterActive>
+   <filterCutoff>1</filterCutoff>
+   <filterResonance>0</filterResonance>
+   <Attack>0</Attack>
+   <Decay>0</Decay>
+   <Sustain>1</Sustain>
+   <Release>1000</Release>
+   <muteGroup>-1</muteGroup>
+   <midiOutChannel>-1</midiOutChannel>
+   <midiOutNote>42</midiOutNote>
+   <isStopNote>false</isStopNote>
+   <sampleSelectionAlgo>VELOCITY</sampleSelectionAlgo>
+   <isHihat>-1</isHihat>
+   <lower_cc>0</lower_cc>
+   <higher_cc>127</higher_cc>
+   <FX1Level>0</FX1Level>
+   <FX2Level>0</FX2Level>
+   <FX3Level>0</FX3Level>
+   <FX4Level>0</FX4Level>
+   <instrumentComponent>
+    <component_id>0</component_id>
+    <gain>1</gain>
+    <layer>
+     <filename>stickshot - snares on - 1.flac</filename>
+     <min>0</min>
+     <max>0.125</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>stickshot - snares on - 2.flac</filename>
+     <min>0.125</min>
+     <max>0.25</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>stickshot - snares on - 3.flac</filename>
+     <min>0.25</min>
+     <max>0.375</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>stickshot - snares on - 5.flac</filename>
+     <min>0.5</min>
+     <max>0.625</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>stickshot - snares on - 6.flac</filename>
+     <min>0.625</min>
+     <max>0.75</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>stickshot - snares on - 7.flac</filename>
+     <min>0.75</min>
+     <max>0.875</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>stickshot - snares on - 8.flac</filename>
+     <min>0.875</min>
+     <max>1</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+   </instrumentComponent>
+  </instrument>
+  <instrument>
+   <id>8</id>
+   <name>xstick - sn on </name>
+   <volume>1</volume>
+   <isMuted>false</isMuted>
+   <pan_L>1</pan_L>
+   <pan_R>1</pan_R>
+   <randomPitchFactor>0</randomPitchFactor>
+   <gain>1</gain>
+   <applyVelocity>true</applyVelocity>
+   <filterActive>false</filterActive>
+   <filterCutoff>1</filterCutoff>
+   <filterResonance>0</filterResonance>
+   <Attack>0</Attack>
+   <Decay>0</Decay>
+   <Sustain>1</Sustain>
+   <Release>1000</Release>
+   <muteGroup>-1</muteGroup>
+   <midiOutChannel>-1</midiOutChannel>
+   <midiOutNote>43</midiOutNote>
+   <isStopNote>false</isStopNote>
+   <sampleSelectionAlgo>VELOCITY</sampleSelectionAlgo>
+   <isHihat>-1</isHihat>
+   <lower_cc>0</lower_cc>
+   <higher_cc>127</higher_cc>
+   <FX1Level>0</FX1Level>
+   <FX2Level>0</FX2Level>
+   <FX3Level>0</FX3Level>
+   <FX4Level>0</FX4Level>
+   <instrumentComponent>
+    <component_id>0</component_id>
+    <gain>1</gain>
+    <layer>
+     <filename>xstick - snares on - 1.flac</filename>
+     <min>0</min>
+     <max>0.125</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>xstick - snares on - 2.flac</filename>
+     <min>0.125</min>
+     <max>0.25</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>xstick - snares on - 3.flac</filename>
+     <min>0.25</min>
+     <max>0.375</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>xstick - snares on - 4.flac</filename>
+     <min>0.375</min>
+     <max>0.5</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>xstick - snares on - 5.flac</filename>
+     <min>0.5</min>
+     <max>0.625</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>xstick - snares on - 6.flac</filename>
+     <min>0.625</min>
+     <max>0.75</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>xstick - snares on - 7.flac</filename>
+     <min>0.75</min>
+     <max>0.875</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>xstick - snares on - 8.flac</filename>
+     <min>0.875</min>
+     <max>1</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+   </instrumentComponent>
+  </instrument>
+  <instrument>
+   <id>36</id>
+   <name>snare - off</name>
+   <volume>1</volume>
+   <isMuted>false</isMuted>
+   <pan_L>1</pan_L>
+   <pan_R>1</pan_R>
+   <randomPitchFactor>0</randomPitchFactor>
+   <gain>1</gain>
+   <applyVelocity>true</applyVelocity>
+   <filterActive>false</filterActive>
+   <filterCutoff>1</filterCutoff>
+   <filterResonance>0</filterResonance>
+   <Attack>0</Attack>
+   <Decay>0</Decay>
+   <Sustain>1</Sustain>
+   <Release>1000</Release>
+   <muteGroup>-1</muteGroup>
+   <midiOutChannel>-1</midiOutChannel>
+   <midiOutNote>44</midiOutNote>
+   <isStopNote>false</isStopNote>
+   <sampleSelectionAlgo>VELOCITY</sampleSelectionAlgo>
+   <isHihat>-1</isHihat>
+   <lower_cc>0</lower_cc>
+   <higher_cc>127</higher_cc>
+   <FX1Level>0</FX1Level>
+   <FX2Level>0</FX2Level>
+   <FX3Level>0</FX3Level>
+   <FX4Level>0</FX4Level>
+   <instrumentComponent>
+    <component_id>0</component_id>
+    <gain>1</gain>
+    <layer>
+     <filename>snare - snares off - 1.flac</filename>
+     <min>0</min>
+     <max>0.16667</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>snare - snares off - 2.flac</filename>
+     <min>0.16667</min>
+     <max>0.333</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>snare - snares off - 3.flac</filename>
+     <min>0.333</min>
+     <max>0.5</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>snare - snares off - 4.flac</filename>
+     <min>0.5</min>
+     <max>0.6667</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>snare - snares off - 5.flac</filename>
+     <min>0.6667</min>
+     <max>0.833</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>snare - snares off - 6.flac</filename>
+     <min>0.833</min>
+     <max>1</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+   </instrumentComponent>
+  </instrument>
+  <instrument>
+   <id>35</id>
+   <name>rimshot - sn off</name>
+   <volume>1.08621</volume>
+   <isMuted>false</isMuted>
+   <pan_L>1</pan_L>
+   <pan_R>1</pan_R>
+   <randomPitchFactor>0</randomPitchFactor>
+   <gain>1</gain>
+   <applyVelocity>true</applyVelocity>
+   <filterActive>false</filterActive>
+   <filterCutoff>1</filterCutoff>
+   <filterResonance>0</filterResonance>
+   <Attack>0</Attack>
+   <Decay>0</Decay>
+   <Sustain>1</Sustain>
+   <Release>1000</Release>
+   <muteGroup>-1</muteGroup>
+   <midiOutChannel>-1</midiOutChannel>
+   <midiOutNote>45</midiOutNote>
+   <isStopNote>false</isStopNote>
+   <sampleSelectionAlgo>VELOCITY</sampleSelectionAlgo>
+   <isHihat>-1</isHihat>
+   <lower_cc>0</lower_cc>
+   <higher_cc>127</higher_cc>
+   <FX1Level>0</FX1Level>
+   <FX2Level>0</FX2Level>
+   <FX3Level>0</FX3Level>
+   <FX4Level>0</FX4Level>
+   <instrumentComponent>
+    <component_id>0</component_id>
+    <gain>1</gain>
+    <layer>
+     <filename>rimshot - snares off - 1.flac</filename>
+     <min>0</min>
+     <max>0.1667</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>rimshot - snares off - 2.flac</filename>
+     <min>0.1667</min>
+     <max>0.333</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>rimshot - snares off - 3.flac</filename>
+     <min>0.333</min>
+     <max>0.5</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>rimshot - snares off - 4.flac</filename>
+     <min>0.5</min>
+     <max>0.6667</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>rimshot - snares off - 5.flac</filename>
+     <min>0.6667</min>
+     <max>0.833</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>rimshot - snares off - 6.flac</filename>
+     <min>0.833</min>
+     <max>1</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+   </instrumentComponent>
+  </instrument>
+  <instrument>
+   <id>37</id>
+   <name>stick - sn off</name>
+   <volume>1</volume>
+   <isMuted>false</isMuted>
+   <pan_L>1</pan_L>
+   <pan_R>1</pan_R>
+   <randomPitchFactor>0</randomPitchFactor>
+   <gain>1</gain>
+   <applyVelocity>true</applyVelocity>
+   <filterActive>false</filterActive>
+   <filterCutoff>1</filterCutoff>
+   <filterResonance>0</filterResonance>
+   <Attack>0</Attack>
+   <Decay>0</Decay>
+   <Sustain>1</Sustain>
+   <Release>1000</Release>
+   <muteGroup>-1</muteGroup>
+   <midiOutChannel>-1</midiOutChannel>
+   <midiOutNote>46</midiOutNote>
+   <isStopNote>false</isStopNote>
+   <sampleSelectionAlgo>VELOCITY</sampleSelectionAlgo>
+   <isHihat>-1</isHihat>
+   <lower_cc>0</lower_cc>
+   <higher_cc>127</higher_cc>
+   <FX1Level>0</FX1Level>
+   <FX2Level>0</FX2Level>
+   <FX3Level>0</FX3Level>
+   <FX4Level>0</FX4Level>
+   <instrumentComponent>
+    <component_id>0</component_id>
+    <gain>1</gain>
+    <layer>
+     <filename>stickshot - snares off - 1.flac</filename>
+     <min>0</min>
+     <max>0.1667</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>stickshot - snares off - 2.flac</filename>
+     <min>0.1667</min>
+     <max>0.333</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>stickshot - snares off - 3.flac</filename>
+     <min>0.333</min>
+     <max>0.5</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>stickshot - snares off - 4.flac</filename>
+     <min>0.5</min>
+     <max>0.6667</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>stickshot - snares off - 5.flac</filename>
+     <min>0.6667</min>
+     <max>0.833</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>stickshot - snares off - 6.flac</filename>
+     <min>0.833</min>
+     <max>1</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+   </instrumentComponent>
+  </instrument>
+  <instrument>
+   <id>38</id>
+   <name>xstick - sn off</name>
+   <volume>1</volume>
+   <isMuted>false</isMuted>
+   <pan_L>1</pan_L>
+   <pan_R>1</pan_R>
+   <randomPitchFactor>0</randomPitchFactor>
+   <gain>1</gain>
+   <applyVelocity>true</applyVelocity>
+   <filterActive>false</filterActive>
+   <filterCutoff>1</filterCutoff>
+   <filterResonance>0</filterResonance>
+   <Attack>0</Attack>
+   <Decay>0</Decay>
+   <Sustain>1</Sustain>
+   <Release>1000</Release>
+   <muteGroup>-1</muteGroup>
+   <midiOutChannel>-1</midiOutChannel>
+   <midiOutNote>47</midiOutNote>
+   <isStopNote>false</isStopNote>
+   <sampleSelectionAlgo>VELOCITY</sampleSelectionAlgo>
+   <isHihat>-1</isHihat>
+   <lower_cc>0</lower_cc>
+   <higher_cc>127</higher_cc>
+   <FX1Level>0</FX1Level>
+   <FX2Level>0</FX2Level>
+   <FX3Level>0</FX3Level>
+   <FX4Level>0</FX4Level>
+   <instrumentComponent>
+    <component_id>0</component_id>
+    <gain>1</gain>
+    <layer>
+     <filename>xstick - snares off - 1.flac</filename>
+     <min>0</min>
+     <max>0.143</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>xstick - snares off - 2.flac</filename>
+     <min>0.143</min>
+     <max>0.286</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>xstick - snares off - 3.flac</filename>
+     <min>0.286</min>
+     <max>0.429</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>xstick - snares off - 4.flac</filename>
+     <min>0.429</min>
+     <max>0.571</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>xstick - snares off - 5.flac</filename>
+     <min>0.571</min>
+     <max>0.714</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>xstick - snares off - 6.flac</filename>
+     <min>0.714</min>
+     <max>0.857</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>xstick - snares off - 7.flac</filename>
+     <min>0.857</min>
+     <max>1</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+   </instrumentComponent>
+  </instrument>
+  <instrument>
+   <id>12</id>
+   <name>HH - pedal</name>
+   <volume>0.478448</volume>
+   <isMuted>false</isMuted>
+   <pan_L>1</pan_L>
+   <pan_R>1</pan_R>
+   <randomPitchFactor>0</randomPitchFactor>
+   <gain>1</gain>
+   <applyVelocity>true</applyVelocity>
+   <filterActive>false</filterActive>
+   <filterCutoff>1</filterCutoff>
+   <filterResonance>0</filterResonance>
+   <Attack>0</Attack>
+   <Decay>0</Decay>
+   <Sustain>1</Sustain>
+   <Release>1000</Release>
+   <muteGroup>0</muteGroup>
+   <midiOutChannel>-1</midiOutChannel>
+   <midiOutNote>48</midiOutNote>
+   <isStopNote>false</isStopNote>
+   <sampleSelectionAlgo>VELOCITY</sampleSelectionAlgo>
+   <isHihat>-1</isHihat>
+   <lower_cc>0</lower_cc>
+   <higher_cc>127</higher_cc>
+   <FX1Level>0</FX1Level>
+   <FX2Level>0</FX2Level>
+   <FX3Level>0</FX3Level>
+   <FX4Level>0</FX4Level>
+   <instrumentComponent>
+    <component_id>0</component_id>
+    <gain>1</gain>
+    <layer>
+     <filename>hihat - close - 1.flac</filename>
+     <min>0</min>
+     <max>0.143</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>hihat - close - 2.flac</filename>
+     <min>0.143</min>
+     <max>0.2857</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>hihat - close - 3.flac</filename>
+     <min>0.2857</min>
+     <max>0.4286</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>hihat - close - 4.flac</filename>
+     <min>0.4286</min>
+     <max>0.5714</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>hihat - close - 5.flac</filename>
+     <min>0.5714</min>
+     <max>0.7143</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>hihat - close - 6.flac</filename>
+     <min>0.7143</min>
+     <max>0.8571</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>hihat - close - 7.flac</filename>
+     <min>0.8571</min>
+     <max>1</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+   </instrumentComponent>
+  </instrument>
+  <instrument>
+   <id>13</id>
+   <name>HH - closed </name>
+   <volume>0.87931</volume>
+   <isMuted>false</isMuted>
+   <pan_L>1</pan_L>
+   <pan_R>1</pan_R>
+   <randomPitchFactor>0</randomPitchFactor>
+   <gain>1</gain>
+   <applyVelocity>true</applyVelocity>
+   <filterActive>false</filterActive>
+   <filterCutoff>1</filterCutoff>
+   <filterResonance>0</filterResonance>
+   <Attack>0</Attack>
+   <Decay>0</Decay>
+   <Sustain>1</Sustain>
+   <Release>1000</Release>
+   <muteGroup>0</muteGroup>
+   <midiOutChannel>-1</midiOutChannel>
+   <midiOutNote>49</midiOutNote>
+   <isStopNote>false</isStopNote>
+   <sampleSelectionAlgo>VELOCITY</sampleSelectionAlgo>
+   <isHihat>-1</isHihat>
+   <lower_cc>0</lower_cc>
+   <higher_cc>127</higher_cc>
+   <FX1Level>0</FX1Level>
+   <FX2Level>0</FX2Level>
+   <FX3Level>0</FX3Level>
+   <FX4Level>0</FX4Level>
+   <instrumentComponent>
+    <component_id>0</component_id>
+    <gain>1</gain>
+    <layer>
+     <filename>hihat - closed - 1.flac</filename>
+     <min>0</min>
+     <max>0.125</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>hihat - closed - 2.flac</filename>
+     <min>0.125</min>
+     <max>0.25</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>hihat - closed - 3.flac</filename>
+     <min>0.25</min>
+     <max>0.375</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>hihat - closed - 4.flac</filename>
+     <min>0.375</min>
+     <max>0.5</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>hihat - closed - 5.flac</filename>
+     <min>0.5</min>
+     <max>0.625</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>hihat - closed - 6.flac</filename>
+     <min>0.625</min>
+     <max>0.75</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>hihat - closed - 7.flac</filename>
+     <min>0.75</min>
+     <max>0.875</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>hihat - closed - 8.flac</filename>
+     <min>0.875</min>
+     <max>1</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+   </instrumentComponent>
+  </instrument>
+  <instrument>
+   <id>14</id>
+   <name>HH - closed side </name>
+   <volume>0.711207</volume>
+   <isMuted>false</isMuted>
+   <pan_L>1</pan_L>
+   <pan_R>1</pan_R>
+   <randomPitchFactor>0</randomPitchFactor>
+   <gain>1</gain>
+   <applyVelocity>true</applyVelocity>
+   <filterActive>false</filterActive>
+   <filterCutoff>1</filterCutoff>
+   <filterResonance>0</filterResonance>
+   <Attack>0</Attack>
+   <Decay>0</Decay>
+   <Sustain>1</Sustain>
+   <Release>1000</Release>
+   <muteGroup>0</muteGroup>
+   <midiOutChannel>-1</midiOutChannel>
+   <midiOutNote>50</midiOutNote>
+   <isStopNote>false</isStopNote>
+   <sampleSelectionAlgo>VELOCITY</sampleSelectionAlgo>
+   <isHihat>-1</isHihat>
+   <lower_cc>0</lower_cc>
+   <higher_cc>127</higher_cc>
+   <FX1Level>0</FX1Level>
+   <FX2Level>0</FX2Level>
+   <FX3Level>0</FX3Level>
+   <FX4Level>0</FX4Level>
+   <instrumentComponent>
+    <component_id>0</component_id>
+    <gain>1</gain>
+    <layer>
+     <filename>hihat - closed side - 1.flac</filename>
+     <min>0</min>
+     <max>0.2</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>hihat - closed side - 2.flac</filename>
+     <min>0.2</min>
+     <max>0.4</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>hihat - closed side - 4.flac</filename>
+     <min>0.4</min>
+     <max>0.6</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>hihat - closed side - 5.flac</filename>
+     <min>0.8</min>
+     <max>1</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+   </instrumentComponent>
+  </instrument>
+  <instrument>
+   <id>15</id>
+   <name>HH-open release </name>
+   <volume>0.724138</volume>
+   <isMuted>false</isMuted>
+   <pan_L>1</pan_L>
+   <pan_R>1</pan_R>
+   <randomPitchFactor>0</randomPitchFactor>
+   <gain>1</gain>
+   <applyVelocity>true</applyVelocity>
+   <filterActive>false</filterActive>
+   <filterCutoff>1</filterCutoff>
+   <filterResonance>0</filterResonance>
+   <Attack>0</Attack>
+   <Decay>0</Decay>
+   <Sustain>1</Sustain>
+   <Release>1000</Release>
+   <muteGroup>0</muteGroup>
+   <midiOutChannel>-1</midiOutChannel>
+   <midiOutNote>51</midiOutNote>
+   <isStopNote>false</isStopNote>
+   <sampleSelectionAlgo>VELOCITY</sampleSelectionAlgo>
+   <isHihat>-1</isHihat>
+   <lower_cc>0</lower_cc>
+   <higher_cc>127</higher_cc>
+   <FX1Level>0</FX1Level>
+   <FX2Level>0</FX2Level>
+   <FX3Level>0</FX3Level>
+   <FX4Level>0</FX4Level>
+   <instrumentComponent>
+    <component_id>0</component_id>
+    <gain>1</gain>
+    <layer>
+     <filename>hihat - open - 1.flac</filename>
+     <min>0</min>
+     <max>0.33</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>hihat - open - 2.flac</filename>
+     <min>0.33</min>
+     <max>0.66</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>hihat - open - 3.flac</filename>
+     <min>0.66</min>
+     <max>1</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+   </instrumentComponent>
+  </instrument>
+  <instrument>
+   <id>16</id>
+   <name>HH-open 1 </name>
+   <volume>0.62069</volume>
+   <isMuted>false</isMuted>
+   <pan_L>1</pan_L>
+   <pan_R>1</pan_R>
+   <randomPitchFactor>0</randomPitchFactor>
+   <gain>1</gain>
+   <applyVelocity>true</applyVelocity>
+   <filterActive>false</filterActive>
+   <filterCutoff>1</filterCutoff>
+   <filterResonance>0</filterResonance>
+   <Attack>0</Attack>
+   <Decay>0</Decay>
+   <Sustain>1</Sustain>
+   <Release>1000</Release>
+   <muteGroup>0</muteGroup>
+   <midiOutChannel>-1</midiOutChannel>
+   <midiOutNote>52</midiOutNote>
+   <isStopNote>false</isStopNote>
+   <sampleSelectionAlgo>VELOCITY</sampleSelectionAlgo>
+   <isHihat>-1</isHihat>
+   <lower_cc>0</lower_cc>
+   <higher_cc>127</higher_cc>
+   <FX1Level>0</FX1Level>
+   <FX2Level>0</FX2Level>
+   <FX3Level>0</FX3Level>
+   <FX4Level>0</FX4Level>
+   <instrumentComponent>
+    <component_id>0</component_id>
+    <gain>1</gain>
+    <layer>
+     <filename>hihat - opened 1 - 1.flac</filename>
+     <min>0</min>
+     <max>0.125</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>hihat - opened 1 - 2.flac</filename>
+     <min>0.125</min>
+     <max>0.25</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>hihat - opened 1 - 3.flac</filename>
+     <min>0.25</min>
+     <max>0.375</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>hihat - opened 1 - 4.flac</filename>
+     <min>0.375</min>
+     <max>0.5</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>hihat - opened 1 - 5.flac</filename>
+     <min>0.5</min>
+     <max>0.625</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>hihat - opened 1 - 6.flac</filename>
+     <min>0.625</min>
+     <max>0.75</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>hihat - opened 1 - 7.flac</filename>
+     <min>0.75</min>
+     <max>0.875</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>hihat - opened 1 - 8.flac</filename>
+     <min>0.875</min>
+     <max>1</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+   </instrumentComponent>
+  </instrument>
+  <instrument>
+   <id>17</id>
+   <name>HH-open 2 </name>
+   <volume>0.62069</volume>
+   <isMuted>false</isMuted>
+   <pan_L>1</pan_L>
+   <pan_R>1</pan_R>
+   <randomPitchFactor>0</randomPitchFactor>
+   <gain>1</gain>
+   <applyVelocity>true</applyVelocity>
+   <filterActive>false</filterActive>
+   <filterCutoff>1</filterCutoff>
+   <filterResonance>0</filterResonance>
+   <Attack>0</Attack>
+   <Decay>0</Decay>
+   <Sustain>1</Sustain>
+   <Release>1000</Release>
+   <muteGroup>0</muteGroup>
+   <midiOutChannel>-1</midiOutChannel>
+   <midiOutNote>53</midiOutNote>
+   <isStopNote>false</isStopNote>
+   <sampleSelectionAlgo>VELOCITY</sampleSelectionAlgo>
+   <isHihat>-1</isHihat>
+   <lower_cc>0</lower_cc>
+   <higher_cc>127</higher_cc>
+   <FX1Level>0</FX1Level>
+   <FX2Level>0</FX2Level>
+   <FX3Level>0</FX3Level>
+   <FX4Level>0</FX4Level>
+   <instrumentComponent>
+    <component_id>0</component_id>
+    <gain>1</gain>
+    <layer>
+     <filename>hihat - opened 2 - 1.flac</filename>
+     <min>0</min>
+     <max>0.143</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>hihat - opened 2 - 2.flac</filename>
+     <min>0.143</min>
+     <max>0.286</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>hihat - opened 2 - 3.flac</filename>
+     <min>0.286</min>
+     <max>0.429</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>hihat - opened 2 - 4.flac</filename>
+     <min>0.429</min>
+     <max>0.571</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>hihat - opened 2 - 5.flac</filename>
+     <min>0.571</min>
+     <max>0.714</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>hihat - opened 2 - 6.flac</filename>
+     <min>0.714</min>
+     <max>0.857</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>hihat - opened 2 - 7.flac</filename>
+     <min>0.857</min>
+     <max>1</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+   </instrumentComponent>
+  </instrument>
+  <instrument>
+   <id>18</id>
+   <name>HH-open 3</name>
+   <volume>0.62069</volume>
+   <isMuted>false</isMuted>
+   <pan_L>1</pan_L>
+   <pan_R>0.96</pan_R>
+   <randomPitchFactor>0</randomPitchFactor>
+   <gain>1</gain>
+   <applyVelocity>true</applyVelocity>
+   <filterActive>false</filterActive>
+   <filterCutoff>1</filterCutoff>
+   <filterResonance>0</filterResonance>
+   <Attack>0</Attack>
+   <Decay>0</Decay>
+   <Sustain>1</Sustain>
+   <Release>1000</Release>
+   <muteGroup>0</muteGroup>
+   <midiOutChannel>-1</midiOutChannel>
+   <midiOutNote>54</midiOutNote>
+   <isStopNote>false</isStopNote>
+   <sampleSelectionAlgo>VELOCITY</sampleSelectionAlgo>
+   <isHihat>-1</isHihat>
+   <lower_cc>0</lower_cc>
+   <higher_cc>127</higher_cc>
+   <FX1Level>0</FX1Level>
+   <FX2Level>0</FX2Level>
+   <FX3Level>0</FX3Level>
+   <FX4Level>0</FX4Level>
+   <instrumentComponent>
+    <component_id>0</component_id>
+    <gain>1</gain>
+    <layer>
+     <filename>hihat - opened 3 - 1.flac</filename>
+     <min>0</min>
+     <max>0.111</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>hihat - opened 3 - 2.flac</filename>
+     <min>0.111</min>
+     <max>0.222</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>hihat - opened 3 - 3.flac</filename>
+     <min>0.222</min>
+     <max>0.333</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>hihat - opened 3 - 4.flac</filename>
+     <min>0.333</min>
+     <max>0.444</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>hihat - opened 3 - 5.flac</filename>
+     <min>0.444</min>
+     <max>0.555</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>hihat - opened 3 - 6.flac</filename>
+     <min>0.555</min>
+     <max>0.666</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>hihat - opened 3 - 7.flac</filename>
+     <min>0.666</min>
+     <max>0.777</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>hihat - opened 3 - 8.flac</filename>
+     <min>0.777</min>
+     <max>0.888</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>hihat - opened 3 - 9.flac</filename>
+     <min>0.888</min>
+     <max>1</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+   </instrumentComponent>
+  </instrument>
+  <instrument>
+   <id>19</id>
+   <name>HH-open 4</name>
+   <volume>0.672414</volume>
+   <isMuted>false</isMuted>
+   <pan_L>1</pan_L>
+   <pan_R>1</pan_R>
+   <randomPitchFactor>0</randomPitchFactor>
+   <gain>1</gain>
+   <applyVelocity>true</applyVelocity>
+   <filterActive>false</filterActive>
+   <filterCutoff>1</filterCutoff>
+   <filterResonance>0</filterResonance>
+   <Attack>0</Attack>
+   <Decay>0</Decay>
+   <Sustain>1</Sustain>
+   <Release>1000</Release>
+   <muteGroup>0</muteGroup>
+   <midiOutChannel>-1</midiOutChannel>
+   <midiOutNote>55</midiOutNote>
+   <isStopNote>false</isStopNote>
+   <sampleSelectionAlgo>VELOCITY</sampleSelectionAlgo>
+   <isHihat>-1</isHihat>
+   <lower_cc>0</lower_cc>
+   <higher_cc>127</higher_cc>
+   <FX1Level>0</FX1Level>
+   <FX2Level>0</FX2Level>
+   <FX3Level>0</FX3Level>
+   <FX4Level>0</FX4Level>
+   <instrumentComponent>
+    <component_id>0</component_id>
+    <gain>1</gain>
+    <layer>
+     <filename>hihat - opened 4 - 1.flac</filename>
+     <min>0</min>
+     <max>0.166667</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>hihat - opened 4 - 2.flac</filename>
+     <min>0.166667</min>
+     <max>0.333333</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>hihat - opened 4 - 3.flac</filename>
+     <min>0.333333</min>
+     <max>0.5</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>hihat - opened 4 - 4.flac</filename>
+     <min>0.5</min>
+     <max>0.666667</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>hihat - opened 4 - 5.flac</filename>
+     <min>0.666667</min>
+     <max>0.833333</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>hihat - opened 4 - 6.flac</filename>
+     <min>0.833333</min>
+     <max>1</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+   </instrumentComponent>
+  </instrument>
+  <instrument>
+   <id>20</id>
+   <name>HH-open 5</name>
+   <volume>0.685345</volume>
+   <isMuted>false</isMuted>
+   <pan_L>1</pan_L>
+   <pan_R>1</pan_R>
+   <randomPitchFactor>0</randomPitchFactor>
+   <gain>1</gain>
+   <applyVelocity>true</applyVelocity>
+   <filterActive>false</filterActive>
+   <filterCutoff>1</filterCutoff>
+   <filterResonance>0</filterResonance>
+   <Attack>0</Attack>
+   <Decay>0</Decay>
+   <Sustain>1</Sustain>
+   <Release>1000</Release>
+   <muteGroup>0</muteGroup>
+   <midiOutChannel>-1</midiOutChannel>
+   <midiOutNote>56</midiOutNote>
+   <isStopNote>false</isStopNote>
+   <sampleSelectionAlgo>VELOCITY</sampleSelectionAlgo>
+   <isHihat>-1</isHihat>
+   <lower_cc>0</lower_cc>
+   <higher_cc>127</higher_cc>
+   <FX1Level>0</FX1Level>
+   <FX2Level>0</FX2Level>
+   <FX3Level>0</FX3Level>
+   <FX4Level>0</FX4Level>
+   <instrumentComponent>
+    <component_id>0</component_id>
+    <gain>1</gain>
+    <layer>
+     <filename>hihat - opened 5 - 1.flac</filename>
+     <min>0</min>
+     <max>0.25</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>hihat - opened 5 - 2.flac</filename>
+     <min>0.25</min>
+     <max>0.5</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>hihat - opened 5 - 3.flac</filename>
+     <min>0.5</min>
+     <max>0.75</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>hihat - opened 5 - 4.flac</filename>
+     <min>0.75</min>
+     <max>1</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+   </instrumentComponent>
+  </instrument>
+  <instrument>
+   <id>31</id>
+   <name>tom 2 - sn off</name>
+   <volume>1</volume>
+   <isMuted>false</isMuted>
+   <pan_L>1</pan_L>
+   <pan_R>1</pan_R>
+   <randomPitchFactor>0</randomPitchFactor>
+   <gain>1</gain>
+   <applyVelocity>true</applyVelocity>
+   <filterActive>false</filterActive>
+   <filterCutoff>1</filterCutoff>
+   <filterResonance>0</filterResonance>
+   <Attack>0</Attack>
+   <Decay>0</Decay>
+   <Sustain>1</Sustain>
+   <Release>1000</Release>
+   <muteGroup>-1</muteGroup>
+   <midiOutChannel>-1</midiOutChannel>
+   <midiOutNote>57</midiOutNote>
+   <isStopNote>false</isStopNote>
+   <sampleSelectionAlgo>VELOCITY</sampleSelectionAlgo>
+   <isHihat>-1</isHihat>
+   <lower_cc>0</lower_cc>
+   <higher_cc>127</higher_cc>
+   <FX1Level>0</FX1Level>
+   <FX2Level>0</FX2Level>
+   <FX3Level>0</FX3Level>
+   <FX4Level>0</FX4Level>
+   <instrumentComponent>
+    <component_id>0</component_id>
+    <gain>1</gain>
+    <layer>
+     <filename>floor tom - snares off - 1.flac</filename>
+     <min>0</min>
+     <max>0.143</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>floor tom - snares off - 2.flac</filename>
+     <min>0.143</min>
+     <max>0.286</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>floor tom - snares off - 3.flac</filename>
+     <min>0.286</min>
+     <max>0.429</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>floor tom - snares off - 4.flac</filename>
+     <min>0.429</min>
+     <max>0.571</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>floor tom - snares off - 5.flac</filename>
+     <min>0.571</min>
+     <max>0.714</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>floor tom - snares off - 6.flac</filename>
+     <min>0.714</min>
+     <max>0.857</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>floor tom - snares off - 7.flac</filename>
+     <min>0.857</min>
+     <max>1</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+   </instrumentComponent>
+  </instrument>
+  <instrument>
+   <id>24</id>
+   <name>tom 2 - sn on </name>
+   <volume>1</volume>
+   <isMuted>false</isMuted>
+   <pan_L>1</pan_L>
+   <pan_R>1</pan_R>
+   <randomPitchFactor>0</randomPitchFactor>
+   <gain>1</gain>
+   <applyVelocity>true</applyVelocity>
+   <filterActive>false</filterActive>
+   <filterCutoff>1</filterCutoff>
+   <filterResonance>0</filterResonance>
+   <Attack>0</Attack>
+   <Decay>0</Decay>
+   <Sustain>1</Sustain>
+   <Release>1000</Release>
+   <muteGroup>-1</muteGroup>
+   <midiOutChannel>-1</midiOutChannel>
+   <midiOutNote>58</midiOutNote>
+   <isStopNote>false</isStopNote>
+   <sampleSelectionAlgo>VELOCITY</sampleSelectionAlgo>
+   <isHihat>-1</isHihat>
+   <lower_cc>0</lower_cc>
+   <higher_cc>127</higher_cc>
+   <FX1Level>0</FX1Level>
+   <FX2Level>0</FX2Level>
+   <FX3Level>0</FX3Level>
+   <FX4Level>0</FX4Level>
+   <instrumentComponent>
+    <component_id>0</component_id>
+    <gain>1</gain>
+    <layer>
+     <filename>floor tom - snares on - 1.flac</filename>
+     <min>0</min>
+     <max>0.125</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>floor tom - snares on - 2.flac</filename>
+     <min>0.125</min>
+     <max>0.25</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>floor tom - snares on - 3.flac</filename>
+     <min>0.25</min>
+     <max>0.375</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>floor tom - snares on - 4.flac</filename>
+     <min>0.375</min>
+     <max>0.5</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>floor tom - snares on - 5.flac</filename>
+     <min>0.5</min>
+     <max>0.625</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>floor tom - snares on - 6.flac</filename>
+     <min>0.625</min>
+     <max>0.75</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>floor tom - snares on - 7.flac</filename>
+     <min>0.75</min>
+     <max>0.875</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>floor tom - snares on - 8.flac</filename>
+     <min>0.875</min>
+     <max>1</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+   </instrumentComponent>
+  </instrument>
+  <instrument>
+   <id>32</id>
+   <name>tom 1 - sn off</name>
+   <volume>1</volume>
+   <isMuted>false</isMuted>
+   <pan_L>1</pan_L>
+   <pan_R>1</pan_R>
+   <randomPitchFactor>0</randomPitchFactor>
+   <gain>1</gain>
+   <applyVelocity>true</applyVelocity>
+   <filterActive>false</filterActive>
+   <filterCutoff>1</filterCutoff>
+   <filterResonance>0</filterResonance>
+   <Attack>0</Attack>
+   <Decay>0</Decay>
+   <Sustain>1</Sustain>
+   <Release>1000</Release>
+   <muteGroup>-1</muteGroup>
+   <midiOutChannel>-1</midiOutChannel>
+   <midiOutNote>59</midiOutNote>
+   <isStopNote>false</isStopNote>
+   <sampleSelectionAlgo>VELOCITY</sampleSelectionAlgo>
+   <isHihat>-1</isHihat>
+   <lower_cc>0</lower_cc>
+   <higher_cc>127</higher_cc>
+   <FX1Level>0</FX1Level>
+   <FX2Level>0</FX2Level>
+   <FX3Level>0</FX3Level>
+   <FX4Level>0</FX4Level>
+   <instrumentComponent>
+    <component_id>0</component_id>
+    <gain>1</gain>
+    <layer>
+     <filename>rack tom - snares off - 1.flac</filename>
+     <min>0</min>
+     <max>0.125</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>rack tom - snares off - 2.flac</filename>
+     <min>0.125</min>
+     <max>0.25</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>rack tom - snares off - 3.flac</filename>
+     <min>0.25</min>
+     <max>0.375</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>rack tom - snares off - 4.flac</filename>
+     <min>0.375</min>
+     <max>0.5</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>rack tom - snares off - 5.flac</filename>
+     <min>0.5</min>
+     <max>0.625</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>rack tom - snares off - 6.flac</filename>
+     <min>0.625</min>
+     <max>0.75</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>rack tom - snares off - 7.flac</filename>
+     <min>0.75</min>
+     <max>0.875</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>rack tom - snares off - 8.flac</filename>
+     <min>0.875</min>
+     <max>1</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+   </instrumentComponent>
+  </instrument>
+  <instrument>
+   <id>22</id>
+   <name>tom 1 - sn on</name>
+   <volume>1</volume>
+   <isMuted>false</isMuted>
+   <pan_L>1</pan_L>
+   <pan_R>1</pan_R>
+   <randomPitchFactor>0</randomPitchFactor>
+   <gain>1</gain>
+   <applyVelocity>true</applyVelocity>
+   <filterActive>false</filterActive>
+   <filterCutoff>1</filterCutoff>
+   <filterResonance>0</filterResonance>
+   <Attack>0</Attack>
+   <Decay>0</Decay>
+   <Sustain>1</Sustain>
+   <Release>1000</Release>
+   <muteGroup>-1</muteGroup>
+   <midiOutChannel>-1</midiOutChannel>
+   <midiOutNote>60</midiOutNote>
+   <isStopNote>false</isStopNote>
+   <sampleSelectionAlgo>VELOCITY</sampleSelectionAlgo>
+   <isHihat>-1</isHihat>
+   <lower_cc>0</lower_cc>
+   <higher_cc>127</higher_cc>
+   <FX1Level>0</FX1Level>
+   <FX2Level>0</FX2Level>
+   <FX3Level>0</FX3Level>
+   <FX4Level>0</FX4Level>
+   <instrumentComponent>
+    <component_id>0</component_id>
+    <gain>1</gain>
+    <layer>
+     <filename>rack tom - snares on - 1.flac</filename>
+     <min>0</min>
+     <max>0.111</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>rack tom - snares on - 2.flac</filename>
+     <min>0.111</min>
+     <max>0.222</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>rack tom - snares on - 3.flac</filename>
+     <min>0.222</min>
+     <max>0.333</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>rack tom - snares on - 4.flac</filename>
+     <min>0.333</min>
+     <max>0.444</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>rack tom - snares on - 5.flac</filename>
+     <min>0.444</min>
+     <max>0.555</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>rack tom - snares on - 6.flac</filename>
+     <min>0.555</min>
+     <max>0.666</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>rack tom - snares on - 7.flac</filename>
+     <min>0.666</min>
+     <max>0.777</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>rack tom - snares on - 8.flac</filename>
+     <min>0.777</min>
+     <max>0.888</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>rack tom - snares on - 9.flac</filename>
+     <min>0.888</min>
+     <max>1</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+   </instrumentComponent>
+  </instrument>
+  <instrument>
+   <id>25</id>
+   <name>flat ride</name>
+   <volume>0.724138</volume>
+   <isMuted>false</isMuted>
+   <pan_L>1</pan_L>
+   <pan_R>1</pan_R>
+   <randomPitchFactor>0</randomPitchFactor>
+   <gain>1</gain>
+   <applyVelocity>true</applyVelocity>
+   <filterActive>false</filterActive>
+   <filterCutoff>1</filterCutoff>
+   <filterResonance>0</filterResonance>
+   <Attack>0</Attack>
+   <Decay>0</Decay>
+   <Sustain>1</Sustain>
+   <Release>1000</Release>
+   <muteGroup>-1</muteGroup>
+   <midiOutChannel>-1</midiOutChannel>
+   <midiOutNote>61</midiOutNote>
+   <isStopNote>false</isStopNote>
+   <sampleSelectionAlgo>VELOCITY</sampleSelectionAlgo>
+   <isHihat>-1</isHihat>
+   <lower_cc>0</lower_cc>
+   <higher_cc>127</higher_cc>
+   <FX1Level>0</FX1Level>
+   <FX2Level>0</FX2Level>
+   <FX3Level>0</FX3Level>
+   <FX4Level>0</FX4Level>
+   <instrumentComponent>
+    <component_id>0</component_id>
+    <gain>1</gain>
+    <layer>
+     <filename>flat ride - 1.flac</filename>
+     <min>0</min>
+     <max>0.143</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>flat ride - 2.flac</filename>
+     <min>0.143</min>
+     <max>0.286</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>flat ride - 3.flac</filename>
+     <min>0.286</min>
+     <max>0.429</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>flat ride - 4.flac</filename>
+     <min>0.429</min>
+     <max>0.571</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>flat ride - 5.flac</filename>
+     <min>0.571</min>
+     <max>0.714</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>flat ride - 6.flac</filename>
+     <min>0.714</min>
+     <max>0.857</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>flat ride - 7.flac</filename>
+     <min>0.857</min>
+     <max>1</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+   </instrumentComponent>
+  </instrument>
+  <instrument>
+   <id>26</id>
+   <name>flat ride - crash</name>
+   <volume>0.918103</volume>
+   <isMuted>false</isMuted>
+   <pan_L>1</pan_L>
+   <pan_R>1</pan_R>
+   <randomPitchFactor>0</randomPitchFactor>
+   <gain>1</gain>
+   <applyVelocity>true</applyVelocity>
+   <filterActive>false</filterActive>
+   <filterCutoff>1</filterCutoff>
+   <filterResonance>0</filterResonance>
+   <Attack>0</Attack>
+   <Decay>0</Decay>
+   <Sustain>1</Sustain>
+   <Release>1000</Release>
+   <muteGroup>-1</muteGroup>
+   <midiOutChannel>-1</midiOutChannel>
+   <midiOutNote>62</midiOutNote>
+   <isStopNote>false</isStopNote>
+   <sampleSelectionAlgo>VELOCITY</sampleSelectionAlgo>
+   <isHihat>-1</isHihat>
+   <lower_cc>0</lower_cc>
+   <higher_cc>127</higher_cc>
+   <FX1Level>0</FX1Level>
+   <FX2Level>0</FX2Level>
+   <FX3Level>0</FX3Level>
+   <FX4Level>0</FX4Level>
+   <instrumentComponent>
+    <component_id>0</component_id>
+    <gain>1</gain>
+    <layer>
+     <filename>flat ride - crash - 1.flac</filename>
+     <min>0</min>
+     <max>0.5</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>flat ride - crash - 2.flac</filename>
+     <min>0.5</min>
+     <max>1</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+   </instrumentComponent>
+  </instrument>
+  <instrument>
+   <id>27</id>
+   <name>ride</name>
+   <volume>1</volume>
+   <isMuted>false</isMuted>
+   <pan_L>1</pan_L>
+   <pan_R>1</pan_R>
+   <randomPitchFactor>0</randomPitchFactor>
+   <gain>1</gain>
+   <applyVelocity>true</applyVelocity>
+   <filterActive>false</filterActive>
+   <filterCutoff>1</filterCutoff>
+   <filterResonance>0</filterResonance>
+   <Attack>0</Attack>
+   <Decay>0</Decay>
+   <Sustain>1</Sustain>
+   <Release>1000</Release>
+   <muteGroup>-1</muteGroup>
+   <midiOutChannel>-1</midiOutChannel>
+   <midiOutNote>63</midiOutNote>
+   <isStopNote>false</isStopNote>
+   <sampleSelectionAlgo>VELOCITY</sampleSelectionAlgo>
+   <isHihat>-1</isHihat>
+   <lower_cc>0</lower_cc>
+   <higher_cc>127</higher_cc>
+   <FX1Level>0</FX1Level>
+   <FX2Level>0</FX2Level>
+   <FX3Level>0</FX3Level>
+   <FX4Level>0</FX4Level>
+   <instrumentComponent>
+    <component_id>0</component_id>
+    <gain>1</gain>
+    <layer>
+     <filename>ride - 1.flac</filename>
+     <min>0</min>
+     <max>0.2</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>ride - 2.flac</filename>
+     <min>0.2</min>
+     <max>0.4</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>ride - 3.flac</filename>
+     <min>0.4</min>
+     <max>0.6</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>ride - 4.flac</filename>
+     <min>0.6</min>
+     <max>0.8</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>ride - 5.flac</filename>
+     <min>0.8</min>
+     <max>1</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+   </instrumentComponent>
+  </instrument>
+  <instrument>
+   <id>28</id>
+   <name>ride - crash</name>
+   <volume>0.646552</volume>
+   <isMuted>false</isMuted>
+   <pan_L>1</pan_L>
+   <pan_R>1</pan_R>
+   <randomPitchFactor>0</randomPitchFactor>
+   <gain>1</gain>
+   <applyVelocity>true</applyVelocity>
+   <filterActive>false</filterActive>
+   <filterCutoff>1</filterCutoff>
+   <filterResonance>0</filterResonance>
+   <Attack>0</Attack>
+   <Decay>0</Decay>
+   <Sustain>1</Sustain>
+   <Release>1000</Release>
+   <muteGroup>-1</muteGroup>
+   <midiOutChannel>-1</midiOutChannel>
+   <midiOutNote>64</midiOutNote>
+   <isStopNote>false</isStopNote>
+   <sampleSelectionAlgo>VELOCITY</sampleSelectionAlgo>
+   <isHihat>-1</isHihat>
+   <lower_cc>0</lower_cc>
+   <higher_cc>127</higher_cc>
+   <FX1Level>0</FX1Level>
+   <FX2Level>0</FX2Level>
+   <FX3Level>0</FX3Level>
+   <FX4Level>0</FX4Level>
+   <instrumentComponent>
+    <component_id>0</component_id>
+    <gain>1</gain>
+    <layer>
+     <filename>ride - crash - 1.flac</filename>
+     <min>0</min>
+     <max>0.2</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>ride - crash - 2.flac</filename>
+     <min>0.2</min>
+     <max>0.4</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>ride - crash - 3.flac</filename>
+     <min>0.4</min>
+     <max>0.6</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>ride - crash - 4.flac</filename>
+     <min>0.6</min>
+     <max>0.8</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>ride - crash - 5.flac</filename>
+     <min>0.8</min>
+     <max>1</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+   </instrumentComponent>
+  </instrument>
+  <instrument>
+   <id>29</id>
+   <name>ride bell</name>
+   <volume>1</volume>
+   <isMuted>false</isMuted>
+   <pan_L>1</pan_L>
+   <pan_R>1</pan_R>
+   <randomPitchFactor>0</randomPitchFactor>
+   <gain>1</gain>
+   <applyVelocity>true</applyVelocity>
+   <filterActive>false</filterActive>
+   <filterCutoff>1</filterCutoff>
+   <filterResonance>0</filterResonance>
+   <Attack>0</Attack>
+   <Decay>0</Decay>
+   <Sustain>1</Sustain>
+   <Release>1000</Release>
+   <muteGroup>-1</muteGroup>
+   <midiOutChannel>-1</midiOutChannel>
+   <midiOutNote>65</midiOutNote>
+   <isStopNote>false</isStopNote>
+   <sampleSelectionAlgo>VELOCITY</sampleSelectionAlgo>
+   <isHihat>-1</isHihat>
+   <lower_cc>0</lower_cc>
+   <higher_cc>127</higher_cc>
+   <FX1Level>0</FX1Level>
+   <FX2Level>0</FX2Level>
+   <FX3Level>0</FX3Level>
+   <FX4Level>0</FX4Level>
+   <instrumentComponent>
+    <component_id>0</component_id>
+    <gain>1</gain>
+    <layer>
+     <filename>ride - bell - 1.flac</filename>
+     <min>0</min>
+     <max>0.33</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>ride - bell - 2.flac</filename>
+     <min>0.33</min>
+     <max>0.66</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>ride - bell - 3.flac</filename>
+     <min>0.66</min>
+     <max>1</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+   </instrumentComponent>
+  </instrument>
+  <instrument>
+   <id>39</id>
+   <name>turn snare off</name>
+   <volume>0.84</volume>
+   <isMuted>false</isMuted>
+   <pan_L>1</pan_L>
+   <pan_R>1</pan_R>
+   <randomPitchFactor>0</randomPitchFactor>
+   <gain>1</gain>
+   <applyVelocity>true</applyVelocity>
+   <filterActive>false</filterActive>
+   <filterCutoff>1</filterCutoff>
+   <filterResonance>0</filterResonance>
+   <Attack>0</Attack>
+   <Decay>0</Decay>
+   <Sustain>1</Sustain>
+   <Release>1000</Release>
+   <muteGroup>-1</muteGroup>
+   <midiOutChannel>-1</midiOutChannel>
+   <midiOutNote>66</midiOutNote>
+   <isStopNote>false</isStopNote>
+   <sampleSelectionAlgo>VELOCITY</sampleSelectionAlgo>
+   <isHihat>-1</isHihat>
+   <lower_cc>0</lower_cc>
+   <higher_cc>127</higher_cc>
+   <FX1Level>0</FX1Level>
+   <FX2Level>0</FX2Level>
+   <FX3Level>0</FX3Level>
+   <FX4Level>0</FX4Level>
+   <instrumentComponent>
+    <component_id>0</component_id>
+    <gain>1</gain>
+    <layer>
+     <filename>turn off snares 1.flac</filename>
+     <min>0</min>
+     <max>1</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+   </instrumentComponent>
+  </instrument>
+  <instrument>
+   <id>40</id>
+   <name>turn snare on</name>
+   <volume>0.85</volume>
+   <isMuted>false</isMuted>
+   <pan_L>1</pan_L>
+   <pan_R>1</pan_R>
+   <randomPitchFactor>0</randomPitchFactor>
+   <gain>1</gain>
+   <applyVelocity>true</applyVelocity>
+   <filterActive>false</filterActive>
+   <filterCutoff>1</filterCutoff>
+   <filterResonance>0</filterResonance>
+   <Attack>0</Attack>
+   <Decay>0</Decay>
+   <Sustain>1</Sustain>
+   <Release>1000</Release>
+   <muteGroup>-1</muteGroup>
+   <midiOutChannel>-1</midiOutChannel>
+   <midiOutNote>67</midiOutNote>
+   <isStopNote>false</isStopNote>
+   <sampleSelectionAlgo>VELOCITY</sampleSelectionAlgo>
+   <isHihat>-1</isHihat>
+   <lower_cc>0</lower_cc>
+   <higher_cc>127</higher_cc>
+   <FX1Level>0</FX1Level>
+   <FX2Level>0</FX2Level>
+   <FX3Level>0</FX3Level>
+   <FX4Level>0</FX4Level>
+   <instrumentComponent>
+    <component_id>0</component_id>
+    <gain>1</gain>
+    <layer>
+     <filename>turn snare on 1.flac</filename>
+     <min>0</min>
+     <max>0.32971</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>turn snare on 2.flac</filename>
+     <min>0.32971</min>
+     <max>0.663043</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+    <layer>
+     <filename>turn snare on 3.flac</filename>
+     <min>0.663043</min>
+     <max>1</max>
+     <gain>1</gain>
+     <pitch>0</pitch>
+    </layer>
+   </instrumentComponent>
+  </instrument>
+ </instrumentList>
+</drumkit_info>
