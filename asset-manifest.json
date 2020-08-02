@@ -1,22 +1,22 @@
 {
   "files": {
     "main.css": "/tabit/static/css/main.abb25dff.chunk.css",
-    "main.js": "/tabit/static/js/main.b5a1190d.chunk.js",
-    "main.js.map": "/tabit/static/js/main.b5a1190d.chunk.js.map",
+    "main.js": "/tabit/static/js/main.ba32101b.chunk.js",
+    "main.js.map": "/tabit/static/js/main.ba32101b.chunk.js.map",
     "runtime-main.js": "/tabit/static/js/runtime-main.3ead3703.js",
     "runtime-main.js.map": "/tabit/static/js/runtime-main.3ead3703.js.map",
-    "static/js/2.b6993892.chunk.js": "/tabit/static/js/2.b6993892.chunk.js",
-    "static/js/2.b6993892.chunk.js.map": "/tabit/static/js/2.b6993892.chunk.js.map",
+    "static/js/2.ac55d134.chunk.js": "/tabit/static/js/2.ac55d134.chunk.js",
+    "static/js/2.ac55d134.chunk.js.map": "/tabit/static/js/2.ac55d134.chunk.js.map",
     "index.html": "/tabit/index.html",
-    "precache-manifest.a2ac9990a9037c58bd238fe840e7bcf5.js": "/tabit/precache-manifest.a2ac9990a9037c58bd238fe840e7bcf5.js",
+    "precache-manifest.a2f855f8b5175668acfbe0cb4e442754.js": "/tabit/precache-manifest.a2f855f8b5175668acfbe0cb4e442754.js",
     "service-worker.js": "/tabit/service-worker.js",
     "static/css/main.abb25dff.chunk.css.map": "/tabit/static/css/main.abb25dff.chunk.css.map",
-    "static/js/2.b6993892.chunk.js.LICENSE.txt": "/tabit/static/js/2.b6993892.chunk.js.LICENSE.txt"
+    "static/js/2.ac55d134.chunk.js.LICENSE.txt": "/tabit/static/js/2.ac55d134.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.3ead3703.js",
-    "static/js/2.b6993892.chunk.js",
+    "static/js/2.ac55d134.chunk.js",
     "static/css/main.abb25dff.chunk.css",
-    "static/js/main.b5a1190d.chunk.js"
+    "static/js/main.ba32101b.chunk.js"
   ]
 }
