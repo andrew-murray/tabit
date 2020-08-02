@@ -158,19 +158,24 @@ function InstrumentConfig(props) {
 
   const renameInstrument = (e)  => 
   {
-    if( renamingInstrument === props.instruments.length )
+    const instrumentName = nameState.trim();
+    if( instrumentName.length > 0 )
     {
-      const extraInstrument = [ nameState, {} ];
-      let replacedInstruments = Array.from( props.instruments );
-      replacedInstruments.push(extraInstrument);
-      props.onChange(replacedInstruments);
+      if( renamingInstrument === props.instruments.length )
+      {
+        const extraInstrument = [ instrumentName, {} ];
+        let replacedInstruments = Array.from( props.instruments );
+        replacedInstruments.push(extraInstrument);
+        props.onChange(replacedInstruments);
+      }
+      else
+      {
+        let replacedInstruments = Array.from( props.instruments );
+        replacedInstruments[renamingInstrument][0] = instrumentName;
+        props.onChange(replacedInstruments);
+      }
     }
-    else
-    {
-      let replacedInstruments = Array.from( props.instruments );
-      replacedInstruments[renamingInstrument][0] = nameState;
-      props.onChange(replacedInstruments);
-    }
+    // we just ignore empty string
     setRenamingInstrument(-1);
     setNameState("");
   };
@@ -194,11 +199,23 @@ function InstrumentConfig(props) {
 
   const changeSymbol = (e) =>
   {
-    const instrumentID = props.instrumentIndex[editSymbol].id;
-    const instrumentIndex = props.instruments.findIndex( instrument => instrumentID in instrument[1]);
-    let replacedInstruments = Array.from(props.instruments);
-    replacedInstruments[instrumentIndex][1][instrumentID] = editSymbolState;
-    props.onChange(replacedInstruments);
+    const updatedSymbol = editSymbolState;
+    if(updatedSymbol.length==1)
+    {
+      const instrumentID = props.instrumentIndex[editSymbol].id;
+      const instrumentIndex = props.instruments.findIndex( instrument => instrumentID in instrument[1]);
+      let replacedInstruments = Array.from(props.instruments);
+      replacedInstruments[instrumentIndex][1][instrumentID] = editSymbolState;
+      props.onChange(replacedInstruments);
+    }
+    else
+    {
+      // todo: prettier error communication?
+      alert(
+        "You selected an invalid symbol \"" + updatedSymbol + "\".\n" + 
+        "Symbols must be precisely 1 character."
+      );
+    }
     setEditSymbol(-1);
   };
 
