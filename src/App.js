@@ -11,7 +11,7 @@ import { Alert } from '@material-ui/lab';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
 // drawer
-import Drawer from '@material-ui/core/Drawer';
+import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -20,7 +20,10 @@ import ListItemText from '@material-ui/core/ListItemText';
 import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 import MenuIcon from '@material-ui/icons/Menu';
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import Divider from "@material-ui/core/Divider";
+
 // notationSettings
 
 import {FormatSettings, DefaultSettings} from "./formatSettings";
@@ -28,6 +31,7 @@ import {createInstrumentMask, InstrumentConfig} from "./instrumentConfig";
 import { activeInstrumentation, figureInstruments, DEFAULT_INSTRUMENT_SYMBOLS } from "./instrumentation";
 
 import Grid from '@material-ui/core/Grid';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 // load static data
 import kuva from "./kuva.json";
@@ -54,6 +58,7 @@ class App extends React.Component
       selectedPattern : null,
       loadedFile : null,
       settingsOpen : false,
+      patternsOpen : false,
       formatSettings : Object.assign({}, DefaultSettings)
     };
   }
@@ -70,7 +75,8 @@ class App extends React.Component
         instruments : assessedInstruments,
         patterns : h.patterns,
         selectedPattern : h.patterns.length === 0 ? null : 0,
-        loadedFile : e.file.name
+        loadedFile : e.file.name,
+        patternsOpen : true
       });
     });
   }
@@ -142,7 +148,8 @@ class App extends React.Component
       instruments : assessedInstruments,
       patterns : k.patterns,
       selectedPattern : k.patterns.length === 0 ? null : 0,
-      loadedFile : "kuva.example"
+      loadedFile : "kuva.example",
+      patternsOpen : true
     });
   }
 
@@ -197,12 +204,30 @@ class App extends React.Component
         this.setState( { formatSettings: config } );
       };
 
-      const classes = this.props;
+      const handlePatternsClose = (e) => {
+        this.setState( { patternsOpen : false } );
+      };
+      const handlePatternsOpen = (e) => {
+        this.setState( { patternsOpen : true } );
+      };
 
-      // ugh 95%, seems flex doesn't solve everything
+      const classes = this.props;
+      const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
+
       return (
         <React.Fragment>
           <div style={{display:"flex", width: "95%"}}> 
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              edge="start"
+              onClick={handlePatternsOpen}
+              className={clsx({
+                [classes.hide] : !this.state.patternsOpen
+              })}
+            >
+              <ChevronRightIcon />
+            </IconButton>
             <div className="content-title" style={{flexGrow:1}}>
             </div>
             <IconButton
@@ -217,22 +242,48 @@ class App extends React.Component
           </div>
           {patternContent}
 
-      <Drawer
-        className={classes.drawer}
-        variant="persistent"
-        anchor="right"
-        open={this.state.settingsOpen}
-        classes={{
-          paper: classes.drawerPaper
-        }}
-      >
-        <div className={classes.drawerHeader}>
-          <IconButton onClick={handleDrawerClose}>
-              <ChevronRightIcon />
-          </IconButton>
-        </div>
-        <FormatSettings onChange={settingsChangeCallback} settings={this.state.formatSettings}/>  
-        </Drawer>
+        <SwipeableDrawer disableBackdropTransition={!iOS} disableDiscovery={iOS}
+          className={classes.drawer}
+          variant="persistent"
+          open={this.state.patternsOpen}
+          onOpen={handlePatternsOpen}
+          onOpen={handlePatternsClose}
+        >
+          <div className={classes.drawerHeader}>
+            <IconButton onClick={handlePatternsClose}>
+                <ChevronLeftIcon />
+            </IconButton>
+          </div>
+          <Divider />
+          <div className={classes.drawerContainer}>
+            <List>
+              {(this.state.patterns ?? []).map( (pattern, index) => (
+                <ListItem button key={"drawer-pattern" + index.toString()} onClick={() => this.selectPattern(index)}>
+                    <ListItemText primary={pattern.name} />
+                </ListItem>
+              ))}
+            </List>
+          </div>
+        </SwipeableDrawer>
+        <SwipeableDrawer disableBackdropTransition={!iOS} disableDiscovery={iOS}
+          className={classes.drawer}
+          variant="persistent"
+          anchor="right"
+          open={this.state.settingsOpen}
+          onOpen={handleDrawerOpen}
+          onClose={handleDrawerClose}
+          classes={{
+            paper: classes.drawerPaper
+          }}
+        >
+          <div className={classes.drawerHeader}>
+            <IconButton onClick={handleDrawerClose}>
+                <ChevronRightIcon />
+            </IconButton>
+          </div>
+          <Divider />
+          <FormatSettings onChange={settingsChangeCallback} settings={this.state.formatSettings}/>  
+        </SwipeableDrawer>
         </React.Fragment>
       );
     }
@@ -240,27 +291,11 @@ class App extends React.Component
 
   render() {
     const classes = this.props;
-    const patternsReady = this.state.patterns != null;
     const mainContent = this.renderMainContent();
     return (
       <div className="App">
         <ThemeProvider theme={theme}>
           <CssBaseline />
-          <Drawer
-            className={classes.drawer}
-            variant="persistent"
-            open={patternsReady}
-          >
-            <div className={classes.drawerContainer}>
-              <List>
-                {(this.state.patterns ?? []).map( (pattern, index) => (
-                  <ListItem button key={"drawer-pattern" + index.toString()} onClick={() => this.selectPattern(index)}>
-                      <ListItemText primary={pattern.name} />
-                  </ListItem>
-                ))}
-              </List>
-            </div>
-          </Drawer>
           {mainContent}
         </ThemeProvider>
       </div>
