@@ -100,12 +100,12 @@ class App extends React.Component
     }
     return (
       <React.Fragment>
-        <SoundBoard instruments={this.state.instruments} instrumentIndex={this.state.instrumentIndex} tracks={pattern.instrumentTracks}/>
         <Pattern 
           instruments={this.state.instruments} 
           tracks={pattern.instrumentTracks}
           config={this.state.formatSettings}
         />
+        <SoundBoard instruments={this.state.instruments} instrumentIndex={this.state.instrumentIndex} tracks={pattern.instrumentTracks}/>
         <Grid container>
         <Grid item xs={2} />
         <Grid item xs={8}>

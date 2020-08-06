@@ -3,6 +3,10 @@ import Button from '@material-ui/core/Button';
 import Audio from "./Audio"
 import AudioRequest from "./AudioRequest";
 
+import IconButton from '@material-ui/core/IconButton';
+import PlayArrowIcon from '@material-ui/icons/PlayArrow';
+import StopIcon from '@material-ui/icons/Stop';
+
 // TODO: Licensing for hydrogen drumkits
 // TODO: auto-generation of index
 
@@ -109,7 +113,6 @@ class SoundBoard extends React.Component
         100 // hardcoded tempo
       );
 
-
       this.setState({audioBuffer: b });
 
       // we were playing
@@ -122,6 +125,8 @@ class SoundBoard extends React.Component
       }
     }
   }
+
+  
 
   render() {
 
@@ -138,8 +143,23 @@ class SoundBoard extends React.Component
 
     return (
       <React.Fragment>
-        <Button onClick={play}>Play</Button>
-        <Button onClick={e=>{this.stop();}}>Stop</Button>
+        <div>
+          <IconButton
+            color="primary"
+            aria-label="play"
+            onClick={play}
+          >
+            <PlayArrowIcon />
+          </IconButton>
+
+          <IconButton
+            color="secondary"
+            aria-label="stop"
+            onClick={(e)=>{this.stop();}}
+          >
+            <StopIcon />
+          </IconButton>
+        </div>
       </React.Fragment>
    );
   }
