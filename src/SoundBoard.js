@@ -25,8 +25,12 @@ class SoundBoard extends React.Component
 
   constructor(props) {
     super(props);
+    this.state = {
+      audioBuffer : null,
+      audioSource : null,
+      soundsPopulated : false
+    }
     this.sounds = {};
-    this.buffer = null;
     this.populateSounds();
   }
 
@@ -71,20 +75,71 @@ class SoundBoard extends React.Component
         sounds,
         100 // hardcoded tempo
       );
-      board.masterTrack = b;
+
+      // todo: this could happen before componentDidMount!!
+      board.setState( { audioBuffer : b, soundsPopulated : true } );
     });
   }
 
-  play()
+  stop()
   {
-    Audio.playBuffer(Audio.context, this.masterTrack);
+    // if playing, stop
+    if(this.state.audioSource){
+      this.state.audioSource.stop(); 
+      this.setState( { audioSource : null } );
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot)
+  {
+    const tracksAreDifferent = prevProps.tracks != this.props.tracks;
+    if( tracksAreDifferent )
+    {
+      this.stop();
+    }
+
+    if( tracksAreDifferent &&  this.state.soundsPopulated)
+    {
+      // if( !this.state.soundsPopulated ) then we already have a task in flight to do this
+      const b = Audio.createMasterTrack(
+        Audio.context,
+        this.props.tracks,
+        this.props.instrumentIndex,
+        this.sounds,
+        100 // hardcoded tempo
+      );
+
+
+      this.setState({audioBuffer: b });
+
+      // we were playing
+      if( prevState.audioSource )
+      {
+        const source = Audio.createAudioSource( Audio.context, b );
+        // kick it off immediately
+        source.start();
+        this.setState( { audioSource : source} );
+      }
+    }
   }
 
   render() {
+
+    const play = (e) => {
+      // if not playing, but buffer is ready
+      if(!this.state.audioSource && this.state.audioBuffer)
+      {
+        const source = Audio.createAudioSource( Audio.context, this.state.audioBuffer );
+        source.start();
+        // element will start playing in componentDidUpdate
+        this.setState( { audioSource : source} );
+      }
+    };
+
     return (
       <React.Fragment>
-        <Button onClick={e=>{this.play();}}>Play</Button>
-        <Button onClick={e=>{}}>Stop</Button>
+        <Button onClick={play}>Play</Button>
+        <Button onClick={e=>{this.stop();}}>Stop</Button>
       </React.Fragment>
    );
   }
