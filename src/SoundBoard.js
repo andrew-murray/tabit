@@ -47,7 +47,10 @@ class SoundBoard extends React.Component
       if( selected.length > 0)
       {
         const selected_instrument = selected[0];
-        if( DRUMKITS.includes(selected_instrument.drumkit) )
+        if( 
+          "drumkit" in selected_instrument && 
+          "filename" in selected_instrument &&
+          DRUMKITS.includes(selected_instrument.drumkit) )
         {
 
           const filename = selected_instrument.filename.replace(".flac", ".wav");
