@@ -49,6 +49,7 @@ class SoundBoard extends React.Component
         const selected_instrument = selected[0];
         if( DRUMKITS.includes(selected_instrument.drumkit) )
         {
+
           const filename = selected_instrument.filename.replace(".flac", ".wav");
           if(!(selected_instrument.id in this.sounds))
           {
@@ -81,7 +82,12 @@ class SoundBoard extends React.Component
       );
 
       // todo: this could happen before componentDidMount!!
-      board.setState( { audioBuffer : b, soundsPopulated : true } );
+      board.setState( { 
+        audioBuffer : b, 
+        resolution : Audio.determineMinResolution(instrumentIndex, sounds, tracks ),
+        length : Audio.determineTrackLength(instrumentIndex, sounds, tracks ),
+        soundsPopulated : true 
+      } );
     });
   }
 
@@ -90,6 +96,12 @@ class SoundBoard extends React.Component
     // if playing, stop
     if(this.state.audioSource){
       this.state.audioSource.stop(); 
+      if( this.intervalID != null )
+      {
+        clearInterval(this.intervalID);
+        this.intervalID = null;
+      }
+      this.playPos = 0;
       this.setState( { audioSource : null } );
     }
   }
@@ -113,19 +125,44 @@ class SoundBoard extends React.Component
         100 // hardcoded tempo
       );
 
-      this.setState({audioBuffer: b });
+      this.setState({
+        audioBuffer: b,
+        resolution : Audio.determineMinResolution(this.props.instrumentIndex, this.sounds, this.props.tracks ),
+        length : Audio.determineTrackLength(this.props.instrumentIndex, this.sounds, this.props.tracks )
+      });
 
       // we were playing
       if( prevState.audioSource )
       {
-        const source = Audio.createAudioSource( Audio.context, b );
-        // kick it off immediately
-        source.start();
-        this.setState( { audioSource : source} );
+        this.playBuffer( b );
       }
     }
   }
 
+  playBuffer( b )
+  {
+
+    const source = Audio.createAudioSource( Audio.context, b );
+    // kick it off immediately
+    source.start();
+    this.startTime = Audio.context.currentTime;
+
+    const tempo = 100.0;
+    const beatTime =  (60.0 / tempo) * 1000;
+    const timePerHydrogen = beatTime / 48.0;
+
+    const updatePlayPos = () => {
+      const playPos = ( ( Audio.context.currentTime - this.startTime )  / this.state.audioBuffer.duration ) % 1.0;
+      this.props.onPlaybackPositionChange( playPos );
+    };
+
+    this.intervalID = setInterval(
+      updatePlayPos,
+      Math.floor(beatTime)
+    )
+
+    this.setState( { audioSource : source} );
+  }
   
 
   render() {
@@ -134,10 +171,7 @@ class SoundBoard extends React.Component
       // if not playing, but buffer is ready
       if(!this.state.audioSource && this.state.audioBuffer)
       {
-        const source = Audio.createAudioSource( Audio.context, this.state.audioBuffer );
-        source.start();
-        // element will start playing in componentDidUpdate
-        this.setState( { audioSource : source} );
+        this.playBuffer(this.state.audioBuffer);
       }
     };
 

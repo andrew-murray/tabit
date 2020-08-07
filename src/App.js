@@ -38,6 +38,7 @@ import kuva from "./kuva.json";
 import track from "./track";
 
 import SoundBoard from "./SoundBoard";
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 // mui theme config
 let theme = createMuiTheme( { 
@@ -61,7 +62,8 @@ class App extends React.Component
       loadedFile : null,
       settingsOpen : false,
       patternsOpen : false,
-      formatSettings : Object.assign({}, DefaultSettings)
+      formatSettings : Object.assign({}, DefaultSettings),
+      progress : 0
     };
   }
 
@@ -98,14 +100,33 @@ class App extends React.Component
         instrumentMask : createInstrumentMask(this.state.instrumentIndex, instruments)
       } );
     }
+
+    const trackLength = pattern.instrumentTracks[0].length();
+    const setProgress = (playbackPosition) => {
+      this.setState({progress : 100 * playbackPosition});
+    };
+
     return (
       <React.Fragment>
         <Pattern 
           instruments={this.state.instruments} 
           tracks={pattern.instrumentTracks}
           config={this.state.formatSettings}
+        />        
+        <Grid container>
+        <Grid item xs={4} />
+        <Grid item xs={4}>
+        <LinearProgress variant="determinate" value={this.state.progress}/>
+        </Grid>
+        <Grid item xs={4} />
+        </Grid>
+
+        <SoundBoard 
+          instruments={this.state.instruments} 
+          instrumentIndex={this.state.instrumentIndex} 
+          tracks={pattern.instrumentTracks}
+          onPlaybackPositionChange={setProgress}
         />
-        <SoundBoard instruments={this.state.instruments} instrumentIndex={this.state.instrumentIndex} tracks={pattern.instrumentTracks}/>
         <Grid container>
         <Grid item xs={2} />
         <Grid item xs={8}>
