@@ -101,7 +101,6 @@ class App extends React.Component
       } );
     }
 
-    const trackLength = pattern.instrumentTracks[0].length();
     const setProgress = (playbackPosition) => {
       this.setState({progress : 100 * playbackPosition});
     };

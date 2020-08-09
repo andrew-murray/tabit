@@ -149,7 +149,6 @@ class Audio
     // connect the AudioBufferSourceNode to the
     // destination so we can hear the sound
     source.connect(context.destination);
-    // start the source playing
     return source;
   }
 }
