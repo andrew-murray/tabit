@@ -1,5 +1,4 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
 import Audio from "./Audio"
 import AudioRequest from "./AudioRequest";
 
@@ -35,7 +34,6 @@ class SoundBoard extends React.Component
       soundsPopulated : false
     }
     this.sounds = {};
-    this.populateSounds();
   }
 
   populateSounds()
@@ -111,13 +109,14 @@ class SoundBoard extends React.Component
 
   componentDidUpdate(prevProps, prevState, snapshot)
   {
+    // todo: this is a bit fishy, what is this comparison exactly?
     const tracksAreDifferent = prevProps.tracks != this.props.tracks;
     if( tracksAreDifferent )
     {
       this.stop();
     }
 
-    if( tracksAreDifferent &&  this.state.soundsPopulated)
+    if( tracksAreDifferent && this.state.soundsPopulated)
     {
       // if( !this.state.soundsPopulated ) then we already have a task in flight to do this
       const b = Audio.createMasterTrack(
@@ -142,18 +141,24 @@ class SoundBoard extends React.Component
     }
   }
 
+  componentDidMount()
+  {
+    this.populateSounds();
+  }
+
   playBuffer( b )
   {
 
     const source = Audio.createAudioSource( Audio.context, b );
+
     // kick it off immediately
     source.start();
     this.startTime = Audio.context.currentTime;
 
     const tempo = 100.0;
     const beatTime =  (60.0 / tempo) * 1000;
-    const timePerHydrogen = beatTime / 48.0;
 
+    
     const updatePlayPos = () => {
       const playPos = ( ( Audio.context.currentTime - this.startTime )  / this.state.audioBuffer.duration ) % 1.0;
       this.props.onPlaybackPositionChange( playPos );
@@ -162,7 +167,7 @@ class SoundBoard extends React.Component
     this.intervalID = setInterval(
       updatePlayPos,
       Math.floor(beatTime)
-    )
+    );
 
     this.setState( { audioSource : source} );
   }
