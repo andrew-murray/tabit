@@ -90,38 +90,6 @@ class App extends React.Component
     this.setState( { selectedPattern: patternIndex } );
   }
 
-  componentDidUpdate(prevProps,prevState,snapshot)
-  {
-    const padZero = (n, width) => {
-      n = n + '';
-      return n.length >= width ? n : new Array(width - n.length + 1).join('0') + n;
-    };
-
-    if(this.state.progress !== null && this.state.progress !== prevState.progress)
-    {
-      let resArray = [];
-      for( let inc = 0; inc < this.state.formatSettings.beatResolution; inc += this.minRes)
-      {
-        resArray.push(inc);
-      }
-
-      for( const inc of resArray )
-      {        
-        for( let span of document.getElementsByClassName("note-" + padZero(this.state.progress + inc, 4) ) )
-        {
-          span.classList.add("activeNote"); 
-        }
-        if(prevState.progress != null)
-        {
-          for( let span of document.getElementsByClassName("note-" + padZero(prevState.progress + inc, 4) ) )
-          {
-            span.classList.remove("activeNote"); 
-          }
-        }
-      }
-    }
-  }
-
   // todo: this is a separate component!
   renderPattern(pattern, settings)
   {
@@ -131,25 +99,6 @@ class App extends React.Component
         instrumentMask : createInstrumentMask(this.state.instrumentIndex, instruments)
       } );
     }
-
-    const trackLength = Audio.determineTrackLength(
-      this.state.instrumentIndex,
-      pattern.instrumentTracks
-    );
-    const minRes = Audio.determineMinResolution(
-      this.state.instrumentIndex,
-      pattern.instrumentTracks
-    );
-    this.minRes = minRes;
-    const setProgress = (playbackPosition) => {
-      const nearestIncrement = Math.round( playbackPosition * trackLength / minRes );
-      const place = nearestIncrement * minRes;
-      const beatResolution = this.state.formatSettings.beatResolution;
-      if( this.state.progress === null || Math.floor(place / beatResolution) !== Math.floor(this.state.progress / beatResolution) )
-      {
-        this.setState({progress : Math.floor(place / beatResolution) * beatResolution } );
-      }
-    };
 
     return (
       <React.Fragment>
@@ -163,7 +112,6 @@ class App extends React.Component
           instruments={this.state.instruments} 
           instrumentIndex={this.state.instrumentIndex} 
           tracks={pattern.instrumentTracks}
-          onPlaybackPositionChange={setProgress}
         />
         <Grid container>
         <Grid item xs={2} />

@@ -97,10 +97,10 @@ class SoundBoard extends React.Component
     // if playing, stop
     if(this.state.audioSource){
       this.state.audioSource.stop(); 
-      if( this.intervalID != null )
+      if( this.timeoutID != null )
       {
-        clearTimeout(this.intervalID);
-        this.intervalID = null;
+        clearTimeout(this.timeoutID);
+        this.timeoutID = null;
       }
       this.playPos = 0;
       this.setState( { audioSource : null } );
@@ -168,14 +168,20 @@ class SoundBoard extends React.Component
       const currentBeat = Math.round(beatCount);
       const nextBeatTime = this.startTime + beatTime * ( currentBeat + 1 );
 
-      this.intervalID = setTimeout(
+      this.timeoutID = setTimeout(
         updatePlayPos,
         Math.floor( ( nextBeatTime - Audio.context.currentTime ) * 1000 )
       );
-      this.props.onPlaybackPositionChange( playPos );
+      if( this.props.onPlaybackPositionChange  )
+      {
+        this.props.onPlaybackPositionChange( playPos );
+      }
     };
 
-    updatePlayPos();
+    if( this.props.onPlaybackPositionChange )
+    {
+      updatePlayPos();
+    }
     
     this.setState( { audioSource : source} );
   }
