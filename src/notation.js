@@ -78,8 +78,23 @@ class notation
 
     const beatChunkSize = config.beatResolution / patternResolution;
 
+    const padZero = (n, width) => {
+      n = n + '';
+      return n.length >= width ? n : new Array(width - n.length + 1).join('0') + n;
+    };
+    const formatSymbol = (symbol, resLoc) => {
+      return "<span class='note-" + padZero(resLoc, 4) + "'>" +  symbol + "</span>";
+    };
 
-    const lineWithBeats = config.showBeatMark ? notation.chunkString(line, beatChunkSize).join(config.beatMark) : line;
+    let lineAsSpans = "";
+    for( let index = 0; index < line.length; ++ index )
+    {
+      const resLoc = patternResolution * index;
+      lineAsSpans += formatSymbol(line.charAt(index), resLoc);
+    }
+
+
+    const lineWithBeats = config.showBeatMark ? notation.chunkString(lineAsSpans, beatChunkSize * formatSymbol("X", 0).length).join(config.beatMark) : line;
     // note: we choose to always show the lineMarker even if it doesn't match the line resolution
     return config.lineMark + lineWithBeats + config.lineMark;
   }
@@ -87,7 +102,8 @@ class notation
   static fromInstrumentAndTrack(
     instrument,
     trackDict,
-    formatConfig = {}
+    formatConfig = {},
+    activeNote = null
   )
   {
     for( const propName of Object.keys(formatConfig))
@@ -142,7 +158,7 @@ class notation
     }
     for( let i = 0; i < lineArray.length; ++i )
     {
-      formattedLineArray.push( notation.formatLineWithMarkers( config, lineArray[i], patternResolution ));
+      formattedLineArray.push( notation.formatLineWithMarkers( config, lineArray[i], patternResolution, activeNote ));
     }
 
     return formattedLineArray.join("\n");

@@ -85,8 +85,8 @@ class SoundBoard extends React.Component
       // todo: this could happen before componentDidMount!!
       board.setState( { 
         audioBuffer : b, 
-        resolution : Audio.determineMinResolution(instrumentIndex, sounds, tracks ),
-        length : Audio.determineTrackLength(instrumentIndex, sounds, tracks ),
+        resolution : Audio.determineMinResolution(instrumentIndex, tracks ),
+        length : Audio.determineTrackLength(instrumentIndex, tracks ),
         soundsPopulated : true 
       } );
     });
@@ -99,7 +99,7 @@ class SoundBoard extends React.Component
       this.state.audioSource.stop(); 
       if( this.intervalID != null )
       {
-        clearInterval(this.intervalID);
+        clearTimeout(this.intervalID);
         this.intervalID = null;
       }
       this.playPos = 0;
@@ -129,8 +129,8 @@ class SoundBoard extends React.Component
 
       this.setState({
         audioBuffer: b,
-        resolution : Audio.determineMinResolution(this.props.instrumentIndex, this.sounds, this.props.tracks ),
-        length : Audio.determineTrackLength(this.props.instrumentIndex, this.sounds, this.props.tracks )
+        resolution : Audio.determineMinResolution(this.props.instrumentIndex, this.props.tracks ),
+        length : Audio.determineTrackLength(this.props.instrumentIndex, this.props.tracks )
       });
 
       // we were playing
@@ -155,20 +155,28 @@ class SoundBoard extends React.Component
     source.start();
     this.startTime = Audio.context.currentTime;
 
+
     const tempo = 100.0;
-    const beatTime =  (60.0 / tempo) * 1000;
+    const beatTime =  (60.0 / tempo) / 4.0;
 
     
     const updatePlayPos = () => {
-      const playPos = ( ( Audio.context.currentTime - this.startTime )  / this.state.audioBuffer.duration ) % 1.0;
+      const currentTime = Audio.context.currentTime;
+      const playPos = ( ( currentTime - this.startTime )  / this.state.audioBuffer.duration ) % 1.0;
+
+      const beatCount = ( currentTime - this.startTime ) / beatTime;
+      const currentBeat = Math.round(beatCount);
+      const nextBeatTime = this.startTime + beatTime * ( currentBeat + 1 );
+
+      this.intervalID = setTimeout(
+        updatePlayPos,
+        Math.floor( ( nextBeatTime - Audio.context.currentTime ) * 1000 )
+      );
       this.props.onPlaybackPositionChange( playPos );
     };
 
-    this.intervalID = setInterval(
-      updatePlayPos,
-      Math.floor(beatTime)
-    );
-
+    updatePlayPos();
+    
     this.setState( { audioSource : source} );
   }
   

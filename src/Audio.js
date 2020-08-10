@@ -4,7 +4,6 @@ class Audio
 
   static determineMinResolution(
     instrumentIndex,
-    sounds,
     tracks
   )
   {
@@ -15,7 +14,6 @@ class Audio
         const selected =  instrumentIndex.filter(inst => inst.id.toString() === id);
         if( 
           selected.length > 0 
-          && selected[0].id in sounds
           && !t.empty()
         )
         {
@@ -27,7 +25,6 @@ class Audio
 
   static determineTrackLength(
     instrumentIndex,
-    sounds,
     tracks
   )
   {
@@ -38,8 +35,7 @@ class Audio
         const selected =  instrumentIndex.filter(inst => inst.id.toString() === id);
         if( 
           selected.length > 0 
-          && selected[0].id in sounds
-          && !t.empty()
+          && !t.empty() 
         )
         {
           trackLength = Math.max( trackLength, t.length() );
@@ -89,7 +85,7 @@ class Audio
     tempo
   )
   {
-    const trackLength = Audio.determineTrackLength( instrumentIndex, sounds, tracks );
+    const trackLength = Audio.determineTrackLength( instrumentIndex, tracks );
 
 
     const beatTime =  (60.0 / tempo) * 1000;

@@ -38,7 +38,7 @@ import kuva from "./kuva.json";
 import track from "./track";
 
 import SoundBoard from "./SoundBoard";
-import LinearProgress from '@material-ui/core/LinearProgress';
+import Audio from "./Audio";
 
 // mui theme config
 let theme = createMuiTheme( { 
@@ -63,7 +63,7 @@ class App extends React.Component
       settingsOpen : false,
       patternsOpen : false,
       formatSettings : Object.assign({}, DefaultSettings),
-      progress : 0
+      progress : null
     };
   }
 
@@ -90,6 +90,37 @@ class App extends React.Component
     this.setState( { selectedPattern: patternIndex } );
   }
 
+  componentDidUpdate(prevProps,prevState,snapshot)
+  {
+    const padZero = (n, width) => {
+      n = n + '';
+      return n.length >= width ? n : new Array(width - n.length + 1).join('0') + n;
+    };
+
+    if(this.state.progress !== null && this.state.progress !== prevState.progress)
+    {
+      let resArray = [];
+      for( let inc = 0; inc < this.state.formatSettings.beatResolution; inc += this.minRes)
+      {
+        resArray.push(inc);
+      }
+
+      for( const inc of resArray )
+      {        
+        for( let span of document.getElementsByClassName("note-" + padZero(this.state.progress + inc, 4) ) )
+        {
+          span.classList.add("activeNote"); 
+        }
+        if(prevState.progress != null)
+        {
+          for( let span of document.getElementsByClassName("note-" + padZero(prevState.progress + inc, 4) ) )
+          {
+            span.classList.remove("activeNote"); 
+          }
+        }
+      }
+    }
+  }
 
   // todo: this is a separate component!
   renderPattern(pattern, settings)
@@ -101,8 +132,23 @@ class App extends React.Component
       } );
     }
 
+    const trackLength = Audio.determineTrackLength(
+      this.state.instrumentIndex,
+      pattern.instrumentTracks
+    );
+    const minRes = Audio.determineMinResolution(
+      this.state.instrumentIndex,
+      pattern.instrumentTracks
+    );
+    this.minRes = minRes;
     const setProgress = (playbackPosition) => {
-      this.setState({progress : 100 * playbackPosition});
+      const nearestIncrement = Math.round( playbackPosition * trackLength / minRes );
+      const place = nearestIncrement * minRes;
+      const beatResolution = this.state.formatSettings.beatResolution;
+      if( this.state.progress === null || Math.floor(place / beatResolution) !== Math.floor(this.state.progress / beatResolution) )
+      {
+        this.setState({progress : Math.floor(place / beatResolution) * beatResolution } );
+      }
     };
 
     return (
@@ -111,15 +157,8 @@ class App extends React.Component
           instruments={this.state.instruments} 
           tracks={pattern.instrumentTracks}
           config={this.state.formatSettings}
-        />        
-        <Grid container>
-        <Grid item xs={4} />
-        <Grid item xs={4}>
-        <LinearProgress variant="determinate" value={this.state.progress}/>
-        </Grid>
-        <Grid item xs={4} />
-        </Grid>
-
+          active={this.state.progress}
+        />
         <SoundBoard 
           instruments={this.state.instruments} 
           instrumentIndex={this.state.instrumentIndex} 
