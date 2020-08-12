@@ -179,6 +179,7 @@ class App extends React.Component
       const optionalAlert = showAlert ? ( <Alert severity="error">{this.state.loadedFile} contained no patterns! Try another.</Alert> )
                                       : "";
       return (
+        <React.Fragment>
         <div>
           <h2>tabit</h2>
           <p>I read .h2songs and write tab</p>
@@ -189,6 +190,10 @@ class App extends React.Component
             />
             {optionalAlert}
         </div>
+        <div style={{ position:"absolute", bottom:0 }} >
+          <p>tabit relies on publicly available sound libraries listed at <a href="https://github.com/andrew-murray/tabit">https://github.com/andrew-murray/tabit</a></p>
+        </div>
+        </React.Fragment>
       );      
     }
     else

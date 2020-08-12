@@ -41,6 +41,9 @@ class SoundBoard extends React.Component
       if( selected.length > 0)
       {
         const selected_instrument = selected[0];
+        // todo: many hydrogen drumkits are unsupported
+        //       we should fallback to sensible defaults when the drumkit is not available
+        //       rules for {tom, stick, shaker, kick, bass}
         if( 
           "drumkit" in selected_instrument && 
           "filename" in selected_instrument &&
