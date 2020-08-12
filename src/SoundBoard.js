@@ -6,17 +6,14 @@ import IconButton from '@material-ui/core/IconButton';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import StopIcon from '@material-ui/icons/Stop';
 
-// TODO: Licensing for hydrogen drumkits
-// TODO: auto-generation of index
+// these are the hydrogen drumkits available by GPL/CC
 
-const  DRUMKITS = [
-  "Boss_DR-110",
+const DRUMKITS = [
   "circAfrique v4",
   "DeathMetal",
   "JazzFunkKit",
   "The Black Pearl 1.0",
-  "YamahaVintageKit",
-  "GMkit",
+  "GMRockKit",
   "TR808EmulationKit"
 ];
 
@@ -55,6 +52,7 @@ class SoundBoard extends React.Component
           if(!(selected_instrument.id in this.sounds))
           {
             const dest_url = process.env.PUBLIC_URL + "/wav/" + selected_instrument.drumkit + "/" + filename;
+            console.log("fetching file from drumkit \'" + selected_instrument.drumkit + "\'");
             const actx = Audio.context;
             let sounds = this.sounds;
             collatedPromises.push( 
