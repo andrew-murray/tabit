@@ -200,7 +200,7 @@ function InstrumentConfig(props) {
   const changeSymbol = (e) =>
   {
     const updatedSymbol = editSymbolState;
-    if(updatedSymbol.length==1)
+    if(updatedSymbol.length===1)
     {
       const instrumentID = props.instrumentIndex[editSymbol].id;
       const instrumentIndex = props.instruments.findIndex( instrument => instrumentID in instrument[1]);

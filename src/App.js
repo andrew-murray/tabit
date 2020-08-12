@@ -31,7 +31,6 @@ import {createInstrumentMask, InstrumentConfig} from "./instrumentConfig";
 import { activeInstrumentation, figureInstruments, DEFAULT_INSTRUMENT_SYMBOLS } from "./instrumentation";
 
 import Grid from '@material-ui/core/Grid';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 // load static data
 import kuva from "./kuva.json";
@@ -320,7 +319,6 @@ class App extends React.Component
   }
 
   render() {
-    const classes = this.props;
     const mainContent = this.renderMainContent();
     return (
       <div className="App">
