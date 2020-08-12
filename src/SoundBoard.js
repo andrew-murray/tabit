@@ -52,7 +52,6 @@ class SoundBoard extends React.Component
           if(!(selected_instrument.id in this.sounds))
           {
             const dest_url = process.env.PUBLIC_URL + "/wav/" + selected_instrument.drumkit + "/" + filename;
-            console.log("fetching file from drumkit \'" + selected_instrument.drumkit + "\'");
             const actx = Audio.context;
             let sounds = this.sounds;
             collatedPromises.push( 

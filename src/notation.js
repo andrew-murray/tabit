@@ -72,7 +72,7 @@ class notation
     return numberMarkerArray.join("");
   }
 
-  static formatLineWithMarkers(config, line, patternResolution)
+  static formatLineWithMarkers(config, line, patternResolution, asHTML)
   {
     notation.validateConfig(config);
 
@@ -82,19 +82,21 @@ class notation
       n = n + '';
       return n.length >= width ? n : new Array(width - n.length + 1).join('0') + n;
     };
-    const formatSymbol = (symbol, resLoc) => {
-      return "<span class='note-" + padZero(resLoc, 4) + "'>" +  symbol + "</span>";
+    const formatSymbolAsSpans = (symbol, numericPosition) => {
+      return "<span class='note-" + padZero(numericPosition, 4) + "'>" +  symbol + "</span>";
     };
 
-    let lineAsSpans = "";
+    const formatSymbol = asHTML ? formatSymbolAsSpans : (symbol, numericPosition) => symbol;
+
+    let formattedLine = "";
     for( let index = 0; index < line.length; ++ index )
     {
-      const resLoc = patternResolution * index;
-      lineAsSpans += formatSymbol(line.charAt(index), resLoc);
+      const numericPosition = patternResolution * index;
+      formattedLine += formatSymbol(line.charAt(index), numericPosition);
     }
 
 
-    const lineWithBeats = config.showBeatMark ? notation.chunkString(lineAsSpans, beatChunkSize * formatSymbol("X", 0).length).join(config.beatMark) : line;
+    const lineWithBeats = config.showBeatMark ? notation.chunkString(formattedLine, beatChunkSize * formatSymbol("X", 0).length).join(config.beatMark) : formattedLine;
     // note: we choose to always show the lineMarker even if it doesn't match the line resolution
     return config.lineMark + lineWithBeats + config.lineMark;
   }
@@ -102,6 +104,7 @@ class notation
   static fromInstrumentAndTrack(
     instrument,
     trackDict,
+    asHTML,
     formatConfig = {},
     activeNote = null
   )
@@ -153,12 +156,13 @@ class notation
       formattedLineArray.push( notation.formatLineWithMarkers( 
         config, 
         notation.createNumberMarker(config, patternResolution, patternSize), 
-        patternResolution 
+        patternResolution,
+        asHTML
       ) );
     }
     for( let i = 0; i < lineArray.length; ++i )
     {
-      formattedLineArray.push( notation.formatLineWithMarkers( config, lineArray[i], patternResolution, activeNote ));
+      formattedLineArray.push( notation.formatLineWithMarkers( config, lineArray[i], patternResolution, asHTML ) );
     }
 
     return formattedLineArray.join("\n");

@@ -17,6 +17,7 @@ function formatAsPage(state, instruments, config = {})
       const notationString = notation.fromInstrumentAndTrack(
         instrument,
         track.instrumentTracks,
+        false, // asHTML
         config
       );
       page += instrumentName + "\n\n";

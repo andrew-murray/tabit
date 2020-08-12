@@ -38,8 +38,6 @@ import kuva from "./kuva.json";
 import track from "./track";
 
 import SoundBoard from "./SoundBoard";
-import Audio from "./Audio";
-
 // mui theme config
 let theme = createMuiTheme( { 
   palette: { 

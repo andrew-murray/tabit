@@ -149,21 +149,22 @@ test('unit test formatLineWithMarkers', () => {
   // change resolution of passed in string
 
   // this turns out to be very nasty looking notation when you test all the options
-  expect(notation.formatLineWithMarkers(configExample, exampleLine, 24)).toEqual( " O.|..|..|O.|..|..|O.|.. ");
+  const asHTML = false;
+  expect(notation.formatLineWithMarkers(configExample, exampleLine, 24, asHTML)).toEqual( " O.|..|..|O.|..|..|O.|.. ");
 
-  expect(notation.formatLineWithMarkers(configExample, exampleLine, 12)).toEqual( " O...|..O.|....|O... ");
+  expect(notation.formatLineWithMarkers(configExample, exampleLine, 12, asHTML)).toEqual( " O...|..O.|....|O... ");
   // lineLength / beatResolution
   // (16 * 16) / 48 = 5.3333
-  expect(notation.formatLineWithMarkers(configExample, exampleLine, 16)).toEqual( " O..|...|O..|...|O..|. ");
+  expect(notation.formatLineWithMarkers(configExample, exampleLine, 16, asHTML)).toEqual( " O..|...|O..|...|O..|. ");
 
   // change beatResolution
   configExample.beatResolution = 24;
-  expect(notation.formatLineWithMarkers(configExample, exampleLine, 24)).toEqual( " O|.|.|.|.|.|O|.|.|.|.|.|O|.|.|. ");
+  expect(notation.formatLineWithMarkers(configExample, exampleLine, 24, asHTML)).toEqual( " O|.|.|.|.|.|O|.|.|.|.|.|O|.|.|. ");
 
   configExample.beatResolution = 96;
-  expect(notation.formatLineWithMarkers(configExample, exampleLine, 24)).toEqual( " O...|..O.|....|O... ");
+  expect(notation.formatLineWithMarkers(configExample, exampleLine, 24, asHTML)).toEqual( " O...|..O.|....|O... ");
   configExample.beatResolution = 192;
-  expect(notation.formatLineWithMarkers(configExample, exampleLine, 24)).toEqual( " O.....O.|....O... ");
+  expect(notation.formatLineWithMarkers(configExample, exampleLine, 24, asHTML)).toEqual( " O.....O.|....O... ");
 
 
   // FIXME: The testing of formatLineWithMarkers is not as thorough as other functions
