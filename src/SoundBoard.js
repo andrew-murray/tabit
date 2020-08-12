@@ -11,7 +11,6 @@ import StopIcon from '@material-ui/icons/Stop';
 const DRUMKITS = [
   "circAfrique v4",
   "DeathMetal",
-  "JazzFunkKit",
   "The Black Pearl 1.0",
   "GMRockKit",
   "TR808EmulationKit"
