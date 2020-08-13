@@ -32,9 +32,11 @@ class Pattern extends React.Component
     let page = [];
     for( const [instrumentName, instrument] of instruments )
     {
+      const asHTML = true;
       const notationString = notation.fromInstrumentAndTrack(
         instrument,
         this.props.tracks,
+        asHTML,
         configOverride
       );
       page.push(instrumentName);
