@@ -75,7 +75,7 @@ test('notation separate kuva', () => {
 
 test('notation garlic', () => {
   const state = createObjects(JSON.parse(fs.readFileSync("./test_data/too_much_garlic.json")));
-  const output = formatAsPage( state, configuredInstrumentMappings );
+  const output = formatAsPage( state, configuredInstrumentMappings, {lineResolution : 48 * 7});
   expect(output).toMatchSnapshot();
 });
 

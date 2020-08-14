@@ -10,15 +10,14 @@ class notation
     "beatResolution" : 48,
     "showBeatMark" : true,
     "showBeatNumbers" : true,
-    // lineResolution needs to be determined on a per-pattern-basis 
-    // so let's just not cut the lines apart, by default
-    "lineResolution" : 48 * 16
+    // lineResolution is typically determined on a per-pattern basis
+    // however it used to be in here, and some tests still rely on this
+    "lineResolution" : 48 * 8
   };
 
   static FORMAT_CONFIG_STRINGS = [
     ["restMark",["-", ".", " "]],
-    ["numberRestMark",["-", ".", " "]],
-    ["beatResolution",["24", "48", "96"]]
+    ["numberRestMark",["-", ".", " "]]
   ];
 
   static FORMAT_CONFIG_BOOLS = [
@@ -98,30 +97,28 @@ class notation
 
   static defaultLineResolution(
     trackDict,
-    config
+    beatResolution
   )
   {
     const instrumentTracks = Object.values(trackDict);
     if(instrumentTracks.length === 0)
     {
-      console.log("returning a bad default!");
       return 48 * 8;
     }
     const trackLength = instrumentTracks[0].length();
-    const beatCount = trackLength / config.beatResolution;
+    const beatCount = trackLength / beatResolution;
     if( beatCount <= 12 )
     {
       return trackLength;
     }
-    else if( beatCount >=32 )
+    else if( beatCount > 32 )
     {
-      return trackLength;
+      return 48 * 16; // let's just be laazeee
     }
     else
     {
-      return trackLength;
       // let's just apply a simple mapping, rather than think through logics
-      const mapping = [ 
+      const mapping = [
         trackLength, // 13 
         trackLength / 2, // 14
         trackLength / 3, // 15
@@ -145,7 +142,16 @@ class notation
       ];
       return mapping[ beatCount - 13 ];
     }
-    return trackLength;
+  }
+
+  static guessPerPatternSettings(
+    trackDict
+  )
+  {
+    return {
+      "lineResolution" : notation.defaultLineResolution(trackDict, 48), // beatResolution (default)
+      "beatResolution" : 48 // should cover all the cases hopefully
+    };
   }
 
   static fromInstrumentAndTrack(
