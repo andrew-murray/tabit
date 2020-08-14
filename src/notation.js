@@ -33,7 +33,7 @@ class notation
     }
     if( config.lineResolution <= 0 )
     {
-      throw new Error("config.lineResolution doesn't divide patternResolution");
+      throw new Error("config.lineResolution must be greater than zero");
     }
   }
 
@@ -45,29 +45,24 @@ class notation
     return str.match(new RegExp('.{1,' + chunkSize + '}', 'g'));
   }
 
-  static createNumberMarker(config, patternResolution, patternSize)
+  static createNumberMarker(numberRestMark, beatResolution, patternResolution, lineLength)
   {
-    if( patternResolution <= 0 || patternSize <= 0 )
+    if( lineLength <= 0 )
     {
-      throw new Error("(patternResolution, patternSize) arguments <= 0");
-    }
-    if( ( patternSize % patternResolution) !== 0 )
-    {
-      throw new Error("patternSize,doesn't divide patternResolution");
+      throw new Error("lineLength <= 0");
     }
 
-    notation.validateConfig(config, patternResolution);
+    if( ( beatResolution % patternResolution ) !== 0)
+    {
+      throw new Error("patternResolution " + patternResolution.toString() + " does not divide beatResolution " + beatResolution.toString());
+    }
 
-    // note, this assumes that each line makes this match evenly
-    // but ... there's nothing you can do in that case really unless you take an array of lineResolutions
-    const lineLength = Math.min(patternSize, config.lineResolution);
-    let beatCount = Math.ceil(lineLength / config.beatResolution);
-
-    let numberMarkerArray = Array.from( Array(lineLength / patternResolution), e => config.numberRestMark );
+    let beatCount = Math.ceil(lineLength / beatResolution);
+    let numberMarkerArray = Array.from( Array(lineLength / patternResolution), e => numberRestMark );
 
     for( let beat = 0; beat < beatCount; beat++ )
     {
-      numberMarkerArray[ beat * ( config.beatResolution / patternResolution ) ] = ( (beat+1) % 10 ).toString();
+      numberMarkerArray[ beat * ( beatResolution / patternResolution ) ] = ( (beat+1) % 10 ).toString();
     }
     return numberMarkerArray.join("");
   }
@@ -101,12 +96,63 @@ class notation
     return config.lineMark + lineWithBeats + config.lineMark;
   }
 
+  static defaultLineResolution(
+    trackDict,
+    config
+  )
+  {
+    const instrumentTracks = Object.values(trackDict);
+    if(instrumentTracks.length === 0)
+    {
+      console.log("returning a bad default!");
+      return 48 * 8;
+    }
+    const trackLength = instrumentTracks[0].length();
+    const beatCount = trackLength / config.beatResolution;
+    if( beatCount <= 12 )
+    {
+      return trackLength;
+    }
+    else if( beatCount >=32 )
+    {
+      return trackLength;
+    }
+    else
+    {
+      return trackLength;
+      // let's just apply a simple mapping, rather than think through logics
+      const mapping = [ 
+        trackLength, // 13 
+        trackLength / 2, // 14
+        trackLength / 3, // 15
+        trackLength / 2, // 16
+        trackLength, // 17
+        trackLength / 3, // 18
+        trackLength, // 19
+        trackLength / 4, // 20
+        trackLength / 3, // 21
+        trackLength / 2, // 22
+        trackLength, // 23
+        trackLength / 3, // 24
+        trackLength / 5, // 25
+        trackLength, // 26
+        trackLength / 3, // 27
+        trackLength / 4, // 28
+        trackLength, // 29
+        trackLength / 6, // 30
+        trackLength, // 31
+        trackLength / 4, // 32
+      ];
+      return mapping[ beatCount - 13 ];
+    }
+    return trackLength;
+  }
+
   static fromInstrumentAndTrack(
     instrument,
     trackDict,
     asHTML,
-    formatConfig = {},
-    activeNote = null
+    formatConfig = {}
   )
   {
     for( const propName of Object.keys(formatConfig))
@@ -155,7 +201,7 @@ class notation
     {
       formattedLineArray.push( notation.formatLineWithMarkers( 
         config, 
-        notation.createNumberMarker(config, patternResolution, patternSize), 
+        notation.createNumberMarker(config.numberRestMark, config.beatResolution, patternResolution, Math.min(config.lineResolution, patternSize)), 
         patternResolution,
         asHTML
       ) );

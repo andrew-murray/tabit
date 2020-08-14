@@ -45,89 +45,54 @@ test('unit test chunkString', () => {
 
 test('unit test createNumberMarker', () => {
 
-  const configExample = {
-    "restMark" : "-",
-    "beatMark" : "|",
-    "lineMark" : "|",
-    "numberRestMark" : "-",
-    "beatResolution" : 4, // 48
-    "showBeatMark" : true,
-    "showBeatNumbers" : true,
-    "lineResolution" : 4 * 8 // 48 * 8
-  };
+  const restMark = "-";
+  const beatRes = 4;
 
-  expect( notation.createNumberMarker( configExample, 1, 4 * 20 ) ).toEqual( "1---2---3---4---5---6---7---8---" );
-
-  expect( notation.createNumberMarker( configExample, 1, 4 * 8 ) ).toEqual( "1---2---3---4---5---6---7---8---" );
-  expect( notation.createNumberMarker( configExample, 1, 4 * 7 ) ).toEqual( "1---2---3---4---5---6---7---" );
-  expect( notation.createNumberMarker( configExample, 1, 4 * 3 ) ).toEqual( "1---2---3---" );
+  expect( notation.createNumberMarker( restMark, beatRes, 1, 4 * 8 ) ).toEqual( "1---2---3---4---5---6---7---8---" );
+  expect( notation.createNumberMarker( restMark, beatRes, 1, 4 * 7 ) ).toEqual( "1---2---3---4---5---6---7---" );
+  expect( notation.createNumberMarker( restMark, beatRes, 1, 4 * 3 ) ).toEqual( "1---2---3---" );
 
   // non integer
-  expect( notation.createNumberMarker( configExample, 1, 4 * 7 + 2 ) ).toEqual( "1---2---3---4---5---6---7---8-" );
+  expect( notation.createNumberMarker( restMark, beatRes, 1, 4 * 7 + 2 ) ).toEqual( "1---2---3---4---5---6---7---8-" );
 
   // all the above checks, with a different patternResolution
-  expect( notation.createNumberMarker( configExample, 2, 4 * 20 ) ).toEqual( "1-2-3-4-5-6-7-8-" );
-
-  expect( notation.createNumberMarker( configExample, 2, 4 * 8 ) ).toEqual( "1-2-3-4-5-6-7-8-" );
-  expect( notation.createNumberMarker( configExample, 2, 4 * 7 ) ).toEqual( "1-2-3-4-5-6-7-" );
-  expect( notation.createNumberMarker( configExample, 2, 4 * 3 ) ).toEqual( "1-2-3-" );
+  expect( notation.createNumberMarker( restMark, beatRes, 2, 4 * 8 ) ).toEqual( "1-2-3-4-5-6-7-8-" );
+  expect( notation.createNumberMarker( restMark, beatRes, 2, 4 * 7 ) ).toEqual( "1-2-3-4-5-6-7-" );
+  expect( notation.createNumberMarker( restMark, beatRes, 2, 4 * 3 ) ).toEqual( "1-2-3-" );
 
   // non integer
   // note, this is pretty weird, perhaps 7-- would be better? So this is more of a regression test
-  expect( notation.createNumberMarker( configExample, 2, 4 * 7 + 2 ) ).toEqual( "1-2-3-4-5-6-7-8"  );
+  expect( notation.createNumberMarker( restMark, beatRes, 2, 4 * 7 + 2 ) ).toEqual( "1-2-3-4-5-6-7-8"  );
 
 });
 
 test('unit test createNumberMarker Realistic', () => {
 
-  const configExample = {
-    "restMark" : "X",
-    "beatMark" : "B",
-    "numberRestMark" : "T",
-    "beatResolution" : 48,
-    "showBeatNumbers" : true,
-    "lineResolution" : 48 * 4
-  };
+  const restMark = "T";
+  const beatRes = 48;
 
-  expect( notation.createNumberMarker( configExample,  48 / 3, 48 * 3) ).toEqual( "1TT2TT3TT" );
-  expect( notation.createNumberMarker( configExample,  48 / 3, 48 * 2) ).toEqual( "1TT2TT" );
-  expect( notation.createNumberMarker( configExample,  48 / 3, (48 / 3) * 2 ) ).toEqual( "1T" );
+  expect( notation.createNumberMarker( restMark, beatRes, 48 / 3, 48 * 3) ).toEqual( "1TT2TT3TT" );
+  expect( notation.createNumberMarker( restMark, beatRes, 48 / 3, 48 * 2) ).toEqual( "1TT2TT" );
+  expect( notation.createNumberMarker( restMark, beatRes, 48 / 3, (48 / 3) * 2 ) ).toEqual( "1T" );
 
-  expect( notation.createNumberMarker( configExample,  48 / 3, 48 * 4) ).toEqual( "1TT2TT3TT4TT" );
-  expect( notation.createNumberMarker( configExample,  48 / 3, 48 * 5) ).toEqual( "1TT2TT3TT4TT" );
+  expect( notation.createNumberMarker( restMark, beatRes, 48 / 3, 48 * 4) ).toEqual( "1TT2TT3TT4TT" );
 
 });
 
-test('unit test createNumberMarker Realistic', () => {
+test('unit test createNumberMarker Realistic - 2', () => {
 
-  const configExample = {
-    "restMark" : "X",
-    "beatMark" : "B",
-    "numberRestMark" : "T",
-    "beatResolution" : 48,
-    "showBeatNumbers" : true,
-    "lineResolution" : 48 * 4
-  };
+  const restMark = "T";
+  const beatRes = 48;
 
   // repeat a normal case
 
-  expect( notation.createNumberMarker( configExample,  48 / 3, 48 * 3) ).toEqual( "1TT2TT3TT" );
+  expect( notation.createNumberMarker( restMark, beatRes,  48 / 3, 48 * 3) ).toEqual( "1TT2TT3TT" );
 
-  // beatResolution doesn't divide lineResolution
-  configExample.lineResolution = 49;
-  expect( () => notation.createNumberMarker( configExample,  48 / 3, 48 * 3) ).toThrow();
-
-  configExample.lineResolution = -1;
-  expect( () => notation.createNumberMarker( configExample,  48 / 3, 48 * 3) ).toThrow();
-  configExample.lineResolution = 0;
-  expect( () => notation.createNumberMarker( configExample,  48 / 3, 48 * 3) ).toThrow();
-  configExample.lineResolution = 48 *4;
-
+  expect( () => notation.createNumberMarker( restMark, beatRes, 48 / 3, -1) ).toThrow();
+  expect( () => notation.createNumberMarker( restMark, beatRes,  48 / 3, 0) ).toThrow();
 
   // patternResolution doesn't divide beatResolution
-  configExample.beatResolution = 48 / 2;
-  expect( () => notation.createNumberMarker( configExample,  48 / 3, 48 * 3) ).toThrow();
-
+  expect( () => notation.createNumberMarker( restMark, 48 / 2, 48 / 3, 48 * 3) ).toThrow();
 
 });
 

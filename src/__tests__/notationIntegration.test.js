@@ -59,7 +59,7 @@ test('notation separate garlic', () => {
     Object.entries(state.instruments),
     (idAndObj) => [ idAndObj[1].name, { [idAndObj[0].toString()]: "X" } ]
   );
-  const output = formatAsPage( state, instrumentMappings );
+  const output = formatAsPage( state, instrumentMappings, {lineResolution : 48 * 7} );
   expect(output).toMatchSnapshot();
 });
 
