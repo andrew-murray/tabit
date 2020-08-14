@@ -7,8 +7,6 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import Select from '@material-ui/core/Select';
-import Divider from "@material-ui/core/Divider";
-
 import notation from "./notation";
 
 const useStyles = makeStyles((theme) => ({
@@ -25,19 +23,6 @@ function camelToReadable(s)
 {
   const spacedString = s.replace(/([A-Z])/g, ' $1');
   return spacedString[0].toUpperCase() + spacedString.slice(1);
-}
-
-function generateDivisibleNumbers(trackLength, beatResolution)
-{
-  let options = [];
-  for( let beatTotal = beatResolution * 2; beatTotal <= trackLength; beatTotal += beatResolution )
-  {
-    if( ( trackLength % beatTotal ) === 0)
-    {
-      options.push( beatTotal );
-    }
-  }
-  return options;
 }
 
 function FormatSettings(props) {
@@ -102,10 +87,7 @@ function FormatSettings(props) {
 
   const resolutionToBeatString = (r) => ( r / props.settings.beatResolution ).toString();
   const beatStringToResolution = (b) => props.settings.beatResolution * parseInt(b);
-  console.log(classes);
-  console.dir(classes);
-  // divisible is quite clunky, let's be more restrictive
-  // const lineLengths = generateDivisibleNumbers(props.trackLength, props.settings.beatResolution);
+  
   const candidateLineLengths = [ 2, 3, 4, 5, 6, 7, 8 ];
   let lineLengths = [];
   for( const c of candidateLineLengths )

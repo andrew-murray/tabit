@@ -125,6 +125,7 @@ function InstrumentConfig(props) {
       return ( 
         <TableCell
           align="center"
+          key={"instrumentPanel-cell-" + y.toString() + "-" + x.toString()}
         >
         <ThinFormControlLabel
           control={<Checkbox checked={props.instrumentMask[x] === y} onChange={(e) => handleChange(x,y,e)} name={x + "," + y.toString()} />}
@@ -136,8 +137,8 @@ function InstrumentConfig(props) {
   const createMatchingRow = (y) =>
   {
     return (
-      <TableRow>
-        <TableCell component="th" scope="row">
+      <TableRow key={"instrumentPanel-row-" + y.toString()}>
+        <TableCell component="th" scope="row" key={"instrumentPanel-row-" + y.toString() + "-name"}> 
           <Typography>{props.instruments[y][0]}</Typography>
           <InlinableIconButton onClick={(e)=>setRenamingInstrument(y)}><EditIcon fontSize="small"/></InlinableIconButton>
           <InlinableIconButton onClick={(e)=>{removeInstrument(y);}}><ClearIcon fontSize="small"/></InlinableIconButton>
@@ -150,8 +151,12 @@ function InstrumentConfig(props) {
   const createEditRow = () =>
   {
     return (
-      <TableRow>
-        <TableCell component="th" scope="row"><IconButton onClick={(e)=>setRenamingInstrument(props.instruments.length)} aria-label="add"><AddBoxIcon/></IconButton></TableCell>
+      <TableRow key={"instrumentPanel-row-edit"}>
+        <TableCell component="th" scope="row" key={"instrumentPanel-row-edit-cell"}>
+          <IconButton onClick={(e)=>setRenamingInstrument(props.instruments.length)} aria-label="add">
+            <AddBoxIcon/>
+          </IconButton>
+        </TableCell>
       </TableRow>
     );
   };
@@ -272,12 +277,13 @@ function InstrumentConfig(props) {
       <TableContainer>
         <Table className={classes.table} aria-label="simple table">
           <TableHead>
-            <TableRow>
-              <TableCell> Instrument </TableCell>
-              {[...Array(props.instrumentIndex.length).keys()].map(x=><CenterTableCell><Typography>{props.instrumentIndex[x].name}</Typography><InlinableIconButton onClick={(e)=>startEditingSymbol(x)} ><EditIcon fontSize="small"/></InlinableIconButton></CenterTableCell>)}
+            <TableRow key={"instrumentPanel-row-header"}>
+              <TableCell key={"instrumentPanel-row-instrument"}> Instrument </TableCell>
+              {[...Array(props.instrumentIndex.length).keys()].map(x=><CenterTableCell key={"instrumentPanel-row-header-cell-" + x.toString()}><Typography>{props.instrumentIndex[x].name}</Typography><InlinableIconButton onClick={(e)=>startEditingSymbol(x)} ><EditIcon fontSize="small"/></InlinableIconButton></CenterTableCell>)}
             </TableRow>
           </TableHead>
           <TableBody>
+
             {[...Array(props.instruments.length).keys()].map(y=>createMatchingRow(y))}
             {createEditRow()}
           </TableBody>
