@@ -1,11 +1,13 @@
 class Audio
 {
 
-  // todo: this context should be maintained at the app top-level, rather than internal to this class
-  // todo: we replace a valid audioConext with a blank object, so that we can run tests in node
+  // todo: we replace a valid audioContext with a blank object, so that we can run tests in node
   //       this should probably be replaced by https://github.com/audiojs/web-audio-api 
   //       and a test-suite written
-  static context = new (window.AudioContext || window.webkitAudioContext || Object)();
+  static createWebContext()
+  {
+    return new (window.AudioContext || window.webkitAudioContext || Object)();
+  }
 
   static determineMinResolution(
     instrumentIndex,

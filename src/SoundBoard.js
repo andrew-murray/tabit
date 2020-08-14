@@ -30,10 +30,17 @@ class SoundBoard extends React.Component
       soundsPopulated : false
     }
     this.sounds = {};
+    this.audioContext = null;
   }
 
   populateSounds()
   {
+    if( this.audioContext === null )
+    {
+      // don't do this when creating components
+      // https://developers.google.com/web/updates/2017/09/autoplay-policy-changes#webaudio
+      this.audioContext = Audio.createWebContext();
+    }
     let collatedPromises = []; 
     for(const [id,] of Object.entries(this.props.tracks))
     {
@@ -54,7 +61,7 @@ class SoundBoard extends React.Component
           if(!(selected_instrument.id in this.sounds))
           {
             const dest_url = process.env.PUBLIC_URL + "/wav/" + selected_instrument.drumkit + "/" + filename;
-            const actx = Audio.context;
+            const actx = this.audioContext;
             let sounds = this.sounds;
             collatedPromises.push( 
               AudioRequest.make( dest_url )
@@ -74,7 +81,7 @@ class SoundBoard extends React.Component
 
     Promise.all(collatedPromises).then( () => {
       const b = Audio.createMasterTrack(
-        Audio.context,
+        board.audioContext,
         tracks,
         instrumentIndex,
         sounds,
@@ -108,8 +115,9 @@ class SoundBoard extends React.Component
 
   componentDidUpdate(prevProps, prevState, snapshot)
   {
-    // todo: this is a bit fishy, what is this comparison exactly?
-    const tracksAreDifferent = prevProps.tracks != this.props.tracks;
+    // theoretically we should be evaluating a rougher equality on the tracks here
+    // but ... as is !== will never be wrong here, and our linter warns if we don't use it 
+    const tracksAreDifferent = prevProps.tracks !== this.props.tracks;
     if( tracksAreDifferent )
     {
       this.stop();
@@ -119,7 +127,7 @@ class SoundBoard extends React.Component
     {
       // if( !this.state.soundsPopulated ) then we already have a task in flight to do this
       const b = Audio.createMasterTrack(
-        Audio.context,
+        this.audioContext,
         this.props.tracks,
         this.props.instrumentIndex,
         this.sounds,
@@ -148,11 +156,11 @@ class SoundBoard extends React.Component
   playBuffer( b )
   {
 
-    const source = Audio.createAudioSource( Audio.context, b );
+    const source = Audio.createAudioSource( this.audioContext, b );
 
     // kick it off immediately
     source.start();
-    this.startTime = Audio.context.currentTime;
+    this.startTime = this.audioContext.currentTime;
 
 
     const tempo = 100.0;
@@ -160,7 +168,7 @@ class SoundBoard extends React.Component
 
     
     const updatePlayPos = () => {
-      const currentTime = Audio.context.currentTime;
+      const currentTime = this.audioContext.currentTime;
       const playPos = ( ( currentTime - this.startTime )  / this.state.audioBuffer.duration ) % 1.0;
 
       const beatCount = ( currentTime - this.startTime ) / beatTime;
