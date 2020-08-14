@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "30f19a54d52b7e8c2d42327dabbb85b2",
+    "revision": "f6afe5e07e0c5e0a5f63e789ee8d9357",
     "url": "/tabit/index.html"
   },
   {
-    "revision": "29166375ef885b06f168",
+    "revision": "18e78a3fdc8a0f4592ad",
     "url": "/tabit/static/css/main.abb25dff.chunk.css"
   },
   {
-    "revision": "d93921fc732b519cdfb5",
-    "url": "/tabit/static/js/2.93dc6165.chunk.js"
+    "revision": "4fa89be4da325e907212",
+    "url": "/tabit/static/js/2.25b99439.chunk.js"
   },
   {
     "revision": "27ca4020711bd21574faae3da7dd14e9",
-    "url": "/tabit/static/js/2.93dc6165.chunk.js.LICENSE.txt"
+    "url": "/tabit/static/js/2.25b99439.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "29166375ef885b06f168",
-    "url": "/tabit/static/js/main.9051156e.chunk.js"
+    "revision": "18e78a3fdc8a0f4592ad",
+    "url": "/tabit/static/js/main.661fe994.chunk.js"
   },
   {
     "revision": "2d87eaf14b46be11aa70",
