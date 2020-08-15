@@ -37,6 +37,8 @@ import Grid from '@material-ui/core/Grid';
 import kuva from "./kuva.json";
 import track from "./track";
 
+import { saveAs } from 'file-saver';
+
 import SoundBoard from "./SoundBoard";
 // mui theme config
 let theme = createMuiTheme( { 
@@ -52,18 +54,53 @@ class App extends React.Component
   constructor(props) {
     super(props);
     this.state = {
+      // data
       instruments : null,
       instrumentIndex : null,
       instrumentMask : null,
       patterns : null,
-      selectedPattern : null,
-      loadedFile : null,
-      settingsOpen : false,
-      patternsOpen : false,
       formatSettings : Object.assign({}, DefaultSettings),
       patternSettings : [],
+      // ui state
+      loadedFile : null,
+      selectedPattern : null,
+      settingsOpen : false,
+      patternsOpen : false,
       progress : null
     };
+  }
+
+
+  getExportState()
+  {
+    return {
+      instruments : this.state.instruments,
+      instrumentIndex : this.state.instrumentIndex,
+      patterns : this.state.patterns,
+      formatSettings: this.state.formatSettings,
+      patternSettings : this.state.patternSettings
+    }
+  }
+
+  save()
+  {
+    let destFilename = "download.tabit";
+    if(this.state.loadedFile)
+    {
+      const fileParts = this.state.loadedFile.split(".");
+      if( fileParts.length === 1 )
+      {
+        destFilename = fileParts[0] + ".tabit";
+      }
+      else
+      {
+        destFilename = fileParts.slice(0, fileParts.length - 1).join(".") + ".tabit";
+      }
+    }
+
+    const js = JSON.stringify(this.getExportState(), null, 4);
+    const blob = new Blob([js], {type: "application/json"});
+    saveAs(blob, destFilename);
   }
 
   figurePatternSettings(patterns)
@@ -74,23 +111,68 @@ class App extends React.Component
     );
   }
 
+
   handleFileImport(e)
   {
-    // e = { file : , content : }
-    h2.parseHydrogenPromise(e.content).then(h => {
-      const assessedInstruments = figureInstruments(h.instruments, DEFAULT_INSTRUMENT_SYMBOLS, h.patterns);
-      const instrumentIndex = activeInstrumentation(h.instruments, h.patterns);
-      this.setState({
-        instrumentIndex : instrumentIndex,
-        instrumentMask : createInstrumentMask(instrumentIndex, assessedInstruments),
-        instruments : assessedInstruments,
-        patterns : h.patterns,
-        selectedPattern : h.patterns.length === 0 ? null : 0,
-        loadedFile : e.file.name,
-        patternsOpen : true,
-        patternSettings : this.figurePatternSettings(h.patterns)
-      });
-    });
+    if( e.file.name.includes("h2song") )
+    {
+      // e = { file : , content : }
+      h2.parseHydrogenPromise(e.content).then(h => {
+        const assessedInstruments = figureInstruments(h.instruments, DEFAULT_INSTRUMENT_SYMBOLS, h.patterns);
+        const instrumentIndex = activeInstrumentation(h.instruments, h.patterns);
+        this.setState({
+          // data
+          instrumentIndex : instrumentIndex,
+          instrumentMask : createInstrumentMask(instrumentIndex, assessedInstruments),
+          instruments : assessedInstruments,
+          patterns : h.patterns,
+          patternSettings : this.figurePatternSettings(h.patterns),
+          // general app state
+          loadedFile : e.file.name,
+          patternsOpen : true,
+          selectedPattern : h.patterns.length === 0 ? null : 0,
+        });
+      }).catch( (error)=>{ alert("Failed to load file " + e.file.name  + " with error " + error); } );
+    }
+    else
+    {
+
+      const createTracks = (patternData) => 
+      {
+        // the instruments currently work as simple objects
+        // we need to create tracks!
+        let patterns = [];
+        for( let pattern of patternData )
+        {
+          let replacedTracks = {};
+          // todo: find a more compact way of doing this
+          for( const [id, trackData] of Object.entries(pattern.instrumentTracks) )
+          {
+            replacedTracks[id] = new track( trackData.rep, trackData.resolution );
+          }
+          let patternWithTracks = Object.assign({}, pattern);
+          patternWithTracks.instrumentTracks = replacedTracks;
+          patterns.push(patternWithTracks);
+        }
+        return patterns;
+      }
+
+      // assume it's a tabit file!
+      Promise.resolve(e.content).then(JSON.parse).then( prevState => {
+        this.setState( {
+          instrumentIndex : prevState.instrumentIndex,
+          instrumentMask : createInstrumentMask(prevState.instrumentIndex, prevState.instruments),
+          instruments : prevState.instruments,
+          patterns : createTracks(prevState.patterns),
+          formatSettings : prevState.formatSettings,
+          patternSettings : prevState.patternSettings,
+          // general app state
+          loadedFile : e.file.name,
+          selectedPattern : prevState.patterns.length === 0 ? null : 0,
+          patternsOpen : prevState.patterns.length !== 0,
+        } );
+      }).catch( (error)=>{ alert("Failed to load file " + e.file.name  + " with error " + error); } );
+    }
   }
 
   selectPattern(patternIndex)
@@ -101,13 +183,6 @@ class App extends React.Component
   // todo: this is a separate component!
   renderPattern(pattern, resolvedSettings)
   {
-    const changeInstrumentsCallback = (instruments) => {
-      this.setState( {
-        instruments : instruments,
-        instrumentMask : createInstrumentMask(this.state.instrumentIndex, instruments)
-      } );
-    }
-
     return (
       <React.Fragment>
         <Pattern 
@@ -121,18 +196,6 @@ class App extends React.Component
           instrumentIndex={this.state.instrumentIndex} 
           tracks={pattern.instrumentTracks}
         />
-        <Grid container>
-        <Grid item xs={2} />
-        <Grid item xs={8}>
-          <InstrumentConfig
-            instruments={this.state.instruments}
-            instrumentIndex={this.state.instrumentIndex}
-            instrumentMask={this.state.instrumentMask}
-            onChange={changeInstrumentsCallback}
-          />
-        </Grid>
-        <Grid item xs={2} />
-        </Grid>
       </React.Fragment>
     );
   }
@@ -289,11 +352,20 @@ class App extends React.Component
         this.setState( { patternsOpen : true } );
       };
 
+      const changeInstrumentsCallback = (instruments) => {
+        this.setState( {
+          instruments : instruments,
+          instrumentMask : createInstrumentMask(this.state.instrumentIndex, instruments)
+        } );
+      }
+
       const classes = this.props;
       const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
       const mobile = this.checkMobile();
 
       const patternDetails = { name : patternToRender.name, resolution : patternToRender.resolution, "length" : this.getTrackLength(patternToRender) };
+
+
 
       return (
         <React.Fragment>
@@ -322,6 +394,18 @@ class App extends React.Component
             </IconButton>
           </div>
           {patternContent}
+          <Grid container>
+          <Grid item xs={2} />
+          <Grid item xs={8}>
+            <InstrumentConfig
+              instruments={this.state.instruments}
+              instrumentIndex={this.state.instrumentIndex}
+              instrumentMask={this.state.instrumentMask}
+              onChange={changeInstrumentsCallback}
+            />
+          </Grid>
+          <Grid item xs={2} />
+          </Grid>
 
         <SwipeableDrawer disableBackdropTransition={!iOS} disableDiscovery={iOS}
           className={classes.drawer}
@@ -368,6 +452,10 @@ class App extends React.Component
             settings={patternConfig}
             pattern={patternDetails}
             />
+          <Button
+            style={{backgroundColor : "white", color : theme.palette.background.default}}
+            onClick={(e) => { this.save(); } }
+          >Save All</Button>
         </SwipeableDrawer>
         </React.Fragment>
       );
