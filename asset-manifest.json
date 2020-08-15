@@ -5,17 +5,17 @@
     "main.js.map": "/tabit/static/js/main.fb370589.chunk.js.map",
     "runtime-main.js": "/tabit/static/js/runtime-main.3ead3703.js",
     "runtime-main.js.map": "/tabit/static/js/runtime-main.3ead3703.js.map",
-    "static/js/2.40b215be.chunk.js": "/tabit/static/js/2.40b215be.chunk.js",
-    "static/js/2.40b215be.chunk.js.map": "/tabit/static/js/2.40b215be.chunk.js.map",
+    "static/js/2.ceac2ffd.chunk.js": "/tabit/static/js/2.ceac2ffd.chunk.js",
+    "static/js/2.ceac2ffd.chunk.js.map": "/tabit/static/js/2.ceac2ffd.chunk.js.map",
     "index.html": "/tabit/index.html",
-    "precache-manifest.8cc6edbf8cd031dcbf2fce693e53c2f9.js": "/tabit/precache-manifest.8cc6edbf8cd031dcbf2fce693e53c2f9.js",
+    "precache-manifest.5d3c24877135b60d203c673dc0782e2e.js": "/tabit/precache-manifest.5d3c24877135b60d203c673dc0782e2e.js",
     "service-worker.js": "/tabit/service-worker.js",
     "static/css/main.abb25dff.chunk.css.map": "/tabit/static/css/main.abb25dff.chunk.css.map",
-    "static/js/2.40b215be.chunk.js.LICENSE.txt": "/tabit/static/js/2.40b215be.chunk.js.LICENSE.txt"
+    "static/js/2.ceac2ffd.chunk.js.LICENSE.txt": "/tabit/static/js/2.ceac2ffd.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.3ead3703.js",
-    "static/js/2.40b215be.chunk.js",
+    "static/js/2.ceac2ffd.chunk.js",
     "static/css/main.abb25dff.chunk.css",
     "static/js/main.fb370589.chunk.js"
   ]
