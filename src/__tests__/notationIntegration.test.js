@@ -103,15 +103,31 @@ test('notation cumulus', () => {
 
 
 const thatGuyInstrumentMappings = [
-  ["Bottom Bass ", {"0" : "O", "1" : "X"}],
+  ["Bottom Bass", {"0" : "O", "1" : "X"}],
   ["Mid Bass", {"6" : "O", "8" : "X"}],
   ["Djembe", {"2" : "S", "3" : "t", "4" : "O"}],
   ["Shaker", {"5" : "X"}],
-  ["Snare", {"7" : "X", "9" : "-"}],
+  ["Snare", {"7" : "X", "9" : "-"}]
 ];
 
 test('notation that_guy', () => {
   let state = createObjects(JSON.parse(fs.readFileSync("./test_data/that_guy.json")));
   const output = formatAsPage( state, thatGuyInstrumentMappings );
+  expect(output).toMatchSnapshot();
+});
+
+
+const coconotInstrumentMappings = [
+  [ 'Bottom Bass', { '0': 'O', '18': 'X' } ],
+  [ 'Djembe', { '10': 'S', '11': 't', '12': 'O' } ],
+  [ 'Snare', { '2': 'X', '13': '-' } ],
+  [ 'Shaker', { '16': 'x', '21': 'X' } ],
+  // coconot mixes midbass/tom but they don't overlap so bung them all together
+  [ 'Mid', { '1': 'X', '20': 'X', '17': 'O', '19': 'O' } ]
+];
+
+test('notation coconot', () => {
+  let state = createObjects(JSON.parse(fs.readFileSync("./test_data/coconot.json")));
+  const output = formatAsPage( state, coconotInstrumentMappings );
   expect(output).toMatchSnapshot();
 });

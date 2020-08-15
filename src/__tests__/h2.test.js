@@ -32,6 +32,20 @@ test('h2 parsing - kuva', async () => {
   return expect(resultJSON).toEqual(expectedJSON);
 });
 
+test('h2 parsing - coconot', async () => {
+  const testXml = fs.readFileSync("./test_data/coconot.h2song");
+  const testJSON = "./test_data/coconot.json";
+  
+  const resultJSONPromise = h2.parseHydrogenPromise(testXml.toString()).then(result =>
+  {
+    return JSON.stringify(result, null, 4);
+  });
+  const resultJSON = await resultJSONPromise;
+  // fs.writeFileSync(testJSON, resultJSON);
+  const expectedJSON = String(fs.readFileSync(testJSON));
+  return expect(resultJSON).toEqual(expectedJSON);
+});
+
 test('h2 parsing - that_guy', async() => {
   const testXml = fs.readFileSync("./test_data/that_guy.h2song");
   const testJSON = "./test_data/that_guy.json";

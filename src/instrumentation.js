@@ -207,8 +207,62 @@ function figureClickyInstruments(instrumentsRaw, symbolConfig, patterns)
     mapping[lastTrack.id.toString()] = symbolConfig[instrumentName];
     collated.push([instrumentName, mapping] );  
   }
-
   return collated;
+}
+
+function defaultSymbolForSingleInstrument(symbolConfig, name)
+{
+  // we expect these keys
+  /*
+    "Djembe Slap" : "S",
+    "Djembe Tone" : "t",
+    "Djembe Bass" : "O",
+    "Snare Ghost" : "-",
+    "Snare Accent" : "X",
+    "Shaker Ghost" : "x",
+    "Shaker Accent" : "X",
+    "Click" : "X",
+    "Bass" : "O",
+    "Tom" : "O",
+    "Default" : "X"
+  */
+  const lowerName = name[0].toLowerCase();
+  if( lowerName.includes("click") || lowerName.includes("stick") )
+  {
+    return symbolConfig["Click"];
+  }  
+  else if( lowerName.includes("bass") || lowerName.includes("kick") )
+  {
+    return symbolConfig["Bass"]
+  }
+  else if( lowerName.includes("snare") )
+  {
+    return symbolConfig["Snare Accent"];
+  }
+  else if( lowerName.includes("shaker") )
+  {
+    return symbolConfig["Shaker"];
+  }
+  else if( lowerName.includes("tom") )
+  {
+    return symbolConfig["Tom"];
+  }
+  else if( lowerName.includes("djembe") )
+  {
+    if( lowerName.includes("slap") )
+    {
+      return symbolConfig["Djembe Slap"];
+    }
+    else if( lowerName.includes("tone") )
+    {
+      return symbolConfig["Djembe Tone"];
+    }
+    else
+    {
+      return symbolConfig["Djembe Bass"];
+    }
+  }
+  return symbolConfig["Default"];
 }
 
 function figureInstruments(instrumentsRaw, symbolConfig, patterns)
@@ -242,7 +296,7 @@ function figureInstruments(instrumentsRaw, symbolConfig, patterns)
     if(instrumentUsed === false)
     {
       let mapping = {};
-      mapping[ inst.id.toString() ] = symbolConfig["Default"];
+      mapping[ inst.id.toString() ] = defaultSymbolForSingleInstrument( symbolConfig, inst.name );
       output.push( [inst.name[0], mapping] );
     }
   }

@@ -235,15 +235,36 @@ test("instrumentation cumulus", () => {
 });
 
 const kuvaInstruments = [
-    ["Bass", {"0" : "O", "18" : "X"}],
-    ["Bass", {"1" : "X", "17" : "O"}], 
-    ["Djembe", {"10" : "S", "11" : "t", "12" : "O"}],
-    ["Snare", {"2" : "X", "13" : "-"}],
-    ["Shaker", {"16" : "x", "21" : "X"}]
+  ["Bass", {"0" : "O", "18" : "X"}],
+  ["Bass", {"1" : "X", "17" : "O"}], 
+  ["Djembe", {"10" : "S", "11" : "t", "12" : "O"}],
+  ["Snare", {"2" : "X", "13" : "-"}],
+  ["Shaker", {"16" : "x", "21" : "X"}]
 ];
 
 test("instrumentation kuva", () => {
   const state = createObjects(JSON.parse(fs.readFileSync("./test_data/kivakovakivikuva.json")));
   const instruments = figureInstruments( state.instruments, DEFAULT_INSTRUMENT_SYMBOLS, state.patterns );
   expect(instruments).toEqual(kuvaInstruments);
+});
+
+// coconotInstruments are a bit of a mess, some of the patterns are mid-bass
+// and some are tom, and grouping sticks/drums gets abandoned
+// and just inserted as separate tracks
+// but this is an acceptable failure mode
+const coconotInstruments = [ 
+  [ 'Bass', { '0': 'O', '18': 'X' } ],
+  [ 'Djembe', { '10': 'S', '11': 't', '12': 'O' } ],
+  [ 'Snare', { '2': 'X', '13': '-' } ],
+  [ 'Shaker', { '16': 'x', '21': 'X' } ],
+  [ 'Stick', { '1': 'X' } ],
+  [ 'Stick', { '20': 'X' } ],
+  [ 'Kick', { '17': 'O' } ],
+  [ 'tom02', { '19': 'O' } ]
+];
+
+test("instrumentation coconot", () => {
+  const state = createObjects(JSON.parse(fs.readFileSync("./test_data/coconot.json")));
+  const instruments = figureInstruments( state.instruments, DEFAULT_INSTRUMENT_SYMBOLS, state.patterns );
+  expect(instruments).toEqual(coconotInstruments);
 });
