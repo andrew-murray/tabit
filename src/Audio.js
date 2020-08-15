@@ -143,12 +143,16 @@ class Audio
     return Audio.normalizeAudioBuffer( combined );
   }
 
-  static createAudioSource(context, buffer)
+  static createAudioSource(context, buffer, tempo)
   {
     var source = context.createBufferSource();
     // set the buffer in the AudioBufferSourceNode
     source.buffer = buffer;
     source.loop=true;
+    if( tempo !== null )
+    {
+      source.playbackRate.value = tempo / 100.0;
+    }
     // connect the AudioBufferSourceNode to the
     // destination so we can hear the sound
     source.connect(context.destination);

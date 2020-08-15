@@ -5,6 +5,7 @@ import AudioRequest from "./AudioRequest";
 import IconButton from '@material-ui/core/IconButton';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import StopIcon from '@material-ui/icons/Stop';
+import Slider from '@material-ui/core/Slider';
 
 // these are the hydrogen drumkits available by GPL/CC
 
@@ -27,7 +28,8 @@ class SoundBoard extends React.Component
     this.state = {
       audioBuffer : null,
       audioSource : null,
-      soundsPopulated : false
+      soundsPopulated : false,
+      tempo : 100.0
     }
     this.sounds = {};
     this.audioContext = null;
@@ -156,7 +158,7 @@ class SoundBoard extends React.Component
   playBuffer( b )
   {
 
-    const source = Audio.createAudioSource( this.audioContext, b );
+    const source = Audio.createAudioSource( this.audioContext, b, this.state.tempo );
 
     // kick it off immediately
     source.start();
@@ -193,6 +195,31 @@ class SoundBoard extends React.Component
     this.setState( { audioSource : source} );
   }
   
+  tempControl()
+  {
+    const valueMin = 60;
+    const valueMax = 180;
+
+    const onTempoChange = (event, tempo) => {
+      // const playbackRate = tempo / 100.0;
+      // fixme: avoid manipulating the state in place
+      // if( this.state.audioSource )
+      // {
+      //  this.state.audioSource.playbackRate.value = playbackRate;
+      // }
+    };
+    return (
+      <Slider
+        defaultValue={this.state.tempo}
+        min={60}
+        step={1}
+        max={180}
+        onChange={onTempoChange}
+        valueLabelDisplay="auto"
+      />
+    );
+
+  }
 
   render() {
 
@@ -223,6 +250,9 @@ class SoundBoard extends React.Component
             <StopIcon />
           </IconButton>
         </div>
+        { // don't offer tempo controls yet, because it changes the pitch!
+          false && this.tempoControl()
+        }
       </React.Fragment>
    );
   }
