@@ -35,6 +35,39 @@ class SoundBoard extends React.Component
     this.audioContext = null;
   }
 
+
+
+  chooseAppropriateUrlForInstrument(drumkit_name, instrumentName)
+  {
+    const name = instrumentName.toLowerCase();
+    // this is currently very basic
+    if(name.includes("kick"))
+    {
+        return "The Black Pearl 1.0/PearlKick-Hard.wav";
+    }
+    else if(name.includes("stick"))
+    {
+        return "DeathMetal/16297_ltibbits_sticks_low_pitch.wav";
+    }
+    else if(name.includes("tom"))
+    {
+        return "TR808EmulationKit/808_Tom_Mid.wav"
+    }
+    else if(name.includes("clap"))
+    {
+        return "TR808EmulationKit/808_Clap.wav";
+    }
+    else if(name.includes("snare"))
+    {
+      return "GMRockKit/Snare-Soft.wav";
+    }
+    else
+    {
+      // todo: snare, cymbals
+      return null;
+    }
+  }
+
   populateSounds()
   {
     if( this.audioContext === null )
@@ -72,6 +105,25 @@ class SoundBoard extends React.Component
               .catch( (fail) => { console.log(fail); })
             );
           }
+        }
+        else if( "drumkit" in selected_instrument )
+        {
+          // it's not a drumkit we support, try and guess a matching instrument
+          const relativeUrl = this.chooseAppropriateUrlForInstrument( selected_instrument["drumkit"], selected_instrument["name"][0]);
+          if(relativeUrl === null )
+          {
+            console.log("didn't load anything for " + selected_instrument["name"][0]);
+            continue;
+          }
+          const dest_url = process.env.PUBLIC_URL + "/wav/" + relativeUrl;
+          const actx = this.audioContext;
+          let sounds = this.sounds;
+          collatedPromises.push(
+            AudioRequest.make( dest_url )
+            .then( (response) =>{ return AudioRequest.parse(actx, response); } )
+            .then( (buffer) => { sounds[selected_instrument.id] = buffer } )
+            .catch( (fail) => { console.log(fail); })
+          );
         }
       }
     }
@@ -195,18 +247,15 @@ class SoundBoard extends React.Component
     this.setState( { audioSource : source} );
   }
   
-  tempControl()
+  tempoControl()
   {
-    const valueMin = 60;
-    const valueMax = 180;
-
     const onTempoChange = (event, tempo) => {
-      // const playbackRate = tempo / 100.0;
-      // fixme: avoid manipulating the state in place
-      // if( this.state.audioSource )
-      // {
-      //  this.state.audioSource.playbackRate.value = playbackRate;
-      // }
+      if( this.state.audioSource )
+      {
+        // const playbackRate = tempo / 100.0;
+        // fixme: avoid manipulating the state in place
+        // this.state.audioSource.playbackRate.value = playbackRate;
+      }
     };
     return (
       <Slider

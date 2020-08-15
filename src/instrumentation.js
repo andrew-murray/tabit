@@ -179,7 +179,7 @@ function figureClickyInstruments(instrumentsRaw, symbolConfig, patterns)
     relevantTracks,
     (t) => t.name.includes("click") || t.name.includes("stick")
   );
-  // we rioritise the early tracks
+  // we prioritise the early tracks
   // and hope for the best
 
   let collated = [];
