@@ -4,6 +4,11 @@ import track from "./track";
 import xml2js from "xml2js";
 import { calculateResolution } from "./utilities";
 
+// TODO: This file was written with the hope that using xml2js would make things cleaner
+// it didn't, purely because xml2js is an okay library doing a difficult task
+// it ensures to produce a good json file but in doing so muddles the data a bit.
+// Should replace this with dom-parser and window.DOMParser
+
 // let's think about the data representation needed
 
 function calculatePatternResolution(pattern, size)
