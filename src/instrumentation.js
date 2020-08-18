@@ -226,7 +226,7 @@ function defaultSymbolForSingleInstrument(symbolConfig, name)
     "Tom" : "O",
     "Default" : "X"
   */
-  const lowerName = name[0].toLowerCase();
+  const lowerName = name.toLowerCase();
   if( lowerName.includes("click") || lowerName.includes("stick") )
   {
     return symbolConfig["Click"];
