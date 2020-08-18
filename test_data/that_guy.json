@@ -2,9 +2,7 @@
     "instruments": [
         {
             "id": 0,
-            "name": [
-                "Kick"
-            ],
+            "name": "Kick",
             "volume": 0.646552,
             "muted": false,
             "gain": 1,
@@ -13,9 +11,7 @@
         },
         {
             "id": 1,
-            "name": [
-                "Stick"
-            ],
+            "name": "Stick",
             "volume": 0.206897,
             "muted": false,
             "gain": 1,
@@ -24,9 +20,7 @@
         },
         {
             "id": 6,
-            "name": [
-                "Pearl Kick"
-            ],
+            "name": "Pearl Kick",
             "volume": 1.15086,
             "muted": false,
             "gain": 1,
@@ -35,9 +29,7 @@
         },
         {
             "id": 8,
-            "name": [
-                "Stick"
-            ],
+            "name": "Stick",
             "volume": 0.155172,
             "muted": false,
             "gain": 1,
@@ -46,9 +38,7 @@
         },
         {
             "id": 4,
-            "name": [
-                "Djembe2 Bass"
-            ],
+            "name": "Djembe2 Bass",
             "volume": 0.568965,
             "muted": false,
             "gain": 1,
@@ -57,9 +47,7 @@
         },
         {
             "id": 3,
-            "name": [
-                "Djembe2 Tone"
-            ],
+            "name": "Djembe2 Tone",
             "volume": 0.465517,
             "muted": false,
             "gain": 1,
@@ -68,9 +56,7 @@
         },
         {
             "id": 2,
-            "name": [
-                "Djembe2 Slap"
-            ],
+            "name": "Djembe2 Slap",
             "volume": 0.310345,
             "muted": false,
             "gain": 1,
@@ -79,9 +65,7 @@
         },
         {
             "id": 5,
-            "name": [
-                "Shaker"
-            ],
+            "name": "Shaker",
             "volume": 0.336207,
             "muted": false,
             "gain": 1,
@@ -90,9 +74,7 @@
         },
         {
             "id": 7,
-            "name": [
-                "Snare Rock"
-            ],
+            "name": "Snare Rock",
             "volume": 0.258621,
             "muted": false,
             "gain": 1,
@@ -101,9 +83,7 @@
         },
         {
             "id": 9,
-            "name": [
-                "Snare Rock"
-            ],
+            "name": "Snare Rock",
             "volume": 0.0517241,
             "muted": false,
             "gain": 1,
@@ -114,9 +94,7 @@
     "patterns": [
         {
             "size": 288,
-            "name": [
-                "Pattern 1 inverse A"
-            ],
+            "name": "Pattern 1 inverse A",
             "notes": [
                 {
                     "position": 0,
@@ -607,9 +585,7 @@
         },
         {
             "size": 288,
-            "name": [
-                "Pattern 1 inverse B#2"
-            ],
+            "name": "Pattern 1 inverse B#2",
             "notes": [
                 {
                     "position": 0,
@@ -1096,9 +1072,7 @@
         },
         {
             "size": 288,
-            "name": [
-                "Pattern 1 inverse B"
-            ],
+            "name": "Pattern 1 inverse B",
             "notes": [
                 {
                     "position": 0,
@@ -1585,9 +1559,7 @@
         },
         {
             "size": 288,
-            "name": [
-                "Pattern 2#2 A"
-            ],
+            "name": "Pattern 2#2 A",
             "notes": [
                 {
                     "position": 0,
@@ -2206,9 +2178,7 @@
         },
         {
             "size": 288,
-            "name": [
-                "Pattern 2#3 A"
-            ],
+            "name": "Pattern 2#3 A",
             "notes": [
                 {
                     "position": 0,
@@ -2831,634 +2801,7 @@
         },
         {
             "size": 288,
-            "name": [
-                "Pattern 2#2 B"
-            ],
-            "notes": [
-                {
-                    "position": 0,
-                    "instrument": 0
-                },
-                {
-                    "position": 0,
-                    "instrument": 6
-                },
-                {
-                    "position": 0,
-                    "instrument": 4
-                },
-                {
-                    "position": 0,
-                    "instrument": 5
-                },
-                {
-                    "position": 0,
-                    "instrument": 9
-                },
-                {
-                    "position": 12,
-                    "instrument": 5
-                },
-                {
-                    "position": 12,
-                    "instrument": 9
-                },
-                {
-                    "position": 24,
-                    "instrument": 4
-                },
-                {
-                    "position": 24,
-                    "instrument": 0
-                },
-                {
-                    "position": 24,
-                    "instrument": 5
-                },
-                {
-                    "position": 24,
-                    "instrument": 9
-                },
-                {
-                    "position": 36,
-                    "instrument": 5
-                },
-                {
-                    "position": 36,
-                    "instrument": 9
-                },
-                {
-                    "position": 48,
-                    "instrument": 4
-                },
-                {
-                    "position": 48,
-                    "instrument": 0
-                },
-                {
-                    "position": 48,
-                    "instrument": 7
-                },
-                {
-                    "position": 48,
-                    "instrument": 5
-                },
-                {
-                    "position": 60,
-                    "instrument": 6
-                },
-                {
-                    "position": 60,
-                    "instrument": 7
-                },
-                {
-                    "position": 60,
-                    "instrument": 5
-                },
-                {
-                    "position": 72,
-                    "instrument": 6
-                },
-                {
-                    "position": 72,
-                    "instrument": 1
-                },
-                {
-                    "position": 72,
-                    "instrument": 5
-                },
-                {
-                    "position": 72,
-                    "instrument": 9
-                },
-                {
-                    "position": 72,
-                    "instrument": 2
-                },
-                {
-                    "position": 84,
-                    "instrument": 5
-                },
-                {
-                    "position": 84,
-                    "instrument": 9
-                },
-                {
-                    "position": 96,
-                    "instrument": 5
-                },
-                {
-                    "position": 96,
-                    "instrument": 9
-                },
-                {
-                    "position": 108,
-                    "instrument": 5
-                },
-                {
-                    "position": 108,
-                    "instrument": 9
-                },
-                {
-                    "position": 120,
-                    "instrument": 5
-                },
-                {
-                    "position": 120,
-                    "instrument": 7
-                },
-                {
-                    "position": 132,
-                    "instrument": 0
-                },
-                {
-                    "position": 132,
-                    "instrument": 6
-                },
-                {
-                    "position": 132,
-                    "instrument": 5
-                },
-                {
-                    "position": 132,
-                    "instrument": 7
-                },
-                {
-                    "position": 132,
-                    "instrument": 4
-                },
-                {
-                    "position": 144,
-                    "instrument": 0
-                },
-                {
-                    "position": 144,
-                    "instrument": 8
-                },
-                {
-                    "position": 144,
-                    "instrument": 5
-                },
-                {
-                    "position": 144,
-                    "instrument": 9
-                },
-                {
-                    "position": 144,
-                    "instrument": 2
-                },
-                {
-                    "position": 156,
-                    "instrument": 6
-                },
-                {
-                    "position": 156,
-                    "instrument": 5
-                },
-                {
-                    "position": 156,
-                    "instrument": 9
-                },
-                {
-                    "position": 168,
-                    "instrument": 5
-                },
-                {
-                    "position": 168,
-                    "instrument": 3
-                },
-                {
-                    "position": 180,
-                    "instrument": 6
-                },
-                {
-                    "position": 180,
-                    "instrument": 5
-                },
-                {
-                    "position": 180,
-                    "instrument": 9
-                },
-                {
-                    "position": 180,
-                    "instrument": 4
-                },
-                {
-                    "position": 192,
-                    "instrument": 5
-                },
-                {
-                    "position": 192,
-                    "instrument": 7
-                },
-                {
-                    "position": 204,
-                    "instrument": 5
-                },
-                {
-                    "position": 204,
-                    "instrument": 9
-                },
-                {
-                    "position": 204,
-                    "instrument": 7
-                },
-                {
-                    "position": 204,
-                    "instrument": 4
-                },
-                {
-                    "position": 216,
-                    "instrument": 5
-                },
-                {
-                    "position": 216,
-                    "instrument": 0
-                },
-                {
-                    "position": 216,
-                    "instrument": 6
-                },
-                {
-                    "position": 216,
-                    "instrument": 9
-                },
-                {
-                    "position": 216,
-                    "instrument": 3
-                },
-                {
-                    "position": 228,
-                    "instrument": 5
-                },
-                {
-                    "position": 228,
-                    "instrument": 7
-                },
-                {
-                    "position": 228,
-                    "instrument": 3
-                },
-                {
-                    "position": 240,
-                    "instrument": 5
-                },
-                {
-                    "position": 240,
-                    "instrument": 0
-                },
-                {
-                    "position": 240,
-                    "instrument": 9
-                },
-                {
-                    "position": 240,
-                    "instrument": 3
-                },
-                {
-                    "position": 252,
-                    "instrument": 7
-                },
-                {
-                    "position": 252,
-                    "instrument": 5
-                },
-                {
-                    "position": 252,
-                    "instrument": 2
-                },
-                {
-                    "position": 264,
-                    "instrument": 0
-                },
-                {
-                    "position": 264,
-                    "instrument": 5
-                },
-                {
-                    "position": 264,
-                    "instrument": 6
-                },
-                {
-                    "position": 264,
-                    "instrument": 9
-                },
-                {
-                    "position": 276,
-                    "instrument": 6
-                },
-                {
-                    "position": 276,
-                    "instrument": 5
-                },
-                {
-                    "position": 276,
-                    "instrument": 7
-                },
-                {
-                    "position": 276,
-                    "instrument": 2
-                }
-            ],
-            "resolution": 12,
-            "instrumentTracks": {
-                "0": {
-                    "rep": [
-                        1,
-                        0,
-                        1,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        1,
-                        0,
-                        1,
-                        0
-                    ],
-                    "resolution": 12
-                },
-                "1": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 12
-                },
-                "2": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        1
-                    ],
-                    "resolution": 12
-                },
-                "3": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        1,
-                        1,
-                        1,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 12
-                },
-                "4": {
-                    "rep": [
-                        1,
-                        0,
-                        1,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 12
-                },
-                "5": {
-                    "rep": [
-                        1,
-                        1,
-                        1,
-                        1,
-                        1,
-                        1,
-                        1,
-                        1,
-                        1,
-                        1,
-                        1,
-                        1,
-                        1,
-                        1,
-                        1,
-                        1,
-                        1,
-                        1,
-                        1,
-                        1,
-                        1,
-                        1,
-                        1,
-                        1
-                    ],
-                    "resolution": 12
-                },
-                "6": {
-                    "rep": [
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        1,
-                        0,
-                        1,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        1,
-                        1
-                    ],
-                    "resolution": 12
-                },
-                "7": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        1,
-                        0,
-                        1,
-                        0,
-                        1,
-                        0,
-                        1
-                    ],
-                    "resolution": 12
-                },
-                "8": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 12
-                },
-                "9": {
-                    "rep": [
-                        1,
-                        1,
-                        1,
-                        1,
-                        0,
-                        0,
-                        1,
-                        1,
-                        1,
-                        1,
-                        0,
-                        0,
-                        1,
-                        1,
-                        0,
-                        1,
-                        0,
-                        1,
-                        1,
-                        0,
-                        1,
-                        0,
-                        1,
-                        0
-                    ],
-                    "resolution": 12
-                }
-            }
-        },
-        {
-            "size": 288,
-            "name": [
-                "Pattern 2#2 C"
-            ],
+            "name": "Pattern 2#2 B",
             "notes": [
                 {
                     "position": 0,
@@ -3650,6 +2993,629 @@
                 },
                 {
                     "position": 168,
+                    "instrument": 3
+                },
+                {
+                    "position": 180,
+                    "instrument": 6
+                },
+                {
+                    "position": 180,
+                    "instrument": 5
+                },
+                {
+                    "position": 180,
+                    "instrument": 9
+                },
+                {
+                    "position": 180,
+                    "instrument": 4
+                },
+                {
+                    "position": 192,
+                    "instrument": 5
+                },
+                {
+                    "position": 192,
+                    "instrument": 7
+                },
+                {
+                    "position": 204,
+                    "instrument": 5
+                },
+                {
+                    "position": 204,
+                    "instrument": 9
+                },
+                {
+                    "position": 204,
+                    "instrument": 7
+                },
+                {
+                    "position": 204,
+                    "instrument": 4
+                },
+                {
+                    "position": 216,
+                    "instrument": 5
+                },
+                {
+                    "position": 216,
+                    "instrument": 0
+                },
+                {
+                    "position": 216,
+                    "instrument": 6
+                },
+                {
+                    "position": 216,
+                    "instrument": 9
+                },
+                {
+                    "position": 216,
+                    "instrument": 3
+                },
+                {
+                    "position": 228,
+                    "instrument": 5
+                },
+                {
+                    "position": 228,
+                    "instrument": 7
+                },
+                {
+                    "position": 228,
+                    "instrument": 3
+                },
+                {
+                    "position": 240,
+                    "instrument": 5
+                },
+                {
+                    "position": 240,
+                    "instrument": 0
+                },
+                {
+                    "position": 240,
+                    "instrument": 9
+                },
+                {
+                    "position": 240,
+                    "instrument": 3
+                },
+                {
+                    "position": 252,
+                    "instrument": 7
+                },
+                {
+                    "position": 252,
+                    "instrument": 5
+                },
+                {
+                    "position": 252,
+                    "instrument": 2
+                },
+                {
+                    "position": 264,
+                    "instrument": 0
+                },
+                {
+                    "position": 264,
+                    "instrument": 5
+                },
+                {
+                    "position": 264,
+                    "instrument": 6
+                },
+                {
+                    "position": 264,
+                    "instrument": 9
+                },
+                {
+                    "position": 276,
+                    "instrument": 6
+                },
+                {
+                    "position": 276,
+                    "instrument": 5
+                },
+                {
+                    "position": 276,
+                    "instrument": 7
+                },
+                {
+                    "position": 276,
+                    "instrument": 2
+                }
+            ],
+            "resolution": 12,
+            "instrumentTracks": {
+                "0": {
+                    "rep": [
+                        1,
+                        0,
+                        1,
+                        0,
+                        1,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        1,
+                        1,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        1,
+                        0,
+                        1,
+                        0,
+                        1,
+                        0
+                    ],
+                    "resolution": 12
+                },
+                "1": {
+                    "rep": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        1,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    "resolution": 12
+                },
+                "2": {
+                    "rep": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        1,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        1,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        1,
+                        0,
+                        1
+                    ],
+                    "resolution": 12
+                },
+                "3": {
+                    "rep": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        1,
+                        0,
+                        0,
+                        0,
+                        1,
+                        1,
+                        1,
+                        0,
+                        0,
+                        0
+                    ],
+                    "resolution": 12
+                },
+                "4": {
+                    "rep": [
+                        1,
+                        0,
+                        1,
+                        0,
+                        1,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        1,
+                        0,
+                        0,
+                        0,
+                        1,
+                        0,
+                        1,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    "resolution": 12
+                },
+                "5": {
+                    "rep": [
+                        1,
+                        1,
+                        1,
+                        1,
+                        1,
+                        1,
+                        1,
+                        1,
+                        1,
+                        1,
+                        1,
+                        1,
+                        1,
+                        1,
+                        1,
+                        1,
+                        1,
+                        1,
+                        1,
+                        1,
+                        1,
+                        1,
+                        1,
+                        1
+                    ],
+                    "resolution": 12
+                },
+                "6": {
+                    "rep": [
+                        1,
+                        0,
+                        0,
+                        0,
+                        0,
+                        1,
+                        1,
+                        0,
+                        0,
+                        0,
+                        0,
+                        1,
+                        0,
+                        1,
+                        0,
+                        1,
+                        0,
+                        0,
+                        1,
+                        0,
+                        0,
+                        0,
+                        1,
+                        1
+                    ],
+                    "resolution": 12
+                },
+                "7": {
+                    "rep": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        1,
+                        1,
+                        0,
+                        0,
+                        0,
+                        0,
+                        1,
+                        1,
+                        0,
+                        0,
+                        0,
+                        0,
+                        1,
+                        1,
+                        0,
+                        1,
+                        0,
+                        1,
+                        0,
+                        1
+                    ],
+                    "resolution": 12
+                },
+                "8": {
+                    "rep": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        1,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    "resolution": 12
+                },
+                "9": {
+                    "rep": [
+                        1,
+                        1,
+                        1,
+                        1,
+                        0,
+                        0,
+                        1,
+                        1,
+                        1,
+                        1,
+                        0,
+                        0,
+                        1,
+                        1,
+                        0,
+                        1,
+                        0,
+                        1,
+                        1,
+                        0,
+                        1,
+                        0,
+                        1,
+                        0
+                    ],
+                    "resolution": 12
+                }
+            }
+        },
+        {
+            "size": 288,
+            "name": "Pattern 2#2 C",
+            "notes": [
+                {
+                    "position": 0,
+                    "instrument": 0
+                },
+                {
+                    "position": 0,
+                    "instrument": 6
+                },
+                {
+                    "position": 0,
+                    "instrument": 4
+                },
+                {
+                    "position": 0,
+                    "instrument": 5
+                },
+                {
+                    "position": 0,
+                    "instrument": 9
+                },
+                {
+                    "position": 12,
+                    "instrument": 5
+                },
+                {
+                    "position": 12,
+                    "instrument": 9
+                },
+                {
+                    "position": 24,
+                    "instrument": 4
+                },
+                {
+                    "position": 24,
+                    "instrument": 0
+                },
+                {
+                    "position": 24,
+                    "instrument": 5
+                },
+                {
+                    "position": 24,
+                    "instrument": 9
+                },
+                {
+                    "position": 36,
+                    "instrument": 5
+                },
+                {
+                    "position": 36,
+                    "instrument": 9
+                },
+                {
+                    "position": 48,
+                    "instrument": 4
+                },
+                {
+                    "position": 48,
+                    "instrument": 0
+                },
+                {
+                    "position": 48,
+                    "instrument": 7
+                },
+                {
+                    "position": 48,
+                    "instrument": 5
+                },
+                {
+                    "position": 60,
+                    "instrument": 6
+                },
+                {
+                    "position": 60,
+                    "instrument": 7
+                },
+                {
+                    "position": 60,
+                    "instrument": 5
+                },
+                {
+                    "position": 72,
+                    "instrument": 6
+                },
+                {
+                    "position": 72,
+                    "instrument": 1
+                },
+                {
+                    "position": 72,
+                    "instrument": 5
+                },
+                {
+                    "position": 72,
+                    "instrument": 9
+                },
+                {
+                    "position": 72,
+                    "instrument": 2
+                },
+                {
+                    "position": 84,
+                    "instrument": 5
+                },
+                {
+                    "position": 84,
+                    "instrument": 9
+                },
+                {
+                    "position": 96,
+                    "instrument": 5
+                },
+                {
+                    "position": 96,
+                    "instrument": 9
+                },
+                {
+                    "position": 108,
+                    "instrument": 5
+                },
+                {
+                    "position": 108,
+                    "instrument": 9
+                },
+                {
+                    "position": 120,
+                    "instrument": 5
+                },
+                {
+                    "position": 120,
+                    "instrument": 7
+                },
+                {
+                    "position": 132,
+                    "instrument": 0
+                },
+                {
+                    "position": 132,
+                    "instrument": 6
+                },
+                {
+                    "position": 132,
+                    "instrument": 5
+                },
+                {
+                    "position": 132,
+                    "instrument": 7
+                },
+                {
+                    "position": 132,
+                    "instrument": 4
+                },
+                {
+                    "position": 144,
+                    "instrument": 0
+                },
+                {
+                    "position": 144,
+                    "instrument": 8
+                },
+                {
+                    "position": 144,
+                    "instrument": 5
+                },
+                {
+                    "position": 144,
+                    "instrument": 9
+                },
+                {
+                    "position": 144,
+                    "instrument": 2
+                },
+                {
+                    "position": 156,
+                    "instrument": 6
+                },
+                {
+                    "position": 156,
+                    "instrument": 5
+                },
+                {
+                    "position": 156,
+                    "instrument": 9
+                },
+                {
+                    "position": 168,
+                    "instrument": 5
+                },
+                {
+                    "position": 168,
                     "instrument": 9
                 },
                 {
@@ -4069,9 +4035,7 @@
         },
         {
             "size": 288,
-            "name": [
-                "Break? 1"
-            ],
+            "name": "Break? 1",
             "notes": [
                 {
                     "position": 0,
@@ -4602,9 +4566,7 @@
         },
         {
             "size": 288,
-            "name": [
-                "Break? 2"
-            ],
+            "name": "Break? 2",
             "notes": [
                 {
                     "position": 0,
@@ -5135,9 +5097,7 @@
         },
         {
             "size": 288,
-            "name": [
-                "Pattern 1"
-            ],
+            "name": "Pattern 1",
             "notes": [
                 {
                     "position": 0,
@@ -5632,9 +5592,7 @@
         },
         {
             "size": 288,
-            "name": [
-                "Pattern 1b"
-            ],
+            "name": "Pattern 1b",
             "notes": [
                 {
                     "position": 0,
@@ -6145,9 +6103,7 @@
         },
         {
             "size": 288,
-            "name": [
-                "Pattern 2"
-            ],
+            "name": "Pattern 2",
             "notes": [
                 {
                     "position": 0,
@@ -6658,9 +6614,7 @@
         },
         {
             "size": 288,
-            "name": [
-                "End bit"
-            ],
+            "name": "End bit",
             "notes": [
                 {
                     "position": 0,
@@ -6971,9 +6925,7 @@
         },
         {
             "size": 288,
-            "name": [
-                "Djembe 1 Others 2"
-            ],
+            "name": "Djembe 1 Others 2",
             "notes": [
                 {
                     "position": 0,

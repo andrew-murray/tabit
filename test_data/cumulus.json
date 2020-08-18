@@ -2,9 +2,7 @@
     "instruments": [
         {
             "id": 0,
-            "name": [
-                "Kick"
-            ],
+            "name": "Kick",
             "volume": 1,
             "muted": false,
             "gain": 3.65,
@@ -13,9 +11,7 @@
         },
         {
             "id": 1,
-            "name": [
-                "Stick"
-            ],
+            "name": "Stick",
             "volume": 0.69,
             "muted": false,
             "gain": 1,
@@ -24,9 +20,7 @@
         },
         {
             "id": 2,
-            "name": [
-                "Snare Jazz"
-            ],
+            "name": "Snare Jazz",
             "volume": 1,
             "muted": true,
             "gain": 0.6,
@@ -35,9 +29,7 @@
         },
         {
             "id": 4,
-            "name": [
-                "Snare Rock"
-            ],
+            "name": "Snare Rock",
             "volume": 1,
             "muted": false,
             "gain": 1,
@@ -46,9 +38,7 @@
         },
         {
             "id": 3,
-            "name": [
-                "Hand Clap"
-            ],
+            "name": "Hand Clap",
             "volume": 0.88,
             "muted": false,
             "gain": 1,
@@ -57,9 +47,7 @@
         },
         {
             "id": 5,
-            "name": [
-                "Tom Low"
-            ],
+            "name": "Tom Low",
             "volume": 0.96,
             "muted": false,
             "gain": 1,
@@ -68,9 +56,7 @@
         },
         {
             "id": 6,
-            "name": [
-                "Closed HH"
-            ],
+            "name": "Closed HH",
             "volume": 0.89,
             "muted": true,
             "gain": 1,
@@ -79,9 +65,7 @@
         },
         {
             "id": 7,
-            "name": [
-                "Tom Mid"
-            ],
+            "name": "Tom Mid",
             "volume": 1,
             "muted": true,
             "gain": 1,
@@ -90,9 +74,7 @@
         },
         {
             "id": 8,
-            "name": [
-                "Pedal HH"
-            ],
+            "name": "Pedal HH",
             "volume": 0.89,
             "muted": true,
             "gain": 1,
@@ -101,9 +83,7 @@
         },
         {
             "id": 9,
-            "name": [
-                "Tom Hi"
-            ],
+            "name": "Tom Hi",
             "volume": 1,
             "muted": true,
             "gain": 1,
@@ -112,9 +92,7 @@
         },
         {
             "id": 10,
-            "name": [
-                "Open HH"
-            ],
+            "name": "Open HH",
             "volume": 0.8,
             "muted": true,
             "gain": 1,
@@ -123,9 +101,7 @@
         },
         {
             "id": 11,
-            "name": [
-                "Cowbell"
-            ],
+            "name": "Cowbell",
             "volume": 0.8,
             "muted": true,
             "gain": 1,
@@ -134,9 +110,7 @@
         },
         {
             "id": 12,
-            "name": [
-                "Ride Jazz"
-            ],
+            "name": "Ride Jazz",
             "volume": 0.8,
             "muted": true,
             "gain": 1,
@@ -145,9 +119,7 @@
         },
         {
             "id": 13,
-            "name": [
-                "Crash"
-            ],
+            "name": "Crash",
             "volume": 0.69,
             "muted": true,
             "gain": 1,
@@ -156,9 +128,7 @@
         },
         {
             "id": 14,
-            "name": [
-                "Ride Rock"
-            ],
+            "name": "Ride Rock",
             "volume": 0.8,
             "muted": true,
             "gain": 1,
@@ -167,9 +137,7 @@
         },
         {
             "id": 15,
-            "name": [
-                "Crash Jazz"
-            ],
+            "name": "Crash Jazz",
             "volume": 0.77,
             "muted": true,
             "gain": 1,
@@ -180,9 +148,7 @@
     "patterns": [
         {
             "size": 384,
-            "name": [
-                "Pattern 3"
-            ],
+            "name": "Pattern 3",
             "notes": [
                 {
                     "position": 0,
@@ -963,9 +929,7 @@
         },
         {
             "size": 384,
-            "name": [
-                "Pattern 1"
-            ],
+            "name": "Pattern 1",
             "notes": [
                 {
                     "position": 0,
@@ -1762,9 +1726,7 @@
         },
         {
             "size": 768,
-            "name": [
-                "Pattern 5"
-            ],
+            "name": "Pattern 5",
             "notes": [
                 {
                     "position": 0,
@@ -3249,9 +3211,7 @@
         },
         {
             "size": 288,
-            "name": [
-                "Break"
-            ],
+            "name": "Break",
             "notes": [
                 {
                     "position": 0,
@@ -3884,9 +3844,7 @@
         },
         {
             "size": 288,
-            "name": [
-                "Pattern 6"
-            ],
+            "name": "Pattern 6",
             "notes": [
                 {
                     "position": 0,
@@ -4659,9 +4617,7 @@
         },
         {
             "size": 192,
-            "name": [
-                "Pattern 7"
-            ],
+            "name": "Pattern 7",
             "notes": [],
             "resolution": 48,
             "instrumentTracks": {
@@ -4813,9 +4769,7 @@
         },
         {
             "size": 192,
-            "name": [
-                "Pattern 8"
-            ],
+            "name": "Pattern 8",
             "notes": [],
             "resolution": 48,
             "instrumentTracks": {
@@ -4967,9 +4921,7 @@
         },
         {
             "size": 192,
-            "name": [
-                "Pattern 9"
-            ],
+            "name": "Pattern 9",
             "notes": [],
             "resolution": 48,
             "instrumentTracks": {
@@ -5121,9 +5073,7 @@
         },
         {
             "size": 192,
-            "name": [
-                "Pattern 10"
-            ],
+            "name": "Pattern 10",
             "notes": [],
             "resolution": 48,
             "instrumentTracks": {

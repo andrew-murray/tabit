@@ -20,7 +20,7 @@ function normalizeInstrumentsForFiguring(instruments)
     let nInst = Object.assign({}, inst);
     // for some reason these instruments are one-size arrays, and one id ... the track id from hydrogen
     // this should be fixed, this doesn't make sense
-    nInst.name = nInst.name[0].toLowerCase();
+    nInst.name = nInst.name.toLowerCase();
     n.push( nInst );
   }
   return n;
@@ -297,7 +297,7 @@ function figureInstruments(instrumentsRaw, symbolConfig, patterns)
     {
       let mapping = {};
       mapping[ inst.id.toString() ] = defaultSymbolForSingleInstrument( symbolConfig, inst.name );
-      output.push( [inst.name[0], mapping] );
+      output.push( [inst.name, mapping] );
     }
   }
   

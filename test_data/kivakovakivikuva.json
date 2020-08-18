@@ -2,9 +2,7 @@
     "instruments": [
         {
             "id": 18,
-            "name": [
-                "Stick"
-            ],
+            "name": "Stick",
             "volume": 0.258621,
             "muted": false,
             "gain": 1,
@@ -13,9 +11,7 @@
         },
         {
             "id": 0,
-            "name": [
-                "Kick"
-            ],
+            "name": "Kick",
             "volume": 1.5,
             "muted": false,
             "gain": 2.15,
@@ -24,9 +20,7 @@
         },
         {
             "id": 20,
-            "name": [
-                "Stick"
-            ],
+            "name": "Stick",
             "volume": 0.193966,
             "muted": false,
             "gain": 1,
@@ -34,9 +28,7 @@
         },
         {
             "id": 1,
-            "name": [
-                "Stick"
-            ],
+            "name": "Stick",
             "volume": 0.232759,
             "muted": false,
             "gain": 1.2,
@@ -45,9 +37,7 @@
         },
         {
             "id": 17,
-            "name": [
-                "Kick"
-            ],
+            "name": "Kick",
             "volume": 1.31897,
             "muted": false,
             "gain": 0.7,
@@ -56,9 +46,7 @@
         },
         {
             "id": 22,
-            "name": [
-                "tom02"
-            ],
+            "name": "tom02",
             "volume": 0.65,
             "muted": false,
             "gain": 1,
@@ -66,9 +54,7 @@
         },
         {
             "id": 2,
-            "name": [
-                "Snare Jazz"
-            ],
+            "name": "Snare Jazz",
             "volume": 1,
             "muted": false,
             "gain": 0.85,
@@ -77,9 +63,7 @@
         },
         {
             "id": 13,
-            "name": [
-                "Snare 1"
-            ],
+            "name": "Snare 1",
             "volume": 0.35,
             "muted": false,
             "gain": 0.4,
@@ -87,9 +71,7 @@
         },
         {
             "id": 10,
-            "name": [
-                "Djembe4 Slap"
-            ],
+            "name": "Djembe4 Slap",
             "volume": 0.206897,
             "muted": false,
             "gain": 1,
@@ -98,9 +80,7 @@
         },
         {
             "id": 11,
-            "name": [
-                "Djembe4 Tone"
-            ],
+            "name": "Djembe4 Tone",
             "volume": 0.452586,
             "muted": false,
             "gain": 0.95,
@@ -109,9 +89,7 @@
         },
         {
             "id": 12,
-            "name": [
-                "Djembe4 Bass"
-            ],
+            "name": "Djembe4 Bass",
             "volume": 0.50431,
             "muted": false,
             "gain": 1.5,
@@ -120,9 +98,7 @@
         },
         {
             "id": 16,
-            "name": [
-                "Shaker"
-            ],
+            "name": "Shaker",
             "volume": 0.530172,
             "muted": false,
             "gain": 2.2,
@@ -131,9 +107,7 @@
         },
         {
             "id": 21,
-            "name": [
-                "Shaker"
-            ],
+            "name": "Shaker",
             "volume": 1.5,
             "muted": false,
             "gain": 2.45,
@@ -144,9 +118,7 @@
     "patterns": [
         {
             "size": 192,
-            "name": [
-                "= kivakovakivikuva ="
-            ],
+            "name": "= kivakovakivikuva =",
             "notes": [],
             "resolution": 48,
             "instrumentTracks": {
@@ -271,9 +243,7 @@
         },
         {
             "size": 384,
-            "name": [
-                "k-1"
-            ],
+            "name": "k-1",
             "notes": [
                 {
                     "position": 0,
@@ -1063,9 +1033,7 @@
         },
         {
             "size": 384,
-            "name": [
-                "fast-offs"
-            ],
+            "name": "fast-offs",
             "notes": [
                 {
                     "position": 24,
@@ -1379,9 +1347,7 @@
         },
         {
             "size": 384,
-            "name": [
-                "slow offs"
-            ],
+            "name": "slow offs",
             "notes": [
                 {
                     "position": 48,
@@ -1575,9 +1541,7 @@
         },
         {
             "size": 384,
-            "name": [
-                "k-1-bass"
-            ],
+            "name": "k-1-bass",
             "notes": [
                 {
                     "position": 0,
@@ -2123,9 +2087,7 @@
         },
         {
             "size": 384,
-            "name": [
-                "k-1-midbass"
-            ],
+            "name": "k-1-midbass",
             "notes": [
                 {
                     "position": 0,
@@ -2683,9 +2645,7 @@
         },
         {
             "size": 384,
-            "name": [
-                "k-1-sn"
-            ],
+            "name": "k-1-sn",
             "notes": [
                 {
                     "position": 24,
@@ -3215,9 +3175,7 @@
         },
         {
             "size": 384,
-            "name": [
-                "k-1-djembe"
-            ],
+            "name": "k-1-djembe",
             "notes": [
                 {
                     "position": 0,
@@ -3771,9 +3729,7 @@
         },
         {
             "size": 384,
-            "name": [
-                "k-1-shaker"
-            ],
+            "name": "k-1-shaker",
             "notes": [
                 {
                     "position": 0,
@@ -4335,9 +4291,7 @@
         },
         {
             "size": 384,
-            "name": [
-                "k-2"
-            ],
+            "name": "k-2",
             "notes": [
                 {
                     "position": 0,
@@ -5111,9 +5065,7 @@
         },
         {
             "size": 384,
-            "name": [
-                "k-2-bass"
-            ],
+            "name": "k-2-bass",
             "notes": [
                 {
                     "position": 0,
@@ -5699,9 +5651,7 @@
         },
         {
             "size": 384,
-            "name": [
-                "k-2-snare"
-            ],
+            "name": "k-2-snare",
             "notes": [
                 {
                     "position": 0,
@@ -6231,9 +6181,7 @@
         },
         {
             "size": 384,
-            "name": [
-                "k-2-djembe"
-            ],
+            "name": "k-2-djembe",
             "notes": [
                 {
                     "position": 0,
@@ -6795,9 +6743,7 @@
         },
         {
             "size": 384,
-            "name": [
-                "k-2-shaker"
-            ],
+            "name": "k-2-shaker",
             "notes": [
                 {
                     "position": 0,
@@ -7363,9 +7309,7 @@
         },
         {
             "size": 192,
-            "name": [
-                "lightbulb"
-            ],
+            "name": "lightbulb",
             "notes": [
                 {
                     "position": 0,
@@ -8099,9 +8043,7 @@
         },
         {
             "size": 192,
-            "name": [
-                "break"
-            ],
+            "name": "break",
             "notes": [
                 {
                     "position": 24,
@@ -8347,9 +8289,7 @@
         },
         {
             "size": 192,
-            "name": [
-                "squash"
-            ],
+            "name": "squash",
             "notes": [
                 {
                     "position": 0,

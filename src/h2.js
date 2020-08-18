@@ -1,6 +1,6 @@
 // h2.js
 
-import track from "./track"
+import track from "./track";
 import xml2js from "xml2js";
 import { calculateResolution } from "./utilities";
 
@@ -28,7 +28,7 @@ function parseHydrogenJs(result)
         const instrumentComponent = element.instrumentComponent[0];
         let inst = {
           "id" : parseInt(element.id), 
-          "name" : element.name,
+          "name" : element.name[0],
            "volume" : parseFloat(element.volume), 
            "muted" : element.isMuted[0] === "true",
            "gain" : parseFloat(element.gain),
@@ -69,7 +69,7 @@ function parseHydrogenJs(result)
         }
         return {
           "size" : patternSize, 
-          "name" : element.name,
+          "name" : element.name[0],
           "notes" : notes
         };
       }
