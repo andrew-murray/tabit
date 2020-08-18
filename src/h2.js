@@ -104,6 +104,33 @@ function parseHydrogenJs(result)
       }
     );
 
+    if(result.song.virtualPatternList)
+    {
+      const virtualPatternGroups = result.song.virtualPatternList[0].pattern;
+      if( virtualPatternGroups )
+      {
+        // each element looks like
+        //
+        // <pattern>
+        // <name>p2-a-djembe</name>
+        // <virtual>p2-a-bass</virtual>
+        // <virtual>p2-snare</virtual>
+        // </pattern>
+        for( const virtualGroup of Array.from(virtualPatternGroups) )
+        {
+          const rootPattern = virtualGroup.name[0];
+          for( const patternToCopy of virtualGroup.virtual )
+          {
+            // merge patterns sequentially for all instruments!!! waaah
+            //
+            // console.log([ rootPattern, patternToCopy ] );
+          }
+        }
+
+      }
+    }
+
+
     return {
       "instruments" : instrumentArray,
       "patterns" : patternsWithTracks
