@@ -10,7 +10,6 @@ class FileImport extends React.Component {
 
   constructor(props) {
     super(props);
-    this.onChange = this.onChange.bind(this)
     this.hiddenFileInput = React.createRef();
   }
 
@@ -32,9 +31,11 @@ class FileImport extends React.Component {
     const clickFile = (e) => {
       this.hiddenFileInput.current.click();
     }
+
+    const {onImport, ...buttonProps} = {...this.props};
     return (
       <React.Fragment>
-        <Button onClick={clickFile} {...this.props}>Import File</Button>
+        <Button onClick={clickFile} {...buttonProps}>Import File</Button>
         <input type="file" hidden onChange={this.onChange} ref={this.hiddenFileInput}/>
       </React.Fragment>
    )
