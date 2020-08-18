@@ -4,12 +4,14 @@
 // and https://stackoverflow.com/questions/55830414/how-to-read-text-file-in-react
 
 import React from 'react'
+import Button from '@material-ui/core/Button';
 
 class FileImport extends React.Component {
 
   constructor(props) {
     super(props);
     this.onChange = this.onChange.bind(this)
+    this.hiddenFileInput = React.createRef();
   }
 
   onChange(e) {
@@ -27,8 +29,14 @@ class FileImport extends React.Component {
   }
 
   render() {
+    const clickFile = (e) => {
+      this.hiddenFileInput.current.click();
+    }
     return (
-      <input type="file" onChange={this.onChange} />
+      <React.Fragment>
+        <Button onClick={clickFile} {...this.props}>Import File</Button>
+        <input type="file" hidden onChange={this.onChange} ref={this.hiddenFileInput}/>
+      </React.Fragment>
    )
   }
 }

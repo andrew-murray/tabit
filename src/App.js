@@ -290,9 +290,10 @@ class App extends React.Component
         <div>
           <h2>tabit</h2>
           <p>I read .h2songs and write tab</p>
-          <Button variant="contained" onClick={this.loadExample.bind(this)}>See an example</Button>
-          <p>Or import your own</p>
+          <Button variant="contained" onClick={this.loadExample.bind(this)} style={{margin: "1em"}}>Load example</Button>
           <FileImport
+            style={{margin: "1em"}}
+            variant="contained"
             onImport={this.handleFileImport.bind(this)}
             />
             {optionalAlert}
