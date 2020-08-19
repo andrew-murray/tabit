@@ -109,10 +109,10 @@ class SoundBoard extends React.Component
         else if( "drumkit" in selected_instrument )
         {
           // it's not a drumkit we support, try and guess a matching instrument
-          const relativeUrl = this.chooseAppropriateUrlForInstrument( selected_instrument["drumkit"], selected_instrument["name"][0]);
+          const relativeUrl = this.chooseAppropriateUrlForInstrument( selected_instrument.drumkit, selected_instrument.name);
           if(relativeUrl === null )
           {
-            console.log("didn't load anything for " + selected_instrument["name"][0]);
+            console.log("didn't load anything for " + selected_instrument.name);
             continue;
           }
           const dest_url = process.env.PUBLIC_URL + "/wav/" + relativeUrl;
