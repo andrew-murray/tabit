@@ -177,18 +177,21 @@ function parseHydrogenJs(result)
           for( const patternToMergeName of relatedPatternSet )
           {
             const patternToMerge = patternsWithTracks.find(p => p.name === patternToMergeName );
-            for( const [id, track] of Object.entries(patternToMerge.instrumentTracks) )
+            for( const [id, t] of Object.entries(patternToMerge.instrumentTracks) )
             {
               if( id in rootPattern.instrumentTracks )
               {
-                const merged = rootPattern.instrumentTracks[ id ].aggregate( track );
+                const merged = rootPattern.instrumentTracks[ id ].aggregate( t );
                 // we match hydrogen's implementation here and discard values past the length of the original track
-                merged.rep.length = rootPattern.instrumentTracks[ id ].length()  / merged.resolution;
+                merged.rep.length = rootPattern.size  / merged.resolution;
                 rootPattern.instrumentTracks[ id ] = merged; 
               }
               else
               {
-                rootPattern.instrumentTracks[id] = track;
+                // ensure track is the appropriate length & res
+                let copiedTrack = t.format(rootPattern.resolution);
+                copiedTrack.length = rootPattern.size  / rootPattern.resolution;
+                rootPattern.instrumentTracks[id] = copiedTrack;
               }
             }
           }
