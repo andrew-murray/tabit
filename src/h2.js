@@ -106,6 +106,8 @@ function parseHydrogenJs(result)
 
     if(result.song.virtualPatternList)
     {
+      // so unfortunately, virtualPatternGroup are transitive
+      // they form a tree, by specifying the edges and this has to be solved
       const virtualPatternGroups = result.song.virtualPatternList[0].pattern;
       if( virtualPatternGroups )
       {
@@ -118,12 +120,35 @@ function parseHydrogenJs(result)
         // </pattern>
         for( const virtualGroup of Array.from(virtualPatternGroups) )
         {
-          const rootPattern = virtualGroup.name[0];
-          for( const patternToCopy of virtualGroup.virtual )
+          const rootPatternName = virtualGroup.name[0];
+          // could do filter, and assert on length?
+          let rootPattern = patternsWithTracks.find(p => p.name === rootPatternName);
+          for( const patternToMergeName of virtualGroup.virtual )
           {
-            // merge patterns sequentially for all instruments!!! waaah
-            //
-            // console.log([ rootPattern, patternToCopy ] );
+            const patternToMerge = patternsWithTracks.find(p => p.name === patternToMergeName );
+            for( const [id, track] of Object.entries(patternToMerge.instrumentTracks) )
+            {
+              if( id in rootPattern.instrumentTracks )
+              {
+                const merged = rootPattern.instrumentTracks[ id ].aggregate( track );
+                // we match hydrogen's implementation here and discard values past the length of the original track
+                merged.rep.length = rootPattern.instrumentTracks[ id ].length()  / merged.resolution;
+                rootPattern.instrumentTracks[ id ] = merged; 
+              }
+              else
+              {
+                rootPattern.instrumentTracks[id] = track;
+              }
+            }
+          }
+          // reassess resolution and apply to all tracks
+          // this may not be necessary but it's probably nice
+          const resolution = calculatePatternResolution(rootPattern, rootPattern.size);
+          rootPattern.resolution = resolution;
+          for( const [id, track] of Object.entries(rootPattern.instrumentTracks) )
+          {
+            // ensure that 
+            rootPattern[id] = track.format( resolution );
           }
         }
 

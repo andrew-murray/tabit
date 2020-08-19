@@ -74,6 +74,30 @@ class track
     }
   }
 
+  aggregate(other)
+  {
+
+    if( this.resolution === other.resolution )
+    {
+      // when we aggregate, we specifically
+      const length = Math.max( this.rep.length, other.rep.length );
+      const pat = new Array(length).fill(0);
+      for(let index = 0; index < pat.length; ++index)
+      {
+        pat[index] = ( ( index < this.rep.length ) ? this.rep[index] : 0 )
+                  || ( ( index < other.rep.length ) ? other.rep[index] : 0 );
+      }
+      return new track( pat, this.resolution );
+    }
+    else
+    {
+      const hcf = findHCF(this.resolution, other.resolution);
+      const a = this.formatResolution( hcf );
+      const b = other.formatResolution( hcf );
+      return a.aggregate(b);
+    }
+  }
+
   static representPoints(points, resolution, size)
   {
     if( size <= 0 )
