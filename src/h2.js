@@ -161,10 +161,14 @@ function parseHydrogenJs(result)
           {
             break;
           }
+          // throw if we've failed to resolve all the connections by now, morelikely something has gone wrong
+          if( iteration == MAX_ITERATIONS )
+          {
+            throw new Error("Reached max virtual_pattern recursion depth.");
+          }
           // otherwise update mapping and continue
           patternToRelated = expandedObject;
         }
-
 
         for( const [rootPatternName, relatedPatternSet] of Object.entries(patternToRelated) )
         {
