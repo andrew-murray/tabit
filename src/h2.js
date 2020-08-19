@@ -104,11 +104,14 @@ function parseHydrogenJs(result)
       }
     );
 
+    // todo: refactor into (at least one) separate function
     if(result.song.virtualPatternList)
     {
-      // so unfortunately, virtualPatternGroup are transitive
-      // they form a tree, by specifying the edges and this has to be solved
-      const virtualPatternGroups = result.song.virtualPatternList[0].pattern;
+      // so unfortunately, virtualPatternGroup represents a directional graph and we have to build
+      // the tree of dependencies for each node, we implement this in a very simplistic way
+      // let's build a mapping( name -> [ names ] ) and continue to resolve it
+      // until we're done
+      const virtualPatternGroups = result.song.virtualPatternList[0].pattern;    
       if( virtualPatternGroups )
       {
         // each element looks like
@@ -118,12 +121,56 @@ function parseHydrogenJs(result)
         // <virtual>p2-a-bass</virtual>
         // <virtual>p2-snare</virtual>
         // </pattern>
+
+        let patternToRelated = {};
+
+        // record initial relations
         for( const virtualGroup of Array.from(virtualPatternGroups) )
         {
           const rootPatternName = virtualGroup.name[0];
+          const relatedPatterns = Array.from(virtualGroup.virtual);
+          patternToRelated[rootPatternName] = new Set(relatedPatterns);
+        }
+
+        // expand connections until our object stops changing, brute-force
+        // this is a relatively large limit but is better than the potential of an infinite loop
+        // I think 3 layers would be pushing this feature
+        const MAX_ITERATIONS = 20;
+        for(let iteration = 0; iteration < MAX_ITERATIONS; ++iteration)
+        {
+          let expandedObject = {};
+          // we could do a check at the end of each loop, but it's easier to track object equality this way
+          let objectHasExpanded = false;
+          for(const [root, related] of Object.entries(patternToRelated))
+          {
+            let expandedNodeSet = new Set(related);
+            for( const node of expandedNodeSet )
+            {
+              if( node in patternToRelated )
+              {
+                // set union
+                expandedNodeSet = new Set([...expandedNodeSet, ...patternToRelated[node]]);
+              }
+            }
+            objectHasExpanded = objectHasExpanded || ( expandedNodeSet.size !== related.size );
+            expandedObject[ root ] = expandedNodeSet;
+
+          }
+          // exit if no change
+          if(!objectHasExpanded)
+          {
+            break;
+          }
+          // otherwise update mapping and continue
+          patternToRelated = expandedObject;
+        }
+
+
+        for( const [rootPatternName, relatedPatternSet] of Object.entries(patternToRelated) )
+        {
           // could do filter, and assert on length?
           let rootPattern = patternsWithTracks.find(p => p.name === rootPatternName);
-          for( const patternToMergeName of virtualGroup.virtual )
+          for( const patternToMergeName of relatedPatternSet )
           {
             const patternToMerge = patternsWithTracks.find(p => p.name === patternToMergeName );
             for( const [id, track] of Object.entries(patternToMerge.instrumentTracks) )
