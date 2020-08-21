@@ -2,7 +2,7 @@ const DEFAULT_INSTRUMENT_SYMBOLS = {
   "Djembe Slap" : "S",
   "Djembe Tone" : "t",
   "Djembe Bass" : "O",
-  "Snare Ghost" : "-",
+  "Snare Ghost" : "x",
   "Snare Accent" : "X",
   "Shaker Ghost" : "x",
   "Shaker Accent" : "X",

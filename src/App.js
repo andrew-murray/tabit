@@ -456,7 +456,7 @@ class App extends React.Component
           <Button
             style={{backgroundColor : "white", color : theme.palette.background.default}}
             onClick={(e) => { this.save(); } }
-          >Save All</Button>
+          >Download</Button>
         </SwipeableDrawer>
         </React.Fragment>
       );
