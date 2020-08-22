@@ -367,6 +367,7 @@ class App extends React.Component
 
       const patternDetails = { name : patternToRender.name, resolution : patternToRender.resolution, "length" : this.getTrackLength(patternToRender) };
 
+      const instrumentConfigColumns = mobile ? 12 : 8;
 
 
       return (
@@ -397,8 +398,8 @@ class App extends React.Component
           </div>
           {patternContent}
           <Grid container>
-          <Grid item xs={2} />
-          <Grid item xs={8}>
+          <Grid item xs={(12 - instrumentConfigColumns ) / 2} />
+          <Grid item xs={instrumentConfigColumns}>
             <InstrumentConfig
               instruments={this.state.instruments}
               instrumentIndex={this.state.instrumentIndex}
@@ -406,7 +407,7 @@ class App extends React.Component
               onChange={changeInstrumentsCallback}
             />
           </Grid>
-          <Grid item xs={2} />
+          <Grid item xs={(12 - instrumentConfigColumns ) / 2} />
           </Grid>
 
         <SwipeableDrawer disableBackdropTransition={!iOS} disableDiscovery={iOS}
