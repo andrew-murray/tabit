@@ -139,7 +139,7 @@ test('instrumentation garlic - basses', () => {
       }
     ],
     [
-      "Bass", {
+      "Bass 2", {
         "17" : DEFAULT_INSTRUMENT_SYMBOLS["Bass"]
       }
     ]
@@ -158,7 +158,7 @@ test('instrumentation kuva - basses', () => {
       }
     ],
     [ 
-      "Bass" , {
+      "Bass 2" , {
         "17" : DEFAULT_INSTRUMENT_SYMBOLS["Bass"],
         "1" : DEFAULT_INSTRUMENT_SYMBOLS["Click"]
       }
@@ -197,7 +197,7 @@ test('instrumentation that_guy - basses', () => {
       }
     ],
     [
-      "Bass" , {
+      "Bass 2" , {
         "6" : DEFAULT_INSTRUMENT_SYMBOLS["Bass"], 
         "8" : DEFAULT_INSTRUMENT_SYMBOLS["Click"]
       }
@@ -209,9 +209,9 @@ test('instrumentation that_guy - basses', () => {
 
 const thatGuyInstruments = [
   ["Bass", {"0" : "O", "1" : "X"}],
-  ["Bass", {"6" : "O", "8" : "X"}],
+  ["Bass 2", {"6" : "O", "8" : "X"}],
   ["Djembe", {"2" : "S", "3" : "t", "4" : "O"}],
-  ["Snare", {"7" : "X", "9" : "-"}],
+  ["Snare", {"7" : "X", "9" : "x"}],
   ["Shaker", {"5" : "X"}]
 ];
 
@@ -224,7 +224,7 @@ test("instrumentation that_guy", () => {
 const cumulusInstruments = [
   ["Bass", {"0" : "O", "1" : "X"}],
   ["Tom", {"5" : "O"}],
-  ["Snare", { "2" : "-",  "4" : "X"}], // FIXME: This is regressing a lack of functionality, should recognise multiple snare parts
+  ["Snare", { "2" : "x",  "4" : "X"}], // FIXME: This is regressing a lack of functionality, should recognise multiple snare parts
   ["Hand Clap", {"3" : "X"}] // Note: this should really be a tom-click ... but how would we figure that? Maybe guessing at parts adjacent to clickydrums?
 ];
 
@@ -236,9 +236,9 @@ test("instrumentation cumulus", () => {
 
 const kuvaInstruments = [
   ["Bass", {"0" : "O", "18" : "X"}],
-  ["Bass", {"1" : "X", "17" : "O"}], 
+  ["Bass 2", {"1" : "X", "17" : "O"}],
   ["Djembe", {"10" : "S", "11" : "t", "12" : "O"}],
-  ["Snare", {"2" : "X", "13" : "-"}],
+  ["Snare", {"2" : "X", "13" : "x"}],
   ["Shaker", {"16" : "x", "21" : "X"}]
 ];
 
@@ -255,7 +255,7 @@ test("instrumentation kuva", () => {
 const coconotInstruments = [ 
   [ 'Bass', { '0': 'O', '18': 'X' } ],
   [ 'Djembe', { '10': 'S', '11': 't', '12': 'O' } ],
-  [ 'Snare', { '2': 'X', '13': '-' } ],
+  [ 'Snare', { '2': 'X', '13': 'x' } ],
   [ 'Shaker', { '16': 'x', '21': 'X' } ],
   [ 'Stick', { '1': 'X' } ],
   [ 'Stick', { '20': 'X' } ],

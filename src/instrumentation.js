@@ -182,6 +182,8 @@ function figureClickyInstruments(instrumentsRaw, symbolConfig, patterns)
   // we prioritise the early tracks
   // and hope for the best
 
+  let tomIndex = 1;
+  let bassIndex = 1;
   let collated = [];
   for( let candidate = 0; candidate < Math.floor(relevantTracks.length/2); ++candidate )
   {
@@ -190,9 +192,20 @@ function figureClickyInstruments(instrumentsRaw, symbolConfig, patterns)
       const clickTrack = trackIsClick[candidate*2] ? relevantTracks[candidate*2] : relevantTracks[candidate*2+1];
       const hitTrack = trackIsClick[candidate*2] ? relevantTracks[candidate*2+1] : relevantTracks[candidate*2];
       const instrumentIsTom = hitTrack.name.includes("tom");
-      const instrumentName = instrumentIsTom ? "Tom" : "Bass";
+      let rawInstrumentName = instrumentIsTom ? "Tom" : "Bass";
+      let instrumentName = ""
+      if( instrumentIsTom )
+      {
+        instrumentName = rawInstrumentName + ( (tomIndex >= 2) ? " " + tomIndex.toString() : "" );
+        tomIndex = tomIndex + 1;
+      }
+      else
+      {
+        instrumentName = rawInstrumentName + ( (bassIndex >= 2) ? " " + bassIndex.toString() : "" );
+        bassIndex = bassIndex + 1;
+      }
       let mapping = {};
-      mapping[hitTrack.id.toString()] = symbolConfig[instrumentName];
+      mapping[hitTrack.id.toString()] = symbolConfig[rawInstrumentName];
       mapping[clickTrack.id.toString()] = symbolConfig["Click"];
       collated.push([instrumentName, mapping] );  
     }
@@ -202,9 +215,21 @@ function figureClickyInstruments(instrumentsRaw, symbolConfig, patterns)
   if( ((relevantTracks.length % 2 ) !== 0) && !trackIsClick[ relevantTracks.length - 1 ] )
   {
     const lastTrack = relevantTracks[relevantTracks.length - 1];
-    const instrumentName = lastTrack.name.includes("tom") ? "Tom" : "Bass";
+    const instrumentIsTom = lastTrack.name.includes("tom");
+    let rawInstrumentName = instrumentIsTom ? "Tom" : "Bass";
+    let instrumentName = ""
+    if( instrumentIsTom )
+    {
+      instrumentName = rawInstrumentName + ( (tomIndex >= 2) ? " " + tomIndex.toString() : "" );
+      tomIndex = tomIndex + 1;
+    }
+    else
+    {
+      instrumentName = rawInstrumentName + ( (bassIndex >= 2) ? " " + bassIndex.toString() : "" );
+      bassIndex = bassIndex + 1;
+    }
     let mapping = {};
-    mapping[lastTrack.id.toString()] = symbolConfig[instrumentName];
+    mapping[lastTrack.id.toString()] = symbolConfig[rawInstrumentName];
     collated.push([instrumentName, mapping] );  
   }
   return collated;
