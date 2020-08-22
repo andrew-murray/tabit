@@ -295,6 +295,7 @@ class App extends React.Component
             style={{margin: "1em"}}
             variant="contained"
             onImport={this.handleFileImport.bind(this)}
+            accept=".tabit,.h2song"
             />
             {optionalAlert}
         </div>
