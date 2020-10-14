@@ -158,6 +158,21 @@ class Audio
     source.connect(context.destination);
     return source;
   }
+  static createOneShotAudioSource(context, buffer, tempo)
+  {
+    var source = context.createBufferSource();
+    // set the buffer in the AudioBufferSourceNode
+    source.buffer = buffer;
+    source.loop=false;
+    if( tempo !== null )
+    {
+      source.playbackRate.value = tempo / 100.0;
+    }
+    // connect the AudioBufferSourceNode to the
+    // destination so we can hear the sound
+    source.connect(context.destination);
+    return source;
+  }
 }
 
 export default Audio;

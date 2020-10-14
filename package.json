@@ -15,6 +15,7 @@
     "react-dom": "^16.13.1",
     "react-scripts": "^3.4.3",
     "react-test-renderer": "^16.13.1",
+    "tone": "^14.7.58",
     "xml2js": "^0.4.23"
   },
   "scripts": {

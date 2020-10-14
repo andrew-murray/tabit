@@ -6,6 +6,7 @@ import IconButton from '@material-ui/core/IconButton';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import StopIcon from '@material-ui/icons/Stop';
 import Slider from '@material-ui/core/Slider';
+import * as Tone from "tone";
 
 // these are the hydrogen drumkits available by GPL/CC
 
@@ -33,6 +34,8 @@ class SoundBoard extends React.Component
     }
     this.sounds = {};
     this.audioContext = null;
+    this.audioSources = null;
+    Tone.Transport.bpm.value = 100.0;
   }
 
 
@@ -128,43 +131,77 @@ class SoundBoard extends React.Component
       }
     }
 
-    const sounds = this.sounds;
     const instrumentIndex = this.props.instrumentIndex;
     const tracks = this.props.tracks;
     let board = this;
 
     Promise.all(collatedPromises).then( () => {
-      const b = Audio.createMasterTrack(
-        board.audioContext,
-        tracks,
-        instrumentIndex,
-        sounds,
-        100 // hardcoded tempo
-      );
+
+      const resolution = Audio.determineMinResolution(instrumentIndex, tracks );
+      const length = Audio.determineTrackLength(instrumentIndex, tracks );
 
       // todo: this could happen before componentDidMount!!
       board.setState( { 
-        audioBuffer : b, 
-        resolution : Audio.determineMinResolution(instrumentIndex, tracks ),
-        length : Audio.determineTrackLength(instrumentIndex, tracks ),
+        resolution : resolution,
+        length : length,
         soundsPopulated : true 
       } );
+
+      this.populateAudioSources();
+      this.seq = new Tone.Sequence(
+        (time,index) => { this.tick(time, index); },
+        [...Array(length / resolution).keys()],
+        Tone.Time("4n") * ( resolution / 48.0 )
+      );
+      this.seq.loop = true;
+      this.seq.start(0);
     });
+
+    document.soundboard = this;
+  }
+
+  resetAudioSources(index)
+  {
+      let hits = [];
+      for(const [id,t] of Object.entries(this.props.tracks))
+      {
+        if( t.rep[index] )
+        {
+          hits.push(Audio.createOneShotAudioSource(this.audioContext, this.sounds[id], 100 ));
+        }
+      }
+      this.audioSources[index] = hits;
+  }
+
+  populateAudioSources()
+  {
+    this.audioSources = new Array(this.state.length).fill(null);
+    this.resetAudioSources(0);
+  }
+
+  tick(time,indexFromStart)
+  {
+    const trackLengthRes = ( this.state.length / this.state.resolution );
+    const index = indexFromStart % trackLengthRes;
+    // paranoid of tempo changes causing this to happen
+    if(this.audioSources[index] === null)
+    {
+      this.resetAudioSources( index );
+    }
+    let sources = this.audioSources[index];
+    // play!
+    for( let source of sources )
+    {
+      source.start();
+    }
+    this.audioSources[index] = null;
+    // set up the sources for so they're ready for the next time
+    this.resetAudioSources( index ===  trackLengthRes - 1 ? 0 : index + 1 );
   }
 
   stop()
   {
-    // if playing, stop
-    if(this.state.audioSource){
-      this.state.audioSource.stop(); 
-      if( this.timeoutID != null )
-      {
-        clearTimeout(this.timeoutID);
-        this.timeoutID = null;
-      }
-      this.playPos = 0;
-      this.setState( { audioSource : null } );
-    }
+    Tone.Transport.stop();
   }
 
   componentDidUpdate(prevProps, prevState, snapshot)
@@ -179,26 +216,23 @@ class SoundBoard extends React.Component
 
     if( tracksAreDifferent && this.state.soundsPopulated)
     {
-      // if( !this.state.soundsPopulated ) then we already have a task in flight to do this
-      const b = Audio.createMasterTrack(
-        this.audioContext,
-        this.props.tracks,
-        this.props.instrumentIndex,
-        this.sounds,
-        100 // hardcoded tempo
-      );
+
+      const resolution = Audio.determineMinResolution(this.props.instrumentIndex, this.props.tracks );
+      const length = Audio.determineTrackLength(this.props.instrumentIndex, this.props.tracks);
 
       this.setState({
-        audioBuffer: b,
-        resolution : Audio.determineMinResolution(this.props.instrumentIndex, this.props.tracks ),
-        length : Audio.determineTrackLength(this.props.instrumentIndex, this.props.tracks )
+        resolution : resolution,
+        length : length
       });
 
-      // we were playing
-      if( prevState.audioSource )
-      {
-        this.playBuffer( b );
-      }
+      this.populateAudioSources();
+      this.seq = new Tone.Sequence(
+        (time,index) => { this.tick(time, index); },
+        [...Array(length/resolution).keys()],
+        Tone.Time("4n") * ( resolution / 48.0 )
+      );
+      this.seq.loop = true;
+      this.seq.start(0);
     }
   }
 
@@ -206,56 +240,11 @@ class SoundBoard extends React.Component
   {
     this.populateSounds();
   }
-
-  playBuffer( b )
-  {
-
-    const source = Audio.createAudioSource( this.audioContext, b, this.state.tempo );
-
-    // kick it off immediately
-    source.start();
-    this.startTime = this.audioContext.currentTime;
-
-
-    const tempo = 100.0;
-    const beatTime =  (60.0 / tempo) / 4.0;
-
-    
-    const updatePlayPos = () => {
-      const currentTime = this.audioContext.currentTime;
-      const playPos = ( ( currentTime - this.startTime )  / this.state.audioBuffer.duration ) % 1.0;
-
-      const beatCount = ( currentTime - this.startTime ) / beatTime;
-      const currentBeat = Math.round(beatCount);
-      const nextBeatTime = this.startTime + beatTime * ( currentBeat + 1 );
-
-      this.timeoutID = setTimeout(
-        updatePlayPos,
-        Math.floor( ( nextBeatTime - Audio.context.currentTime ) * 1000 )
-      );
-      if( this.props.onPlaybackPositionChange  )
-      {
-        this.props.onPlaybackPositionChange( playPos );
-      }
-    };
-
-    if( this.props.onPlaybackPositionChange )
-    {
-      updatePlayPos();
-    }
-    
-    this.setState( { audioSource : source} );
-  }
   
   tempoControl()
   {
     const onTempoChange = (event, tempo) => {
-      if( this.state.audioSource )
-      {
-        // const playbackRate = tempo / 100.0;
-        // fixme: avoid manipulating the state in place
-        // this.state.audioSource.playbackRate.value = playbackRate;
-      }
+      Tone.Transport.bpm.value = tempo;
     };
     return (
       <Slider
@@ -273,11 +262,7 @@ class SoundBoard extends React.Component
   render() {
 
     const play = (e) => {
-      // if not playing, but buffer is ready
-      if(!this.state.audioSource && this.state.audioBuffer)
-      {
-        this.playBuffer(this.state.audioBuffer);
-      }
+      Tone.Transport.start();
     };
 
     return (
@@ -299,8 +284,8 @@ class SoundBoard extends React.Component
             <StopIcon />
           </IconButton>
         </div>
-        { // don't offer tempo controls yet, because it changes the pitch!
-          false && this.tempoControl()
+        {
+          this.tempoControl()
         }
       </React.Fragment>
    );
