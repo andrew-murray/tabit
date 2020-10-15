@@ -39,7 +39,7 @@ import track from "./track";
 
 import { saveAs } from 'file-saver';
 
-import SoundBoard from "./SoundBoard";
+import ToneBoard from "./ToneBoard";
 // mui theme config
 let theme = createMuiTheme( { 
   palette: { 
@@ -191,7 +191,7 @@ class App extends React.Component
           config={resolvedSettings}
           active={this.state.progress}
         />
-        <SoundBoard 
+        <ToneBoard 
           instruments={this.state.instruments} 
           instrumentIndex={this.state.instrumentIndex} 
           tracks={pattern.instrumentTracks}
