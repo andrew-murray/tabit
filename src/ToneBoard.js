@@ -5,6 +5,7 @@ import IconButton from '@material-ui/core/IconButton';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import StopIcon from '@material-ui/icons/Stop';
 import Slider from '@material-ui/core/Slider';
+import Grid from '@material-ui/core/Grid';
 import * as Tone from "tone";
 
 // these are the hydrogen drumkits available by GPL/CC
@@ -29,15 +30,14 @@ class ToneBoard extends React.Component
       tempo: 100.0
     };
     this.samplerCount = 0;
+    this.sequences = {};
     this.gain = new Tone.Gain();
     this.gain.toDestination();
-    this.seq = null;
-    Tone.Transport.bpm.value = 100.0;
-    document.board = this;
+    Tone.Transport.bpm.value = this.state.tempo;
   }
 
 
-  chooseAppropriateUrlForInstrument(drumkit_name, instrumentName)
+  chooseAppropriateUrlForInstrument(drumkitName, instrumentName)
   {
     const name = instrumentName.toLowerCase();
     // this is currently very basic
@@ -69,114 +69,163 @@ class ToneBoard extends React.Component
   }
 
 
-  getSamplers()
+  populateSamples()
   {
     this.samplerCount = 0;
     this.expectedSamplerCount = 0;
     let mapping = {};
-    for(const [id,] of Object.entries(this.props.tracks))
+    const tracks = this.props.selectedPattern.instrumentTracks;
+    for(const [id,] of Object.entries(tracks))
     {
       const selected = this.props.instrumentIndex.filter(inst => inst.id.toString() === id);
       if( selected.length > 0)
       {
-        const selected_instrument = selected[0];
-        // todo: many hydrogen drumkits are unsupported
-        //       we should fallback to sensible defaults when the drumkit is not available
-        //       rules for {tom, stick, shaker, kick, bass}
-        console.log(selected_instrument);
-        if( 
-          "drumkit" in selected_instrument && 
-          "filename" in selected_instrument &&
-          DRUMKITS.includes(selected_instrument.drumkit) )
+        const selectedInstrument = selected[0];
+        if(
+          "drumkit" in selectedInstrument && 
+          "filename" in selectedInstrument &&
+          DRUMKITS.includes(selectedInstrument.drumkit) )
         {
-          const filename = selected_instrument.filename.replace(".flac", ".wav");
-          mapping[selected_instrument.id] = new Tone.Player( 
-            process.env.PUBLIC_URL + "/wav/" + selected_instrument.drumkit + "/" + filename, 
+          const filename = selectedInstrument.filename.replace(".flac", ".wav");
+          mapping[selectedInstrument.id] = new Tone.Player( 
+            process.env.PUBLIC_URL + "/wav/" + selectedInstrument.drumkit + "/" + filename, 
             () => { this.samplerCount++; } 
           );
-          mapping[selected_instrument.id].connect(this.gain);
-          console.log("mapped to " + selected_instrument.drumkit + "/" + filename);
+          mapping[selectedInstrument.id].connect(this.gain);
           this.expectedSamplerCount++;
         }
-        else if( "drumkit" in selected_instrument )
+        else if( "drumkit" in selectedInstrument )
         {
-          const relativeUrl = this.chooseAppropriateUrlForInstrument( selected_instrument.drumkit, selected_instrument.name );
+          const relativeUrl = this.chooseAppropriateUrlForInstrument( selectedInstrument.drumkit, selectedInstrument.name );
           if(relativeUrl !== null)
           {
-            mapping[selected_instrument.id] = new Tone.Player( 
+            mapping[selectedInstrument.id] = new Tone.Player( 
               process.env.PUBLIC_URL + "/wav/" + relativeUrl, 
               () => { this.samplerCount++; } 
             );
-          console.log("mapped to " + relativeUrl);
-            mapping[selected_instrument.id].connect(this.gain);
+            mapping[selectedInstrument.id].connect(this.gain);
             this.expectedSamplerCount++;
           }
-          else
-          {
-            console.log("not mapped");
-          }
-        }
-        else
-        {
-          console.log("not mapped");
         }
       }
     }
-    return mapping;
+    this.samples = mapping;
   }
 
-  schedulePlayback()
+  createSequences()
   {
     const instrumentIndex = this.props.instrumentIndex;
-    const tracks = this.props.tracks;
-    let board = this;
+    let sequences = {};
+    for( let p of this.props.patterns )
+    {
+      const patternResolution = Audio.determineMinResolution(instrumentIndex, p.instrumentTracks);
+      const patternLength = Audio.determineTrackLength(instrumentIndex, p.instrumentTracks);
+      sequences[ p.name ] = new Tone.Sequence(
+        (time,index) => { this.tick(time, index); },
+        [...Array(patternLength / patternResolution).keys()],
+        Tone.Time("4n") * ( patternResolution / 48.0 )
+      );
+      // start the sequence, but the ticks won't be triggered when muted
+      // note: setting mute on the sequence directly seems to have no effect
+      sequences[ p.name ]._part.mute = true;
+      sequences[ p.name ].start(0);
+    }
+    return sequences;
+  }
 
+  schedulePlaybackForNewTracks()
+  {
+    const instrumentIndex = this.props.instrumentIndex;
+    const tracks = this.props.selectedPattern.instrumentTracks;
+    let board = this;
+    // todo: precompute these numbers for smoother transitions?
     const resolution = Audio.determineMinResolution(instrumentIndex, tracks );
     const length = Audio.determineTrackLength(instrumentIndex, tracks );
 
-    // todo: this could happen before componentDidMount!!
-    board.setState( { 
-      resolution : resolution,
-      length : length
-    } );
-    if( this.seq !== null )
+    // we have a little fudge in here... if we're transitioning from a 4 beat loop
+    // to an 8 beat pattern ... we probably really wanted to hit the start of that pattern,
+    // not to transition at 3.75 beats and play the latter half
+    const now = Tone.Transport.toSeconds(Tone.Transport.position);
+    const timeFromBarEnd = Tone.Transport.loopEnd  - now;
+    const queueTransition = Tone.Transport.state === "started" 
+    && ( timeFromBarEnd > 0 && timeFromBarEnd < Tone.Time("8n").toSeconds())
+    && ( length > this.state.length);
+    const enableNewTrack = () => {
+      // note: setting mute on the sequence directly seems to have no effect
+      this.sequences[this.props.selectedPattern.name]._part.mute = false;
+      Tone.Transport.loop = true;
+      Tone.Transport.setLoopPoints(0, Tone.Time("4n") * (length / 48.0));
+    };
+    // react won't set state if these variables are equal
+    // this mostly illustrates this component probably shouldn't have two state philosophies
+    // note: we only trigger "queueTransition" when length > this.state.length so don't worry about that
+    if( resolution === this.state.resolution && length === this.state.length )
     {
-      this.seq.dispose();
+      enableNewTrack();
+      return;
     }
-    this.seq = new Tone.Sequence(
-      (time,index) => { this.tick(time, index); },
-      [...Array(length / resolution).keys()],
-      Tone.Time("4n") * ( resolution / 48.0 )
+    if( queueTransition )
+    {
+      // log this, there seems to be some bugginess with some of the tone stuff
+      // (my fault for not fully changing the code yet)
+      // and this is more of an experimental feature
+      console.log("queuing transition to pattern " + this.props.selectedPattern.name);
+    }
+    board.setState( 
+      { 
+        resolution : resolution,
+        length : length
+      },
+      () => { 
+        if( queueTransition ) { 
+          Tone.Transport.scheduleOnce(
+            enableNewTrack,
+            Tone.Time("0")
+          );
+        }
+        else
+        {
+          enableNewTrack();
+        }
+      }
     );
-    this.seq.loop = true;
-    this.seq.start(0);
   }
 
-  populateSounds()
+  samplesReady()
   {
-    this.samplers = this.getSamplers();
-  }
-
-  samplersReady()
-  {
-    return this.samplerCount === this.expectedSamplerCount;
+    return this.sampleCount === this.expectedSampleCount;
   }
 
   tick(time,indexFromStart)
   {
+    if( time === this.lastTickTime )
+    {
+      // this sometimes seems to happen
+      // and the samples complain
+      // "start time must be strictly greater than previous start time"
+      // this is a horrible temporary fix
+      return;
+    }
+    this.lastTickTime = time;
     const trackLengthRes = ( this.state.length / this.state.resolution );
     const index = indexFromStart % trackLengthRes;
-    if(!this.samplersReady())
+    if(!this.samplesReady())
     {
       return;
     }
-    for(const [id,t] of Object.entries(this.props.tracks))
+    const tracks = this.props.selectedPattern.instrumentTracks;
+    for(const [id,t] of Object.entries(tracks))
     {
         if( t.rep[index] )
         {
-          this.samplers[id].start(time);
+          this.samples[id].start(time);
         }
     }
+  }
+
+  play()
+  {
+    Tone.Transport.start();
   }
 
   stop()
@@ -186,29 +235,20 @@ class ToneBoard extends React.Component
 
   componentDidMount()
   {
-    this.populateSounds();
-    this.schedulePlayback();
+    this.populateSamples();
+    this.sequences = this.createSequences();
+    this.schedulePlaybackForNewTracks();
   }
 
   componentDidUpdate(prevProps, prevState, snapshot)
   {
     // theoretically we should be evaluating a rougher equality on the tracks here
     // but ... as is !== will never be wrong here, and our linter warns if we don't use it 
-    const tracksAreDifferent = prevProps.tracks !== this.props.tracks;
-    const active = Tone.Transport.state === "started";
-    if( tracksAreDifferent && active)
+    const patternChange = prevProps.selectedPattern.name !== this.props.selectedPattern.name;
+    if( patternChange )
     {
-      Tone.Transport.stop();
-    }
-
-    if( tracksAreDifferent)
-    {
-      this.schedulePlayback();
-    }
-
-    if( active )
-    {
-      Tone.Transport.start();
+      this.sequences[prevProps.selectedPattern.name]._part.mute = true;
+      this.schedulePlaybackForNewTracks();
     }
   }
 
@@ -232,10 +272,7 @@ class ToneBoard extends React.Component
   }
 
   render() {
-
-    const play = (e) => {
-      Tone.Transport.start();
-    };
+    const tempoControlColumns = 4;
 
     return (
       <React.Fragment>
@@ -243,11 +280,10 @@ class ToneBoard extends React.Component
           <IconButton
             color="primary"
             aria-label="play"
-            onClick={play}
+            onClick={(e)=>{this.play();}}
           >
             <PlayArrowIcon />
           </IconButton>
-
           <IconButton
             color="secondary"
             aria-label="stop"
@@ -256,9 +292,15 @@ class ToneBoard extends React.Component
             <StopIcon />
           </IconButton>
         </div>
-        {
-          this.tempoControl()
-        }
+
+        <Grid container>
+        <Grid item xs={(12 - tempoControlColumns) / 2} />
+        <Grid item xs={tempoControlColumns}>
+        {this.tempoControl()}
+        </Grid>
+        <Grid item xs={(12 - tempoControlColumns ) / 2} />
+        </Grid>
+
       </React.Fragment>
    );
   }

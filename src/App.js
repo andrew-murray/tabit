@@ -194,7 +194,8 @@ class App extends React.Component
         <ToneBoard 
           instruments={this.state.instruments} 
           instrumentIndex={this.state.instrumentIndex} 
-          tracks={pattern.instrumentTracks}
+          selectedPattern={pattern}
+          patterns={this.state.patterns}
         />
       </React.Fragment>
     );
