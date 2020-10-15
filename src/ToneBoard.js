@@ -225,7 +225,9 @@ class ToneBoard extends React.Component
 
   play()
   {
-    Tone.Transport.start();
+    // Tone.start is needed to be triggered from a user interaction
+    // (web-audio-context policy of not playing until a user interaction)
+    Tone.start().then(()=>{Tone.Transport.start();});
   }
 
   stop()
