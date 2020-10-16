@@ -30,7 +30,7 @@ class ToneBoard extends React.Component
       tempo: 100.0
     };
     this.samplerCount = 0;
-    this.sequences = {};
+    this.patternDetails = {};
     this.gain = new Tone.Gain();
     this.gain.toDestination();
     Tone.Transport.bpm.value = this.state.tempo;
@@ -74,73 +74,84 @@ class ToneBoard extends React.Component
     this.samplerCount = 0;
     this.expectedSamplerCount = 0;
     let mapping = {};
-    const tracks = this.props.selectedPattern.instrumentTracks;
-    for(const [id,] of Object.entries(tracks))
+    for(const selectedInstrument of this.props.instrumentIndex)
     {
-      const selected = this.props.instrumentIndex.filter(inst => inst.id.toString() === id);
-      if( selected.length > 0)
+      const instrumentID = selectedInstrument.id.toString();
+      if(
+        "drumkit" in selectedInstrument && 
+        "filename" in selectedInstrument &&
+        DRUMKITS.includes(selectedInstrument.drumkit) )
       {
-        const selectedInstrument = selected[0];
-        if(
-          "drumkit" in selectedInstrument && 
-          "filename" in selectedInstrument &&
-          DRUMKITS.includes(selectedInstrument.drumkit) )
+        const filename = selectedInstrument.filename.replace(".flac", ".wav");
+        mapping[instrumentID] = new Tone.Player( 
+          process.env.PUBLIC_URL + "/wav/" + selectedInstrument.drumkit + "/" + filename, 
+          () => { this.samplerCount++; } 
+        );
+        mapping[instrumentID].connect(this.gain);
+        this.expectedSamplerCount++;
+      }
+      else if( "drumkit" in selectedInstrument )
+      {
+        const relativeUrl = this.chooseAppropriateUrlForInstrument( selectedInstrument.drumkit, selectedInstrument.name );
+        if(relativeUrl !== null)
         {
-          const filename = selectedInstrument.filename.replace(".flac", ".wav");
-          mapping[selectedInstrument.id] = new Tone.Player( 
-            process.env.PUBLIC_URL + "/wav/" + selectedInstrument.drumkit + "/" + filename, 
+          mapping[instrumentID] = new Tone.Player( 
+            process.env.PUBLIC_URL + "/wav/" + relativeUrl, 
             () => { this.samplerCount++; } 
           );
-          mapping[selectedInstrument.id].connect(this.gain);
+          mapping[instrumentID].connect(this.gain);
           this.expectedSamplerCount++;
-        }
-        else if( "drumkit" in selectedInstrument )
-        {
-          const relativeUrl = this.chooseAppropriateUrlForInstrument( selectedInstrument.drumkit, selectedInstrument.name );
-          if(relativeUrl !== null)
-          {
-            mapping[selectedInstrument.id] = new Tone.Player( 
-              process.env.PUBLIC_URL + "/wav/" + relativeUrl, 
-              () => { this.samplerCount++; } 
-            );
-            mapping[selectedInstrument.id].connect(this.gain);
-            this.expectedSamplerCount++;
-          }
         }
       }
     }
     this.samples = mapping;
   }
 
-  createSequences()
+  createToneParts()
   {
     const instrumentIndex = this.props.instrumentIndex;
-    let sequences = {};
+    // tone supports a dense array of events but its support isn't so great
+    // from what it appears, so use the sparse interface (part)
+    let patternParts = {};
     for( let p of this.props.patterns )
     {
-      const patternResolution = Audio.determineMinResolution(instrumentIndex, p.instrumentTracks);
+      let parts = {};
+      const tracks = p.instrumentTracks;
       const patternLength = Audio.determineTrackLength(instrumentIndex, p.instrumentTracks);
-      sequences[ p.name ] = new Tone.Sequence(
-        (time,index) => { this.tick(time, index); },
-        [...Array(patternLength / patternResolution).keys()],
-        Tone.Time("4n") * ( patternResolution / 48.0 )
-      );
-      // start the sequence, but the ticks won't be triggered when muted
-      // note: setting mute on the sequence directly seems to have no effect
-      sequences[ p.name ]._part.mute = true;
-      sequences[ p.name ].start(0);
+      const resolution = Audio.determineMinResolution(instrumentIndex, tracks );
+      for(const [instrumentID,track] of Object.entries(tracks))
+      {
+        const id = instrumentID.toString();
+        // hydrogen records things in (beat / 48) increments
+        // tone supports  "4n" syntax to represent a quarter note
+        // 4 * 48 == 192
+        const hydrogenToTone = (h) =>{ return h * Tone.Time("192n"); };
+        const originalPoints = track.toPoints();
+        const tonePoints = originalPoints.map(hydrogenToTone);
+        if( tonePoints.length > 0 )
+        {
+          parts[id] = new Tone.Part(
+            (time) => { 
+              this.samples[id].start(time); 
+            },
+            tonePoints
+          );
+          parts[id].mute = true;
+          parts[id].start(0);
+        }
+      }
+      patternParts[p.name] = parts;
+      this.patternDetails[p.name] = {
+        resolution: resolution,
+        patternLength : patternLength
+      };
     }
-    return sequences;
+    return patternParts;
   }
 
   schedulePlaybackForNewTracks()
   {
-    const instrumentIndex = this.props.instrumentIndex;
-    const tracks = this.props.selectedPattern.instrumentTracks;
-    let board = this;
-    // todo: precompute these numbers for smoother transitions?
-    const resolution = Audio.determineMinResolution(instrumentIndex, tracks );
-    const length = Audio.determineTrackLength(instrumentIndex, tracks );
+    const length = this.patternDetails[this.props.selectedPattern.name].patternLength;
 
     // we have a little fudge in here... if we're transitioning from a 4 beat loop
     // to an 8 beat pattern ... we probably really wanted to hit the start of that pattern,
@@ -152,18 +163,10 @@ class ToneBoard extends React.Component
     && ( length > this.state.length);
     const enableNewTrack = () => {
       // note: setting mute on the sequence directly seems to have no effect
-      this.sequences[this.props.selectedPattern.name]._part.mute = false;
+      this.setPatternMuted(this.props.selectedPattern.name, false);
       Tone.Transport.loop = true;
       Tone.Transport.setLoopPoints(0, Tone.Time("4n") * (length / 48.0));
     };
-    // react won't set state if these variables are equal
-    // this mostly illustrates this component probably shouldn't have two state philosophies
-    // note: we only trigger "queueTransition" when length > this.state.length so don't worry about that
-    if( resolution === this.state.resolution && length === this.state.length )
-    {
-      enableNewTrack();
-      return;
-    }
     if( queueTransition )
     {
       // log this, there seems to be some bugginess with some of the tone stuff
@@ -171,56 +174,21 @@ class ToneBoard extends React.Component
       // and this is more of an experimental feature
       console.log("queuing transition to pattern " + this.props.selectedPattern.name);
     }
-    board.setState( 
-      { 
-        resolution : resolution,
-        length : length
-      },
-      () => { 
-        if( queueTransition ) { 
-          Tone.Transport.scheduleOnce(
-            enableNewTrack,
-            Tone.Time("0")
-          );
-        }
-        else
-        {
-          enableNewTrack();
-        }
-      }
-    );
+    if( queueTransition ) { 
+      Tone.Transport.scheduleOnce(
+        enableNewTrack,
+        Tone.Time("0")
+      );
+    }
+    else
+    {
+      enableNewTrack();
+    }
   }
 
   samplesReady()
   {
     return this.sampleCount === this.expectedSampleCount;
-  }
-
-  tick(time,indexFromStart)
-  {
-    if( time === this.lastTickTime )
-    {
-      // this sometimes seems to happen
-      // and the samples complain
-      // "start time must be strictly greater than previous start time"
-      // this is a horrible temporary fix
-      return;
-    }
-    this.lastTickTime = time;
-    const trackLengthRes = ( this.state.length / this.state.resolution );
-    const index = indexFromStart % trackLengthRes;
-    if(!this.samplesReady())
-    {
-      return;
-    }
-    const tracks = this.props.selectedPattern.instrumentTracks;
-    for(const [id,t] of Object.entries(tracks))
-    {
-        if( t.rep[index] )
-        {
-          this.samples[id].start(time);
-        }
-    }
   }
 
   play()
@@ -238,8 +206,16 @@ class ToneBoard extends React.Component
   componentDidMount()
   {
     this.populateSamples();
-    this.sequences = this.createSequences();
+    this.toneParts = this.createToneParts();
     this.schedulePlaybackForNewTracks();
+  }
+
+  setPatternMuted(patternName, muted)
+  {
+    for( let [, part] of Object.entries(this.toneParts[patternName]) )
+    {
+      part.mute = muted;
+    }
   }
 
   componentDidUpdate(prevProps, prevState, snapshot)
@@ -249,7 +225,7 @@ class ToneBoard extends React.Component
     const patternChange = prevProps.selectedPattern.name !== this.props.selectedPattern.name;
     if( patternChange )
     {
-      this.sequences[prevProps.selectedPattern.name]._part.mute = true;
+      this.setPatternMuted(prevProps.selectedPattern.name, true);
       this.schedulePlaybackForNewTracks();
     }
   }
