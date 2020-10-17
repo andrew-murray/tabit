@@ -1,5 +1,6 @@
 import React from 'react';
 import notation from "./notation"
+import PartWithTitle from "./PartWithTitle";
 import { withStyles } from '@material-ui/core/styles';
 
 const useStyles = theme => ({
@@ -14,8 +15,6 @@ const useStyles = theme => ({
   },
 });
 
-// const classes = useStyles();
-
 class Pattern extends React.Component
 {
   constructor(props) {
@@ -24,37 +23,21 @@ class Pattern extends React.Component
     };
   }
 
-  // remove me and relpace with me with something way better
-  // this is taken from the notation formatAsPage code
-  formatText(instruments)
-  {
-    let configOverride = this.props.config;
-    let page = [];
-    for( const [instrumentName, instrument] of instruments )
-    {
-      const asHTML = true;
-      const notationString = notation.fromInstrumentAndTrack(
-        instrument,
-        this.props.tracks,
-        asHTML,
-        configOverride
-      );
-      page.push(instrumentName);
-      for( const x of notationString.split("\n"))
-      {
-        page.push(x);
-      }
-    }
-    return page;
-  }  
-
   render() {
     const { classes } = this.props;
-    // todo: I think I need to turn the creation of the pattern text, into a react setting,
-    // so that I can add my light show
+    const instrumentIndices = [...this.props.instruments.keys()];
     return (
       <div className={classes.root} >
-        { this.formatText(this.props.instruments).map((x,index) => <p key={index.toString()} dangerouslySetInnerHTML={{"__html" : x}} />) }
+        { instrumentIndices.map( 
+            (instrumentIndex) => ( <PartWithTitle 
+              key={"part-" + instrumentIndex.toString()}
+              instrumentName={this.props.instruments[instrumentIndex][0]}
+              instrument={this.props.instruments[instrumentIndex][1]}
+              tracks={this.props.tracks} // todo: filter relevant for good react-ness
+              formatConfig={this.props.config}
+            /> )
+          )
+        }
       </div>
     );
   }
