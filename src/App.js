@@ -49,6 +49,10 @@ let theme = createMuiTheme( {
    } 
 } );
 
+const ignoreEvent = (event) => {
+  return event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift');
+};
+
 class App extends React.Component
 {
   constructor(props) {
@@ -277,34 +281,149 @@ class App extends React.Component
     return resolution;
   }
 
+  renderTitlePage()
+  {
+    const showAlert = this.state.patterns != null && this.state.patterns.length === 0;
+    const optionalAlert = showAlert ? ( <Alert severity="error">{this.state.loadedFile} contained no patterns! Try another.</Alert> )
+                                    : "";
+    return (
+      <React.Fragment>
+      <div>
+        <h2>tabit</h2>
+        <p>I read .h2songs and write tab</p>
+        <Button variant="contained" onClick={this.loadExample.bind(this)} style={{margin: "1em"}}>Load example</Button>
+        <FileImport
+          style={{margin: "1em"}}
+          variant="contained"
+          onImport={this.handleFileImport.bind(this)}
+          accept=".tabit,.h2song"
+          />
+          {optionalAlert}
+      </div>
+      <div style={{ position:"absolute", bottom:0 }} >
+        <p>tabit relies on publicly available sound libraries listed at <a href="https://github.com/andrew-murray/tabit">https://github.com/andrew-murray/tabit</a></p>
+      </div>
+      </React.Fragment>
+    );
+  }
+
+  renderPatternDrawer(iOS, mobile)
+  {
+    const classes = this.props;
+    const handlePatternsClose = (e) => {
+      if( ignoreEvent(e) ){ return; }
+      this.setState( { patternsOpen : false } );
+    };
+    const handlePatternsOpen = (e) => {
+      if( ignoreEvent(e) ){ return; }
+      this.setState( { patternsOpen : true } );
+    };
+
+    return (
+      <SwipeableDrawer disableBackdropTransition={!iOS} disableDiscovery={iOS}
+      className={classes.drawer}
+      variant={ mobile ? undefined : "persistent" }
+      open={this.state.patternsOpen}
+      onOpen={handlePatternsOpen}
+      onClose={handlePatternsClose}
+      >
+        <div className={classes.drawerHeader}>
+          <IconButton onClick={handlePatternsClose}>
+              <ChevronLeftIcon />
+          </IconButton>
+        </div>
+        <Divider />
+        <div className={classes.drawerContainer}>
+          <List>
+            {(this.state.patterns ?? []).map( (pattern, index) => (
+              <ListItem button key={"drawer-pattern" + index.toString()} onClick={() => this.selectPattern(index)}>
+                  <ListItemText primary={pattern.name} />
+              </ListItem>
+            ))}
+          </List>
+        </div>
+      </SwipeableDrawer>
+    );
+  }
+
+
+
+  renderSettingsDrawer(iOS, mobile, patternConfig)
+  {
+    const classes = this.props;
+    const settingsChangeCallback = (config) => {
+      let existingPatternSettings = Array.from( this.state.patternSettings );
+      let existingGlobalSettings = Object.assign( {}, this.state.formatSettings );
+      for( let [k,v] of Object.entries(config) )
+      {
+        if( k in existingPatternSettings[this.state.selectedPattern] )
+        {
+          existingPatternSettings[this.state.selectedPattern][k] = v;
+        }
+        else
+        {
+          existingGlobalSettings[k] = v;
+        }
+      }
+      this.setState( { formatSettings: existingGlobalSettings, patternSettings : existingPatternSettings } );
+    };
+
+    const handleDrawerOpen = (e) => {
+      if( ignoreEvent(e) ){ return; }
+      this.setState( {settingsOpen : true} );
+    };
+
+    const handleDrawerClose = (e) => {
+      if( ignoreEvent(e) ){ return; }
+      this.setState( {settingsOpen : false} );
+    };
+
+    const patternToRender = this.state.patterns[this.state.selectedPattern];
+
+    const patternDetails = {
+      name : patternToRender.name,
+      resolution : patternToRender.resolution,
+      "length" : this.getTrackLength(patternToRender)
+    };
+
+    return (
+      <SwipeableDrawer disableBackdropTransition={!iOS} disableDiscovery={iOS}
+        className={classes.drawer}
+        variant={ mobile ? undefined : "persistent" }
+        anchor="right"
+        open={this.state.settingsOpen}
+        onOpen={handleDrawerOpen}
+        onClose={handleDrawerClose}
+        classes={{
+          paper: classes.drawerPaper
+        }}
+      >
+        <div className={classes.drawerHeader}>
+          <IconButton onClick={handleDrawerClose}>
+              <ChevronRightIcon />
+          </IconButton>
+        </div>
+        <Divider />
+        <FormatSettings
+          onChange={settingsChangeCallback}
+          settings={patternConfig}
+          pattern={patternDetails}
+          />
+        <Button
+          style={{backgroundColor : "white", color : theme.palette.background.default}}
+          onClick={(e) => { this.save(); } }
+        >Download</Button>
+      </SwipeableDrawer>
+    );
+  }
+
   // todo: this will go away eventually, once I choose how to load a file
   // (though it should obviously be another component anyway)
   renderMainContent()
   {
     if(this.state.patterns == null || this.state.patterns.length === 0)
     {
-      const showAlert = this.state.patterns != null && this.state.patterns.length === 0;
-      const optionalAlert = showAlert ? ( <Alert severity="error">{this.state.loadedFile} contained no patterns! Try another.</Alert> )
-                                      : "";
-      return (
-        <React.Fragment>
-        <div>
-          <h2>tabit</h2>
-          <p>I read .h2songs and write tab</p>
-          <Button variant="contained" onClick={this.loadExample.bind(this)} style={{margin: "1em"}}>Load example</Button>
-          <FileImport
-            style={{margin: "1em"}}
-            variant="contained"
-            onImport={this.handleFileImport.bind(this)}
-            accept=".tabit,.h2song"
-            />
-            {optionalAlert}
-        </div>
-        <div style={{ position:"absolute", bottom:0 }} >
-          <p>tabit relies on publicly available sound libraries listed at <a href="https://github.com/andrew-murray/tabit">https://github.com/andrew-murray/tabit</a></p>
-        </div>
-        </React.Fragment>
-      );      
+      return this.renderTitlePage();
     }
     else
     {
@@ -315,45 +434,6 @@ class App extends React.Component
       );
       const patternContent = this.renderPattern(patternToRender, patternConfig);
        
-      const ignoreEvent = (event) => {
-        return event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift');
-      };
-
-      const settingsChangeCallback = (config) => {
-        let existingPatternSettings = Array.from( this.state.patternSettings );
-        let existingGlobalSettings = Object.assign( {}, this.state.formatSettings );
-        for( let [k,v] of Object.entries(config) )
-        {
-          if( k in existingPatternSettings[this.state.selectedPattern] )
-          {
-            existingPatternSettings[this.state.selectedPattern][k] = v;
-          }
-          else
-          {
-            existingGlobalSettings[k] = v;
-          }
-        }
-        this.setState( { formatSettings: existingGlobalSettings, patternSettings : existingPatternSettings } );
-      };
-
-      const handleDrawerOpen = (e) => {
-        if( ignoreEvent(e) ){ return; }
-        this.setState( {settingsOpen : true} );
-      };
-
-      const handleDrawerClose = (e) => {
-        if( ignoreEvent(e) ){ return; }
-        this.setState( {settingsOpen : false} );
-      };
-
-      const handlePatternsClose = (e) => {
-        if( ignoreEvent(e) ){ return; }
-        this.setState( { patternsOpen : false } );
-      };
-      const handlePatternsOpen = (e) => {
-        if( ignoreEvent(e) ){ return; }
-        this.setState( { patternsOpen : true } );
-      };
 
       const changeInstrumentsCallback = (instruments) => {
         this.setState( {
@@ -366,8 +446,6 @@ class App extends React.Component
       const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
       const mobile = this.checkMobile();
 
-      const patternDetails = { name : patternToRender.name, resolution : patternToRender.resolution, "length" : this.getTrackLength(patternToRender) };
-
       const instrumentConfigColumns = mobile ? 12 : 8;
 
 
@@ -376,9 +454,9 @@ class App extends React.Component
           <div style={{display:"flex", width: "95%"}}> 
             <IconButton
               color="inherit"
-              aria-label="open drawer"
+              aria-label="open pattern list"
               edge="start"
-              onClick={handlePatternsOpen}
+              onClick={(e)=>{ this.setState( {patternsOpen: true } )}}
               className={clsx({
                 [classes.hide] : !this.state.patternsOpen
               })}
@@ -389,9 +467,9 @@ class App extends React.Component
             </div>
             <IconButton
               color="inherit"
-              aria-label="open drawer"
+              aria-label="open settings"
               edge="end"
-              onClick={handleDrawerOpen}
+              onClick={(e)=>{ this.setState( {settingsOpen: true } )}}
               className={clsx(this.state.settingsOpen && classes.hide)}
             >
               <MenuIcon />
@@ -410,57 +488,8 @@ class App extends React.Component
           </Grid>
           <Grid item xs={(12 - instrumentConfigColumns ) / 2} />
           </Grid>
-
-        <SwipeableDrawer disableBackdropTransition={!iOS} disableDiscovery={iOS}
-          className={classes.drawer}
-          variant={ mobile ? undefined : "persistent" }
-          open={this.state.patternsOpen}
-          onOpen={handlePatternsOpen}
-          onClose={handlePatternsClose}
-        >
-          <div className={classes.drawerHeader}>
-            <IconButton onClick={handlePatternsClose}>
-                <ChevronLeftIcon />
-            </IconButton>
-          </div>
-          <Divider />
-          <div className={classes.drawerContainer}>
-            <List>
-              {(this.state.patterns ?? []).map( (pattern, index) => (
-                <ListItem button key={"drawer-pattern" + index.toString()} onClick={() => this.selectPattern(index)}>
-                    <ListItemText primary={pattern.name} />
-                </ListItem>
-              ))}
-            </List>
-          </div>
-        </SwipeableDrawer>
-        <SwipeableDrawer disableBackdropTransition={!iOS} disableDiscovery={iOS}
-          className={classes.drawer}
-          variant={ mobile ? undefined : "persistent" }
-          anchor="right"
-          open={this.state.settingsOpen}
-          onOpen={handleDrawerOpen}
-          onClose={handleDrawerClose}
-          classes={{
-            paper: classes.drawerPaper
-          }}
-        >
-          <div className={classes.drawerHeader}>
-            <IconButton onClick={handleDrawerClose}>
-                <ChevronRightIcon />
-            </IconButton>
-          </div>
-          <Divider />
-          <FormatSettings
-            onChange={settingsChangeCallback}
-            settings={patternConfig}
-            pattern={patternDetails}
-            />
-          <Button
-            style={{backgroundColor : "white", color : theme.palette.background.default}}
-            onClick={(e) => { this.save(); } }
-          >Download</Button>
-        </SwipeableDrawer>
+          {this.renderPatternDrawer(iOS,mobile)}
+          {this.renderSettingsDrawer(iOS,mobile, patternConfig)}
         </React.Fragment>
       );
     }

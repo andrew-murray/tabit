@@ -1,5 +1,4 @@
 import React from 'react';
-import notation from "./notation"
 import PartWithTitle from "./PartWithTitle";
 import { withStyles } from '@material-ui/core/styles';
 
