@@ -72,6 +72,7 @@ class App extends React.Component
       patternsOpen : false,
       progress : null
     };
+    this.pattern = React.createRef();
   }
 
 
@@ -194,19 +195,24 @@ class App extends React.Component
           tracks={pattern.instrumentTracks}
           config={resolvedSettings}
           active={this.state.progress}
+          ref={this.pattern}
         />
         <ToneBoard 
           instruments={this.state.instruments} 
           instrumentIndex={this.state.instrumentIndex} 
           selectedPattern={pattern}
           patterns={this.state.patterns}
+          onPatternTimeChange = {(time)=>{this.onPatternTimeChange(time);}}
         />
       </React.Fragment>
     );
   }
 
-
-
+  onPatternTimeChange(time)
+  {
+    this.pattern.current.onPatternTimeChange(time);
+  }
+  
   loadExample()
   {
     const createObjects = (state) => 

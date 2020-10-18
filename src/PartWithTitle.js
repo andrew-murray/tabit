@@ -26,6 +26,7 @@ class PartWithTitle extends React.Component
 
   render() {
     const Title = getTitleType(this.props.headingLevel, "h4");
+    // console.log("Part " + this.props.instrumentName + " active note " + ( this.props.activeNote !== null && this.props.activeNote !== undefined ? this.props.activeNote.toString() : "null"));
     return (
       <article>
         <Title>{this.props.instrumentName}</Title>
@@ -33,6 +34,7 @@ class PartWithTitle extends React.Component
           instrument={this.props.instrument}
           tracks={this.props.tracks}
           config={this.props.config}
+          activeNote={this.props.activeNote}
         />
       </article>
     );

@@ -4,10 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 
 const useStyles = theme => ({
   root: {
-    whiteSpace:"pre",
-    "& .activeNote": {
-      color : theme.palette.secondary.main
-    }
+    whiteSpace:"pre"
   },
 });
 
@@ -32,19 +29,18 @@ class Part extends React.Component
     );
     const patternResolution = tracks[0].resolution;
     const patternLines = notation.chunkArray(patternArray, this.props.config.lineResolution / patternResolution);
+    const lineIndices = [...patternLines.keys()];
     const linesWithBeats = patternLines.map(
       line => notation.chunkArray( line, this.props.config.beatResolution / patternResolution )
     );
-    const lineIndices = [...linesWithBeats.keys()];
-
     const formatLine = (key, line)=>{
       const beats = [...line.keys()];
       return (
         <p key={"pattern-line-" + key}>
           <span key={"line-start-" + key}>{this.props.config.lineMark}</span>
           {
-            beats.map( beat => <React.Fragment>
-              <span key={"span-beat-" + beat.toString()}>{line[beat].join("")}</span>
+            beats.map( beat => <React.Fragment key={"fragment-beat-"+ beat.toString()}>
+              <span key={"span-beat-" + beat.toString()} className={beat === this.props.activeNote ? "activeNote" : ""}>{line[beat].join("")}</span>
               <span key={"span-beat-marker-" + beat.toString()}>{(this.props.config.showBeatMark && beat !== beats[beats.length-1]) ? this.props.config.beatMark : ""}</span>
             </React.Fragment>
             )

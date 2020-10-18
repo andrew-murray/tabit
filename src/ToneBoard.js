@@ -221,6 +221,17 @@ class ToneBoard extends React.Component
           this.samples[id].start(time);
         }
     }
+    if( this.props.onPatternTimeChange )
+    {
+      Tone.Draw.schedule(
+        ()=>{
+          const notePosition = ( indexFromStart * this.state.resolution ) % this.state.length;
+          console.log(notePosition) 
+          this.props.onPatternTimeChange( notePosition );
+        },
+        time
+      );
+    }
   }
 
   play()
@@ -232,7 +243,23 @@ class ToneBoard extends React.Component
 
   stop()
   {
-    Tone.Transport.stop();
+    // it's slightly unclear what the synchronisation semantics of this Tone.Transport.stop() call are.
+    // If a tick is currently in flight on Tone.Transport we have to ensure that
+    // the reset of patternTime occurs *afterwards*. 
+    // The below calls seem to work for this, but I couldn't tell you why.
+    if( Tone.Transport.state === "started")
+    {
+      Tone.Transport.stop();
+      if( this.props.onPatternTimeChange )
+      {
+        Tone.Draw.schedule(
+          ()=>{
+            this.props.onPatternTimeChange( null );
+          },
+          Tone.Transport.now()
+        );
+      }
+    }
   }
 
   componentDidMount()

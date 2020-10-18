@@ -9,7 +9,7 @@ const useStyles = theme => ({
     textAlign: "left",
     whiteSpace:"pre",
     "& .activeNote": {
-      color : theme.palette.secondary.main
+      color : theme.palette.primary.main
     }
   },
 });
@@ -19,12 +19,26 @@ class Pattern extends React.Component
   constructor(props) {
     super(props);
     this.state = {
+      patternTime : undefined
     };
+  }
+
+  onPatternTimeChange(patternTime)
+  {
+    if( patternTime !== null && patternTime !== undefined )
+    {
+      this.setState({patternTime : patternTime});
+    }
+    else
+    {
+      this.setState({patternTime : undefined });
+    }
   }
 
   render() {
     const { classes } = this.props;
     const instrumentIndices = [...this.props.instruments.keys()];
+    const beatResolution = this.props.config.beatResolution;
     return (
       <div className={classes.root} >
         { instrumentIndices.map( 
@@ -34,6 +48,7 @@ class Pattern extends React.Component
               instrument={this.props.instruments[instrumentIndex][1]}
               tracks={this.props.tracks}
               config={this.props.config}
+              activeNote={this.state.patternTime !== undefined ? Math.floor(this.state.patternTime / beatResolution) : undefined}
             /> )
           )
         }
