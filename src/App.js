@@ -212,7 +212,7 @@ class App extends React.Component
   {
     this.pattern.current.onPatternTimeChange(time);
   }
-  
+
   loadExample()
   {
     const createObjects = (state) => 
@@ -423,8 +423,6 @@ class App extends React.Component
     );
   }
 
-  // todo: this will go away eventually, once I choose how to load a file
-  // (though it should obviously be another component anyway)
   renderMainContent()
   {
     if(this.state.patterns == null || this.state.patterns.length === 0)

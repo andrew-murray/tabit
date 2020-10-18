@@ -2,12 +2,6 @@ import React from 'react';
 import Part from "./Part";
 import { withStyles } from '@material-ui/core/styles';
 
-const useStyles = theme => ({
-  root: {
-    "margin-bottom": theme.spacing(2)
-  },
-});
-
 function getTitleType(headingLevel, defaultLevel)
 {
     const validHeadingLevels = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
@@ -26,7 +20,6 @@ class PartWithTitle extends React.Component
 
   render() {
     const Title = getTitleType(this.props.headingLevel, "h4");
-    // console.log("Part " + this.props.instrumentName + " active note " + ( this.props.activeNote !== null && this.props.activeNote !== undefined ? this.props.activeNote.toString() : "null"));
     return (
       <article>
         <Title>{this.props.instrumentName}</Title>
@@ -41,4 +34,4 @@ class PartWithTitle extends React.Component
   }
 }
 
-export default withStyles(useStyles)(PartWithTitle);
+export default PartWithTitle;
