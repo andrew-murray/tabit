@@ -1,6 +1,5 @@
 import React from 'react';
 import Part from "./Part";
-import { withStyles } from '@material-ui/core/styles';
 
 function getTitleType(headingLevel, defaultLevel)
 {

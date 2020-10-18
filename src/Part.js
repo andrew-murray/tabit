@@ -72,7 +72,7 @@ class Part extends React.Component
     );
     return (
       <React.Fragment>
-        {this.props.config.showBeatNumbers ? formatLine("beat", beatChunks) : "" }
+        {this.props.config.showBeatNumbers ? formatLine("beat", beatChunks, 0) : "" }
         {lineIndices.map(lineIndex=>formatLine(lineIndex.toString(), linesWithBeats[lineIndex], beatsPerLine * lineIndex))}
       </React.Fragment>
     );

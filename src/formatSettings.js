@@ -8,15 +8,16 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import Select from '@material-ui/core/Select';
 import notation from "./notation";
+import HelpIcon from '@material-ui/icons/HelpOutlined';
+import Tooltip from '@material-ui/core/Tooltip';
+import Icon from '@material-ui/core/Icon';
+import Grid from '@material-ui/core/Grid';
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(1),
     minWidth: 120,
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
+  }
 }));
 
 function camelToReadable(s)
@@ -88,31 +89,37 @@ function FormatSettings(props) {
   const resolutionToBeatString = (r) => ( r / props.settings.beatResolution ).toString();
   const beatStringToResolution = (b) => props.settings.beatResolution * parseInt(b);
   
-  const candidateLineLengths = [ 2, 3, 4, 5, 6, 7, 8 ];
+  const candidateLineLengths = [ 2, 3, 4, 5, 6, 7, 8, 14, 16, 32 ];
   let lineLengths = [];
   for( const c of candidateLineLengths )
   {
     const resolution = c * 48;
-    if( (resolution % props.settings.beatResolution) === 0 )
+    if( (resolution % props.settings.beatResolution) === 0
+      && (resolution <= props.pattern.length)
+     )
     {
       lineLengths.push( resolution );
     }
-    // we permit one-over, in case that's useful for an "uneven" pattern
-    if(resolution > props.settings.length)
-    {
-      break;
-    }
   }
 
-  const candidateBeatResolutions = [24, 48, 96];
+  if( !lineLengths.includes( props.pattern.length ) )
+  {
+    lineLengths.push( props.pattern.length );
+    lineLengths.sort();
+  }
+
+  const candidateBeatResolutions = [24, 36, 48, 72, 96];
   let beatResolutions = [];
   for( const c of candidateBeatResolutions )
   {
-    if( (c % props.pattern.resolution) === 0 )
+    if( (c % props.pattern.resolution) === 0 && ( props.settings.lineResolution % c ) === 0)
     {
       beatResolutions.push( c );
     }
   }
+  const beatLineHelp = "Only options that produce lines made up of 'n' whole beats (no part-beats) are shown. "
+  + "If the options displayed for either lineResolution or beatResolution are too restrictive, try changing the other option."
+  + "If lineResolution only results in one line, more options for beatResolution will be shown."
   return (
     <FormGroup className={classes.root}>
       {notation.FORMAT_CONFIG_STRINGS.map( op => createOptionMenu( op[0], op[1] ) ).reduce((prev, curr) => [prev, curr])}
@@ -132,6 +139,16 @@ function FormatSettings(props) {
         beatStringToResolution,
         resolutionToBeatString
       )}
+      <Grid container>
+        <Grid item xs={8}/>
+        <Grid item xs={4}>
+          <Tooltip title={beatLineHelp} aria-label="help">
+            <Icon>
+              <HelpIcon />
+            </Icon>
+          </Tooltip>
+        </Grid>
+      </Grid>
     </FormGroup>
   );
 }
