@@ -33,7 +33,7 @@ class Pattern extends React.Component
               instrumentName={this.props.instruments[instrumentIndex][0]}
               instrument={this.props.instruments[instrumentIndex][1]}
               tracks={this.props.tracks} // todo: filter relevant for good react-ness
-              formatConfig={this.props.config}
+              config={this.props.config}
             /> )
           )
         }

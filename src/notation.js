@@ -36,12 +36,39 @@ class notation
     }
   }
 
+  static resolveConfig(formatConfig)
+  {
+    for( const propName of Object.keys(formatConfig))
+    {
+      if(!notation.DEFAULT_FORMAT_CONFIG.hasOwnProperty(propName))
+      {
+        throw new Error("passed unrecognised property " + propName);
+      }
+    }
+
+    return Object.assign( Object.assign({}, notation.DEFAULT_FORMAT_CONFIG), formatConfig );
+  }
+
   static chunkString(str, chunkSize) {
     if( chunkSize <= 0 )
     {
       throw new Error("chunkSize must be > 0")
     }
     return str.match(new RegExp('.{1,' + chunkSize + '}', 'g'));
+  }
+
+  static chunkArray(a, chunkSize)
+  {
+    if( chunkSize <= 0 )
+    {
+      throw new Error("chunkSize must be > 0")
+    }
+    let chunks = [];
+    for( let i = 0; i < a.length; i += chunkSize )
+    {
+      chunks.push( a.slice(i, Math.min( i + chunkSize, a.length) ) );
+    }
+    return chunks;
   }
 
   static createNumberMarker(numberRestMark, beatResolution, patternResolution, lineLength)
@@ -63,7 +90,7 @@ class notation
     {
       numberMarkerArray[ beat * ( beatResolution / patternResolution ) ] = ( (beat+1) % 10 ).toString();
     }
-    return numberMarkerArray.join("");
+    return numberMarkerArray;
   }
 
   static formatLineWithMarkers(config, line, patternResolution, asHTML)
@@ -154,36 +181,23 @@ class notation
     };
   }
 
-  static fromInstrumentAndTrack(
+  static formatPatternString(
     instrument,
     trackDict,
-    asHTML,
-    formatConfig = {}
+    restMark
   )
   {
-    for( const propName of Object.keys(formatConfig))
-    {
-      if(!notation.DEFAULT_FORMAT_CONFIG.hasOwnProperty(propName))
-      {
-        throw new Error("passed unrecognised property " + propName);
-      }
-    }
-
-    let config = Object.assign( Object.assign({}, notation.DEFAULT_FORMAT_CONFIG), formatConfig );
-
     let instrumentTracks = Object.values(trackDict);
     if(instrumentTracks.length === 0)
     {
       return "";
     }
 
-    // turn the tracks, into one char string
-
     const patternSize = instrumentTracks[0].length();
     const patternResolution = instrumentTracks[0].resolution;
-    const notationLength = instrumentTracks[0].length() / instrumentTracks[0].resolution;
-    // we only format tracks to the correct resolution
-    let patternArray = Array(notationLength).fill(config.restMark);
+    const notationLength = patternSize / patternResolution;
+
+    let patternArray = Array(notationLength).fill(restMark);
     for( let charIndex = 0; charIndex < patternArray.length; ++charIndex)
     {
       // todo: handle collisions
@@ -196,7 +210,29 @@ class notation
         }
       }
     }
+    return patternArray;
+  }
+
+  static fromInstrumentAndTrack(
+    instrument,
+    trackDict,
+    asHTML,
+    formatConfig = {}
+  )
+  {
+    const config = notation.resolveConfig(formatConfig);
+
+    let instrumentTracks = Object.values(trackDict);
+    if(instrumentTracks.length === 0)
+    {
+      return "";
+    }
+
+    // turn the tracks, into one char string
+    const patternArray = notation.formatPatternString( instrument, trackDict, config.restMark );
     const patternString = patternArray.join("");
+    const patternResolution = instrumentTracks[0].resolution;
+    const patternSize = instrumentTracks[0].length();
 
     // handle lines and beatMarkers
     let lineArray = notation.chunkString( patternString, config.lineResolution / patternResolution );
@@ -207,7 +243,7 @@ class notation
     {
       formattedLineArray.push( notation.formatLineWithMarkers( 
         config, 
-        notation.createNumberMarker(config.numberRestMark, config.beatResolution, patternResolution, Math.min(config.lineResolution, patternSize)), 
+        notation.createNumberMarker(config.numberRestMark, config.beatResolution, patternResolution, Math.min(config.lineResolution, patternSize)).join(""),
         patternResolution,
         asHTML
       ) );

@@ -20,16 +20,55 @@ class Part extends React.Component
   }
 
   render() {
+    const tracks = Object.values(this.props.tracks);
+    if(tracks.length === 0 )
+    {
+      return <React.Fragment />
+    }
+    const patternArray = notation.formatPatternString(
+      this.props.instrument,
+      this.props.tracks,
+      this.props.config.restMark
+    );
+    const patternResolution = tracks[0].resolution;
+    const patternLines = notation.chunkArray(patternArray, this.props.config.lineResolution / patternResolution);
+    const linesWithBeats = patternLines.map(
+      line => notation.chunkArray( line, this.props.config.beatResolution / patternResolution )
+    );
+    const lineIndices = [...linesWithBeats.keys()];
+
+    const formatLine = (key, line)=>{
+      const beats = [...line.keys()];
+      return (
+        <p key={"pattern-line-" + key}>
+          <span key={"line-start-" + key}>{this.props.config.lineMark}</span>
+          {
+            beats.map( beat => <React.Fragment>
+              <span key={"span-beat-" + beat.toString()}>{line[beat].join("")}</span>
+              <span key={"span-beat-marker-" + beat.toString()}>{(this.props.config.showBeatMark && beat !== beats[beats.length-1]) ? this.props.config.beatMark : ""}</span>
+            </React.Fragment>
+            )
+          }
+          <span key={"line-end-" + key}>{this.props.config.lineMark}</span>
+        </p>
+      );
+    };
+
+    const numberLine = notation.createNumberMarker(
+      this.props.config.numberRestMark,
+      this.props.config.beatResolution,
+      patternResolution,
+      Math.min( this.props.config.lineResolution, patternLines[0].length * patternResolution )
+    );
+    const beatChunks = notation.chunkArray(
+      numberLine,
+      this.props.config.beatResolution / patternResolution
+    );
     return (
-      <p
-        dangerouslySetInnerHTML={{"__html" : notation.fromInstrumentAndTrack(
-          this.props.instrument,
-          this.props.tracks,
-          true,
-          this.props.config
-          )
-        }}
-      />
+      <React.Fragment>
+        {this.props.config.showBeatNumbers ? formatLine("beat", beatChunks) : "" }
+        {lineIndices.map(lineIndex=>formatLine(lineIndex.toString(), linesWithBeats[lineIndex]))}
+      </React.Fragment>
     );
   }
 }
