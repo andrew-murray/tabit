@@ -32,7 +32,7 @@ class Pattern extends React.Component
               key={"part-" + instrumentIndex.toString()}
               instrumentName={this.props.instruments[instrumentIndex][0]}
               instrument={this.props.instruments[instrumentIndex][1]}
-              tracks={this.props.tracks} // todo: filter relevant for good react-ness
+              tracks={this.props.tracks}
               config={this.props.config}
             /> )
           )
