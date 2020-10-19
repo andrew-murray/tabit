@@ -9,7 +9,7 @@ import App from "./App";
 
 export default function Routes() {
   return (
-    <Router>
+    <Router basename={process.env.PUBLIC_URL}>
         <Switch>
           <Route path="/song/:song">
             <App/>
