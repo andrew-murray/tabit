@@ -196,7 +196,7 @@ class App extends React.Component
       body: JSON.stringify(stateToShare)
     };
 
-    const permanentUrl = process.env.PUBLIC_URL + "/song/" + stateHash;
+    const permanentUrl = window.origin + process.env.PUBLIC_URL + "/song/" + stateHash;
     fetch(uploadUrl, metadata).then(
       e => {
         this.setState({permanentUrl : permanentUrl, showSharingDialog: true})
