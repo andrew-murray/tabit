@@ -40,6 +40,11 @@ import track from "./track";
 import { saveAs } from 'file-saver';
 
 import ToneBoard from "./ToneBoard";
+import { withRouter } from "react-router-dom";
+
+import hash from "object-hash";
+import zlib from "zlib";
+
 // mui theme config
 let theme = createMuiTheme( { 
   palette: { 
@@ -52,6 +57,21 @@ let theme = createMuiTheme( {
 const ignoreEvent = (event) => {
   return event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift');
 };
+
+const getJsonDestinationUrl = (slug) => {
+  const jsonbase_url = "http://jsonbase.com/tabit-song/" + slug;
+  return jsonbase_url;
+}
+
+const getJsonStorageUrl = (slug) => {
+  // jsonbase doesn't give cross-origin headers, 
+  // so we use cors-anywhere to add them
+
+  // this is obviously a hack, but it enables us to use jsonbase
+  // as a transitive (semi-permanent) database, on a static site!
+  const cors_url = "http://cors-anywhere.herokuapp.com/";
+  return cors_url + getJsonDestinationUrl(slug);
+}
 
 class App extends React.Component
 {
@@ -75,6 +95,27 @@ class App extends React.Component
     this.pattern = React.createRef();
   }
 
+  componentDidMount()
+  {
+    if( this.props.match.params.song )
+    {
+      fetch(getJsonStorageUrl(this.props.match.params.song))
+      .then( response => { return response.json(); } )
+      .then( js => {
+        const decodedState = this.decodeState(js);
+        const stateHash = hash(js);
+        if( stateHash === this.props.match.params.song )
+        {
+          this.handleJson(null, decodedState);
+        }
+        else
+        {
+          console.log("Sorry this url is no longer valid.");
+        }
+
+      });
+    }
+  }
 
   getExportState()
   {
@@ -108,6 +149,43 @@ class App extends React.Component
     saveAs(blob, destFilename);
   }
 
+  encodeState(state)
+  {
+    // json
+    const js = JSON.stringify(this.getExportState());
+    // compress
+    const compressedState = zlib.deflateSync(js).toString("base64");
+    return { state : compressedState };
+
+  }
+
+  decodeState(state)
+  {
+    const binaryBuffer = new Buffer(state.state, "base64");
+    const decompressedString = zlib.inflateSync(binaryBuffer);
+    return JSON.parse(decompressedString);
+  }
+
+  share()
+  {
+    const stateToShare = this.encodeState(this.getExportState());
+    const stateHash = hash(stateToShare);
+    const uploadUrl = getJsonStorageUrl(stateHash);
+
+    const metadata = {
+      method: "PUT",
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(stateToShare)
+    };
+
+    const permanentUrl = process.env.PUBLIC_URL + "/song/" + stateHash;
+    fetch(uploadUrl, metadata).then(
+      e => {
+        console.log(permanentUrl);
+      }
+    );
+  }
+
   figurePatternSettings(patterns)
   {
     return Array.from(
@@ -116,6 +194,41 @@ class App extends React.Component
     );
   }
 
+
+  handleJson(title, prevState)
+  {
+    const createTracks = (patternData) =>
+    {
+      // the instruments currently work as simple objects
+      // we need to create tracks!
+      let patterns = [];
+      for( let pattern of patternData )
+      {
+        let replacedTracks = {};
+        // todo: find a more compact way of doing this
+        for( const [id, trackData] of Object.entries(pattern.instrumentTracks) )
+        {
+          replacedTracks[id] = new track( trackData.rep, trackData.resolution );
+        }
+        let patternWithTracks = Object.assign({}, pattern);
+        patternWithTracks.instrumentTracks = replacedTracks;
+        patterns.push(patternWithTracks);
+      }
+      return patterns;
+    }
+    this.setState( {
+      instrumentIndex : prevState.instrumentIndex,
+      instrumentMask : createInstrumentMask(prevState.instrumentIndex, prevState.instruments),
+      instruments : prevState.instruments,
+      patterns : createTracks(prevState.patterns),
+      formatSettings : prevState.formatSettings,
+      patternSettings : prevState.patternSettings,
+      // general app state
+      loadedFile : title ?? prevState.loadedFile,
+      selectedPattern : prevState.patterns.length === 0 ? null : 0,
+      patternsOpen : prevState.patterns.length !== 0
+    } );
+  }
 
   handleFileImport(e)
   {
@@ -142,41 +255,11 @@ class App extends React.Component
     else
     {
 
-      const createTracks = (patternData) => 
-      {
-        // the instruments currently work as simple objects
-        // we need to create tracks!
-        let patterns = [];
-        for( let pattern of patternData )
-        {
-          let replacedTracks = {};
-          // todo: find a more compact way of doing this
-          for( const [id, trackData] of Object.entries(pattern.instrumentTracks) )
-          {
-            replacedTracks[id] = new track( trackData.rep, trackData.resolution );
-          }
-          let patternWithTracks = Object.assign({}, pattern);
-          patternWithTracks.instrumentTracks = replacedTracks;
-          patterns.push(patternWithTracks);
-        }
-        return patterns;
-      }
-
       // assume it's a tabit file!
-      Promise.resolve(e.content).then(JSON.parse).then( prevState => {
-        this.setState( {
-          instrumentIndex : prevState.instrumentIndex,
-          instrumentMask : createInstrumentMask(prevState.instrumentIndex, prevState.instruments),
-          instruments : prevState.instruments,
-          patterns : createTracks(prevState.patterns),
-          formatSettings : prevState.formatSettings,
-          patternSettings : prevState.patternSettings,
-          // general app state
-          loadedFile : e.file.name,
-          selectedPattern : prevState.patterns.length === 0 ? null : 0,
-          patternsOpen : prevState.patterns.length !== 0,
-        } );
-      }).catch( (error)=>{ alert("Failed to load file " + e.file.name  + " with error " + error); } );
+      Promise.resolve(e.content)
+        .then(JSON.parse)
+        .then( prevState => { this.handleJson(e.file.name,prevState); } )
+        .catch( (error)=>{ alert("Failed to load file " + e.file.name  + " with error " + error); } );
     }
   }
 
@@ -419,6 +502,10 @@ class App extends React.Component
           style={{backgroundColor : "white", color : theme.palette.background.default}}
           onClick={(e) => { this.save(); } }
         >Download</Button>
+        <Button
+          style={{backgroundColor : "white", color : theme.palette.background.default}}
+          onClick={(e) => { this.share(); } }
+        >Share</Button>
       </SwipeableDrawer>
     );
   }
@@ -512,4 +599,4 @@ class App extends React.Component
   }
 }
 
-export default App;
+export default withRouter(App);
