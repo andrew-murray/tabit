@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "a25612fdf42d896f101f7c95e0dc7c7c",
+    "revision": "3856f4459d7a847d466aaeeaf55ac7e1",
     "url": "/tabit/index.html"
   },
   {
