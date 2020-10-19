@@ -6,6 +6,7 @@ import h2 from './h2';
 import './App.css';
 
 import { Alert } from '@material-ui/lab';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 // define mui theme, including responsiveFont
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
@@ -113,6 +114,7 @@ class App extends React.Component
       patternsOpen : false,
       progress : null,
       showSharingDialog : false,
+      showTitleOptions : this.props.match.params.song === undefined,
       permanentUrl : ""
     };
     this.pattern = React.createRef();
@@ -132,7 +134,10 @@ class App extends React.Component
           throw new Error("Hash did not match");
         }
         this.handleJson(null, decodedState);
-      }).catch( (e) => { alert("Song " + this.props.match.params.song + " could not be found." ); } );
+      }).catch( (e) => {
+        this.setState({showTitleOptions : true});
+        alert("Song " + this.props.match.params.song + " could not be found." );
+      } );
     }
   }
 
@@ -393,11 +398,9 @@ class App extends React.Component
     const showAlert = this.state.patterns != null && this.state.patterns.length === 0;
     const optionalAlert = showAlert ? ( <Alert severity="error">{this.state.loadedFile} contained no patterns! Try another.</Alert> )
                                     : "";
-    return (
+    // if a load of a song is in flight don't show file open buttons
+    const controls = (
       <React.Fragment>
-      <div>
-        <h2>tabit</h2>
-        <p>I read .h2songs and write tab</p>
         <Button variant="contained" onClick={this.loadExample.bind(this)} style={{margin: "1em"}}>Load example</Button>
         <FileImport
           style={{margin: "1em"}}
@@ -406,6 +409,19 @@ class App extends React.Component
           accept=".tabit,.h2song"
           />
           {optionalAlert}
+      </React.Fragment>
+    );
+    const waitingMessage = (<React.Fragment>
+        <p> Loading song... </p>
+        <CircularProgress />
+      </React.Fragment>
+    );
+    return (
+      <React.Fragment>
+      <div>
+        <h2>tabit</h2>
+        <p>I read .h2songs and write tab</p>
+        {this.state.showTitleOptions ? controls : waitingMessage}
       </div>
       <div style={{ position:"absolute", bottom:0 }} >
         <p>tabit relies on publicly available sound libraries listed at <a href="https://github.com/andrew-murray/tabit">https://github.com/andrew-murray/tabit</a></p>
