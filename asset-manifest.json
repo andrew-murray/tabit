@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/tabit/static/css/main.abb25dff.chunk.css",
-    "main.js": "/tabit/static/js/main.d43ebb44.chunk.js",
-    "main.js.map": "/tabit/static/js/main.d43ebb44.chunk.js.map",
+    "main.js": "/tabit/static/js/main.ac8a1c7d.chunk.js",
+    "main.js.map": "/tabit/static/js/main.ac8a1c7d.chunk.js.map",
     "runtime-main.js": "/tabit/static/js/runtime-main.3ead3703.js",
     "runtime-main.js.map": "/tabit/static/js/runtime-main.3ead3703.js.map",
     "static/js/2.3c41024c.chunk.js": "/tabit/static/js/2.3c41024c.chunk.js",
     "static/js/2.3c41024c.chunk.js.map": "/tabit/static/js/2.3c41024c.chunk.js.map",
     "index.html": "/tabit/index.html",
-    "precache-manifest.b7d704ea743ba860ff47e5b530c2c5be.js": "/tabit/precache-manifest.b7d704ea743ba860ff47e5b530c2c5be.js",
+    "precache-manifest.b9164962c6c30cf814a30245d4bc9d3a.js": "/tabit/precache-manifest.b9164962c6c30cf814a30245d4bc9d3a.js",
     "service-worker.js": "/tabit/service-worker.js",
     "static/css/main.abb25dff.chunk.css.map": "/tabit/static/css/main.abb25dff.chunk.css.map",
     "static/js/2.3c41024c.chunk.js.LICENSE.txt": "/tabit/static/js/2.3c41024c.chunk.js.LICENSE.txt"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.3ead3703.js",
     "static/js/2.3c41024c.chunk.js",
     "static/css/main.abb25dff.chunk.css",
-    "static/js/main.d43ebb44.chunk.js"
+    "static/js/main.ac8a1c7d.chunk.js"
   ]
 }
