@@ -11,6 +11,7 @@
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "compression": "^1.7.4",
+    "copy-to-clipboard": "^3.3.1",
     "file-saver": "^2.0.2",
     "object-hash": "^2.0.3",
     "react": "^16.13.1",

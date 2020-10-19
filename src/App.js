@@ -23,6 +23,12 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import Divider from "@material-ui/core/Divider";
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import { withStyles } from '@material-ui/core/styles';
+import FileCopyIcon from '@material-ui/icons/FileCopy';
 
 // notationSettings
 
@@ -44,6 +50,7 @@ import { withRouter } from "react-router-dom";
 
 import hash from "object-hash";
 import zlib from "zlib";
+import copy from "copy-to-clipboard";
 
 // mui theme config
 let theme = createMuiTheme( { 
@@ -73,6 +80,20 @@ const getJsonStorageUrl = (slug) => {
   return cors_url + getJsonDestinationUrl(slug);
 }
 
+const modalStyles = {
+  modal: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  paper: {
+    backgroundColor: theme.palette.background.paper,
+    border: '2px solid #000',
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+  },
+};
+
 class App extends React.Component
 {
   constructor(props) {
@@ -90,7 +111,9 @@ class App extends React.Component
       selectedPattern : null,
       settingsOpen : false,
       patternsOpen : false,
-      progress : null
+      progress : null,
+      showSharingDialog : false,
+      permanentUrl : ""
     };
     this.pattern = React.createRef();
   }
@@ -104,16 +127,12 @@ class App extends React.Component
       .then( js => {
         const decodedState = this.decodeState(js);
         const stateHash = hash(js);
-        if( stateHash === this.props.match.params.song )
+        if( stateHash !== this.props.match.params.song )
         {
-          this.handleJson(null, decodedState);
+          throw new Error("Hash did not match");
         }
-        else
-        {
-          console.log("Sorry this url is no longer valid.");
-        }
-
-      });
+        this.handleJson(null, decodedState);
+      }).catch( (e) => { alert("Song " + this.props.match.params.song + " could not be found." ); } );
     }
   }
 
@@ -156,7 +175,6 @@ class App extends React.Component
     // compress
     const compressedState = zlib.deflateSync(js).toString("base64");
     return { state : compressedState };
-
   }
 
   decodeState(state)
@@ -181,9 +199,9 @@ class App extends React.Component
     const permanentUrl = process.env.PUBLIC_URL + "/song/" + stateHash;
     fetch(uploadUrl, metadata).then(
       e => {
-        console.log(permanentUrl);
+        this.setState({permanentUrl : permanentUrl, showSharingDialog: true})
       }
-    );
+    ).catch(err => { console.log("err"); console.log(err); });
   }
 
   figurePatternSettings(patterns)
@@ -502,11 +520,41 @@ class App extends React.Component
           style={{backgroundColor : "white", color : theme.palette.background.default}}
           onClick={(e) => { this.save(); } }
         >Download</Button>
+        <Divider />
         <Button
           style={{backgroundColor : "white", color : theme.palette.background.default}}
           onClick={(e) => { this.share(); } }
         >Share</Button>
       </SwipeableDrawer>
+    );
+  }
+
+  renderSharingDialog()
+  {
+    return (
+      <Dialog
+        open={this.state.showSharingDialog}
+        onClose={(e)=>{this.setState({showSharingDialog: false});}}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+          Your song is available at
+          </DialogContentText>
+          <DialogContentText>
+          {this.state.permanentUrl}
+          <IconButton onClick={(e)=>{ copy(this.state.permanentUrl); }}>
+            <FileCopyIcon />
+          </IconButton>
+          </DialogContentText>
+          <DialogActions>
+            <Button onClick={(e)=>{this.setState({showSharingDialog: false})}}>
+              Close
+            </Button>
+          </DialogActions>
+        </DialogContent>
+      </Dialog>
     );
   }
 
@@ -539,9 +587,9 @@ class App extends React.Component
 
       const instrumentConfigColumns = mobile ? 12 : 8;
 
-
       return (
         <React.Fragment>
+          {this.renderSharingDialog()}
           <div style={{display:"flex", width: "95%"}}> 
             <IconButton
               color="inherit"
@@ -599,4 +647,4 @@ class App extends React.Component
   }
 }
 
-export default withRouter(App);
+export default withStyles(modalStyles)(withRouter(App));
