@@ -1,9 +1,19 @@
 import React from 'react';
 import { render} from '@testing-library/react';
 import App from '../App';
+import { MemoryRouter } from 'react-router-dom'
+
+function AppWithinRouter()
+{
+  return (
+    <MemoryRouter>
+      <App/>
+    </MemoryRouter>
+  );
+};
 
 test('renders title', () => {
-  const { getAllByText } = render(<App />);
+  const { getAllByText } = render(<AppWithinRouter />);
 
   // note, there are multiple elements that say "tabit"
   // now but this test mostly tests the App.js loads without complaint 
