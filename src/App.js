@@ -66,7 +66,7 @@ const ignoreEvent = (event) => {
 };
 
 const getJsonDestinationUrl = (slug) => {
-  const jsonbase_url = "http://jsonbase.com/tabit-song/" + slug;
+  const jsonbase_url = "https://jsonbase.com/tabit-song/" + slug;
   return jsonbase_url;
 }
 
@@ -76,7 +76,7 @@ const getJsonStorageUrl = (slug) => {
 
   // this is obviously a hack, but it enables us to use jsonbase
   // as a transitive (semi-permanent) database, on a static site!
-  const cors_url = "http://cors-anywhere.herokuapp.com/";
+  const cors_url = "https://cors-anywhere.herokuapp.com/";
   return cors_url + getJsonDestinationUrl(slug);
 }
 
@@ -201,7 +201,7 @@ class App extends React.Component
       e => {
         this.setState({permanentUrl : permanentUrl, showSharingDialog: true})
       }
-    ).catch(err => { console.log("err"); console.log(err); });
+    ).catch(err => { alert("Couldn't upload song at this time. Sorry for any inconvenience."); });
   }
 
   figurePatternSettings(patterns)

@@ -164,13 +164,6 @@ class ToneBoard extends React.Component
       enableNewTrack();
       return;
     }
-    if( queueTransition )
-    {
-      // log this, there seems to be some bugginess with some of the tone stuff
-      // (my fault for not fully changing the code yet)
-      // and this is more of an experimental feature
-      console.log("queuing transition to pattern " + this.props.selectedPattern.name);
-    }
     board.setState( 
       { 
         resolution : resolution,
@@ -226,7 +219,6 @@ class ToneBoard extends React.Component
       Tone.Draw.schedule(
         ()=>{
           const notePosition = ( indexFromStart * this.state.resolution ) % this.state.length;
-          console.log(notePosition) 
           this.props.onPatternTimeChange( notePosition );
         },
         time
