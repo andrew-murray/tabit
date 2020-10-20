@@ -26,6 +26,10 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 
+import Grid from '@material-ui/core/Grid';
+import VolumeOffIcon from '@material-ui/icons/VolumeOff';
+import VolumeUpIcon from '@material-ui/icons/VolumeUp';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -45,11 +49,19 @@ const InlinableIconButton = withStyles({
   }
 })(IconButton);
 
-const CenterTableCell = withStyles({
+const NoDividerCenterTableCell = withStyles((theme) => ({
+  root: {
+    borderBottom: "none",
+    textAlign: "center",
+    paddingBottom: theme.spacing(0) // make instrument titles bunch up with their controls a little more
+  }
+}))(TableCell);
+
+const CenterTableCell = withStyles((theme) => ({
   root: {
     textAlign: "center"
   }
-})(TableCell);
+}))(TableCell);
 
 function InstrumentConfig(props) {
   const classes = useStyles();
@@ -224,6 +236,8 @@ function InstrumentConfig(props) {
     setEditSymbol(-1);
   };
 
+  let [muted, setMuted] = React.useState(Array(props.instrumentIndex.length).fill(false));
+
   return (
     <React.Fragment>
       <Dialog open={renamingInstrument >= 0} onClose={(e)=>setRenamingInstrument(-1)} aria-labelledby="form-dialog-title">
@@ -278,8 +292,35 @@ function InstrumentConfig(props) {
         <Table className={classes.table} aria-label="simple table">
           <TableHead>
             <TableRow key={"instrumentPanel-row-header"}>
-              <TableCell key={"instrumentPanel-row-instrument"}> Instrument </TableCell>
-              {[...Array(props.instrumentIndex.length).keys()].map(x=><CenterTableCell key={"instrumentPanel-row-header-cell-" + x.toString()}><Typography>{props.instrumentIndex[x].name}</Typography><InlinableIconButton onClick={(e)=>startEditingSymbol(x)} ><EditIcon fontSize="small"/></InlinableIconButton></CenterTableCell>)}
+              <NoDividerCenterTableCell key={"instrumentPanel-row-instrument"}> Instrument </NoDividerCenterTableCell>
+              {[...Array(props.instrumentIndex.length).keys()].map(x=>
+                  <NoDividerCenterTableCell key={"instrumentPanel-row-header-cell-" + x.toString()}>
+                    <Typography>{props.instrumentIndex[x].name}</Typography>
+                  </NoDividerCenterTableCell>)}
+            </TableRow>
+            <TableRow key={"instrumentPanel-row-controls"}>
+              <TableCell key={"instrumentPanel-row-instrument"}></TableCell>
+              {[...Array(props.instrumentIndex.length).keys()].map(x=>
+                  <CenterTableCell key={"instrumentPanel-row-controls-cell-" + x.toString()}>
+                    <Grid container>
+                    <Grid item xs={6}>
+                    <InlinableIconButton onClick={(e)=>startEditingSymbol(x)}>
+                      <EditIcon fontSize="small"/>
+                    </InlinableIconButton>
+                    </Grid>
+                    <Grid item xs={6}>
+                    <InlinableIconButton onClick={(e)=>{
+                      let nextMuted = Array.from(muted);
+                      nextMuted[x] = !nextMuted[x];
+                      setMuted(nextMuted);                      
+                    }}>
+                      {
+                        muted[x] ? <VolumeOffIcon fontSize="small" /> : <VolumeUpIcon fontSize="small"/>
+                      }
+                    </InlinableIconButton>
+                    </Grid>
+                    </Grid>
+                  </CenterTableCell>)}
             </TableRow>
           </TableHead>
           <TableBody>
