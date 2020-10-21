@@ -278,7 +278,10 @@ class ToneBoard extends React.Component
     {
       for( const instrument of this.props.instrumentIndex )
       {
-        this.samples[instrument.id].mute = instrument.muted;
+        if( instrument.id in this.samples )
+        {
+          this.samples[instrument.id].mute = instrument.muted;
+        }
       }
     }
   }
