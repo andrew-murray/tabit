@@ -91,6 +91,7 @@ class ToneBoard extends React.Component
             process.env.PUBLIC_URL + "/wav/" + selectedInstrument.drumkit + "/" + filename, 
             () => { this.samplerCount++; } 
           );
+          mapping[selectedInstrument.id].mute = selectedInstrument.muted;
           mapping[selectedInstrument.id].connect(this.gain);
           this.expectedSamplerCount++;
         }
@@ -104,6 +105,7 @@ class ToneBoard extends React.Component
               () => { this.samplerCount++; } 
             );
             mapping[selectedInstrument.id].connect(this.gain);
+            mapping[selectedInstrument.id].mute = selectedInstrument.muted;
             this.expectedSamplerCount++;
           }
         }
@@ -270,6 +272,14 @@ class ToneBoard extends React.Component
     {
       this.sequences[prevProps.selectedPattern.name]._part.mute = true;
       this.schedulePlaybackForNewTracks();
+    }
+    const instrumentChange = prevProps.instrumentIndex !== this.props.instrumentIndex;
+    if( instrumentChange )
+    {
+      for( const instrument of this.props.instrumentIndex )
+      {
+        this.samples[instrument.id].mute = instrument.muted;
+      }
     }
   }
 

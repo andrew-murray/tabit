@@ -236,8 +236,6 @@ function InstrumentConfig(props) {
     setEditSymbol(-1);
   };
 
-  let [muted, setMuted] = React.useState(Array(props.instrumentIndex.length).fill(false));
-
   return (
     <React.Fragment>
       <Dialog open={renamingInstrument >= 0} onClose={(e)=>setRenamingInstrument(-1)} aria-labelledby="form-dialog-title">
@@ -310,12 +308,10 @@ function InstrumentConfig(props) {
                     </Grid>
                     <Grid item xs={6}>
                     <InlinableIconButton onClick={(e)=>{
-                      let nextMuted = Array.from(muted);
-                      nextMuted[x] = !nextMuted[x];
-                      setMuted(nextMuted);                      
+                      props.onVolumeEvent( {instrument: x, muted: !props.instrumentIndex[x].muted} );
                     }}>
                       {
-                        muted[x] ? <VolumeOffIcon fontSize="small" /> : <VolumeUpIcon fontSize="small"/>
+                        props.instrumentIndex[x].muted ? <VolumeOffIcon fontSize="small" /> : <VolumeUpIcon fontSize="small"/>
                       }
                     </InlinableIconButton>
                     </Grid>

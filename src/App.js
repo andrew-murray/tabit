@@ -603,6 +603,22 @@ class App extends React.Component
 
       const instrumentConfigColumns = mobile ? 12 : 8;
 
+      const sendVolumeEvent = (event) =>
+      {
+        if("muted" in event)
+        {
+          let instrumentIndex = Array.from(this.state.instrumentIndex);
+          instrumentIndex[event.instrument].muted=event.muted;
+          this.setState( { instrumentIndex : instrumentIndex } );
+        }
+        else if("volume" in event)
+        {
+          let instrumentIndex = Array.from(this.state.instrumentIndex);
+          instrumentIndex[event.instrument].volume = event.volume;
+          this.setState( { instrumentIndex : instrumentIndex } );
+        }
+      };
+
       return (
         <React.Fragment>
           {this.renderSharingDialog()}
@@ -639,6 +655,7 @@ class App extends React.Component
               instrumentIndex={this.state.instrumentIndex}
               instrumentMask={this.state.instrumentMask}
               onChange={changeInstrumentsCallback}
+              onVolumeEvent={sendVolumeEvent}
             />
           </Grid>
           <Grid item xs={(12 - instrumentConfigColumns ) / 2} />
