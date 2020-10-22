@@ -18,16 +18,13 @@ const DRUMKITS = [
   "TR808EmulationKit"
 ];
 
-// TODO: This is very much not a react component, as it stands
-//   
 
 
-const gainValueToDB = (value) => {
-  // https://groups.google.com/g/tonejs/c/Ag9vix_d2L4
-  // https://stackoverflow.com/questions/22604500/web-audio-api-working-with-decibels
-  // https://developer.mozilla.org/en-US/docs/Web/API/AnalyserNode/maxDecibels
-  const mapped = (1.0 - value) * -60.0;
-  return Math.max( Math.min( mapped, 0.0 ), -60.0 );
+const convertNormalToAudible = (value) => {
+  // add an intuitive feel to gain values, perception of sound is non-linear
+  // https://www.dr-lex.be/info-stuff/volumecontrols.html
+  // note: I tried x^4 and I tried using tone's DB directly but neither felt very good.
+  return Math.pow(value, 2.5);
 };
 
 class ToneBoard extends React.Component
@@ -90,6 +87,7 @@ class ToneBoard extends React.Component
       if( selected.length > 0)
       {
         const selectedInstrument = selected[0];
+        const clampedVolume = convertNormalToAudible( Math.min( Math.max( 0.0 , selectedInstrument.volume ), 1.0 ) );
         if(
           "drumkit" in selectedInstrument && 
           "filename" in selectedInstrument &&
@@ -101,7 +99,6 @@ class ToneBoard extends React.Component
             () => { this.samplerCount++; } 
           );
           player.mute = selectedInstrument.muted;
-          const clampedVolume = Math.min( Math.max( 0.0 , selectedInstrument.volume ), 1.0 );
           const gain = new Tone.Gain(clampedVolume, "normalRange");
           player.connect(gain)
           gain.connect(this.gain);
@@ -118,7 +115,6 @@ class ToneBoard extends React.Component
               () => { this.samplerCount++; } 
             );
             player.mute = selectedInstrument.muted;
-            const clampedVolume = Math.min( Math.max( 0.0 , selectedInstrument.volume ), 1.0 );
             const gain = new Tone.Gain(clampedVolume, "normalRange");
             player.connect(gain)
             gain.connect(this.gain);
@@ -301,7 +297,7 @@ class ToneBoard extends React.Component
         if( instrument.id in this.samples )
         {
           this.samples[instrument.id].player.mute = instrument.muted;
-          this.samples[instrument.id].gain.set( {gain : instrument.volume } );
+          this.samples[instrument.id].gain.set( {gain : convertNormalToAudible(instrument.volume) } );
         }
       }
     }
