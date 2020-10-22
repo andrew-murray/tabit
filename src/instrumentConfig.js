@@ -34,6 +34,8 @@ import VolumeUpIcon from '@material-ui/icons/VolumeUp';
 import ClickNHold from 'react-click-n-hold';
 import Slider from '@material-ui/core/Slider';
 
+import {isMobile} from "./Mobile";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -93,14 +95,38 @@ function VolumeWidget(props)
     }
   };
 
+  // for mobile
+  // we click'n'hold which opens the volume slider, but don't propagate focus
+  
+  // for desktop/tablet
+  // we click'n'hold and propagate focus to the slider, so that our drag 
+  // will pull the slider up and down
+  const mobile = isMobile();
+
+  const holdDesktop = (start, event)=>{
+    if(!active){ setActive(true); }
+    if(sliderRef){ sliderRef.current.dispatchEvent(event.nativeEvent);}
+  };
+
+  const holdMobile= (start, event)=>{
+    if(!active){ setActive(true); }
+  };
+
+  const holdEndDesktop = (e)=>{
+    setActive(false);
+  };
+
+  const commitVolume = (event,value)=>
+  {
+    if( mobile ){ setActive(false); }
+    setVolume(event,value);
+  };
+
   return (
     <ClickNHold
       time={0.5} // Time to keep pressing. Default is 2
-      onClickNHold={(start, event)=>{
-        if(!active){ setActive(true); }
-        if(sliderRef){ sliderRef.current.dispatchEvent(event.nativeEvent);}
-      }}
-      onEnd={(e)=>{if(active){ setActive(false); }}} >
+      onClickNHold={mobile ? holdMobile : holdDesktop}
+      onEnd={mobile ? null : holdEndDesktop} >
       <InlinableIconButton disableRipple disableFocusRipple onClick={props.onMuteToggle} >
         <div style={SliderStyles}>
           <Slider
@@ -108,7 +134,7 @@ function VolumeWidget(props)
             orientation="vertical"
             aria-labelledby="vertical-slider"
             // onChange={setVolume}
-            onChangeCommitted={setVolume}
+            onChangeCommitted={commitVolume}
             ref={sliderRef}
           />
         </div>
