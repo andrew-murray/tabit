@@ -53,6 +53,8 @@ import hash from "object-hash";
 import zlib from "zlib";
 import copy from "copy-to-clipboard";
 
+import { isMobile } from "./Mobile";
+
 // mui theme config
 let theme = createMuiTheme( { 
   palette: { 
@@ -367,27 +369,6 @@ class App extends React.Component
     });
   }
 
-  checkMobile()
-  {
-    // the simple version from
-    // https://stackoverflow.com/questions/11381673/detecting-a-mobile-browser
-    const userAgent = (navigator.userAgent||navigator.vendor||window.opera);
-    const toMatch = [
-        /Android/i,
-        /webOS/i,
-        /iPhone/i,
-        /iPad/i,
-        /iPod/i,
-        /BlackBerry/i,
-        /Windows Phone/i
-    ];
-
-    return toMatch.some((toMatchItem) => {
-        return userAgent.match(toMatchItem);
-    });
-  }
-
-
   getTrackLength(pattern)
   {
     let trackLength = 48;
@@ -614,7 +595,7 @@ class App extends React.Component
 
       const classes = this.props;
       const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
-      const mobile = this.checkMobile();
+      const mobile = isMobile();
 
       const instrumentConfigColumns = mobile ? 12 : 8;
 

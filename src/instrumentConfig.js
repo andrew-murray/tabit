@@ -72,14 +72,6 @@ function VolumeWidget(props)
   const [active, setActive] = React.useState(false);
   const [sliderValue, setSliderValue] = React.useState(100);
   const sliderRef = React.useRef(null);
-
-  // manually trigger our slider, when the audio buttons are long-pressed
-  const triggerMouseDown = (node) => {
-    var clickEvent = document.createEvent ('MouseEvents');
-    clickEvent.initEvent ("mousedown", true, true);
-    node.dispatchEvent (clickEvent);
-  };
-
   const height = props.height ? props.height / 3 : 24;
   const FixedHeightStylings = {
     height: 3*height,
@@ -89,18 +81,11 @@ function VolumeWidget(props)
   const SliderStyles = Object.assign(active? {} : {"visibility": "hidden", paddingLeft: "0px"}, FixedHeightStylings);
   const IconStyles = active ?  {"visibility":"hidden"} : {};
 
-  // this logic is relevant, if we want to actively update based on the sliders
-  // but this isn't nearly performant enough (because the app's state update is really sluggish)
-  // potential fixes - seperate the audio and the visual state/create smaller state objects
-  // const [firstHit, setFirstHit] = React.useState(true);
+  // currently: updating based on the normal volume event isn't nearly performant enough 
+  // (because the app's state update is really sluggish)
+  // potential fixes - seperate the audio and the visual state and/or create smaller state objects
   const setVolume = (event, value) =>
   {
-    // mui seems to fire a dodgy 100 event, straight away, which we want to ignore
-    // ( but we're doing this in a slightly dodgy way, so it's expected there'd be issues to work around )
-    // if(firstHit){
-    //   setFirstHit(false);
-    //   return;
-    // }
     setSliderValue(value);
     if( props.onChange )
     {
@@ -111,9 +96,9 @@ function VolumeWidget(props)
   return (
     <ClickNHold
       time={0.5} // Time to keep pressing. Default is 2
-      onClickNHold={(e)=>{
+      onClickNHold={(start, event)=>{
         if(!active){ setActive(true); }
-        if(sliderRef){triggerMouseDown(sliderRef.current); }
+        if(sliderRef){ sliderRef.current.dispatchEvent(event.nativeEvent);}
       }}
       onEnd={(e)=>{if(active){ setActive(false); }}} >
       <InlinableIconButton disableRipple disableFocusRipple onClick={props.onMuteToggle} >
