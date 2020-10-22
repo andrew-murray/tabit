@@ -21,6 +21,15 @@ const DRUMKITS = [
 // TODO: This is very much not a react component, as it stands
 //   
 
+
+const gainValueToDB = (value) => {
+  // https://groups.google.com/g/tonejs/c/Ag9vix_d2L4
+  // https://stackoverflow.com/questions/22604500/web-audio-api-working-with-decibels
+  // https://developer.mozilla.org/en-US/docs/Web/API/AnalyserNode/maxDecibels
+  const mapped = (1.0 - value) * -60.0;
+  return Math.max( Math.min( mapped, 0.0 ), -60.0 );
+};
+
 class ToneBoard extends React.Component
 {
 
@@ -87,12 +96,16 @@ class ToneBoard extends React.Component
           DRUMKITS.includes(selectedInstrument.drumkit) )
         {
           const filename = selectedInstrument.filename.replace(".flac", ".wav");
-          mapping[selectedInstrument.id] = new Tone.Player( 
+          let player = new Tone.Player(
             process.env.PUBLIC_URL + "/wav/" + selectedInstrument.drumkit + "/" + filename, 
             () => { this.samplerCount++; } 
           );
-          mapping[selectedInstrument.id].mute = selectedInstrument.muted;
-          mapping[selectedInstrument.id].connect(this.gain);
+          player.mute = selectedInstrument.muted;
+          const clampedVolume = Math.min( Math.max( 0.0 , selectedInstrument.volume ), 1.0 );
+          const gain = new Tone.Gain(clampedVolume, "normalRange");
+          player.connect(gain)
+          gain.connect(this.gain);
+          mapping[selectedInstrument.id] = { player : player, gain : gain }
           this.expectedSamplerCount++;
         }
         else if( "drumkit" in selectedInstrument )
@@ -100,12 +113,16 @@ class ToneBoard extends React.Component
           const relativeUrl = this.chooseAppropriateUrlForInstrument( selectedInstrument.drumkit, selectedInstrument.name );
           if(relativeUrl !== null)
           {
-            mapping[selectedInstrument.id] = new Tone.Player( 
+            let player = new Tone.Player(
               process.env.PUBLIC_URL + "/wav/" + relativeUrl, 
               () => { this.samplerCount++; } 
             );
-            mapping[selectedInstrument.id].connect(this.gain);
-            mapping[selectedInstrument.id].mute = selectedInstrument.muted;
+            player.mute = selectedInstrument.muted;
+            const clampedVolume = Math.min( Math.max( 0.0 , selectedInstrument.volume ), 1.0 );
+            const gain = new Tone.Gain(clampedVolume, "normalRange");
+            player.connect(gain)
+            gain.connect(this.gain);
+            mapping[selectedInstrument.id] = { player : player, gain : gain }
             this.expectedSamplerCount++;
           }
         }
@@ -213,7 +230,7 @@ class ToneBoard extends React.Component
     {
         if( t.rep[index] )
         {
-          this.samples[id].start(time);
+          this.samples[id].player.start(time);
         }
     }
     if( this.props.onPatternTimeChange )
@@ -263,6 +280,8 @@ class ToneBoard extends React.Component
     this.schedulePlaybackForNewTracks();
   }
 
+
+
   componentDidUpdate(prevProps, prevState, snapshot)
   {
     // theoretically we should be evaluating a rougher equality on the tracks here
@@ -274,13 +293,15 @@ class ToneBoard extends React.Component
       this.schedulePlaybackForNewTracks();
     }
     const instrumentChange = prevProps.instrumentIndex !== this.props.instrumentIndex;
+
     if( instrumentChange )
     {
       for( const instrument of this.props.instrumentIndex )
       {
         if( instrument.id in this.samples )
         {
-          this.samples[instrument.id].mute = instrument.muted;
+          this.samples[instrument.id].player.mute = instrument.muted;
+          this.samples[instrument.id].gain.set( {gain : instrument.volume } );
         }
       }
     }

@@ -129,7 +129,6 @@ class Audio
           for( const noteStart of trackPoints )
           {
             const sampleStart = noteStart * samplesPerHydrogen;
-            // console.log("inserting sample at " + sampleStart * (trackLengthBeats/trackLengthSamples));
             for( let sample = 0; sample < audioBuffer.length; ++sample )
             {
               // add sample to mega track

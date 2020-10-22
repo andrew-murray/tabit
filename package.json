@@ -15,6 +15,7 @@
     "file-saver": "^2.0.2",
     "object-hash": "^2.0.3",
     "react": "^16.13.1",
+    "react-click-n-hold": "^1.0.7",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^3.4.3",

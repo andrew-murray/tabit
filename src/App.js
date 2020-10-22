@@ -239,6 +239,7 @@ class App extends React.Component
       }
       return patterns;
     }
+
     this.setState( {
       instrumentIndex : prevState.instrumentIndex,
       instrumentMask : createInstrumentMask(prevState.instrumentIndex, prevState.instruments),
@@ -261,6 +262,13 @@ class App extends React.Component
       h2.parseHydrogenPromise(e.content).then(h => {
         const assessedInstruments = figureInstruments(h.instruments, DEFAULT_INSTRUMENT_SYMBOLS, h.patterns);
         const instrumentIndex = activeInstrumentation(h.instruments, h.patterns);
+
+        // fixme: convert hydrogen volume/gain to normal values, somewhere
+        for( let instrument of instrumentIndex )
+        {
+          instrument.volume = 1.0;
+        }
+
         this.setState({
           // data
           instrumentIndex : instrumentIndex,
@@ -340,6 +348,13 @@ class App extends React.Component
     const k = createObjects(kuva);
     const assessedInstruments = figureInstruments(k.instruments, DEFAULT_INSTRUMENT_SYMBOLS, k.patterns);
     const instrumentIndex = activeInstrumentation(k.instruments, k.patterns);
+
+    // fixme: convert hydrogen volume/gain to normal values, somewhere
+    for( let instrument of instrumentIndex )
+    {
+      instrument.volume = 1.0;
+    }
+
     this.setState({
       instrumentIndex : instrumentIndex,
       instrumentMask : createInstrumentMask(instrumentIndex, assessedInstruments),
@@ -605,17 +620,21 @@ class App extends React.Component
 
       const sendVolumeEvent = (event) =>
       {
-        if("muted" in event)
+        if("volume" in event)
         {
-          let instrumentIndex = Array.from(this.state.instrumentIndex);
-          instrumentIndex[event.instrument].muted=event.muted;
-          this.setState( { instrumentIndex : instrumentIndex } );
+          this.setState( (prevState,props) => {
+            let instrumentIndex = Array.from(prevState.instrumentIndex);
+            instrumentIndex[event.instrument].volume = event.volume;
+            return { instrumentIndex : instrumentIndex };
+          } );
         }
-        else if("volume" in event)
+        else if("muted" in event)
         {
-          let instrumentIndex = Array.from(this.state.instrumentIndex);
-          instrumentIndex[event.instrument].volume = event.volume;
-          this.setState( { instrumentIndex : instrumentIndex } );
+          this.setState( (prevState,props) => {
+            let instrumentIndex = Array.from(prevState.instrumentIndex);
+            instrumentIndex[event.instrument].muted = event.muted;
+            return { instrumentIndex : instrumentIndex };
+          } );
         }
       };
 

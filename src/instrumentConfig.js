@@ -28,7 +28,11 @@ import Typography from '@material-ui/core/Typography';
 
 import Grid from '@material-ui/core/Grid';
 import VolumeOffIcon from '@material-ui/icons/VolumeOff';
+import VolumeMuteIcon from '@material-ui/icons/VolumeMute';
+import VolumeDownIcon from '@material-ui/icons/VolumeDown';
 import VolumeUpIcon from '@material-ui/icons/VolumeUp';
+import ClickNHold from 'react-click-n-hold';
+import Slider from '@material-ui/core/Slider';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -62,6 +66,77 @@ const CenterTableCell = withStyles((theme) => ({
     textAlign: "center"
   }
 }))(TableCell);
+
+function VolumeWidget(props)
+{
+  const [active, setActive] = React.useState(false);
+  const [sliderValue, setSliderValue] = React.useState(100);
+  const sliderRef = React.useRef(null);
+
+  // manually trigger our slider, when the audio buttons are long-pressed
+  const triggerMouseDown = (node) => {
+    var clickEvent = document.createEvent ('MouseEvents');
+    clickEvent.initEvent ("mousedown", true, true);
+    node.dispatchEvent (clickEvent);
+  };
+
+  const height = props.height ? props.height / 3 : 24;
+  const FixedHeightStylings = {
+    height: 3*height,
+    position: "absolute",
+    top: -height
+  };
+  const SliderStyles = Object.assign(active? {} : {"visibility": "hidden", paddingLeft: "0px"}, FixedHeightStylings);
+  const IconStyles = active ?  {"visibility":"hidden"} : {};
+
+  // this logic is relevant, if we want to actively update based on the sliders
+  // but this isn't nearly performant enough (because the app's state update is really sluggish)
+  // potential fixes - seperate the audio and the visual state/create smaller state objects
+  // const [firstHit, setFirstHit] = React.useState(true);
+  const setVolume = (event, value) =>
+  {
+    // mui seems to fire a dodgy 100 event, straight away, which we want to ignore
+    // ( but we're doing this in a slightly dodgy way, so it's expected there'd be issues to work around )
+    // if(firstHit){
+    //   setFirstHit(false);
+    //   return;
+    // }
+    setSliderValue(value);
+    if( props.onChange )
+    {
+      props.onChange( value );
+    }
+  };
+
+  return (
+    <ClickNHold
+      time={0.5} // Time to keep pressing. Default is 2
+      onClickNHold={(e)=>{
+        if(!active){ setActive(true); }
+        if(sliderRef){triggerMouseDown(sliderRef.current); }
+      }}
+      onEnd={(e)=>{if(active){ setActive(false); }}} >
+      <InlinableIconButton disableRipple disableFocusRipple onClick={props.onMuteToggle} >
+        <div style={SliderStyles}>
+          <Slider
+            defaultValue={100}
+            orientation="vertical"
+            aria-labelledby="vertical-slider"
+            // onChange={setVolume}
+            onChangeCommitted={setVolume}
+            ref={sliderRef}
+          />
+        </div>
+        <div style={IconStyles}>
+          { props.muted ?  <VolumeOffIcon disableRipple disableFocusRipple fontSize="small" />
+          : sliderValue < 10 ? <VolumeMuteIcon disableRipple disableFocusRipple fontSize="small" />
+          : sliderValue < 50 ? <VolumeDownIcon disableRipple disableFocusRipple fontSize="small" />
+                             : <VolumeUpIcon disableRipple disableFocusRipple fontSize="small"/> }
+        </div>
+      </InlinableIconButton>
+    </ClickNHold>
+  );
+}
 
 function InstrumentConfig(props) {
   const classes = useStyles();
@@ -307,13 +382,11 @@ function InstrumentConfig(props) {
                     </InlinableIconButton>
                     </Grid>
                     <Grid item xs={6}>
-                    <InlinableIconButton onClick={(e)=>{
-                      props.onVolumeEvent( {instrument: x, muted: !props.instrumentIndex[x].muted} );
-                    }}>
-                      {
-                        props.instrumentIndex[x].muted ? <VolumeOffIcon fontSize="small" /> : <VolumeUpIcon fontSize="small"/>
-                      }
-                    </InlinableIconButton>
+                      <VolumeWidget
+                        muted={props.instrumentIndex[x].muted}
+                        onChange={(value)=>{ props.onVolumeEvent( {instrument: x, volume: value / 100.0}); }}
+                        onMuteToggle={()=>{props.onVolumeEvent( {instrument: x, muted: !props.instrumentIndex[x].muted})}}
+                        />
                     </Grid>
                     </Grid>
                   </CenterTableCell>)}
