@@ -291,11 +291,14 @@ class InstrumentRenameDialog extends React.Component
   }
 };
 
-function InstrumentConfig(props) {
+function InstrumentTable(props)
+{
   const classes = useStyles();
 
-  const [editingSymbol, setEditingSymbol] = React.useState(null);
-  const [renamingInstrument, setRenamingInstrument] = React.useState(null);
+  const editRow = (y)=>{ if( props.onEditRow ){ props.onEditRow(y); }};
+  const editColumn = (x)=>{ if( props.onEditColumn ){ props.onEditColumn(x); }};
+  const addRow = ()=>{ if( props.onAddRow ){ props.onAddRow(); }};
+  const removeRow = (y)=>{ if( props.onRemoveRow ){ props.onRemoveRow(y); }};
 
   const handleChange = (x,y, event) => {
     const instrumentID = props.instrumentIndex[x].id;
@@ -354,12 +357,6 @@ function InstrumentConfig(props) {
     props.onChange(replacedInstruments);
   };
 
-  const removeInstrument = (y) => 
-  {
-    let replacedInstruments = props.instruments.slice(0,y).concat(props.instruments.slice(y+1));
-    props.onChange(replacedInstruments);
-  };
-
   const createCell = (x,y) =>
   {
       return ( 
@@ -368,7 +365,7 @@ function InstrumentConfig(props) {
           key={"instrumentPanel-cell-" + y.toString() + "-" + x.toString()}
         >
         <ThinFormControlLabel
-          control={<Checkbox checked={props.instrumentMask[x] === y} onChange={(e) => handleChange(x,y,e)} name={x + "," + y.toString()} />}
+          control={<Checkbox checked={props.instrumentMask[x] === y} onChange={(e) =>{handleChange(x,y,e);}} name={x + "," + y.toString()} />}
         />
         </TableCell>
       );
@@ -380,8 +377,8 @@ function InstrumentConfig(props) {
       <TableRow key={"instrumentPanel-row-" + y.toString()}>
         <TableCell component="th" scope="row" key={"instrumentPanel-row-" + y.toString() + "-name"}> 
           <Typography>{props.instruments[y][0]}</Typography>
-          <InlinableIconButton onClick={(e)=>setRenamingInstrument(y)}><EditIcon fontSize="small"/></InlinableIconButton>
-          <InlinableIconButton onClick={(e)=>{removeInstrument(y);}}><ClearIcon fontSize="small"/></InlinableIconButton>
+          <InlinableIconButton onClick={(e)=>{editRow(y);}}><EditIcon fontSize="small"/></InlinableIconButton>
+          <InlinableIconButton onClick={(e)=>{removeRow(y);}}><ClearIcon fontSize="small"/></InlinableIconButton>
         </TableCell>
         {[...Array(props.instrumentMask.length).keys()].map(x=>createCell(x,y))}
       </TableRow>
@@ -393,12 +390,63 @@ function InstrumentConfig(props) {
     return (
       <TableRow key={"instrumentPanel-row-edit"}>
         <TableCell component="th" scope="row" key={"instrumentPanel-row-edit-cell"}>
-          <IconButton onClick={(e)=>setRenamingInstrument(props.instruments.length)} aria-label="add">
+          <IconButton onClick={(e)=>{addRow();}} aria-label="add">
             <AddBoxIcon/>
           </IconButton>
         </TableCell>
       </TableRow>
     );
+  };
+
+  return (
+    <Table className={classes.table} aria-label="simple table">
+      <TableHead>
+        <TableRow key={"instrumentPanel-row-header"}>
+          <NoDividerCenterTableCell key={"instrumentPanel-row-instrument"}> Instrument </NoDividerCenterTableCell>
+          {[...Array(props.instrumentIndex.length).keys()].map(x=>
+              <NoDividerCenterTableCell key={"instrumentPanel-row-header-cell-" + x.toString()}>
+                <Typography>{props.instrumentIndex[x].name}</Typography>
+              </NoDividerCenterTableCell>)}
+        </TableRow>
+        <TableRow key={"instrumentPanel-row-controls"}>
+          <TableCell key={"instrumentPanel-row-instrument"}></TableCell>
+          {[...Array(props.instrumentIndex.length).keys()].map(x=>
+              <CenterTableCell key={"instrumentPanel-row-controls-cell-" + x.toString()}>
+                <Grid container>
+                <Grid item xs={6}>
+                <InlinableIconButton onClick={(e)=>{editColumn(x);}}>
+                  <EditIcon fontSize="small"/>
+                </InlinableIconButton>
+                </Grid>
+                <Grid item xs={6}>
+                  <VolumeWidget
+                    muted={props.instrumentIndex[x].muted}
+                    onChange={(value)=>{props.onVolumeEvent( {instrument: x, volume: value / 100.0}); }}
+                    onMuteToggle={()=>{props.onVolumeEvent( {instrument: x, muted: !props.instrumentIndex[x].muted})}}
+                    />
+                </Grid>
+                </Grid>
+              </CenterTableCell>)}
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        {[...Array(props.instruments.length).keys()].map(y=>createMatchingRow(y))}
+        {createEditRow()}
+      </TableBody>
+    </Table>
+  );
+}
+
+function InstrumentConfig(props) {
+  const classes = useStyles();
+
+  const [editingSymbol, setEditingSymbol] = React.useState(null);
+  const [renamingInstrument, setRenamingInstrument] = React.useState(null);
+
+  const removeInstrument = (y) =>
+  {
+    let replacedInstruments = props.instruments.slice(0,y).concat(props.instruments.slice(y+1));
+    props.onChange(replacedInstruments);
   };
 
   const getSymbol = (x) => {
@@ -458,41 +506,17 @@ function InstrumentConfig(props) {
         value={editingSymbol !== null ? getSymbol(editingSymbol) : null}
         />
       <TableContainer>
-        <Table className={classes.table} aria-label="simple table">
-          <TableHead>
-            <TableRow key={"instrumentPanel-row-header"}>
-              <NoDividerCenterTableCell key={"instrumentPanel-row-instrument"}> Instrument </NoDividerCenterTableCell>
-              {[...Array(props.instrumentIndex.length).keys()].map(x=>
-                  <NoDividerCenterTableCell key={"instrumentPanel-row-header-cell-" + x.toString()}>
-                    <Typography>{props.instrumentIndex[x].name}</Typography>
-                  </NoDividerCenterTableCell>)}
-            </TableRow>
-            <TableRow key={"instrumentPanel-row-controls"}>
-              <TableCell key={"instrumentPanel-row-instrument"}></TableCell>
-              {[...Array(props.instrumentIndex.length).keys()].map(x=>
-                  <CenterTableCell key={"instrumentPanel-row-controls-cell-" + x.toString()}>
-                    <Grid container>
-                    <Grid item xs={6}>
-                    <InlinableIconButton onClick={(e)=>{setEditingSymbol(x);}}>
-                      <EditIcon fontSize="small"/>
-                    </InlinableIconButton>
-                    </Grid>
-                    <Grid item xs={6}>
-                      <VolumeWidget
-                        muted={props.instrumentIndex[x].muted}
-                        onChange={(value)=>{ props.onVolumeEvent( {instrument: x, volume: value / 100.0}); }}
-                        onMuteToggle={()=>{props.onVolumeEvent( {instrument: x, muted: !props.instrumentIndex[x].muted})}}
-                        />
-                    </Grid>
-                    </Grid>
-                  </CenterTableCell>)}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {[...Array(props.instruments.length).keys()].map(y=>createMatchingRow(y))}
-            {createEditRow()}
-          </TableBody>
-        </Table>
+        <InstrumentTable
+          instrumentIndex={props.instrumentIndex}
+          instrumentMask={props.instrumentMask}
+          instruments={props.instruments}
+          onEditColumn={(x)=>{setEditingSymbol(x);}}
+          onEditRow={(y)=>{setRenamingInstrument(y);}}
+          onAddRow={()=>{setRenamingInstrument(props.instruments.length)}}
+          onRemoveRow={()=>{setRenamingInstrument(props.instruments.length);}}
+          onVolumeEvent={props.onVolumeEvent}
+          onChange={props.onChange}
+        />
       </TableContainer>
     </React.Fragment>
   );
