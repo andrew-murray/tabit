@@ -33,6 +33,7 @@ import VolumeDownIcon from '@material-ui/icons/VolumeDown';
 import VolumeUpIcon from '@material-ui/icons/VolumeUp';
 import ClickNHold from 'react-click-n-hold';
 import Slider from '@material-ui/core/Slider';
+import { useTheme } from '@material-ui/core/styles';
 
 import {isMobile} from "./Mobile";
 
@@ -133,8 +134,8 @@ function VolumeWidget(props)
             defaultValue={100}
             orientation="vertical"
             aria-labelledby="vertical-slider"
-            // onChange={setVolume}
-            onChangeCommitted={commitVolume}
+            onChange={commitVolume}
+            // onChangeCommitted={commitVolume}
             ref={sliderRef}
           />
         </div>
@@ -149,8 +150,152 @@ function VolumeWidget(props)
   );
 }
 
+class RawInstrumentEditDialog extends React.Component
+{
+  constructor(props) {
+    super(props);
+    this.state = {
+      currentSymbol : null
+    };
+  }
+
+  render() {
+
+    const cancel = (e) => {
+      this.setState({"currentSymbol" : null});
+      if(this.props.onCancel){
+        this.props.onCancel();
+      }
+    };
+
+    const confirm = (e) => {
+      if(this.state.currentSymbol !== null && this.state.currentSymbol.length === 1)
+      {
+        if(this.props.onChange){
+          this.props.onChange(this.state.currentSymbol);
+        }
+      }
+      else
+      {
+        // todo: prettier error communication?
+        alert(
+          "You selected an invalid symbol \"" + this.state.currentSymbol + "\".\n" +
+          "Symbols must be precisely 1 character."
+        );
+      }
+    };
+
+    return (
+      <Dialog open={this.props.open} onClose={cancel} aria-labelledby="form-dialog-title">
+        <DialogTitle id="form-dialog-title"></DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Enter notation symbol
+          </DialogContentText>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            fullWidth
+            value={this.state.currentSymbol ?? this.props.value}
+            onChange={(e)=>{this.setState({currentSymbol: e.target.value});}}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={cancel} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={confirm} color="primary">
+            Confirm
+          </Button>
+        </DialogActions>
+      </Dialog>
+    );
+  }
+}
+
+class InstrumentRenameDialog extends React.Component
+{
+  constructor(props)
+  {
+    super(props)
+    this.state = {
+      currentName : null
+    };
+  }
+
+  render()
+  {
+
+    const cancel = () => {
+      if(this.props.onCancel)
+      {
+        this.props.onCancel();
+      }
+      this.setState({currentName: null});
+    };
+
+    const confirm = () => {
+      if(this.state.currentName !== null)
+      {
+        const instrumentName = this.state.currentName.trim();
+        if( instrumentName.length > 0 )
+        {
+          if(this.props.onChange)
+          {
+            this.props.onChange(this.state.currentName);
+          }
+          this.setState({currentName: null});
+        }
+        else
+        {
+          // todo: prettier error communication?
+          alert(
+            "You selected an invalid instrument name \"" + this.state.currentName + "\".\n" +
+            "Must be non-empty."
+          );
+        }
+      }
+      else
+      {
+        cancel();
+      }
+    };
+
+    return (
+      <Dialog open={this.props.open} onClose={cancel} aria-labelledby="form-dialog-title">
+        <DialogTitle id="form-dialog-title"></DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Enter instrument name
+          </DialogContentText>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            fullWidth
+            value={this.state.currentName ?? this.props.value}
+            onChange={(e)=>{this.setState({currentName: e.target.value});}}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={cancel} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={confirm} color="primary">
+            Confirm
+          </Button>
+        </DialogActions>
+      </Dialog>
+    );
+  }
+};
+
 function InstrumentConfig(props) {
   const classes = useStyles();
+
+  const [editingSymbol, setEditingSymbol] = React.useState(null);
+  const [renamingInstrument, setRenamingInstrument] = React.useState(null);
 
   const handleChange = (x,y, event) => {
     const instrumentID = props.instrumentIndex[x].id;
@@ -215,9 +360,6 @@ function InstrumentConfig(props) {
     props.onChange(replacedInstruments);
   };
 
-  const [renamingInstrument, setRenamingInstrument] = React.useState(-1);
-  let [nameState, setNameState] = React.useState("");
-
   const createCell = (x,y) =>
   {
       return ( 
@@ -241,7 +383,7 @@ function InstrumentConfig(props) {
           <InlinableIconButton onClick={(e)=>setRenamingInstrument(y)}><EditIcon fontSize="small"/></InlinableIconButton>
           <InlinableIconButton onClick={(e)=>{removeInstrument(y);}}><ClearIcon fontSize="small"/></InlinableIconButton>
         </TableCell>
-        {[...Array(props.instrumentIndex.length).keys()].map(x=>createCell(x,y))}
+        {[...Array(props.instrumentMask.length).keys()].map(x=>createCell(x,y))}
       </TableRow>
     );
   };
@@ -259,119 +401,62 @@ function InstrumentConfig(props) {
     );
   };
 
-  const renameInstrument = (e)  => 
-  {
-    const instrumentName = nameState.trim();
-    if( instrumentName.length > 0 )
-    {
-      if( renamingInstrument === props.instruments.length )
-      {
-        const extraInstrument = [ instrumentName, {} ];
-        let replacedInstruments = Array.from( props.instruments );
-        replacedInstruments.push(extraInstrument);
-        props.onChange(replacedInstruments);
-      }
-      else
-      {
-        let replacedInstruments = Array.from( props.instruments );
-        replacedInstruments[renamingInstrument][0] = instrumentName;
-        props.onChange(replacedInstruments);
-      }
-    }
-    // we just ignore empty string
-    setRenamingInstrument(-1);
-    setNameState("");
-  };
-
-  // todo: The text field is very slow
-  // that could be because the dialog and the table content are all one component
-  // I should try and fix that first
-  // otherwise, it's just that shoving react in the middle is too slow
-
-  const [editSymbol, setEditSymbol] = React.useState(-1);
-  let [editSymbolState, setEditSymbolState] = React.useState("");
-
-  const startEditingSymbol = (x) =>
-  {
-    const instrumentID = props.instrumentIndex[x].id;
+  const getSymbol = (x) => {
+    const instrumentID = props.instrumentIndex[editingSymbol].id;
     const instrumentIndex = props.instruments.findIndex( instrument => instrumentID in instrument[1]);
-    const currentSymbol = props.instruments[instrumentIndex][1][instrumentID];
-    setEditSymbolState(currentSymbol);
-    setEditSymbol(x);
+    return props.instruments[instrumentIndex][1][instrumentID];
   };
 
-  const changeSymbol = (e) =>
+  const endEditingSymbol = (resolvedSymbol) =>
   {
-    const updatedSymbol = editSymbolState;
-    if(updatedSymbol.length===1)
+    if(resolvedSymbol !== null)
     {
-      const instrumentID = props.instrumentIndex[editSymbol].id;
+      const instrumentID = props.instrumentIndex[editingSymbol].id;
       const instrumentIndex = props.instruments.findIndex( instrument => instrumentID in instrument[1]);
       let replacedInstruments = Array.from(props.instruments);
-      replacedInstruments[instrumentIndex][1][instrumentID] = editSymbolState;
+      replacedInstruments[instrumentIndex][1][instrumentID] = resolvedSymbol;
+      props.onChange(replacedInstruments);
+    }
+    setEditingSymbol( null );
+  };
+
+  const getName = (y) => {
+    return props.instruments[y][0];
+  };
+
+  const renameInstrument = (instrumentName)  =>
+  {
+    // this function also deals with the addition of new instruments
+    if( renamingInstrument === props.instruments.length )
+    {
+      const extraInstrument = [ instrumentName, {} ];
+      let replacedInstruments = Array.from( props.instruments );
+      replacedInstruments.push(extraInstrument);
       props.onChange(replacedInstruments);
     }
     else
     {
-      // todo: prettier error communication?
-      alert(
-        "You selected an invalid symbol \"" + updatedSymbol + "\".\n" + 
-        "Symbols must be precisely 1 character."
-      );
+      let replacedInstruments = Array.from( props.instruments );
+      replacedInstruments[renamingInstrument][0] = instrumentName;
+      props.onChange(replacedInstruments);
     }
-    setEditSymbol(-1);
+    setRenamingInstrument(null);
   };
 
   return (
     <React.Fragment>
-      <Dialog open={renamingInstrument >= 0} onClose={(e)=>setRenamingInstrument(-1)} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title"></DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            Enter instrument name
-          </DialogContentText>
-          <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            fullWidth
-            value={nameState}
-            onChange={(e)=>setNameState(e.target.value)}
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={(e)=>setRenamingInstrument(-1)} color="primary">
-            Cancel
-          </Button>
-          <Button onClick={renameInstrument} color="primary">
-            Confirm
-          </Button>
-        </DialogActions>
-      </Dialog>
-      <Dialog open={editSymbol >= 0} onClose={(e)=>setEditSymbol(-1)} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title"></DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            Enter notation symbol
-          </DialogContentText>
-          <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            fullWidth
-            value={editSymbolState}
-            onChange={(e)=>setEditSymbolState(e.target.value)}
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={(e)=>setEditSymbol(-1)} color="primary">
-            Cancel
-          </Button>
-          <Button onClick={changeSymbol} color="primary">
-            Confirm
-          </Button>
-        </DialogActions>
-      </Dialog>
+      <InstrumentRenameDialog
+        open={renamingInstrument !== null}
+        onCancel={()=>{setRenamingInstrument(null);}}
+        onChange={(s)=>{renameInstrument(s);}}
+        value={renamingInstrument !== null ? getName(renamingInstrument) : null}
+      />
+      <RawInstrumentEditDialog
+        open={editingSymbol !== null}
+        onCancel={()=>{endEditingSymbol(null);}}
+        onChange={(s)=>{endEditingSymbol(s);}}
+        value={editingSymbol !== null ? getSymbol(editingSymbol) : null}
+        />
       <TableContainer>
         <Table className={classes.table} aria-label="simple table">
           <TableHead>
@@ -388,7 +473,7 @@ function InstrumentConfig(props) {
                   <CenterTableCell key={"instrumentPanel-row-controls-cell-" + x.toString()}>
                     <Grid container>
                     <Grid item xs={6}>
-                    <InlinableIconButton onClick={(e)=>startEditingSymbol(x)}>
+                    <InlinableIconButton onClick={(e)=>{setEditingSymbol(x);}}>
                       <EditIcon fontSize="small"/>
                     </InlinableIconButton>
                     </Grid>
@@ -404,7 +489,6 @@ function InstrumentConfig(props) {
             </TableRow>
           </TableHead>
           <TableBody>
-
             {[...Array(props.instruments.length).keys()].map(y=>createMatchingRow(y))}
             {createEditRow()}
           </TableBody>
