@@ -1,8 +1,6 @@
 // instrumentIntegration.test.js
 
 import fs from "fs"
-
-import notation from "../notation"
 import track from "../track"
 import { DEFAULT_INSTRUMENT_SYMBOLS, figureClickyInstruments, figureDjembes, figureInstruments, figureShakers, figureSnares } from "../instrumentation"
 

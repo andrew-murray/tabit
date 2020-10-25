@@ -1,5 +1,4 @@
 import notation from '../notation'
-import track from '../track'
 
 test('unit test chunkString', () => {
   const original = "abcdefghijkl";

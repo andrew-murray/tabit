@@ -1,5 +1,4 @@
 import track from '../track'
-import fs from "fs"
 
 test('unit test fromPositions', () => {
   const positions = [

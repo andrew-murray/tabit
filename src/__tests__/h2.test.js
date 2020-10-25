@@ -1,7 +1,6 @@
 // h2.test.js
 
 import h2 from "../h2"
-import notation from "../notation"
 import fs from "fs"
 
 test('h2 parsing - too_much_garlic', async () => {
