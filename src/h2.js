@@ -223,4 +223,6 @@ async function parseHydrogenPromise(xmlString)
   return parser.parseStringPromise(xmlString).then(parseHydrogenJs);
 }
 
-export default { parseHydrogenPromise };
+const moduleExports = { parseHydrogenPromise };
+
+export default moduleExports;

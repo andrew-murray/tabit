@@ -1,11 +1,5 @@
-import React from 'react';
-import Audio from "./Audio"
 
-import IconButton from '@material-ui/core/IconButton';
-import PlayArrowIcon from '@material-ui/icons/PlayArrow';
-import StopIcon from '@material-ui/icons/Stop';
-import Slider from '@material-ui/core/Slider';
-import Grid from '@material-ui/core/Grid';
+import Audio from "./Audio"
 import * as Tone from "tone";
 
 // these are the hydrogen drumkits available by GPL/CC
@@ -18,8 +12,6 @@ const DRUMKITS = [
   "TR808EmulationKit"
 ];
 
-
-
 const convertNormalToAudible = (value) => {
   // add an intuitive feel to gain values, perception of sound is non-linear
   // https://www.dr-lex.be/info-stuff/volumecontrols.html
@@ -27,116 +19,174 @@ const convertNormalToAudible = (value) => {
   return Math.pow(value, 2.5);
 };
 
-class ToneBoard extends React.Component
+const chooseAppropriateUrlForInstrument = (drumkitName, instrumentName) =>
 {
+  const name = instrumentName.toLowerCase();
+  // this is currently very basic
+  if(name.includes("kick"))
+  {
+      return "The Black Pearl 1.0/PearlKick-Hard.wav";
+  }
+  else if(name.includes("stick"))
+  {
+      return "DeathMetal/16297_ltibbits_sticks_low_pitch.wav";
+  }
+  else if(name.includes("tom"))
+  {
+      return "TR808EmulationKit/808_Tom_Mid.wav"
+  }
+  else if(name.includes("clap"))
+  {
+      return "TR808EmulationKit/808_Clap.wav";
+  }
+  else if(name.includes("snare"))
+  {
+    return "GMRockKit/Snare-Soft.wav";
+  }
+  else
+  {
+    // todo: snare, cymbals
+    return null;
+  }
+}
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      tempo: 100.0
-    };
-    this.samplerCount = 0;
+const createPlayerCallback = (pattern, sampleSource) =>
+{
+  let samplesReady = sampleSource.samplesReady();
+  const playerCallback = (time, indexFromStart) =>
+  {
+    // if we don't know samples are ready,
+    if(!samplesReady)
+    {
+      // update our knowledge, and early out if needed
+      samplesReady = sampleSource.samplesReady();
+      if(!samplesReady){ return; }
+    }
+    const trackLengthRes = ( pattern.length / pattern.resolution );
+    const index = indexFromStart % trackLengthRes;
+    for(const [id,t] of Object.entries(pattern.tracks))
+    {
+        if( t.rep[index] )
+        {
+          sampleSource.samples[id].player.start(time);
+        }
+    }
+    if(sampleSource.onPatternTimeChange)
+    {
+      Tone.Draw.schedule(
+        ()=>{
+          const notePosition = (index * pattern.resolution) % pattern.length;
+          sampleSource.onPatternTimeChange(notePosition);
+        },
+        time
+      );
+    }
+  };
+  return playerCallback;
+};
+
+class ToneController
+{
+  constructor(instrumentIndex, patterns, tempo)
+  {
+    // this thing has a lot of state, eh?
+    // would love if this state was a bit more structured
+    this.samples = {};
     this.sequences = {};
+    this.currentPattern = null;
     this.gain = new Tone.Gain();
     this.gain.toDestination();
-    Tone.Transport.bpm.value = this.state.tempo;
+    Tone.Transport.bpm.value = tempo;
+    Tone.Transport.loop = true;
+
+    this.sampleCount = 0;
+    this.expectedSampleCount = 0;
+    this.patternDetails = {};
+    for( let p of patterns )
+    {
+      this.patternDetails[p.name] = {
+        resolution: Audio.determineMinResolution(instrumentIndex, p.instrumentTracks ),
+        length : Audio.determineTrackLength(instrumentIndex, p.instrumentTracks ),
+        name: p.name,
+        tracks: p.instrumentTracks
+      };
+      this.populateSamples(instrumentIndex, p.instrumentTracks);
+    }
+    this.sequences = this.createSequences(instrumentIndex, patterns);
+    this.currentPatternName = null;
   }
 
-
-  chooseAppropriateUrlForInstrument(drumkitName, instrumentName)
+  samplesReady()
   {
-    const name = instrumentName.toLowerCase();
-    // this is currently very basic
-    if(name.includes("kick"))
-    {
-        return "The Black Pearl 1.0/PearlKick-Hard.wav";
-    }
-    else if(name.includes("stick"))
-    {
-        return "DeathMetal/16297_ltibbits_sticks_low_pitch.wav";
-    }
-    else if(name.includes("tom"))
-    {
-        return "TR808EmulationKit/808_Tom_Mid.wav"
-    }
-    else if(name.includes("clap"))
-    {
-        return "TR808EmulationKit/808_Clap.wav";
-    }
-    else if(name.includes("snare"))
-    {
-      return "GMRockKit/Snare-Soft.wav";
-    }
-    else
-    {
-      // todo: snare, cymbals
-      return null;
-    }
+    return this.sampleCount === this.expectedSampleCount;
   }
 
-
-  populateSamples()
+  populateSamples(instrumentIndex, tracks)
   {
-    this.samplerCount = 0;
-    this.expectedSamplerCount = 0;
-    let mapping = {};
-    const tracks = this.props.selectedPattern.instrumentTracks;
+    this.sampleCount = 0;
     for(const [id,] of Object.entries(tracks))
     {
-      const selected = this.props.instrumentIndex.filter(inst => inst.id.toString() === id);
+      const selected = instrumentIndex.filter(inst => inst.id.toString() === id);
       if( selected.length > 0)
       {
         const selectedInstrument = selected[0];
         const clampedVolume = convertNormalToAudible( Math.min( Math.max( 0.0 , selectedInstrument.volume ), 1.0 ) );
+        if( selectedInstrument.id in this.samples )
+        {
+          continue;
+        }
         if(
           "drumkit" in selectedInstrument && 
           "filename" in selectedInstrument &&
           DRUMKITS.includes(selectedInstrument.drumkit) )
         {
           const filename = selectedInstrument.filename.replace(".flac", ".wav");
+          console.log("creating sample " + selectedInstrument.id + " from " + filename);
           let player = new Tone.Player(
             process.env.PUBLIC_URL + "/wav/" + selectedInstrument.drumkit + "/" + filename, 
-            () => { this.samplerCount++; } 
+            () => { this.sampleCount++; }
           );
           player.mute = selectedInstrument.muted;
           const gain = new Tone.Gain(clampedVolume, "normalRange");
           player.connect(gain)
           gain.connect(this.gain);
-          mapping[selectedInstrument.id] = { player : player, gain : gain }
-          this.expectedSamplerCount++;
+          this.samples[selectedInstrument.id] = { player : player, gain : gain }
+          this.expectedSampleCount++;
         }
         else if( "drumkit" in selectedInstrument )
         {
-          const relativeUrl = this.chooseAppropriateUrlForInstrument( selectedInstrument.drumkit, selectedInstrument.name );
+          const relativeUrl = chooseAppropriateUrlForInstrument( selectedInstrument.drumkit, selectedInstrument.name );
           if(relativeUrl !== null)
           {
             let player = new Tone.Player(
               process.env.PUBLIC_URL + "/wav/" + relativeUrl, 
-              () => { this.samplerCount++; } 
+              () => { this.sampleCount++; }
             );
             player.mute = selectedInstrument.muted;
             const gain = new Tone.Gain(clampedVolume, "normalRange");
             player.connect(gain)
             gain.connect(this.gain);
-            mapping[selectedInstrument.id] = { player : player, gain : gain }
-            this.expectedSamplerCount++;
+            this.samples[selectedInstrument.id] = { player : player, gain : gain }
+            this.expectedSampleCount++;
           }
         }
       }
     }
-    this.samples = mapping;
   }
 
-  createSequences()
+  createSequences(instrumentIndex, patterns)
   {
-    const instrumentIndex = this.props.instrumentIndex;
     let sequences = {};
-    for( let p of this.props.patterns )
+    for( let p of patterns )
     {
       const patternResolution = Audio.determineMinResolution(instrumentIndex, p.instrumentTracks);
       const patternLength = Audio.determineTrackLength(instrumentIndex, p.instrumentTracks);
+      const callback = createPlayerCallback(
+        this.patternDetails[p.name],
+        this
+      );
       sequences[ p.name ] = new Tone.Sequence(
-        (time,index) => { this.tick(time, index); },
+        callback,
         [...Array(patternLength / patternResolution).keys()],
         Tone.Time("4n") * ( patternResolution / 48.0 )
       );
@@ -148,96 +198,44 @@ class ToneBoard extends React.Component
     return sequences;
   }
 
-  schedulePlaybackForNewTracks()
+  setActivePattern( patternName )
   {
-    const instrumentIndex = this.props.instrumentIndex;
-    const tracks = this.props.selectedPattern.instrumentTracks;
-    let board = this;
-    // todo: precompute these numbers for smoother transitions?
-    const resolution = Audio.determineMinResolution(instrumentIndex, tracks );
-    const length = Audio.determineTrackLength(instrumentIndex, tracks );
+    const oldPatternName = this.currentPatternName !== null ? this.currentPatternName : null;
+    const length = this.patternDetails[patternName].length;
+    const oldLength = oldPatternName !== null ? this.patternDetails[oldPatternName] : null
 
     // we have a little fudge in here... if we're transitioning from a 4 beat loop
     // to an 8 beat pattern ... we probably really wanted to hit the start of that pattern,
     // not to transition at 3.75 beats and play the latter half
-    const now = Tone.Transport.toSeconds(Tone.Transport.position);
-    const timeFromBarEnd = Tone.Transport.loopEnd  - now;
-    const queueTransition = Tone.Transport.state === "started" 
-    && ( timeFromBarEnd > 0 && timeFromBarEnd < Tone.Time("8n").toSeconds())
-    && ( length > this.state.length);
-    const enableNewTrack = () => {
-      // note: setting mute on the sequence directly seems to have no effect
-      this.sequences[this.props.selectedPattern.name]._part.mute = false;
-      Tone.Transport.loop = true;
-      Tone.Transport.setLoopPoints(0, Tone.Time("4n") * (length / 48.0));
+    const timeFromBarEnd = Tone.Transport.loopEnd -  Tone.Transport.toSeconds(Tone.Transport.position);
+    const queueTransition = oldPatternName !== null
+    && Tone.Transport.state === "started"
+    && ( timeFromBarEnd > 0 && timeFromBarEnd < Tone.Transport.toSeconds(Tone.Time("8n")));
+
+    const enableNewTrack = (time) => {
+      if(oldPatternName !== null)
+      {
+        // note: setting mute on the sequence directly seems to have no effect
+        this.sequences[oldPatternName]._part.mute = true;
+      }
+      if(oldPatternName === null || oldLength !== length )
+      {
+
+        Tone.Transport.setLoopPoints(0, Tone.Time("4n") * (length / 48.0));
+      }
+      this.sequences[patternName]._part.mute = false;
+      this.currentPatternName = patternName;
     };
-    // react won't set state if these variables are equal
-    // this mostly illustrates this component probably shouldn't have two state philosophies
-    // note: we only trigger "queueTransition" when length > this.state.length so don't worry about that
-    if( resolution === this.state.resolution && length === this.state.length )
+
+    if( queueTransition ) {
+      Tone.Transport.scheduleOnce(
+        enableNewTrack,
+        Tone.Time("0")
+      );
+    }
+    else
     {
       enableNewTrack();
-      return;
-    }
-    board.setState( 
-      { 
-        resolution : resolution,
-        length : length
-      },
-      () => { 
-        if( queueTransition ) { 
-          Tone.Transport.scheduleOnce(
-            enableNewTrack,
-            Tone.Time("0")
-          );
-        }
-        else
-        {
-          enableNewTrack();
-        }
-      }
-    );
-  }
-
-  samplesReady()
-  {
-    return this.sampleCount === this.expectedSampleCount;
-  }
-
-  tick(time,indexFromStart)
-  {
-    if( time === this.lastTickTime )
-    {
-      // this sometimes seems to happen
-      // and the samples complain
-      // "start time must be strictly greater than previous start time"
-      // this is a horrible temporary fix
-      return;
-    }
-    this.lastTickTime = time;
-    const trackLengthRes = ( this.state.length / this.state.resolution );
-    const index = indexFromStart % trackLengthRes;
-    if(!this.samplesReady())
-    {
-      return;
-    }
-    const tracks = this.props.selectedPattern.instrumentTracks;
-    for(const [id,t] of Object.entries(tracks))
-    {
-        if( t.rep[index] )
-        {
-          this.samples[id].player.start(time);
-        }
-    }
-    if( this.props.onPatternTimeChange )
-    {
-      Tone.Draw.schedule(
-        ()=>{
-          const notePosition = ( indexFromStart * this.state.resolution ) % this.state.length;
-          this.props.onPatternTimeChange( notePosition );
-        },
-        time
-      );
     }
   }
 
@@ -257,11 +255,11 @@ class ToneBoard extends React.Component
     if( Tone.Transport.state === "started")
     {
       Tone.Transport.stop();
-      if( this.props.onPatternTimeChange )
+      if( this.onPatternTimeChange )
       {
         Tone.Draw.schedule(
           ()=>{
-            this.props.onPatternTimeChange( null );
+            this.onPatternTimeChange( null );
           },
           Tone.Transport.now()
         );
@@ -269,93 +267,22 @@ class ToneBoard extends React.Component
     }
   }
 
-  componentDidMount()
+  setMutedForInstrument(instrumentID, muted)
   {
-    this.populateSamples();
-    this.sequences = this.createSequences();
-    this.schedulePlaybackForNewTracks();
+    this.samples[instrumentID].player.mute = muted;
   }
 
-
-
-  componentDidUpdate(prevProps, prevState, snapshot)
+  setVolumeForInstrument(instrumentID, volume)
   {
-    // theoretically we should be evaluating a rougher equality on the tracks here
-    // but ... as is !== will never be wrong here, and our linter warns if we don't use it 
-    const patternChange = prevProps.selectedPattern.name !== this.props.selectedPattern.name;
-    if( patternChange )
-    {
-      this.sequences[prevProps.selectedPattern.name]._part.mute = true;
-      this.schedulePlaybackForNewTracks();
-    }
-    const instrumentChange = prevProps.instrumentIndex !== this.props.instrumentIndex;
-
-    if( instrumentChange )
-    {
-      for( const instrument of this.props.instrumentIndex )
-      {
-        if( instrument.id in this.samples )
-        {
-          this.samples[instrument.id].player.mute = instrument.muted;
-          this.samples[instrument.id].gain.set( {gain : convertNormalToAudible(instrument.volume) } );
-        }
-      }
-    }
+    this.samples[instrumentID].gain.set( {gain : convertNormalToAudible(volume) } );
   }
 
-  tempoControl()
+  setTempo(tempo)
   {
-    const onTempoChange = (event, tempo) => {
-      this.setState( { tempo : tempo } );
-      Tone.Transport.bpm.value = tempo;
-    };
-    return (
-      <Slider
-        defaultValue={100}
-        min={60}
-        step={1}
-        max={180}
-        onChange={onTempoChange}
-        valueLabelDisplay="auto"
-      />
-    );
-
+    Tone.Transport.bpm.value = tempo;
   }
-
-  render() {
-    const tempoControlColumns = 4;
-
-    return (
-      <React.Fragment>
-        <div>
-          <IconButton
-            color="primary"
-            aria-label="play"
-            onClick={(e)=>{this.play();}}
-          >
-            <PlayArrowIcon />
-          </IconButton>
-          <IconButton
-            color="secondary"
-            aria-label="stop"
-            onClick={(e)=>{this.stop();}}
-          >
-            <StopIcon />
-          </IconButton>
-        </div>
-
-        <Grid container>
-        <Grid item xs={(12 - tempoControlColumns) / 2} />
-        <Grid item xs={tempoControlColumns}>
-        {this.tempoControl()}
-        </Grid>
-        <Grid item xs={(12 - tempoControlColumns ) / 2} />
-        </Grid>
-
-      </React.Fragment>
-   );
-  }
-
 };
 
-export default ToneBoard;
+
+
+export default ToneController;

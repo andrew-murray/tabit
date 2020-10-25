@@ -47,6 +47,7 @@ import track from "./track";
 import { saveAs } from 'file-saver';
 
 import ToneBoard from "./ToneBoard";
+import PlaybackControls from "./PlaybackControls";
 import { withRouter } from "react-router-dom";
 
 import hash from "object-hash";
@@ -242,18 +243,33 @@ class App extends React.Component
       return patterns;
     }
 
-    this.setState( {
-      instrumentIndex : prevState.instrumentIndex,
-      instrumentMask : createInstrumentMask(prevState.instrumentIndex, prevState.instruments),
-      instruments : prevState.instruments,
-      patterns : createTracks(prevState.patterns),
-      formatSettings : prevState.formatSettings,
-      patternSettings : prevState.patternSettings,
-      // general app state
-      loadedFile : title ?? prevState.loadedFile,
-      selectedPattern : prevState.patterns.length === 0 ? null : 0,
-      patternsOpen : prevState.patterns.length !== 0
-    } );
+    this.setState(
+      {
+        instrumentIndex : prevState.instrumentIndex,
+        instrumentMask : createInstrumentMask(prevState.instrumentIndex, prevState.instruments),
+        instruments : prevState.instruments,
+        patterns : createTracks(prevState.patterns),
+        formatSettings : prevState.formatSettings,
+        patternSettings : prevState.patternSettings,
+        // general app state
+        loadedFile : title ?? prevState.loadedFile,
+        selectedPattern : prevState.patterns.length === 0 ? null : 0,
+        patternsOpen : prevState.patterns.length !== 0
+      },
+      () => {
+        // always default tempo to 100bpm for now
+        document.app = this;
+        this.audio = new ToneBoard( this.state.instrumentIndex, this.state.patterns, 100.0 );
+        this.audio.setActivePattern( this.state.patterns[this.state.selectedPattern].name );
+        document.audio = this.audio;
+        document.audio.log_mutes = ()=>{
+          for( const [name,seq] of Object.entries(document.audio.sequences))
+          {
+            console.log( name + ": " + seq._part.mute );
+          }
+        };
+      }
+    );
   }
 
   handleFileImport(e)
@@ -271,18 +287,33 @@ class App extends React.Component
           instrument.volume = 1.0;
         }
 
-        this.setState({
-          // data
-          instrumentIndex : instrumentIndex,
-          instrumentMask : createInstrumentMask(instrumentIndex, assessedInstruments),
-          instruments : assessedInstruments,
-          patterns : h.patterns,
-          patternSettings : this.figurePatternSettings(h.patterns),
-          // general app state
-          loadedFile : e.file.name,
-          patternsOpen : true,
-          selectedPattern : h.patterns.length === 0 ? null : 0,
-        });
+        this.setState(
+          {
+            // data
+            instrumentIndex : instrumentIndex,
+            instrumentMask : createInstrumentMask(instrumentIndex, assessedInstruments),
+            instruments : assessedInstruments,
+            patterns : h.patterns,
+            patternSettings : this.figurePatternSettings(h.patterns),
+            // general app state
+            loadedFile : e.file.name,
+            patternsOpen : true,
+            selectedPattern : h.patterns.length === 0 ? null : 0,
+          },
+          ()=>{
+            // always default tempo to 100bpm for now
+            document.app = this;
+            this.audio = new ToneBoard( this.state.instrumentIndex, this.state.patterns, 100.0 );
+            this.audio.setActivePattern( this.state.patterns[this.state.selectedPattern].name );
+            document.audio = this.audio;
+            document.audio.log_mutes = ()=>{
+              for( const [name,seq] of Object.entries(document.audio.sequences))
+              {
+                console.log( name + ": " + seq._part.mute );
+              }
+            };
+          }
+        );
       }).catch( (error)=>{ alert("Failed to load file " + e.file.name  + " with error " + error); } );
     }
     else
@@ -294,39 +325,6 @@ class App extends React.Component
         .then( prevState => { this.handleJson(e.file.name,prevState); } )
         .catch( (error)=>{ alert("Failed to load file " + e.file.name  + " with error " + error); } );
     }
-  }
-
-  selectPattern(patternIndex)
-  {
-    this.setState( { selectedPattern: patternIndex } );
-  }
-
-  // todo: this is a separate component!
-  renderPattern(pattern, resolvedSettings)
-  {
-    return (
-      <React.Fragment>
-        <Pattern 
-          instruments={this.state.instruments} 
-          tracks={pattern.instrumentTracks}
-          config={resolvedSettings}
-          active={this.state.progress}
-          ref={this.pattern}
-        />
-        <ToneBoard 
-          instruments={this.state.instruments} 
-          instrumentIndex={this.state.instrumentIndex} 
-          selectedPattern={pattern}
-          patterns={this.state.patterns}
-          onPatternTimeChange = {(time)=>{this.onPatternTimeChange(time);}}
-        />
-      </React.Fragment>
-    );
-  }
-
-  onPatternTimeChange(time)
-  {
-    this.pattern.current.onPatternTimeChange(time);
   }
 
   loadExample()
@@ -357,16 +355,69 @@ class App extends React.Component
       instrument.volume = 1.0;
     }
 
-    this.setState({
-      instrumentIndex : instrumentIndex,
-      instrumentMask : createInstrumentMask(instrumentIndex, assessedInstruments),
-      instruments : assessedInstruments,
-      patterns : k.patterns,
-      selectedPattern : k.patterns.length === 0 ? null : 0,
-      loadedFile : "kuva.example",
-      patternsOpen : true,
-      patternSettings : this.figurePatternSettings(k.patterns)
-    });
+    this.setState(
+      {
+        instrumentIndex : instrumentIndex,
+        instrumentMask : createInstrumentMask(instrumentIndex, assessedInstruments),
+        instruments : assessedInstruments,
+        patterns : k.patterns,
+        selectedPattern : k.patterns.length === 0 ? null : 0,
+        loadedFile : "kuva.example",
+        patternsOpen : true,
+        patternSettings : this.figurePatternSettings(k.patterns)
+      },
+      () => {
+        // always default tempo to 100bpm for now
+        document.app = this;
+        this.audio = new ToneBoard( this.state.instrumentIndex, this.state.patterns, 100.0 );
+        this.audio.setActivePattern( this.state.patterns[this.state.selectedPattern].name );
+        document.audio = this.audio;
+        document.audio.log_mutes = ()=>{
+          for( const [name,seq] of Object.entries(document.audio.sequences))
+          {
+            console.log( name + ": " + seq._part.mute );
+          }
+        };
+      }
+    );
+  }
+
+  selectPattern(patternIndex)
+  {
+    // it's important to do this before we re-render components
+    this.audio.setActivePattern(
+      this.state.patterns[patternIndex].name
+    );
+
+    this.setState(
+      { selectedPattern: patternIndex }
+    );
+  }
+
+  // todo: this is a separate component!
+  renderPattern(pattern, resolvedSettings)
+  {
+    return (
+      <React.Fragment>
+        <Pattern
+          instruments={this.state.instruments}
+          tracks={pattern.instrumentTracks}
+          config={resolvedSettings}
+          active={this.state.progress}
+          ref={this.pattern}
+        />
+        <PlaybackControls
+          onPlay={()=>{if(this.audio){this.audio.play();}}}
+          onStop={()=>{if(this.audio){this.audio.stop();}}}
+          onTempoChange={(tempo)=>{if(this.audio){this.audio.setTempo(tempo);}}}
+        />
+      </React.Fragment>
+    );
+  }
+
+  onPatternTimeChange(time)
+  {
+    this.pattern.current.onPatternTimeChange(time);
   }
 
   getTrackLength(pattern)
@@ -603,19 +654,13 @@ class App extends React.Component
       {
         if("volume" in event)
         {
-          this.setState( (prevState,props) => {
-            let instrumentIndex = Array.from(prevState.instrumentIndex);
-            instrumentIndex[event.instrument].volume = event.volume;
-            return { instrumentIndex : instrumentIndex };
-          } );
+          const instrumentID = this.state.instrumentIndex[ event.instrument ].id;
+          this.audio.setVolumeForInstrument( instrumentID, event.volume );
         }
         else if("muted" in event)
         {
-          this.setState( (prevState,props) => {
-            let instrumentIndex = Array.from(prevState.instrumentIndex);
-            instrumentIndex[event.instrument].muted = event.muted;
-            return { instrumentIndex : instrumentIndex };
-          } );
+          const instrumentID = this.state.instrumentIndex[ event.instrument ].id;
+          this.audio.setMutedForInstrument( instrumentID, event.muted );
         }
       };
 

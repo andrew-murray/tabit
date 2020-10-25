@@ -33,7 +33,6 @@ import VolumeDownIcon from '@material-ui/icons/VolumeDown';
 import VolumeUpIcon from '@material-ui/icons/VolumeUp';
 import ClickNHold from 'react-click-n-hold';
 import Slider from '@material-ui/core/Slider';
-import { useTheme } from '@material-ui/core/styles';
 
 import {isMobile} from "./Mobile";
 
@@ -74,6 +73,7 @@ function VolumeWidget(props)
 {
   const [active, setActive] = React.useState(false);
   const [sliderValue, setSliderValue] = React.useState(100);
+  const [muted, setMuted] = React.useState(props.muted);
   const sliderRef = React.useRef(null);
   const height = props.height ? props.height / 3 : 24;
   const FixedHeightStylings = {
@@ -123,27 +123,32 @@ function VolumeWidget(props)
     setVolume(event,value);
   };
 
+  const onMuteChange = () =>
+  {
+    setMuted(!muted);
+    props.onMuteEvent(!muted);
+  };
+
   return (
     <ClickNHold
       time={0.5} // Time to keep pressing. Default is 2
       onClickNHold={mobile ? holdMobile : holdDesktop}
       onEnd={mobile ? null : holdEndDesktop} >
-      <InlinableIconButton disableRipple disableFocusRipple onClick={props.onMuteToggle} >
+      <InlinableIconButton disableRipple disableFocusRipple onClick={onMuteChange} >
         <div style={SliderStyles}>
           <Slider
             defaultValue={100}
             orientation="vertical"
             aria-labelledby="vertical-slider"
             onChange={commitVolume}
-            // onChangeCommitted={commitVolume}
             ref={sliderRef}
           />
         </div>
         <div style={IconStyles}>
-          { props.muted ?  <VolumeOffIcon disableRipple disableFocusRipple fontSize="small" />
-          : sliderValue < 10 ? <VolumeMuteIcon disableRipple disableFocusRipple fontSize="small" />
-          : sliderValue < 50 ? <VolumeDownIcon disableRipple disableFocusRipple fontSize="small" />
-                             : <VolumeUpIcon disableRipple disableFocusRipple fontSize="small"/> }
+          { muted ?  <VolumeOffIcon fontSize="small" />
+          : sliderValue < 10 ? <VolumeMuteIcon fontSize="small" />
+          : sliderValue < 50 ? <VolumeDownIcon fontSize="small" />
+                             : <VolumeUpIcon fontSize="small"/> }
         </div>
       </InlinableIconButton>
     </ClickNHold>
@@ -422,7 +427,7 @@ function InstrumentTable(props)
                   <VolumeWidget
                     muted={props.instrumentIndex[x].muted}
                     onChange={(value)=>{props.onVolumeEvent( {instrument: x, volume: value / 100.0}); }}
-                    onMuteToggle={()=>{props.onVolumeEvent( {instrument: x, muted: !props.instrumentIndex[x].muted})}}
+                    onMuteEvent={(muted)=>{props.onVolumeEvent( {instrument: x, muted: muted})}}
                     />
                 </Grid>
                 </Grid>
@@ -438,8 +443,6 @@ function InstrumentTable(props)
 }
 
 function InstrumentConfig(props) {
-  const classes = useStyles();
-
   const [editingSymbol, setEditingSymbol] = React.useState(null);
   const [renamingInstrument, setRenamingInstrument] = React.useState(null);
 
@@ -513,7 +516,7 @@ function InstrumentConfig(props) {
           onEditColumn={(x)=>{setEditingSymbol(x);}}
           onEditRow={(y)=>{setRenamingInstrument(y);}}
           onAddRow={()=>{setRenamingInstrument(props.instruments.length)}}
-          onRemoveRow={()=>{setRenamingInstrument(props.instruments.length);}}
+          onRemoveRow={(y)=>{removeInstrument(y);}}
           onVolumeEvent={props.onVolumeEvent}
           onChange={props.onChange}
         />
