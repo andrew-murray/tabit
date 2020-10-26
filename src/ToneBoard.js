@@ -50,10 +50,10 @@ const chooseAppropriateUrlForInstrument = (drumkitName, instrumentName) =>
   }
 }
 
-const createPlayerCallback = (pattern, sampleSource) =>
+const createSequenceCallback = (pattern, sampleSource) =>
 {
   let samplesReady = sampleSource.samplesReady();
-  const playerCallback = (time, indexFromStart) =>
+  const sequenceCallback = (time, indexFromStart) =>
   {
     // if we don't know samples are ready,
     if(!samplesReady)
@@ -82,12 +82,12 @@ const createPlayerCallback = (pattern, sampleSource) =>
       );
     }
   };
-  return playerCallback;
+  return sequenceCallback;
 };
 
 class ToneController
 {
-  constructor(instrumentIndex, patterns, tempo)
+  constructor(instrumentIndex, patterns, tempo, onTimeChange)
   {
     // this thing has a lot of state, eh?
     // would love if this state was a bit more structured
@@ -96,6 +96,7 @@ class ToneController
     this.currentPattern = null;
     this.gain = new Tone.Gain();
     this.gain.toDestination();
+    this.onPatternTimeChange = onTimeChange;
     Tone.Transport.bpm.value = tempo;
     Tone.Transport.loop = true;
 
@@ -181,7 +182,7 @@ class ToneController
     {
       const patternResolution = Audio.determineMinResolution(instrumentIndex, p.instrumentTracks);
       const patternLength = Audio.determineTrackLength(instrumentIndex, p.instrumentTracks);
-      const callback = createPlayerCallback(
+      const callback = createSequenceCallback(
         this.patternDetails[p.name],
         this
       );

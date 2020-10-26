@@ -258,16 +258,8 @@ class App extends React.Component
       },
       () => {
         // always default tempo to 100bpm for now
-        document.app = this;
-        this.audio = new ToneBoard( this.state.instrumentIndex, this.state.patterns, 100.0 );
+        this.audio = new ToneBoard( this.state.instrumentIndex, this.state.patterns, 100.0, (time)=>{this.onPatternTimeChange(time);});
         this.audio.setActivePattern( this.state.patterns[this.state.selectedPattern].name );
-        document.audio = this.audio;
-        document.audio.log_mutes = ()=>{
-          for( const [name,seq] of Object.entries(document.audio.sequences))
-          {
-            console.log( name + ": " + seq._part.mute );
-          }
-        };
       }
     );
   }
@@ -302,16 +294,8 @@ class App extends React.Component
           },
           ()=>{
             // always default tempo to 100bpm for now
-            document.app = this;
-            this.audio = new ToneBoard( this.state.instrumentIndex, this.state.patterns, 100.0 );
+            this.audio = new ToneBoard( this.state.instrumentIndex, this.state.patterns, 100.0, (time)=>{this.onPatternTimeChange(time);});
             this.audio.setActivePattern( this.state.patterns[this.state.selectedPattern].name );
-            document.audio = this.audio;
-            document.audio.log_mutes = ()=>{
-              for( const [name,seq] of Object.entries(document.audio.sequences))
-              {
-                console.log( name + ": " + seq._part.mute );
-              }
-            };
           }
         );
       }).catch( (error)=>{ alert("Failed to load file " + e.file.name  + " with error " + error); } );
@@ -368,16 +352,8 @@ class App extends React.Component
       },
       () => {
         // always default tempo to 100bpm for now
-        document.app = this;
-        this.audio = new ToneBoard( this.state.instrumentIndex, this.state.patterns, 100.0 );
+        this.audio = new ToneBoard( this.state.instrumentIndex, this.state.patterns, 100.0, (time)=>{this.onPatternTimeChange(time);});
         this.audio.setActivePattern( this.state.patterns[this.state.selectedPattern].name );
-        document.audio = this.audio;
-        document.audio.log_mutes = ()=>{
-          for( const [name,seq] of Object.entries(document.audio.sequences))
-          {
-            console.log( name + ": " + seq._part.mute );
-          }
-        };
       }
     );
   }
