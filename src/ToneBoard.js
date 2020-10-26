@@ -89,6 +89,29 @@ const createSequenceCallback = (pattern, sampleSource) =>
   return sequenceCallback;
 };
 
+const createSortedUnique = (failures) =>
+{
+  let sortedFailures = [];
+  for( const [drumkit, name] of failures )
+  {
+    let noMatch = true;
+    for( const [otherDrumkit, otherName] of sortedFailures )
+    {
+      if( drumkit === otherDrumkit && name === otherName )
+      {
+        noMatch = false;
+        break;
+      }
+    }
+    if( noMatch )
+    {
+      sortedFailures.push( [drumkit, name] );
+    }
+  }
+  sortedFailures.sort();
+  return sortedFailures;
+}
+
 class ToneController
 {
   constructor(instrumentIndex, patterns, tempo, onTimeChange)
@@ -124,8 +147,8 @@ class ToneController
     if(failures.length > 0)
     {
       let message = "Failed to load samples for instruments:\n";
-      const failureSet = new Set(failures);
-      for( const [drumkit, name] of failureSet )
+      let sortedFailures = createSortedUnique(failures);
+      for( const [drumkit, name] of sortedFailures )
       {
         message += "    -" + name;
         if( drumkit !== "" ){ message += " (" + drumkit + ")"; }
