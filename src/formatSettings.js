@@ -118,7 +118,7 @@ function FormatSettings(props) {
     }
   }
   const beatLineHelp = "Only options that produce lines made up of 'n' whole beats (no part-beats) are shown. "
-  + "If the options displayed for either lineResolution or beatResolution are too restrictive, try changing the other option."
+  + "If the options displayed for either lineResolution or beatResolution are too restrictive, try changing the other option. "
   + "If lineResolution only results in one line, more options for beatResolution will be shown."
   return (
     <FormGroup className={classes.root}>
