@@ -68,7 +68,11 @@ const createSequenceCallback = (pattern, sampleSource) =>
     {
         if( t.rep[index] )
         {
-          sampleSource.samples[id].player.start(time);
+          const sampleData = sampleSource.samples[id];
+          if( sampleData !== undefined )
+          {
+            sampleData.player.start(time);
+          }
         }
     }
     if(sampleSource.onPatternTimeChange)
@@ -103,6 +107,7 @@ class ToneController
     this.sampleCount = 0;
     this.expectedSampleCount = 0;
     this.patternDetails = {};
+    let failures = []
     for( let p of patterns )
     {
       this.patternDetails[p.name] = {
@@ -111,10 +116,26 @@ class ToneController
         name: p.name,
         tracks: p.instrumentTracks
       };
-      this.populateSamples(instrumentIndex, p.instrumentTracks);
+      this.populateSamples(instrumentIndex, p.instrumentTracks, failures);
     }
     this.sequences = this.createSequences(instrumentIndex, patterns);
     this.currentPatternName = null;
+
+    if(failures.length > 0)
+    {
+      let message = "Failed to load samples for instruments:\n";
+      const failureSet = new Set(failures);
+      for( const [drumkit, name] of failureSet )
+      {
+        message += "    -" + name;
+        if( drumkit !== "" ){ message += " (" + drumkit + ")"; }
+        message += "\n";
+      }
+      message += "This is typically because they belong to commercial sound libraries. " +
+       "tabit's supported drumkits are\n" + DRUMKITS.join( ", " ) + ".";
+
+      alert(message);
+    }
   }
 
   samplesReady()
@@ -122,7 +143,7 @@ class ToneController
     return this.sampleCount === this.expectedSampleCount;
   }
 
-  populateSamples(instrumentIndex, tracks)
+  populateSamples(instrumentIndex, tracks, failures)
   {
     this.sampleCount = 0;
     for(const [id,] of Object.entries(tracks))
@@ -169,6 +190,14 @@ class ToneController
             this.samples[selectedInstrument.id] = { player : player, gain : gain }
             this.expectedSampleCount++;
           }
+          else
+          {
+            failures.push( [selectedInstrument.drumkit, selectedInstrument.name] );
+          }
+        }
+        else
+        {
+            failures.push( ["", selectedInstrument.name] );
         }
       }
     }
