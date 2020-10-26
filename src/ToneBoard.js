@@ -142,7 +142,6 @@ class ToneController
           DRUMKITS.includes(selectedInstrument.drumkit) )
         {
           const filename = selectedInstrument.filename.replace(".flac", ".wav");
-          console.log("creating sample " + selectedInstrument.id + " from " + filename);
           let player = new Tone.Player(
             process.env.PUBLIC_URL + "/wav/" + selectedInstrument.drumkit + "/" + filename, 
             () => { this.sampleCount++; }
