@@ -43,6 +43,10 @@ const chooseAppropriateUrlForInstrument = (drumkitName, instrumentName) =>
   {
     return "GMRockKit/Snare-Soft.wav";
   }
+  else if(name.includes("cowbell"))
+  {
+    return "GMRockKit/Cowbell-Softest.wav";
+  }
   else
   {
     // todo: snare, cymbals
