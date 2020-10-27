@@ -276,7 +276,7 @@ class App extends React.Component
         // fixme: convert hydrogen volume/gain to normal values, somewhere
         for( let instrument of instrumentIndex )
         {
-          instrument.volume = 1.0;
+          instrument.volume = 0.5;
         }
 
         this.setState(
@@ -336,7 +336,7 @@ class App extends React.Component
     // fixme: convert hydrogen volume/gain to normal values, somewhere
     for( let instrument of instrumentIndex )
     {
-      instrument.volume = 1.0;
+      instrument.volume = 0.5;
     }
 
     this.setState(
