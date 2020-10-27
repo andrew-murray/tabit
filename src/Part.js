@@ -1,12 +1,19 @@
 import React from 'react';
 import notation from "./notation"
+import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 
-const useStyles = theme => ({
+const styles = {
   root: {
-    whiteSpace:"pre"
-  },
-});
+    whiteSpace:"pre",
+    fontFamily: "Roboto Mono"
+  }
+};
+
+const useStyles = theme => (styles);
+
+const PreTypography = withStyles(styles)(Typography);
+
 
 class Part extends React.Component
 {
@@ -46,17 +53,17 @@ class Part extends React.Component
     const formatLine = (key, line, startBeat)=>{
       const beats = [...line.keys()];
       return (
-        <p key={"pattern-line-" + key}>
-          <span key={"line-start-" + key}>{this.props.config.lineMark}</span>
+        <PreTypography key={"pattern-line-" + key}>
+          <PreTypography component="span" key={"line-start-" + key}>{this.props.config.lineMark}</PreTypography>
           {
             beats.map( beat => <React.Fragment key={"fragment-beat-"+ (beat + startBeat).toString()}>
-              <span key={"span-beat-" + (beat + startBeat).toString()} className={(beat + startBeat) === this.props.activeNote ? "activeNote" : ""}>{line[beat].join("")}</span>
-              <span key={"span-beat-marker-" + (beat + startBeat).toString()}>{(this.props.config.showBeatMark && beat !== beats[beats.length-1]) ? this.props.config.beatMark : ""}</span>
+              <PreTypography component="span" key={"span-beat-" + (beat + startBeat).toString()} className={(beat + startBeat) === this.props.activeNote ? "activeNote" : ""}>{line[beat].join("")}</PreTypography>
+              <PreTypography component="span" key={"span-beat-marker-" + (beat + startBeat).toString()}>{(this.props.config.showBeatMark && beat !== beats[beats.length-1]) ? this.props.config.beatMark : ""}</PreTypography>
             </React.Fragment>
             )
           }
-          <span key={"line-end-" + key}>{this.props.config.lineMark}</span>
-        </p>
+          <PreTypography component="span" key={"line-end-" + key}>{this.props.config.lineMark}</PreTypography>
+        </PreTypography>
       );
     };
 
