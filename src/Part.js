@@ -3,17 +3,17 @@ import notation from "./notation"
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 
-const styles = {
+const styles = (theme)=>({
   root: {
-    whiteSpace:"pre",
-    fontFamily: "Roboto Mono"
+    whiteSpace: "pre",
+    fontFamily: "Roboto Mono",
+    fontSize: '0.8rem',
+    '@media (min-width:800px)': {
+      fontSize: '1rem',
+    },
   }
-};
-
-const useStyles = theme => (styles);
-
+});
 const PreTypography = withStyles(styles)(Typography);
-
 
 class Part extends React.Component
 {
@@ -54,15 +54,15 @@ class Part extends React.Component
       const beats = [...line.keys()];
       return (
         <PreTypography key={"pattern-line-" + key}>
-          <PreTypography component="span" key={"line-start-" + key}>{this.props.config.lineMark}</PreTypography>
+          <PreTypography variant="subtitle1" component="span" key={"line-start-" + key}>{this.props.config.lineMark}</PreTypography>
           {
             beats.map( beat => <React.Fragment key={"fragment-beat-"+ (beat + startBeat).toString()}>
-              <PreTypography component="span" key={"span-beat-" + (beat + startBeat).toString()} className={(beat + startBeat) === this.props.activeNote ? "activeNote" : ""}>{line[beat].join("")}</PreTypography>
-              <PreTypography component="span" key={"span-beat-marker-" + (beat + startBeat).toString()}>{(this.props.config.showBeatMark && beat !== beats[beats.length-1]) ? this.props.config.beatMark : ""}</PreTypography>
+              <PreTypography variant="subtitle1" component="span" key={"span-beat-" + (beat + startBeat).toString()} className={(beat + startBeat) === this.props.activeNote ? "activeNote" : ""}>{line[beat].join("")}</PreTypography>
+              <PreTypography variant="subtitle1" component="span" key={"span-beat-marker-" + (beat + startBeat).toString()}>{(this.props.config.showBeatMark && beat !== beats[beats.length-1]) ? this.props.config.beatMark : ""}</PreTypography>
             </React.Fragment>
             )
           }
-          <PreTypography component="span" key={"line-end-" + key}>{this.props.config.lineMark}</PreTypography>
+          <PreTypography variant="subtitle1" component="span" key={"line-end-" + key}>{this.props.config.lineMark}</PreTypography>
         </PreTypography>
       );
     };
@@ -86,4 +86,4 @@ class Part extends React.Component
   }
 }
 
-export default withStyles(useStyles)(Part);
+export default withStyles(styles)(Part);

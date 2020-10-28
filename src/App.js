@@ -9,7 +9,7 @@ import { Alert } from '@material-ui/lab';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 // define mui theme, including responsiveFont
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import { createMuiTheme, ThemeProvider, responsiveFontSizes } from '@material-ui/core/styles';
 
 // drawer
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
@@ -57,13 +57,13 @@ import copy from "copy-to-clipboard";
 import { isMobile } from "./Mobile";
 
 // mui theme config
-let theme = createMuiTheme( { 
+let theme = responsiveFontSizes( createMuiTheme( {
   palette: { 
     type: 'dark',
     primary: { main: '#36d9be' },
     secondary: { main: '#f50057' }
    } 
-} );
+} ) );
 
 const ignoreEvent = (event) => {
   return event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift');
