@@ -19,15 +19,15 @@ const useStyles = makeStyles((theme) => ({
 function renderRow(props) {
   return (
     <ListItem button style={props.style} key={props.index} onClick={props.onClick}>
-      <ListItemText primary={props.name} secondary={props.date}/>
+      <ListItemText primary={props.name} secondary={new Date(props.date).toLocaleDateString()}/>
     </ListItem>
   );
 }
 
 const demoData = [
-  {name: "roudesann", id: "3b415c320894e531f4daa93711949e78c0aef281", "date": new Date(Date.now()).toLocaleDateString()},
-  {name: "groovy", id: "f23c52481af0c08f5037d820a0cf33e886061ffc", "date": new Date(Date.now()).toLocaleDateString()},
-  {name: "too_much", id: "e7db6989c558e201bceff225d796f0d6073047a9", "date": new Date(Date.now()).toLocaleDateString()}
+  {name: "roudesann", id: "3b415c320894e531f4daa93711949e78c0aef281", "date": Date.now()},
+  {name: "groovy", id: "f23c52481af0c08f5037d820a0cf33e886061ffc", "date": Date.now()},
+  {name: "too_much", id: "e7db6989c558e201bceff225d796f0d6073047a9", "date": Date.now()}
 ];
 
 function History(props)

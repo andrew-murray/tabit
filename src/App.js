@@ -38,8 +38,6 @@ import {createInstrumentMask, InstrumentConfig} from "./instrumentConfig";
 import { activeInstrumentation, figureInstruments, DEFAULT_INSTRUMENT_SYMBOLS } from "./instrumentation";
 import notation from "./notation";
 
-import CookieConsent from "react-cookie-consent";
-
 import Grid from '@material-ui/core/Grid';
 
 // load static data
@@ -106,6 +104,7 @@ class App extends React.Component
 {
   constructor(props) {
     super(props);
+    const previousHistory = localStorage.getItem("tabit-history")
     this.state = {
       // data
       instruments : null,
@@ -122,9 +121,45 @@ class App extends React.Component
       progress : null,
       showSharingDialog : false,
       showTitleOptions : this.props.match.params.song === undefined,
-      permanentUrl : ""
+      permanentUrl : "",
+      history: previousHistory ? JSON.parse(previousHistory) : []
     };
     this.pattern = React.createRef();
+  }
+
+  recordSongVisited()
+  {
+    // require { id, name, content?? }
+    const exportState = this.getExportState();
+    const stateToShare = this.encodeState(exportState);
+    const stateHash = hash(stateToShare);
+
+    const history = Array.from(this.state.history);
+    const relevantHistory = history.filter( song => ( song.id === stateHash && song.name === exportState.songName ) );
+    if( relevantHistory.length !== 0 )
+    {
+
+      // found at least one history entry that matches our constraints ... let's update the most recent one
+      relevantHistory[0].date = Date.now();
+    }
+    else
+    {
+      // add history entry
+      const historyEntry = {
+        name: exportState.songName,
+        id: stateHash,
+        date: Date.now(),
+        content: stateToShare
+      };    
+      history.push(historyEntry);
+    }
+    history.sort( (a,b) =>(a.date > b.date) );
+    this.setState(
+      { history : history },
+      () => {
+        localStorage.setItem("tabit-history", JSON.stringify(history));
+      }
+    );
   }
 
   fetchSong(songID, songTitle)
@@ -138,11 +173,22 @@ class App extends React.Component
       {
         throw new Error("Hash did not match");
       }
-      this.handleJson(null, decodedState);
+      this.handleJson(songTitle, decodedState);
     }).catch( (e) => {
       this.setState({showTitleOptions : true});
-      alert("Song " + songTitle ?? songID + " could not be found." );
+      alert("Song " + (songTitle ?? songID) + " could not be found." );
     } );
+  }
+
+  loadLocalSong(song)
+  {
+    const decodedState = this.decodeState(song.content);
+    const stateHash = hash(song.content);
+    if( stateHash !== song.id )
+    {
+      throw new Error("Hash did not match");
+    }
+    this.handleJson(song.name, decodedState);
   }
 
   componentDidMount()
@@ -160,7 +206,9 @@ class App extends React.Component
       instrumentIndex : this.state.instrumentIndex,
       patterns : this.state.patterns,
       formatSettings: this.state.formatSettings,
-      patternSettings : this.state.patternSettings
+      patternSettings : this.state.patternSettings,
+      songName: this.state.songName,
+      version: "1.1.0"
     }
   }
 
@@ -229,6 +277,22 @@ class App extends React.Component
     );
   }
 
+  songNameFromFile(filename)
+  {
+    if(filename === null)
+    {
+      return null;
+    }
+    if( filename.includes(".") )
+    {
+      const songTitle = filename.split('.').slice(0, -1).join('.');
+      return songTitle;
+    }
+    else
+    {
+      return filename;
+    }
+  }
 
   handleJson(title, prevState)
   {
@@ -252,6 +316,8 @@ class App extends React.Component
       return patterns;
     }
 
+    let songTitle = this.songNameFromFile(title);
+
     this.setState(
       {
         instrumentIndex : prevState.instrumentIndex,
@@ -263,12 +329,14 @@ class App extends React.Component
         // general app state
         loadedFile : title ?? prevState.loadedFile,
         selectedPattern : prevState.patterns.length === 0 ? null : 0,
-        patternsOpen : prevState.patterns.length !== 0
+        patternsOpen : prevState.patterns.length !== 0,
+        songName: songTitle ?? prevState.songName
       },
       () => {
         // always default tempo to 100bpm for now
         this.audio = new ToneBoard( this.state.instrumentIndex, this.state.patterns, 100.0, (time)=>{this.onPatternTimeChange(time);});
         this.audio.setActivePattern( this.state.patterns[this.state.selectedPattern].name );
+        this.recordSongVisited();
       }
     );
   }
@@ -300,11 +368,13 @@ class App extends React.Component
             loadedFile : e.file.name,
             patternsOpen : true,
             selectedPattern : h.patterns.length === 0 ? null : 0,
+            songName: this.songNameFromFile(e.file.name)
           },
           ()=>{
             // always default tempo to 100bpm for now
             this.audio = new ToneBoard( this.state.instrumentIndex, this.state.patterns, 100.0, (time)=>{this.onPatternTimeChange(time);});
             this.audio.setActivePattern( this.state.patterns[this.state.selectedPattern].name );
+            this.recordSongVisited();
           }
         );
       }).catch( (error)=>{ alert("Failed to load file " + e.file.name  + " with error " + error); } );
@@ -458,7 +528,7 @@ class App extends React.Component
       <div style={{ position:"absolute", bottom:0 }} >
         <p>tabit relies on publicly available sound libraries listed at <a href="https://github.com/andrew-murray/tabit">https://github.com/andrew-murray/tabit</a></p>
       </div>
-      <History onClick={(piece)=>{this.fetchSong(piece.id, piece.name);}}/>
+      { this.state.history.length > 0 ? <History data={this.state.history} onClick={(piece)=>{this.loadLocalSong(piece);}}/> : "" }
       </React.Fragment>
     );
   }
@@ -705,7 +775,6 @@ class App extends React.Component
         <ThemeProvider theme={theme}>
           <CssBaseline />
           {mainContent}
-          <CookieConsent>tabit uses cookies to enhance your user experience.</CookieConsent>
         </ThemeProvider>
       </div>
     );
