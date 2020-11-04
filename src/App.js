@@ -38,6 +38,8 @@ import {createInstrumentMask, InstrumentConfig} from "./instrumentConfig";
 import { activeInstrumentation, figureInstruments, DEFAULT_INSTRUMENT_SYMBOLS } from "./instrumentation";
 import notation from "./notation";
 
+import CookieConsent from "react-cookie-consent";
+
 import Grid from '@material-ui/core/Grid';
 
 // load static data
@@ -55,6 +57,8 @@ import zlib from "zlib";
 import copy from "copy-to-clipboard";
 
 import { isMobile } from "./Mobile";
+
+import History from "./History";
 
 // mui theme config
 let theme = responsiveFontSizes( createMuiTheme( {
@@ -449,6 +453,7 @@ class App extends React.Component
       <div style={{ position:"absolute", bottom:0 }} >
         <p>tabit relies on publicly available sound libraries listed at <a href="https://github.com/andrew-murray/tabit">https://github.com/andrew-murray/tabit</a></p>
       </div>
+      <History />
       </React.Fragment>
     );
   }
@@ -695,6 +700,7 @@ class App extends React.Component
         <ThemeProvider theme={theme}>
           <CssBaseline />
           {mainContent}
+          <CookieConsent>tabit uses cookies to enhance your user experience.</CookieConsent>
         </ThemeProvider>
       </div>
     );
