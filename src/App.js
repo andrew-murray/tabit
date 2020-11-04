@@ -104,7 +104,7 @@ class App extends React.Component
 {
   constructor(props) {
     super(props);
-    const previousHistory = localStorage.getItem("tabit-history")
+    const previousHistory = localStorage.getItem("tabit-history");
     this.state = {
       // data
       instruments : null,
@@ -122,7 +122,7 @@ class App extends React.Component
       showSharingDialog : false,
       showTitleOptions : this.props.match.params.song === undefined,
       permanentUrl : "",
-      history: previousHistory ? JSON.parse(previousHistory) : []
+      history: previousHistory ? JSON.parse(previousHistory).sort( (a,b) =>(b.date - a.date) ) : []
     };
     this.pattern = React.createRef();
   }
@@ -153,11 +153,12 @@ class App extends React.Component
       };    
       history.push(historyEntry);
     }
-    history.sort( (a,b) =>(a.date > b.date) );
+    // cap how many files we remember
+    const restrictedHistory = history.sort( (a,b) =>(b.date - a.date)  ).slice(0, 10);
     this.setState(
-      { history : history },
+      { history : restrictedHistory },
       () => {
-        localStorage.setItem("tabit-history", JSON.stringify(history));
+        localStorage.setItem("tabit-history", JSON.stringify(restrictedHistory));
       }
     );
   }
