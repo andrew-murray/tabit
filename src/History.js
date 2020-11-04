@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
 
 function renderRow(props) {
   return (
-    <ListItem button style={props.style} key={props.index} onClick>
+    <ListItem button style={props.style} key={props.index} onClick={props.onClick}>
       <ListItemText primary={props.name} secondary={props.date}/>
     </ListItem>
   );
@@ -33,7 +33,6 @@ const demoData = [
 function History(props)
 {
   const classes = useStyles();
-
   const items = props.data ?? demoData;
   return (
     <div style={{maxHeight: 200, overflow: 'auto'}} className={classes.root}>

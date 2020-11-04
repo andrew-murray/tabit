@@ -127,24 +127,29 @@ class App extends React.Component
     this.pattern = React.createRef();
   }
 
+  fetchSong(songID, songTitle)
+  {
+    fetch(getJsonStorageUrl(songID))
+    .then( response => { return response.json(); } )
+    .then( js => {
+      const decodedState = this.decodeState(js);
+      const stateHash = hash(js);
+      if( stateHash !== songID )
+      {
+        throw new Error("Hash did not match");
+      }
+      this.handleJson(null, decodedState);
+    }).catch( (e) => {
+      this.setState({showTitleOptions : true});
+      alert("Song " + songTitle ?? songID + " could not be found." );
+    } );
+  }
+
   componentDidMount()
   {
     if( this.props.match.params.song )
     {
-      fetch(getJsonStorageUrl(this.props.match.params.song))
-      .then( response => { return response.json(); } )
-      .then( js => {
-        const decodedState = this.decodeState(js);
-        const stateHash = hash(js);
-        if( stateHash !== this.props.match.params.song )
-        {
-          throw new Error("Hash did not match");
-        }
-        this.handleJson(null, decodedState);
-      }).catch( (e) => {
-        this.setState({showTitleOptions : true});
-        alert("Song " + this.props.match.params.song + " could not be found." );
-      } );
+      this.fetchSong(this.props.match.params.song);
     }
   }
 
@@ -453,7 +458,7 @@ class App extends React.Component
       <div style={{ position:"absolute", bottom:0 }} >
         <p>tabit relies on publicly available sound libraries listed at <a href="https://github.com/andrew-murray/tabit">https://github.com/andrew-murray/tabit</a></p>
       </div>
-      <History />
+      <History onClick={(piece)=>{this.fetchSong(piece.id, piece.name);}}/>
       </React.Fragment>
     );
   }
