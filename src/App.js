@@ -121,10 +121,12 @@ class App extends React.Component
       progress : null,
       showSharingDialog : false,
       showTitleOptions : this.props.match.params.song === undefined,
+      songName: null,
       permanentUrl : "",
       history: previousHistory ? JSON.parse(previousHistory).sort( (a,b) =>(b.date - a.date) ) : []
     };
     this.pattern = React.createRef();
+    document.app = this;
   }
 
   recordSongVisited()
@@ -280,7 +282,7 @@ class App extends React.Component
 
   songNameFromFile(filename)
   {
-    if(filename === null)
+    if(filename === null || filename === undefined)
     {
       return null;
     }
@@ -317,8 +319,6 @@ class App extends React.Component
       return patterns;
     }
 
-    let songTitle = this.songNameFromFile(title);
-
     this.setState(
       {
         instrumentIndex : prevState.instrumentIndex,
@@ -331,7 +331,7 @@ class App extends React.Component
         loadedFile : title ?? prevState.loadedFile,
         selectedPattern : prevState.patterns.length === 0 ? null : 0,
         patternsOpen : prevState.patterns.length !== 0,
-        songName: songTitle ?? prevState.songName
+        songName: title ?? ( prevState.songName ?? ( prevState.loadedFile ? this.songNameFromFile(prevState.loadedFile) : "untitled" ) )
       },
       () => {
         // always default tempo to 100bpm for now
@@ -386,7 +386,7 @@ class App extends React.Component
       // assume it's a tabit file!
       Promise.resolve(e.content)
         .then(JSON.parse)
-        .then( prevState => { this.handleJson(e.file.name,prevState); } )
+        .then( prevState => { this.handleJson(this.songNameFromFile(e.file.name),prevState); } )
         .catch( (error)=>{ alert("Failed to load file " + e.file.name  + " with error " + error); } );
     }
   }
@@ -428,12 +428,15 @@ class App extends React.Component
         selectedPattern : k.patterns.length === 0 ? null : 0,
         loadedFile : "kuva.example",
         patternsOpen : true,
-        patternSettings : this.figurePatternSettings(k.patterns)
+        patternSettings : this.figurePatternSettings(k.patterns),
+        songName : "kuva"
       },
       () => {
         // always default tempo to 100bpm for now
         this.audio = new ToneBoard( this.state.instrumentIndex, this.state.patterns, 100.0, (time)=>{this.onPatternTimeChange(time);});
         this.audio.setActivePattern( this.state.patterns[this.state.selectedPattern].name );
+        // no need to record the example, it's embedded into the website anyway
+        // this.recordSongVisited();
       }
     );
   }
