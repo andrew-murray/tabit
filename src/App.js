@@ -86,6 +86,15 @@ const getJsonStorageUrl = (slug) => {
   return cors_url + getJsonDestinationUrl(slug);
 }
 
+const licenseBannerStyles = {
+  position:"absolute",
+  bottom:0,
+  "width": "95%",
+  "text-align": "center",
+  "background-color" : "#282c34", // same background color as app
+  "z-index" : theme.zIndex.drawer
+};
+
 const modalStyles = {
   modal: {
     display: 'flex',
@@ -529,10 +538,12 @@ class App extends React.Component
         <p>I read .h2songs and write tab</p>
         {this.state.showTitleOptions ? controls : waitingMessage}
       </div>
-      <div style={{ position:"absolute", bottom:0 }} >
+      <div style={{"margin-left" : "auto", "margin-right": "auto"}}>
+      { this.state.history.length > 0 ? <History data={this.state.history} onClick={(piece)=>{this.loadLocalSong(piece);}}/> : "" }
+      </div>
+      <div style={licenseBannerStyles} >
         <p>tabit relies on publicly available sound libraries listed at <a href="https://github.com/andrew-murray/tabit">https://github.com/andrew-murray/tabit</a></p>
       </div>
-      { this.state.history.length > 0 ? <History data={this.state.history} onClick={(piece)=>{this.loadLocalSong(piece);}}/> : "" }
       </React.Fragment>
     );
   }
@@ -753,9 +764,9 @@ class App extends React.Component
           </div>
           {patternContent}
           <Grid container>
-          <Grid item xs={(12 - instrumentConfigColumns ) / 2} />
+          <Grid item xs={(12 - instrumentConfigColumns) / 2} />
           <Grid item xs={instrumentConfigColumns}>
-            <InstrumentConfig
+          <InstrumentConfig
               instruments={this.state.instruments}
               instrumentIndex={this.state.instrumentIndex}
               instrumentMask={this.state.instrumentMask}
@@ -763,7 +774,7 @@ class App extends React.Component
               onVolumeEvent={sendVolumeEvent}
             />
           </Grid>
-          <Grid item xs={(12 - instrumentConfigColumns ) / 2} />
+          <Grid item xs={(12 - instrumentConfigColumns) / 2} />
           </Grid>
           {this.renderPatternDrawer(iOS,mobile)}
           {this.renderSettingsDrawer(iOS,mobile, patternConfig)}

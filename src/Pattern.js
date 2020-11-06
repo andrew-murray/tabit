@@ -10,7 +10,8 @@ const useStyles = theme => ({
     whiteSpace:"pre",
     "& .activeNote": {
       color : theme.palette.primary.main
-    }
+    },
+    "margin": "auto"
   },
 });
 
@@ -41,6 +42,7 @@ class Pattern extends React.Component
     const beatResolution = this.props.config.beatResolution;
     return (
       <div className={classes.root} >
+        <div style={{"margin": "auto"}}>
         { instrumentIndices.map( 
             (instrumentIndex) => ( <PartWithTitle 
               key={"part-" + instrumentIndex.toString()}
@@ -52,6 +54,7 @@ class Pattern extends React.Component
             /> )
           )
         }
+        </div>
       </div>
     );
   }

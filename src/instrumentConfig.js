@@ -494,6 +494,11 @@ function InstrumentConfig(props) {
     setRenamingInstrument(null);
   };
 
+  const containerStyle = {
+    "border": "2px solid rgba(255, 255, 255, 0.5)",
+    "outline": "none",
+    "border-radius": "8px"
+  };
   return (
     <React.Fragment>
       <InstrumentRenameDialog
@@ -508,7 +513,7 @@ function InstrumentConfig(props) {
         onChange={(s)=>{endEditingSymbol(s);}}
         value={editingSymbol !== null ? getSymbol(editingSymbol) : null}
         />
-      <TableContainer>
+      <TableContainer style={containerStyle}>
         <InstrumentTable
           instrumentIndex={props.instrumentIndex}
           instrumentMask={props.instrumentMask}
