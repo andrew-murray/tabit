@@ -90,9 +90,9 @@ const licenseBannerStyles = {
   position:"absolute",
   bottom:0,
   "width": "95%",
-  "text-align": "center",
-  "background-color" : "#282c34", // same background color as app
-  "z-index" : theme.zIndex.drawer
+  "textAlign": "center",
+  "backgroundColor" : "#282c34", // same background color as app
+  "zIndex" : theme.zIndex.drawer
 };
 
 const modalStyles = {
@@ -538,7 +538,7 @@ class App extends React.Component
         <p>I read .h2songs and write tab</p>
         {this.state.showTitleOptions ? controls : waitingMessage}
       </div>
-      <div style={{"margin-left" : "auto", "margin-right": "auto"}}>
+      <div style={{"marginLeft" : "auto", "marginRight": "auto"}}>
       { this.state.history.length > 0 ? <History data={this.state.history} onClick={(piece)=>{this.loadLocalSong(piece);}}/> : "" }
       </div>
       <div style={licenseBannerStyles} >

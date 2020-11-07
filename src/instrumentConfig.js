@@ -190,6 +190,15 @@ class RawInstrumentEditDialog extends React.Component
       }
     };
 
+    const handleEnter = (e) =>
+    {
+      if(e.keyCode === 13)
+      {
+        e.preventDefault();
+        confirm();
+      }
+    };
+
     return (
       <Dialog open={this.props.open} onClose={cancel} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title"></DialogTitle>
@@ -204,6 +213,7 @@ class RawInstrumentEditDialog extends React.Component
             fullWidth
             value={this.state.currentSymbol ?? this.props.value}
             onChange={(e)=>{this.setState({currentSymbol: e.target.value});}}
+            onKeyDown={handleEnter}
           />
         </DialogContent>
         <DialogActions>
@@ -267,6 +277,15 @@ class InstrumentRenameDialog extends React.Component
       }
     };
 
+    const handleEnter = (e) =>
+    {
+      if(e.keyCode === 13)
+      {
+        e.preventDefault();
+        confirm();
+      }
+    };
+
     return (
       <Dialog open={this.props.open} onClose={cancel} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title"></DialogTitle>
@@ -275,12 +294,13 @@ class InstrumentRenameDialog extends React.Component
             Enter instrument name
           </DialogContentText>
           <TextField
-            autoFocus
             margin="dense"
             id="name"
             fullWidth
             value={this.state.currentName ?? this.props.value}
             onChange={(e)=>{this.setState({currentName: e.target.value});}}
+            onKeyDown={handleEnter}
+            autoFocus
           />
         </DialogContent>
         <DialogActions>
@@ -472,7 +492,7 @@ function InstrumentConfig(props) {
   };
 
   const getName = (y) => {
-    return props.instruments[y][0];
+    return y < props.instruments.length ? props.instruments[y][0] : "";
   };
 
   const renameInstrument = (instrumentName)  =>
@@ -497,21 +517,21 @@ function InstrumentConfig(props) {
   const containerStyle = {
     "border": "2px solid rgba(255, 255, 255, 0.5)",
     "outline": "none",
-    "border-radius": "8px"
+    "borderRadius": "8px"
   };
   return (
-    <React.Fragment>
+    <div style={{"paddingBottom" : "5px"}}>
       <InstrumentRenameDialog
         open={renamingInstrument !== null}
         onCancel={()=>{setRenamingInstrument(null);}}
         onChange={(s)=>{renameInstrument(s);}}
-        value={renamingInstrument !== null ? getName(renamingInstrument) : null}
+        value={renamingInstrument !== null ? getName(renamingInstrument) : ""}
       />
       <RawInstrumentEditDialog
         open={editingSymbol !== null}
         onCancel={()=>{endEditingSymbol(null);}}
         onChange={(s)=>{endEditingSymbol(s);}}
-        value={editingSymbol !== null ? getSymbol(editingSymbol) : null}
+        value={editingSymbol !== null ? getSymbol(editingSymbol) : ""}
         />
       <TableContainer style={containerStyle}>
         <InstrumentTable
@@ -526,7 +546,7 @@ function InstrumentConfig(props) {
           onChange={props.onChange}
         />
       </TableContainer>
-    </React.Fragment>
+    </div>
   );
 }
 
