@@ -192,15 +192,29 @@ class App extends React.Component
     } );
   }
 
-  loadLocalSong(song)
+  loadLocalSong(inputSong)
   {
-    const decodedState = this.decodeState(song.content);
-    const stateHash = hash(song.content);
-    if( stateHash !== song.id )
-    {
-      throw new Error("Hash did not match");
-    }
-    this.handleJson(song.name, decodedState);
+    const resolveSong = (song) => {
+      const decodedState = this.decodeState(song.content);
+      const stateHash = hash(song.content);
+      if( stateHash !== song.id )
+      {
+        throw new Error("Hash did not match");
+      }
+      this.handleJson(song.name, decodedState);
+    };
+
+    const displayError = (err) => {
+      this.setState({showTitleOptions : true});
+      alert("Failed to load song " + inputSong.name + ". Encountered error " + err.toString() );
+    };
+
+    this.setState(
+      {showTitleOptions : false }
+    );
+    Promise.resolve(inputSong)
+      .then(resolveSong)
+      .catch( displayError );
   }
 
   componentDidMount()
