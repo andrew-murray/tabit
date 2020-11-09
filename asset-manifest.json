@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/tabit/static/css/main.fdf055c1.chunk.css",
-    "main.js": "/tabit/static/js/main.0343042f.chunk.js",
-    "main.js.map": "/tabit/static/js/main.0343042f.chunk.js.map",
+    "main.js": "/tabit/static/js/main.ec88b801.chunk.js",
+    "main.js.map": "/tabit/static/js/main.ec88b801.chunk.js.map",
     "runtime-main.js": "/tabit/static/js/runtime-main.654ed8e5.js",
     "runtime-main.js.map": "/tabit/static/js/runtime-main.654ed8e5.js.map",
     "static/js/2.b9b3f27c.chunk.js": "/tabit/static/js/2.b9b3f27c.chunk.js",
@@ -15,6 +15,6 @@
     "static/js/runtime-main.654ed8e5.js",
     "static/js/2.b9b3f27c.chunk.js",
     "static/css/main.fdf055c1.chunk.css",
-    "static/js/main.0343042f.chunk.js"
+    "static/js/main.ec88b801.chunk.js"
   ]
 }
