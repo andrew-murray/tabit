@@ -117,9 +117,6 @@ function FormatSettings(props) {
       beatResolutions.push( c );
     }
   }
-  const beatLineHelp = "Only options that produce lines made up of 'n' whole beats (no part-beats) are shown. "
-  + "If the options displayed for either lineResolution or beatResolution are too restrictive, try changing the other option. "
-  + "If lineResolution only results in one line, more options for beatResolution will be shown."
   return (
     <FormGroup className={classes.root}>
       {notation.FORMAT_CONFIG_STRINGS.map( op => createOptionMenu( op[0], op[1] ) ).reduce((prev, curr) => [prev, curr])}
@@ -139,16 +136,6 @@ function FormatSettings(props) {
         beatStringToResolution,
         resolutionToBeatString
       )}
-      <Grid container>
-        <Grid item xs={8}/>
-        <Grid item xs={4}>
-          <Tooltip title={beatLineHelp} aria-label="help">
-            <Icon>
-              <HelpIcon />
-            </Icon>
-          </Tooltip>
-        </Grid>
-      </Grid>
     </FormGroup>
   );
 }

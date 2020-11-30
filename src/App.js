@@ -23,6 +23,7 @@ import Button from '@material-ui/core/Button';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import SettingsIcon from "@material-ui/icons/Settings";
 import Divider from "@material-ui/core/Divider";
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -752,6 +753,7 @@ class App extends React.Component
       return (
         <React.Fragment>
           {this.renderSharingDialog()}
+          <div style={{display: "flex", width: "99%", justifyContent: "center "}}>
           <div style={{display:"flex", width: "95%"}}> 
             <IconButton
               color="inherit"
@@ -762,7 +764,7 @@ class App extends React.Component
                 [classes.hide] : !this.state.patternsOpen
               })}
             >
-              <ChevronRightIcon />
+              <MenuIcon />
             </IconButton>
             <div className="content-title" style={{flexGrow:1}}>
             </div>
@@ -773,8 +775,9 @@ class App extends React.Component
               onClick={(e)=>{ this.setState( {settingsOpen: true } )}}
               className={clsx(this.state.settingsOpen && classes.hide)}
             >
-              <MenuIcon />
+              <SettingsIcon />
             </IconButton>
+          </div>
           </div>
           {patternContent}
           <Grid container>
