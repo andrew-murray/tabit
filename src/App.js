@@ -21,6 +21,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 import MenuIcon from '@material-ui/icons/Menu';
+import HomeIcon from '@material-ui/icons/Home';
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import SettingsIcon from "@material-ui/icons/Settings";
@@ -31,6 +32,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import { withStyles } from '@material-ui/core/styles';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
+import { Link } from 'react-router-dom';
 
 // notationSettings
 
@@ -58,6 +60,9 @@ import copy from "copy-to-clipboard";
 import { isMobile } from "./Mobile";
 
 import History from "./History";
+import Toolbar from '@material-ui/core/Toolbar';
+import AppBar from '@material-ui/core/AppBar';
+import Typography from '@material-ui/core/Typography';
 
 // mui theme config
 let theme = responsiveFontSizes( createMuiTheme( {
@@ -107,7 +112,7 @@ const modalStyles = {
     border: '2px solid #000',
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
-  },
+  }
 };
 
 class App extends React.Component
@@ -753,32 +758,48 @@ class App extends React.Component
       return (
         <React.Fragment>
           {this.renderSharingDialog()}
-          <div style={{display: "flex", width: "99%", justifyContent: "center "}}>
-          <div style={{display:"flex", width: "95%"}}> 
-            <IconButton
-              color="inherit"
-              aria-label="open pattern list"
-              edge="start"
-              onClick={(e)=>{ this.setState( {patternsOpen: true } )}}
-              className={clsx({
-                [classes.hide] : !this.state.patternsOpen
-              })}
+          <AppBar position="static" 
+            style={{"backgroundColor": "#424242", "color": "white"}}
+
+          >
+            <Toolbar variant="dense" 
+                style={{"flexGrow": 1}}
             >
-              <MenuIcon />
-            </IconButton>
-            <div className="content-title" style={{flexGrow:1}}>
-            </div>
-            <IconButton
-              color="inherit"
-              aria-label="open settings"
-              edge="end"
-              onClick={(e)=>{ this.setState( {settingsOpen: true } )}}
-              className={clsx(this.state.settingsOpen && classes.hide)}
-            >
-              <SettingsIcon />
-            </IconButton>
-          </div>
-          </div>
+              <IconButton
+                color="inherit"
+                aria-label="home"
+                edge="start"
+                onClick={(e)=>{ this.setState( {patternsOpen: true } )}}
+                className={clsx({
+                  [classes.hide] : !this.state.patternsOpen
+                })}
+                >
+                <MenuIcon />
+              </IconButton>
+              <IconButton
+                color="inherit"
+                aria-label="open pattern list"
+                edge="start"
+                component={Link}
+                to='/'
+                onClick={() => window.location.reload()}
+                >
+                <HomeIcon />
+              </IconButton>
+              <Typography variant="h6" color="inherit" noWrap style={{"flexGrow": 1, "textOverflow": "ellipsis"}}>
+                {this.state.songName}
+              </Typography>
+              <IconButton
+                color="inherit"
+                aria-label="open settings"
+                edge="end"
+                onClick={(e)=>{ this.setState( {settingsOpen: true } )}}
+                className={clsx(this.state.settingsOpen && classes.hide)}
+              >
+                <SettingsIcon />
+              </IconButton>
+            </Toolbar>
+          </AppBar>
           {patternContent}
           <Grid container>
           <Grid item xs={(12 - instrumentConfigColumns) / 2} />
