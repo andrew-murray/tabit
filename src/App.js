@@ -782,7 +782,6 @@ class App extends React.Component
                 edge="start"
                 component={Link}
                 to='/'
-                onClick={() => window.location.reload()}
                 >
                 <HomeIcon />
               </IconButton>
