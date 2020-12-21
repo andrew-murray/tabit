@@ -8,10 +8,6 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import Select from '@material-ui/core/Select';
 import notation from "./notation";
-import HelpIcon from '@material-ui/icons/HelpOutlined';
-import Tooltip from '@material-ui/core/Tooltip';
-import Icon from '@material-ui/core/Icon';
-import Grid from '@material-ui/core/Grid';
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
