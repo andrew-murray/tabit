@@ -2,6 +2,9 @@
 import Audio from "./Audio"
 import * as Tone from "tone";
 
+// we schedule for a delay of 120ms to allow the audio context to catch up
+const AUDIO_DELAY = 0.12;
+
 // these are the hydrogen drumkits available by GPL/CC
 
 const DRUMKITS = [
@@ -75,7 +78,7 @@ const createSequenceCallback = (pattern, sampleSource) =>
           const sampleData = sampleSource.samples[id];
           if( sampleData !== undefined )
           {
-            sampleData.player.start(time);
+            sampleData.player.start(time + AUDIO_DELAY);
           }
         }
     }
@@ -83,10 +86,13 @@ const createSequenceCallback = (pattern, sampleSource) =>
     {
       Tone.Draw.schedule(
         ()=>{
-          const notePosition = (index * pattern.resolution) % pattern.length;
-          sampleSource.onPatternTimeChange(notePosition);
+          if(Tone.Transport.state === "started") 
+          {
+            const notePosition = (index * pattern.resolution) % pattern.length;
+            sampleSource.onPatternTimeChange(notePosition);
+          }
         },
-        time
+        time + AUDIO_DELAY
       );
     }
   };
@@ -123,10 +129,10 @@ class ToneController
     // this thing has a lot of state, eh?
     // would love if this state was a bit more structured
     this.samples = {};
-    this.sequences = {};
     this.currentPattern = null;
     this.gain = new Tone.Gain();
     this.gain.toDestination();
+    this.gain.debug = true;
     this.onPatternTimeChange = onTimeChange;
     Tone.Transport.bpm.value = tempo;
     Tone.Transport.loop = true;
@@ -141,12 +147,13 @@ class ToneController
         resolution: Audio.determineMinResolution(instrumentIndex, p.instrumentTracks ),
         length : Audio.determineTrackLength(instrumentIndex, p.instrumentTracks ),
         name: p.name,
-        tracks: p.instrumentTracks
+        tracks: p.instrumentTracks,
+        pattern: p
       };
       this.populateSamples(instrumentIndex, p.instrumentTracks, failures);
     }
-    this.sequences = this.createSequences(instrumentIndex, patterns);
     this.currentPatternName = null;
+    this.instrumentIndex = instrumentIndex;
 
     if(failures.length > 0)
     {
@@ -195,9 +202,12 @@ class ToneController
             () => { this.sampleCount++; }
           );
           player.mute = selectedInstrument.muted;
+          player.name = selectedInstrument.name;
           const gain = new Tone.Gain(clampedVolume, "normalRange");
           player.connect(gain)
+          player.debug = true;
           gain.connect(this.gain);
+          gain.debug = true;
           this.samples[selectedInstrument.id] = { player : player, gain : gain }
           this.expectedSampleCount++;
         }
@@ -211,9 +221,12 @@ class ToneController
               () => { this.sampleCount++; }
             );
             player.mute = selectedInstrument.muted;
+            player.name = selectedInstrument.name;
             const gain = new Tone.Gain(clampedVolume, "normalRange");
             player.connect(gain)
+            player.debug = true;
             gain.connect(this.gain);
+            gain.debug = true;
             this.samples[selectedInstrument.id] = { player : player, gain : gain }
             this.expectedSampleCount++;
           }
@@ -230,26 +243,32 @@ class ToneController
     }
   }
 
-  createSequences(instrumentIndex, patterns)
+  createSequenceForPattern(instrumentIndex, pattern)
   {
-    let sequences = {};
-    for( let p of patterns )
-    {
-      const patternResolution = Audio.determineMinResolution(instrumentIndex, p.instrumentTracks);
-      const patternLength = Audio.determineTrackLength(instrumentIndex, p.instrumentTracks);
+      const patternResolution = this.patternDetails[pattern.name].resolution;
+      const patternLength = this.patternDetails[pattern.name].length;
       const callback = createSequenceCallback(
-        this.patternDetails[p.name],
+        this.patternDetails[pattern.name],
         this
       );
-      sequences[ p.name ] = new Tone.Sequence(
+      let seq = new Tone.Sequence(
         callback,
         [...Array(patternLength / patternResolution).keys()],
         Tone.Time("4n") * ( patternResolution / 48.0 )
       );
       // start the sequence, but the ticks won't be triggered when muted
       // note: setting mute on the sequence directly seems to have no effect
-      sequences[ p.name ]._part.mute = true;
-      sequences[ p.name ].start(0);
+      seq._part.mute = true;
+      seq.start(0);
+      return seq;
+  }
+
+  createSequences(instrumentIndex, patterns)
+  {
+    let sequences = {};
+    for( let p of patterns )
+    {
+      sequences[p.name] = this.createSequenceForPattern(instrumentIndex, p);
     }
     return sequences;
   }
@@ -272,14 +291,15 @@ class ToneController
       if(oldPatternName !== null)
       {
         // note: setting mute on the sequence directly seems to have no effect
-        this.sequences[oldPatternName]._part.mute = true;
+        this.sequence._part.mute = true;
       }
       if(oldPatternName === null || oldLength !== length )
       {
 
         Tone.Transport.setLoopPoints(0, Tone.Time("4n") * (length / 48.0));
       }
-      this.sequences[patternName]._part.mute = false;
+      this.sequence = this.createSequenceForPattern(this.instrumentIndex, this.patternDetails[patternName].pattern)
+      this.sequence._part.mute = false;
       this.currentPatternName = patternName;
     };
 
