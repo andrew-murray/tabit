@@ -282,7 +282,7 @@ class ToneController
     // we have a little fudge in here... if we're transitioning from a 4 beat loop
     // to an 8 beat pattern ... we probably really wanted to hit the start of that pattern,
     // not to transition at 3.75 beats and play the latter half
-    const timeFromBarEnd = Tone.Transport.loopEnd -  Tone.Transport.toSeconds(Tone.Transport.position);
+    const timeFromBarEnd = Tone.Transport.loopEnd - ( Tone.Transport.toSeconds(Tone.Transport.position) + AUDIO_DELAY );
     const queueTransition = oldPatternName !== null
     && Tone.Transport.state === "started"
     && ( timeFromBarEnd > 0 && timeFromBarEnd < Tone.Transport.toSeconds(Tone.Time("8n")));
