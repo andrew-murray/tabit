@@ -132,7 +132,6 @@ class ToneController
     this.currentPattern = null;
     this.gain = new Tone.Gain();
     this.gain.toDestination();
-    this.gain.debug = true;
     this.onPatternTimeChange = onTimeChange;
     Tone.Transport.bpm.value = tempo;
     Tone.Transport.loop = true;
@@ -172,6 +171,15 @@ class ToneController
     }
   }
 
+  teardown()
+  {
+    this.stop();
+    // cancel all future events
+    // note: it's unclear if this will appropriately dispose of all sequences & samples
+    // so this may be a performance problem in the long term
+    Tone.Transport.cancel();
+  }
+
   samplesReady()
   {
     return this.sampleCount === this.expectedSampleCount;
@@ -205,9 +213,7 @@ class ToneController
           player.name = selectedInstrument.name;
           const gain = new Tone.Gain(clampedVolume, "normalRange");
           player.connect(gain)
-          player.debug = true;
           gain.connect(this.gain);
-          gain.debug = true;
           this.samples[selectedInstrument.id] = { player : player, gain : gain }
           this.expectedSampleCount++;
         }
@@ -223,10 +229,8 @@ class ToneController
             player.mute = selectedInstrument.muted;
             player.name = selectedInstrument.name;
             const gain = new Tone.Gain(clampedVolume, "normalRange");
-            player.connect(gain)
-            player.debug = true;
+            player.connect(gain);
             gain.connect(this.gain);
-            gain.debug = true;
             this.samples[selectedInstrument.id] = { player : player, gain : gain }
             this.expectedSampleCount++;
           }
