@@ -231,6 +231,15 @@ class App extends React.Component
     }
   }
 
+  componentWillUnmount()
+  {
+    if( this.audio )
+    {
+      this.audio.teardown();
+      delete this.audio;
+    }
+  }
+
   getExportState()
   {
     return {
@@ -505,7 +514,11 @@ class App extends React.Component
 
   onPatternTimeChange(time)
   {
-    this.pattern.current.onPatternTimeChange(time);
+    // this only needs to be checked at teardown I believe
+    if(this.pattern.current)
+    {
+      this.pattern.current.onPatternTimeChange(time);
+    }
   }
 
   getTrackLength(pattern)
