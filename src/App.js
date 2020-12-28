@@ -780,7 +780,7 @@ class App extends React.Component
             >
               <IconButton
                 color="inherit"
-                aria-label="home"
+                aria-label="open pattern list"
                 edge="start"
                 onClick={(e)=>{ this.setState( {patternsOpen: true } )}}
                 className={clsx({
@@ -791,7 +791,7 @@ class App extends React.Component
               </IconButton>
               <IconButton
                 color="inherit"
-                aria-label="open pattern list"
+                aria-label="home"
                 edge="start"
                 component={Link}
                 to='/'
@@ -814,7 +814,7 @@ class App extends React.Component
           </AppBar>
           {patternContent}
           <Grid container>
-          <Grid item xs={(12 - instrumentConfigColumns) / 2} />
+          {instrumentConfigColumns < 12 ? <Grid item xs={(12 - instrumentConfigColumns) / 2} /> : null}
           <Grid item xs={instrumentConfigColumns}>
           <InstrumentConfig
               instruments={this.state.instruments}
@@ -824,7 +824,7 @@ class App extends React.Component
               onVolumeEvent={sendVolumeEvent}
             />
           </Grid>
-          <Grid item xs={(12 - instrumentConfigColumns) / 2} />
+          {instrumentConfigColumns < 12 ? <Grid item xs={(12 - instrumentConfigColumns) / 2} /> : null}
           </Grid>
           {this.renderPatternDrawer(iOS,mobile)}
           {this.renderSettingsDrawer(iOS,mobile, patternConfig)}
