@@ -8,7 +8,7 @@ function calculateResolution(positions, size)
     24, // 1/2 beat
     16, // 1/3 beat
     12, // 1/4
-    8, // 1/6 
+    8, // 1/6
     6, // 1/8
     4, // 1/12
     3, // 1/16

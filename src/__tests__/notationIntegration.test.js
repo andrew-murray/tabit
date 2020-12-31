@@ -47,9 +47,9 @@ function createObjects(state)
 // andy instrument mapping
 const configuredInstrumentMappings = [
   ["Bottom Bass", {"0" : "O", "18" : "X"}],
-  ["Mid Bass", {"1" : "X", "17" : "O"}], 
+  ["Mid Bass", {"1" : "X", "17" : "O"}],
   ["Shaker", {"16" : "x", "21" : "X"}],
-  ["Snare", {"2" : "X", "13" : "-"}], 
+  ["Snare", {"2" : "X", "13" : "-"}],
   ["Djembe", {"10" : "S", "11" : "t", "12" : "O"}]
 ];
 
@@ -92,7 +92,7 @@ const cumulusInstrumentMappings = [
   ["Bass", {"0" : "O", "1" : "X"}],
   ["Snare 1", { "2" : "X"}],
   ["Snare 2", { "4" : "X"}],
-  ["Tom", {"5" : "O", "3" : "X"}] 
+  ["Tom", {"5" : "O", "3" : "X"}]
 ];
 
 test('notation cumulus', () => {

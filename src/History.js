@@ -38,10 +38,10 @@ function History(props)
     <div style={{maxHeight: 200, overflow: 'auto'}} className={classes.root}>
       <div>Recently viewed</div>
       <List>
-            {[...items.keys()].map ( x => renderRow({ 
-              index : x, 
-              name: items[x].name, 
-              id: items[x].id, 
+            {[...items.keys()].map ( x => renderRow({
+              index : x,
+              name: items[x].name,
+              id: items[x].id,
               date: items[x].date,
               onClick: ()=>{if(props.onClick){props.onClick(items[x]);}}
             }))}

@@ -66,11 +66,11 @@ import Typography from '@material-ui/core/Typography';
 
 // mui theme config
 let theme = responsiveFontSizes( createMuiTheme( {
-  palette: { 
+  palette: {
     type: 'dark',
     primary: { main: '#36d9be' },
     secondary: { main: '#f50057' }
-   } 
+   }
 } ) );
 
 const ignoreEvent = (event) => {
@@ -83,7 +83,7 @@ const getJsonDestinationUrl = (slug) => {
 }
 
 const getJsonStorageUrl = (slug) => {
-  // jsonbase doesn't give cross-origin headers, 
+  // jsonbase doesn't give cross-origin headers,
   // so we use cors-anywhere to add them
 
   // this is obviously a hack, but it enables us to use jsonbase
@@ -167,7 +167,7 @@ class App extends React.Component
         id: stateHash,
         date: Date.now(),
         content: stateToShare
-      };    
+      };
       history.push(historyEntry);
     }
     // cap how many files we remember
@@ -375,10 +375,10 @@ class App extends React.Component
         // if mobile prioritise smooth playback
         const latencyHint = isMobile() ? "playback" : null;
         // always default tempo to 100bpm for now
-        this.audio = new ToneController( 
-          this.state.instrumentIndex, 
-          this.state.patterns, 
-          100.0, 
+        this.audio = new ToneController(
+          this.state.instrumentIndex,
+          this.state.patterns,
+          100.0,
           (time)=>{this.onPatternTimeChange(time);},
           latencyHint
         );
@@ -421,10 +421,10 @@ class App extends React.Component
             // if mobile prioritise smooth playback
             const latencyHint = isMobile() ? "playback" : null;
             // always default tempo to 100bpm for now
-            this.audio = new ToneController( 
-              this.state.instrumentIndex, 
-              this.state.patterns, 
-              100.0, 
+            this.audio = new ToneController(
+              this.state.instrumentIndex,
+              this.state.patterns,
+              100.0,
               (time)=>{this.onPatternTimeChange(time);},
               latencyHint
             );
@@ -447,7 +447,7 @@ class App extends React.Component
 
   loadExample()
   {
-    const createObjects = (state) => 
+    const createObjects = (state) =>
     {
       // the instruments currently work as simple objects
       // we need to create tracks!
@@ -489,10 +489,10 @@ class App extends React.Component
         // if mobile prioritise smooth playback
         const latencyHint = isMobile() ? "playback" : null;
         // always default tempo to 100bpm for now
-        this.audio = new ToneController( 
-          this.state.instrumentIndex, 
-          this.state.patterns, 
-          100.0, 
+        this.audio = new ToneController(
+          this.state.instrumentIndex,
+          this.state.patterns,
+          100.0,
           (time)=>{this.onPatternTimeChange(time);},
           latencyHint
         );
@@ -763,7 +763,7 @@ class App extends React.Component
         this.state.patternSettings[this.state.selectedPattern] // then apply per-pattern settings
       );
       const patternContent = this.renderPattern(patternToRender, patternConfig);
-       
+
 
       const changeInstrumentsCallback = (instruments) => {
         this.setState( {
@@ -795,11 +795,11 @@ class App extends React.Component
       return (
         <React.Fragment>
           {this.renderSharingDialog()}
-          <AppBar position="static" 
+          <AppBar position="static"
             style={{"backgroundColor": "#424242", "color": "white"}}
 
           >
-            <Toolbar variant="dense" 
+            <Toolbar variant="dense"
                 style={{"flexGrow": 1}}
             >
               <IconButton

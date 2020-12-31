@@ -84,7 +84,7 @@ function FormatSettings(props) {
 
   const resolutionToBeatString = (r) => ( r / props.settings.beatResolution ).toString();
   const beatStringToResolution = (b) => props.settings.beatResolution * parseInt(b);
-  
+
   const candidateLineLengths = [ 2, 3, 4, 5, 6, 7, 8, 14, 16, 32 ];
   let lineLengths = [];
   for( const c of candidateLineLengths )
@@ -136,7 +136,7 @@ function FormatSettings(props) {
   );
 }
 
-const DefaultSettings = notation.DEFAULT_FORMAT_CONFIG; 
+const DefaultSettings = notation.DEFAULT_FORMAT_CONFIG;
 
 
 export { FormatSettings, DefaultSettings }

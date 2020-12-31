@@ -32,9 +32,9 @@ function parseHydrogenJs(result)
       function(element){
         const instrumentComponent = element.instrumentComponent[0];
         let inst = {
-          "id" : parseInt(element.id), 
+          "id" : parseInt(element.id),
           "name" : element.name[0],
-           "volume" : parseFloat(element.volume), 
+           "volume" : parseFloat(element.volume),
            "muted" : element.isMuted[0] === "true",
            "gain" : parseFloat(element.gain),
            "drumkit" : element.drumkit[0]
@@ -58,7 +58,7 @@ function parseHydrogenJs(result)
         let notes = [];
         if( noteElements )
         {
-          // notes 
+          // notes
           // [ {position, instrument(id}]
           notes = Array.from(
             noteElements,
@@ -67,13 +67,13 @@ function parseHydrogenJs(result)
             }
           );
 
-          // hydrogen permits you to have notes that reach past the pattern size, 
-          // they then get revealed when you extend the pattern, 
+          // hydrogen permits you to have notes that reach past the pattern size,
+          // they then get revealed when you extend the pattern,
           // here's an easy point to get rid of them, we don't want them to factor into any calculations
           notes = notes.filter( n => n.position < patternSize );
         }
         return {
-          "size" : patternSize, 
+          "size" : patternSize,
           "name" : element.name[0],
           "notes" : notes
         };
@@ -84,12 +84,12 @@ function parseHydrogenJs(result)
     const patternsWithTracks = Array.from(
       patternArray,
       function(pattern)
-      { 
+      {
         const resolution = calculatePatternResolution(pattern, pattern.size);
         let instrumentTracks = {};
         for( const instrument of instrumentArray )
         {
-          const relevantNotes = pattern.notes.filter( 
+          const relevantNotes = pattern.notes.filter(
             note => (note.instrument === instrument.id)
           );
           const relevantHits = Array.from(
@@ -111,7 +111,7 @@ function parseHydrogenJs(result)
       // the tree of dependencies for each node, we implement this in a very simplistic way
       // let's build a mapping( name -> [ names ] ) and continue to resolve it
       // until we're done
-      const virtualPatternGroups = result.song.virtualPatternList[0].pattern;    
+      const virtualPatternGroups = result.song.virtualPatternList[0].pattern;
       if( virtualPatternGroups )
       {
         // each element looks like
@@ -184,7 +184,7 @@ function parseHydrogenJs(result)
                 const merged = rootPattern.instrumentTracks[ id ].aggregate( t );
                 // we match hydrogen's implementation here and discard values past the length of the original track
                 merged.rep.length = rootPattern.size  / merged.resolution;
-                rootPattern.instrumentTracks[ id ] = merged; 
+                rootPattern.instrumentTracks[ id ] = merged;
               }
               else
               {
@@ -201,7 +201,7 @@ function parseHydrogenJs(result)
           rootPattern.resolution = resolution;
           for( const [id, track] of Object.entries(rootPattern.instrumentTracks) )
           {
-            // ensure that 
+            // ensure that
             rootPattern[id] = track.format( resolution );
           }
         }

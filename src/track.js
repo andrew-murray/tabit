@@ -18,14 +18,14 @@ function findHCF(x, y) {
          y %= x;
       }
    }
-   
+
    // When the while loop finishes the minimum of x and y is the HCF.
    return Math.min(x, y);
 }
 
 class track
 {
-  
+
   constructor(patternArray, resolution)
   {
     if(patternArray.length === 0)
@@ -159,8 +159,8 @@ class track
   static fromPositions(positions, size, resolution = null)
   {
     const resolutionToUse = resolution ?? calculateResolution( positions, size );
-    return new track( 
-      track.representPoints(positions, resolutionToUse, size), 
+    return new track(
+      track.representPoints(positions, resolutionToUse, size),
       resolutionToUse
     );
   }

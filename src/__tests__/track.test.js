@@ -8,7 +8,7 @@ test('unit test fromPositions', () => {
   ];
   const size = 48 * 6;
   const exampleTrack = track.fromPositions( positions, size );
-  
+
   expect(exampleTrack.resolution).toBe(48);
   expect(exampleTrack.length()).toBe(size);
   expect(exampleTrack.rep).toStrictEqual([0,1,1,0,0,1]);

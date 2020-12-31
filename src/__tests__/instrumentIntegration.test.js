@@ -28,7 +28,7 @@ test('instrumentation garlic - djembes', () => {
   const correctDjembes = [
     [
       "Djembe", {
-        "10" : DEFAULT_INSTRUMENT_SYMBOLS["Djembe Slap"], 
+        "10" : DEFAULT_INSTRUMENT_SYMBOLS["Djembe Slap"],
         "11" : DEFAULT_INSTRUMENT_SYMBOLS["Djembe Tone"],
         "12" : DEFAULT_INSTRUMENT_SYMBOLS["Djembe Bass"]
       }
@@ -43,7 +43,7 @@ test('instrumentation garlic - shakers', () => {
   const correctShakers = [
     [
       "Shaker", {
-        "16" : DEFAULT_INSTRUMENT_SYMBOLS["Shaker Ghost"], 
+        "16" : DEFAULT_INSTRUMENT_SYMBOLS["Shaker Ghost"],
         "21" : DEFAULT_INSTRUMENT_SYMBOLS["Shaker Accent"]
       }
     ]
@@ -55,9 +55,9 @@ test('instrumentation garlic - snares', () => {
   const state = JSON.parse(fs.readFileSync("./test_data/too_much_garlic.json"));
   const snares = figureSnares( state.instruments, DEFAULT_INSTRUMENT_SYMBOLS );
   const correctSnares = [
-    [ 
+    [
       "Snare", {
-        "13" : DEFAULT_INSTRUMENT_SYMBOLS["Snare Ghost"], 
+        "13" : DEFAULT_INSTRUMENT_SYMBOLS["Snare Ghost"],
         "2" : DEFAULT_INSTRUMENT_SYMBOLS["Snare Accent"]
       }
     ]
@@ -71,7 +71,7 @@ test('instrumentation - that_guy - djembes', () => {
   const correctDjembes = [
     [
       "Djembe", {
-        "10" : DEFAULT_INSTRUMENT_SYMBOLS["Djembe Slap"], 
+        "10" : DEFAULT_INSTRUMENT_SYMBOLS["Djembe Slap"],
         "11" : DEFAULT_INSTRUMENT_SYMBOLS["Djembe Tone"],
         "12" : DEFAULT_INSTRUMENT_SYMBOLS["Djembe Bass"]
       }
@@ -84,7 +84,7 @@ test('instrumentation - that_guy - shakers', () => {
   const state = JSON.parse(fs.readFileSync("./test_data/that_guy.json"));
   const shakers = figureShakers( state.instruments, DEFAULT_INSTRUMENT_SYMBOLS );
   const correctShakers = [
-    [ 
+    [
       "Shaker", {
         "5" : DEFAULT_INSTRUMENT_SYMBOLS["Shaker Accent"]
       }
@@ -97,9 +97,9 @@ test('instrumentation - that_guy - snares', () => {
   const state = JSON.parse(fs.readFileSync("./test_data/that_guy.json"));
   const snares = figureSnares( state.instruments, DEFAULT_INSTRUMENT_SYMBOLS );
   const correctSnares = [
-    [ 
+    [
       "Snare", {
-        "9" : DEFAULT_INSTRUMENT_SYMBOLS["Snare Ghost"], 
+        "9" : DEFAULT_INSTRUMENT_SYMBOLS["Snare Ghost"],
         "7" : DEFAULT_INSTRUMENT_SYMBOLS["Snare Accent"]
       }
     ]
@@ -114,9 +114,9 @@ test('instrumentation - cumulus - snares', () => {
   // I'm not entirely convinced this is truly correct, I think it's more
   // likely these are intended as HT/kit snare parts - thus this becomes a regression test
   const correctSnares = [
-    [ 
+    [
       "Snare", {
-        "2" : DEFAULT_INSTRUMENT_SYMBOLS["Snare Ghost"], 
+        "2" : DEFAULT_INSTRUMENT_SYMBOLS["Snare Ghost"],
         "4" : DEFAULT_INSTRUMENT_SYMBOLS["Snare Accent"]
       }
     ]
@@ -130,9 +130,9 @@ test('instrumentation garlic - basses', () => {
   const state = createObjects(JSON.parse(fs.readFileSync("./test_data/too_much_garlic.json")));
   const basses = figureClickyInstruments( state.instruments, DEFAULT_INSTRUMENT_SYMBOLS, state.patterns );
   const correctBasses = [
-    [ 
+    [
       "Bass", {
-        "0" : DEFAULT_INSTRUMENT_SYMBOLS["Bass"], 
+        "0" : DEFAULT_INSTRUMENT_SYMBOLS["Bass"],
         "18" : DEFAULT_INSTRUMENT_SYMBOLS["Click"]
       }
     ],
@@ -149,13 +149,13 @@ test('instrumentation kuva - basses', () => {
   const state = createObjects(JSON.parse(fs.readFileSync("./test_data/kivakovakivikuva.json")));
   const basses = figureClickyInstruments( state.instruments, DEFAULT_INSTRUMENT_SYMBOLS, state.patterns );
   const correctBasses = [
-    [ 
+    [
       "Bass" , {
-        "0" : DEFAULT_INSTRUMENT_SYMBOLS["Bass"], 
+        "0" : DEFAULT_INSTRUMENT_SYMBOLS["Bass"],
         "18" : DEFAULT_INSTRUMENT_SYMBOLS["Click"]
       }
     ],
-    [ 
+    [
       "Bass 2" , {
         "17" : DEFAULT_INSTRUMENT_SYMBOLS["Bass"],
         "1" : DEFAULT_INSTRUMENT_SYMBOLS["Click"]
@@ -169,13 +169,13 @@ test('instrumentation cumulus - basses', () => {
   const state = createObjects(JSON.parse(fs.readFileSync("./test_data/cumulus.json")));
   const basses = figureClickyInstruments( state.instruments, DEFAULT_INSTRUMENT_SYMBOLS, state.patterns );
   const correctBasses = [
-    [ 
+    [
       "Bass", {
-        "0" : DEFAULT_INSTRUMENT_SYMBOLS["Bass"], 
+        "0" : DEFAULT_INSTRUMENT_SYMBOLS["Bass"],
         "1" : DEFAULT_INSTRUMENT_SYMBOLS["Click"]
       }
     ],
-    [ 
+    [
       "Tom", {
         "5" : DEFAULT_INSTRUMENT_SYMBOLS["Tom"]
       }
@@ -188,15 +188,15 @@ test('instrumentation that_guy - basses', () => {
   const state = createObjects(JSON.parse(fs.readFileSync("./test_data/that_guy.json")));
   const basses = figureClickyInstruments( state.instruments, DEFAULT_INSTRUMENT_SYMBOLS, state.patterns );
   const correctBasses = [
-    [ 
+    [
       "Bass" , {
-        "0" : DEFAULT_INSTRUMENT_SYMBOLS["Bass"], 
+        "0" : DEFAULT_INSTRUMENT_SYMBOLS["Bass"],
         "1" : DEFAULT_INSTRUMENT_SYMBOLS["Click"]
       }
     ],
     [
       "Bass 2" , {
-        "6" : DEFAULT_INSTRUMENT_SYMBOLS["Bass"], 
+        "6" : DEFAULT_INSTRUMENT_SYMBOLS["Bass"],
         "8" : DEFAULT_INSTRUMENT_SYMBOLS["Click"]
       }
     ]
@@ -250,7 +250,7 @@ test("instrumentation kuva", () => {
 // and some are tom, and grouping sticks/drums gets abandoned
 // and just inserted as separate tracks
 // but this is an acceptable failure mode
-const coconotInstruments = [ 
+const coconotInstruments = [
   [ 'Bass', { '0': 'O', '18': 'X' } ],
   [ 'Djembe', { '10': 'S', '11': 't', '12': 'O' } ],
   [ 'Snare', { '2': 'X', '13': 'x' } ],

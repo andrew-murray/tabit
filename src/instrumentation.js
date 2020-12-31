@@ -87,7 +87,7 @@ function manageAccentOrGhost(instrumentTracks, instrumentName, accentSymbol, gho
     let mapping = {};
     mapping[ t0.id.toString() ] = zeroLouder ? accentSymbol : ghostSymbol;
     mapping[ t1.id.toString() ] = zeroLouder ? ghostSymbol : accentSymbol;
-    outputInstruments.push([instrumentName, mapping] );  
+    outputInstruments.push([instrumentName, mapping] );
   }
   else // if 1 it must be an accent, if >= 3 ... I don't want to try and assign ghosts/accents
   {
@@ -96,7 +96,7 @@ function manageAccentOrGhost(instrumentTracks, instrumentName, accentSymbol, gho
     {
       let mapping = {};
       mapping[ track.id.toString() ] = accentSymbol;
-      outputInstruments.push([instrumentName, mapping] );  
+      outputInstruments.push([instrumentName, mapping] );
     }
   }
   return outputInstruments;
@@ -108,9 +108,9 @@ function figureShakers(instrumentsRaw, symbolConfig)
   const instruments = normalizeInstrumentsForFiguring(instrumentsRaw);
   // todo: support common alternative shakers? Tambourine?
   const shakerTracks = instruments.filter( (inst) => ( inst.name.includes("shaker") ) );
-  return manageAccentOrGhost( 
-    shakerTracks, 
-    "Shaker", 
+  return manageAccentOrGhost(
+    shakerTracks,
+    "Shaker",
     symbolConfig["Shaker Accent"],
     symbolConfig["Shaker Ghost"]
   );
@@ -123,9 +123,9 @@ function figureSnares(instrumentsRaw, symbolConfig)
   // todo: we currently assume 2 snares is accent/ghost ... but I think it's relatively
   // common to be 2 snare parts too, I think the algorithm here is check patterns to
   // see if they overlap ... if the "ghosts" overlap the "hits" sometimes, assume 2 parts
-  return manageAccentOrGhost( 
-    snareTracks, 
-    "Snare", 
+  return manageAccentOrGhost(
+    snareTracks,
+    "Snare",
     symbolConfig["Snare Accent"],
     symbolConfig["Snare Ghost"]
   );
@@ -168,9 +168,9 @@ function figureClickyInstruments(instrumentsRaw, symbolConfig, patterns)
   const worthwhileInstruments = activeInstruments(patterns);
   const relevantTracks = instruments.filter( (inst) => ( worthwhileInstruments.has(inst.id) &&
     !inst.name.includes("djembe") &&
-    ( inst.name.includes("click") || 
-    inst.name.includes("stick") || 
-    inst.name.includes("tom") || 
+    ( inst.name.includes("click") ||
+    inst.name.includes("stick") ||
+    inst.name.includes("tom") ||
     inst.name.includes("bass") ||
     inst.name.includes("kick") )
   ) );
@@ -207,7 +207,7 @@ function figureClickyInstruments(instrumentsRaw, symbolConfig, patterns)
       let mapping = {};
       mapping[hitTrack.id.toString()] = symbolConfig[rawInstrumentName];
       mapping[clickTrack.id.toString()] = symbolConfig["Click"];
-      collated.push([instrumentName, mapping] );  
+      collated.push([instrumentName, mapping] );
     }
   }
 
@@ -230,7 +230,7 @@ function figureClickyInstruments(instrumentsRaw, symbolConfig, patterns)
     }
     let mapping = {};
     mapping[lastTrack.id.toString()] = symbolConfig[rawInstrumentName];
-    collated.push([instrumentName, mapping] );  
+    collated.push([instrumentName, mapping] );
   }
   return collated;
 }
@@ -255,7 +255,7 @@ function defaultSymbolForSingleInstrument(symbolConfig, name)
   if( lowerName.includes("click") || lowerName.includes("stick") )
   {
     return symbolConfig["Click"];
-  }  
+  }
   else if( lowerName.includes("bass") || lowerName.includes("kick") )
   {
     return symbolConfig["Bass"]
@@ -313,7 +313,7 @@ function figureInstruments(instrumentsRaw, symbolConfig, patterns)
     let instrumentUsed = false;
     for( const op of output)
     {
-      if( inst.id.toString() in op[1] ) 
+      if( inst.id.toString() in op[1] )
       {
         instrumentUsed = true;
       }
@@ -325,8 +325,8 @@ function figureInstruments(instrumentsRaw, symbolConfig, patterns)
       output.push( [inst.name, mapping] );
     }
   }
-  
-  return output; 
+
+  return output;
 }
 
 export { activeInstrumentation, DEFAULT_INSTRUMENT_SYMBOLS, figureClickyInstruments, figureDjembes, figureShakers, figureSnares, figureInstruments };

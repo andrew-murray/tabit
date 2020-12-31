@@ -146,7 +146,7 @@ class notation
     {
       // let's just apply a simple mapping, rather than think through logics
       const mapping = [
-        trackLength, // 13 
+        trackLength, // 13
         trackLength / 2, // 14
         trackLength / 3, // 15
         trackLength / 2, // 16
@@ -241,8 +241,8 @@ class notation
     // add numbers on the first line
     if( config.showBeatNumbers )
     {
-      formattedLineArray.push( notation.formatLineWithMarkers( 
-        config, 
+      formattedLineArray.push( notation.formatLineWithMarkers(
+        config,
         notation.createNumberMarker(config.numberRestMark, config.beatResolution, patternResolution, Math.min(config.lineResolution, patternSize)).join(""),
         patternResolution,
         asHTML

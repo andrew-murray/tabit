@@ -10,7 +10,7 @@ def convert_all_flacs(root):
             if not os.path.exists(dest_wav):
                 data, sample_rate = sf.read(f)
                 sf.write(dest_wav, data, sample_rate)
-            
-            
+
+
 if __name__ == "__main__":
     convert_all_flacs(sys.argv[1])

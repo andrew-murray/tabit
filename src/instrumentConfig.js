@@ -84,7 +84,7 @@ function VolumeWidget(props)
   const SliderStyles = Object.assign(active? {} : {"visibility": "hidden", paddingLeft: "0px"}, FixedHeightStylings);
   const IconStyles = active ?  {"visibility":"hidden"} : {};
 
-  // currently: updating based on the normal volume event isn't nearly performant enough 
+  // currently: updating based on the normal volume event isn't nearly performant enough
   // (because the app's state update is really sluggish)
   // potential fixes - seperate the audio and the visual state and/or create smaller state objects
   const setVolume = (event, value) =>
@@ -98,9 +98,9 @@ function VolumeWidget(props)
 
   // for mobile
   // we click'n'hold which opens the volume slider, but don't propagate focus
-  
+
   // for desktop/tablet
-  // we click'n'hold and propagate focus to the slider, so that our drag 
+  // we click'n'hold and propagate focus to the slider, so that our drag
   // will pull the slider up and down
   const mobile = isMobile();
 
@@ -384,7 +384,7 @@ function InstrumentTable(props)
 
   const createCell = (x,y) =>
   {
-      return ( 
+      return (
         <TableCell
           align="center"
           key={"instrumentPanel-cell-" + y.toString() + "-" + x.toString()}
@@ -400,7 +400,7 @@ function InstrumentTable(props)
   {
     return (
       <TableRow key={"instrumentPanel-row-" + y.toString()}>
-        <TableCell component="th" scope="row" key={"instrumentPanel-row-" + y.toString() + "-name"}> 
+        <TableCell component="th" scope="row" key={"instrumentPanel-row-" + y.toString() + "-name"}>
           <Typography>{props.instruments[y][0]}</Typography>
           <InlinableIconButton onClick={(e)=>{editRow(y);}}><EditIcon fontSize="small"/></InlinableIconButton>
           <InlinableIconButton onClick={(e)=>{removeRow(y);}}><ClearIcon fontSize="small"/></InlinableIconButton>

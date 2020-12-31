@@ -22,7 +22,7 @@ class PartWithTitle extends React.Component
     return (
       <article>
         <Title>{this.props.instrumentName}</Title>
-        <Part 
+        <Part
           instrument={this.props.instrument}
           tracks={this.props.tracks}
           config={this.props.config}

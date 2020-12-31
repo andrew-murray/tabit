@@ -86,7 +86,7 @@ const createSequenceCallback = (pattern, sampleSource) =>
     {
       Tone.Draw.schedule(
         ()=>{
-          if(Tone.getTransport().state === "started") 
+          if(Tone.getTransport().state === "started")
           {
             const notePosition = (index * pattern.resolution) % pattern.length;
             sampleSource.onPatternTimeChange(notePosition);
@@ -125,9 +125,9 @@ const createSortedUnique = (failures) =>
 class ToneController
 {
   constructor(
-    instrumentIndex, 
-    patterns, 
-    tempo, 
+    instrumentIndex,
+    patterns,
+    tempo,
     onTimeChange,
     latencyHint
   )
@@ -213,13 +213,13 @@ class ToneController
           continue;
         }
         if(
-          "drumkit" in selectedInstrument && 
+          "drumkit" in selectedInstrument &&
           "filename" in selectedInstrument &&
           DRUMKITS.includes(selectedInstrument.drumkit) )
         {
           const filename = selectedInstrument.filename.replace(".flac", ".wav");
           let player = new Tone.Player(
-            process.env.PUBLIC_URL + "/wav/" + selectedInstrument.drumkit + "/" + filename, 
+            process.env.PUBLIC_URL + "/wav/" + selectedInstrument.drumkit + "/" + filename,
             () => { this.sampleCount++; }
           );
           player.mute = selectedInstrument.muted;
@@ -236,7 +236,7 @@ class ToneController
           if(relativeUrl !== null)
           {
             let player = new Tone.Player(
-              process.env.PUBLIC_URL + "/wav/" + relativeUrl, 
+              process.env.PUBLIC_URL + "/wav/" + relativeUrl,
               () => { this.sampleCount++; }
             );
             player.mute = selectedInstrument.muted;
@@ -343,7 +343,7 @@ class ToneController
   {
     // it's slightly unclear what the synchronisation semantics of this Tone.getTransport().stop() call are.
     // If a tick is currently in flight on Tone.getTransport() we have to ensure that
-    // the reset of patternTime occurs *afterwards*. 
+    // the reset of patternTime occurs *afterwards*.
     // The below calls seem to work for this, but I couldn't tell you why.
     if( Tone.getTransport().state === "started")
     {

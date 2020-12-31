@@ -4,7 +4,7 @@ class AudioRequest {
     // This has as its argument a function
     // with two parameters, resolve and reject
     return new Promise(function(resolve, reject) {
-      // Standard XHR 
+      // Standard XHR
       var request = new XMLHttpRequest();
       request.open('GET', url);
       request.responseType = "arraybuffer";
@@ -34,7 +34,7 @@ class AudioRequest {
       // Asynchronously decode the audio file data in request.response
       context.decodeAudioData(
         response,
-        (buffer) => { 
+        (buffer) => {
           if(buffer){ resolve(buffer); }
           else{ reject( "buffer null" ); }
         },

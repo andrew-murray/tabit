@@ -2,7 +2,7 @@ class Audio
 {
 
   // todo: we replace a valid audioContext with a blank object, so that we can run tests in node
-  //       this should probably be replaced by https://github.com/audiojs/web-audio-api 
+  //       this should probably be replaced by https://github.com/audiojs/web-audio-api
   //       and a test-suite written
   static createWebContext()
   {
@@ -14,13 +14,13 @@ class Audio
     tracks
   )
   {
-      let minResolution = 48; 
+      let minResolution = 48;
       for(const [id,t] of Object.entries(tracks))
-      { 
+      {
         // the lookup and iteration shouldn't look like this
         const selected =  instrumentIndex.filter(inst => inst.id.toString() === id);
-        if( 
-          selected.length > 0 
+        if(
+          selected.length > 0
           && !t.empty()
         )
         {
@@ -37,12 +37,12 @@ class Audio
   {
       let trackLength = 48;
       for(const [id,t] of Object.entries(tracks))
-      { 
+      {
         // the lookup and iteration shouldn't look like this
         const selected =  instrumentIndex.filter(inst => inst.id.toString() === id);
-        if( 
-          selected.length > 0 
-          && !t.empty() 
+        if(
+          selected.length > 0
+          && !t.empty()
         )
         {
           trackLength = Math.max( trackLength, t.length() );
@@ -113,11 +113,11 @@ class Audio
     for (let channel = 0; channel < combined.numberOfChannels; channel++) {
       let combinedChannel = combined.getChannelData(channel);
       for(const [id,t] of Object.entries(tracks))
-      { 
+      {
         // the lookup and iteration shouldn't look like this
         const selected =  instrumentIndex.filter(inst => inst.id.toString() === id);
-        if( 
-          selected.length > 0 
+        if(
+          selected.length > 0
           && selected[0].id in sounds
           && !t.empty()
         )

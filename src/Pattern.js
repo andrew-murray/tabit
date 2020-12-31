@@ -43,8 +43,8 @@ class Pattern extends React.Component
     return (
       <div className={classes.root} >
         <div style={{"margin": "auto"}}>
-        { instrumentIndices.map( 
-            (instrumentIndex) => ( <PartWithTitle 
+        { instrumentIndices.map(
+            (instrumentIndex) => ( <PartWithTitle
               key={"part-" + instrumentIndex.toString()}
               instrumentName={this.props.instruments[instrumentIndex][0]}
               instrument={this.props.instruments[instrumentIndex][1]}
