@@ -49,7 +49,7 @@ import track from "./track";
 
 import { saveAs } from 'file-saver';
 
-import ToneBoard from "./ToneBoard";
+import ToneController from "./ToneController";
 import PlaybackControls from "./PlaybackControls";
 import { withRouter } from "react-router-dom";
 
@@ -375,7 +375,7 @@ class App extends React.Component
         // if mobile prioritise smooth playback
         const latencyHint = isMobile() ? "playback" : null;
         // always default tempo to 100bpm for now
-        this.audio = new ToneBoard( 
+        this.audio = new ToneController( 
           this.state.instrumentIndex, 
           this.state.patterns, 
           100.0, 
@@ -421,7 +421,7 @@ class App extends React.Component
             // if mobile prioritise smooth playback
             const latencyHint = isMobile() ? "playback" : null;
             // always default tempo to 100bpm for now
-            this.audio = new ToneBoard( 
+            this.audio = new ToneController( 
               this.state.instrumentIndex, 
               this.state.patterns, 
               100.0, 
@@ -489,7 +489,7 @@ class App extends React.Component
         // if mobile prioritise smooth playback
         const latencyHint = isMobile() ? "playback" : null;
         // always default tempo to 100bpm for now
-        this.audio = new ToneBoard( 
+        this.audio = new ToneController( 
           this.state.instrumentIndex, 
           this.state.patterns, 
           100.0, 
