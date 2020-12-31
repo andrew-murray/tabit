@@ -86,7 +86,7 @@ const createSequenceCallback = (pattern, sampleSource) =>
     {
       Tone.Draw.schedule(
         ()=>{
-          if(Tone.Transport.state === "started") 
+          if(Tone.getTransport().state === "started") 
           {
             const notePosition = (index * pattern.resolution) % pattern.length;
             sampleSource.onPatternTimeChange(notePosition);
@@ -124,8 +124,21 @@ const createSortedUnique = (failures) =>
 
 class ToneController
 {
-  constructor(instrumentIndex, patterns, tempo, onTimeChange)
+  constructor(
+    instrumentIndex, 
+    patterns, 
+    tempo, 
+    onTimeChange,
+    latencyHint
+  )
   {
+
+    if(latencyHint && Tone.context.latencyHint !== latencyHint)
+    {
+      let context = new Tone.Context({latencyHint: latencyHint});
+      Tone.setContext(context);
+    }
+
     // this thing has a lot of state, eh?
     // would love if this state was a bit more structured
     this.samples = {};
@@ -133,8 +146,8 @@ class ToneController
     this.gain = new Tone.Gain();
     this.gain.toDestination();
     this.onPatternTimeChange = onTimeChange;
-    Tone.Transport.bpm.value = tempo;
-    Tone.Transport.loop = true;
+    Tone.getTransport().bpm.value = tempo;
+    Tone.getTransport().loop = true;
 
     this.sampleCount = 0;
     this.expectedSampleCount = 0;
@@ -177,7 +190,7 @@ class ToneController
     // cancel all future events
     // note: it's unclear if this will appropriately dispose of all sequences & samples
     // so this may be a performance problem in the long term
-    Tone.Transport.cancel();
+    Tone.getTransport().cancel();
   }
 
   samplesReady()
@@ -286,10 +299,10 @@ class ToneController
     // we have a little fudge in here... if we're transitioning from a 4 beat loop
     // to an 8 beat pattern ... we probably really wanted to hit the start of that pattern,
     // not to transition at 3.75 beats and play the latter half
-    const timeFromBarEnd = Tone.Transport.loopEnd - ( Tone.Transport.toSeconds(Tone.Transport.position) + AUDIO_DELAY );
+    const timeFromBarEnd = Tone.getTransport().loopEnd - ( Tone.getTransport().toSeconds(Tone.getTransport().position) + AUDIO_DELAY );
     const queueTransition = oldPatternName !== null
-    && Tone.Transport.state === "started"
-    && ( timeFromBarEnd > 0 && timeFromBarEnd < Tone.Transport.toSeconds(Tone.Time("8n")));
+    && Tone.getTransport().state === "started"
+    && ( timeFromBarEnd > 0 && timeFromBarEnd < Tone.getTransport().toSeconds(Tone.Time("8n")));
 
     const enableNewTrack = (time) => {
       if(oldPatternName !== null)
@@ -300,7 +313,7 @@ class ToneController
       if(oldPatternName === null || oldLength !== length )
       {
 
-        Tone.Transport.setLoopPoints(0, Tone.Time("4n") * (length / 48.0));
+        Tone.getTransport().setLoopPoints(0, Tone.Time("4n") * (length / 48.0));
       }
       this.sequence = this.createSequenceForPattern(this.instrumentIndex, this.patternDetails[patternName].pattern)
       this.sequence._part.mute = false;
@@ -308,7 +321,7 @@ class ToneController
     };
 
     if( queueTransition ) {
-      Tone.Transport.scheduleOnce(
+      Tone.getTransport().scheduleOnce(
         enableNewTrack,
         Tone.Time("0")
       );
@@ -323,25 +336,25 @@ class ToneController
   {
     // Tone.start is needed to be triggered from a user interaction
     // (web-audio-context policy of not playing until a user interaction)
-    Tone.start().then(()=>{Tone.Transport.start();});
+    Tone.start().then(()=>{Tone.getTransport().start();});
   }
 
   stop()
   {
-    // it's slightly unclear what the synchronisation semantics of this Tone.Transport.stop() call are.
-    // If a tick is currently in flight on Tone.Transport we have to ensure that
+    // it's slightly unclear what the synchronisation semantics of this Tone.getTransport().stop() call are.
+    // If a tick is currently in flight on Tone.getTransport() we have to ensure that
     // the reset of patternTime occurs *afterwards*. 
     // The below calls seem to work for this, but I couldn't tell you why.
-    if( Tone.Transport.state === "started")
+    if( Tone.getTransport().state === "started")
     {
-      Tone.Transport.stop();
+      Tone.getTransport().stop();
       if( this.onPatternTimeChange )
       {
         Tone.Draw.schedule(
           ()=>{
             this.onPatternTimeChange( null );
           },
-          Tone.Transport.now()
+          Tone.getTransport().now()
         );
       }
     }
@@ -359,7 +372,7 @@ class ToneController
 
   setTempo(tempo)
   {
-    Tone.Transport.bpm.value = tempo;
+    Tone.getTransport().bpm.value = tempo;
   }
 };
 
