@@ -372,8 +372,16 @@ class App extends React.Component
         songName: title ?? ( prevState.songName ?? ( prevState.loadedFile ? this.songNameFromFile(prevState.loadedFile) : "untitled" ) )
       },
       () => {
+        // if mobile prioritise smooth playback
+        const latencyHint = isMobile() ? "playback" : null;
         // always default tempo to 100bpm for now
-        this.audio = new ToneBoard( this.state.instrumentIndex, this.state.patterns, 100.0, (time)=>{this.onPatternTimeChange(time);});
+        this.audio = new ToneBoard( 
+          this.state.instrumentIndex, 
+          this.state.patterns, 
+          100.0, 
+          (time)=>{this.onPatternTimeChange(time);},
+          latencyHint
+        );
         this.audio.setActivePattern( this.state.patterns[this.state.selectedPattern].name );
         this.recordSongVisited();
       }
@@ -410,8 +418,16 @@ class App extends React.Component
             songName: this.songNameFromFile(e.file.name)
           },
           ()=>{
+            // if mobile prioritise smooth playback
+            const latencyHint = isMobile() ? "playback" : null;
             // always default tempo to 100bpm for now
-            this.audio = new ToneBoard( this.state.instrumentIndex, this.state.patterns, 100.0, (time)=>{this.onPatternTimeChange(time);});
+            this.audio = new ToneBoard( 
+              this.state.instrumentIndex, 
+              this.state.patterns, 
+              100.0, 
+              (time)=>{this.onPatternTimeChange(time);},
+              latencyHint
+            );
             this.audio.setActivePattern( this.state.patterns[this.state.selectedPattern].name );
             this.recordSongVisited();
           }
@@ -470,8 +486,16 @@ class App extends React.Component
         songName : "kuva"
       },
       () => {
+        // if mobile prioritise smooth playback
+        const latencyHint = isMobile() ? "playback" : null;
         // always default tempo to 100bpm for now
-        this.audio = new ToneBoard( this.state.instrumentIndex, this.state.patterns, 100.0, (time)=>{this.onPatternTimeChange(time);});
+        this.audio = new ToneBoard( 
+          this.state.instrumentIndex, 
+          this.state.patterns, 
+          100.0, 
+          (time)=>{this.onPatternTimeChange(time);},
+          latencyHint
+        );
         this.audio.setActivePattern( this.state.patterns[this.state.selectedPattern].name );
         // no need to record the example, it's embedded into the website anyway
         // this.recordSongVisited();
