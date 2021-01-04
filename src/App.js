@@ -1,5 +1,4 @@
 import React from 'react';
-import clsx from 'clsx';
 import FileImport from "./FileImport";
 import Pattern from "./Pattern";
 import h2 from './h2';
@@ -20,11 +19,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 
 import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
-import MenuIcon from '@material-ui/icons/Menu';
-import HomeIcon from '@material-ui/icons/Home';
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import SettingsIcon from "@material-ui/icons/Settings";
 import Divider from "@material-ui/core/Divider";
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -32,7 +26,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import { withStyles } from '@material-ui/core/styles';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
-import { Link } from 'react-router-dom';
+import Toolbar from '@material-ui/core/Toolbar';
 
 // notationSettings
 
@@ -60,9 +54,7 @@ import copy from "copy-to-clipboard";
 import { isMobile } from "./Mobile";
 
 import History from "./History";
-import Toolbar from '@material-ui/core/Toolbar';
-import AppBar from '@material-ui/core/AppBar';
-import Typography from '@material-ui/core/Typography';
+import TabitBar from "./TabitBar";
 
 // mui theme config
 let theme = responsiveFontSizes( createMuiTheme( {
@@ -607,31 +599,30 @@ class App extends React.Component
 
   renderPatternDrawer(iOS, mobile)
   {
-    const classes = this.props;
-    const handlePatternsClose = (e) => {
+    const handlePatternsToggle = (e) => {
       if( ignoreEvent(e) ){ return; }
-      this.setState( { patternsOpen : false } );
+      this.setState( { patternsOpen : !this.state.patternsOpen } );
     };
-    const handlePatternsOpen = (e) => {
-      if( ignoreEvent(e) ){ return; }
-      this.setState( { patternsOpen : true } );
-    };
+
+    // SwipableDawer has undesirable behaviour,
+    // (a) persistent isn't handled properly
+    // (b) onOpen of swipable drawer, is only called on swipe events
+    // I can't find convenient callbacks to hook into that are called "when the component exists"
+    // (components are deleted when the swipable drawer is closed)
+    // I think my approach would have to involve modifying the content in the swipeable drawer in
+    // a somewhat complex way sadly - not yet
 
     return (
       <SwipeableDrawer disableBackdropTransition={!iOS} disableDiscovery={iOS}
-      className={classes.drawer}
-      variant={ mobile ? undefined : "persistent" }
+      variant={mobile ? undefined : "persistent"}
       open={this.state.patternsOpen}
-      onOpen={handlePatternsOpen}
-      onClose={handlePatternsClose}
+      onOpen={handlePatternsToggle}
+      onClose={handlePatternsToggle}
       >
-        <div className={classes.drawerHeader}>
-          <IconButton onClick={handlePatternsClose}>
-              <ChevronLeftIcon />
-          </IconButton>
-        </div>
-        <Divider />
-        <div className={classes.drawerContainer}>
+        {!mobile ? <TabitBar placeholder /> : null }
+        <div
+          style={{overflow: "auto"}}
+        >
           <List>
             {(this.state.patterns ?? []).map( (pattern, index) => (
               <ListItem button key={"drawer-pattern" + index.toString()} onClick={() => this.selectPattern(index)}>
@@ -666,14 +657,9 @@ class App extends React.Component
       this.setState( { formatSettings: existingGlobalSettings, patternSettings : existingPatternSettings } );
     };
 
-    const handleDrawerOpen = (e) => {
+    const handleSettingsToggle = (e) => {
       if( ignoreEvent(e) ){ return; }
-      this.setState( {settingsOpen : true} );
-    };
-
-    const handleDrawerClose = (e) => {
-      if( ignoreEvent(e) ){ return; }
-      this.setState( {settingsOpen : false} );
+      this.setState( {settingsOpen : !this.state.settingsOpen} );
     };
 
     const patternToRender = this.state.patterns[this.state.selectedPattern];
@@ -690,18 +676,13 @@ class App extends React.Component
         variant={ mobile ? undefined : "persistent" }
         anchor="right"
         open={this.state.settingsOpen}
-        onOpen={handleDrawerOpen}
-        onClose={handleDrawerClose}
+        onOpen={handleSettingsToggle}
+        onClose={handleSettingsToggle}
         classes={{
           paper: classes.drawerPaper
         }}
       >
-        <div className={classes.drawerHeader}>
-          <IconButton onClick={handleDrawerClose}>
-              <ChevronRightIcon />
-          </IconButton>
-        </div>
-        <Divider />
+        {!mobile ? <TabitBar placeholder /> : null }
         <FormatSettings
           onChange={settingsChangeCallback}
           settings={patternConfig}
@@ -772,7 +753,6 @@ class App extends React.Component
         } );
       }
 
-      const classes = this.props;
       const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
       const mobile = isMobile();
 
@@ -794,48 +774,13 @@ class App extends React.Component
 
       return (
         <React.Fragment>
+          <Toolbar variant="dense"/>
           {this.renderSharingDialog()}
-          <AppBar position="static"
-            style={{"backgroundColor": "#424242", "color": "white"}}
-
-          >
-            <Toolbar variant="dense"
-                style={{"flexGrow": 1}}
-            >
-              <IconButton
-                color="inherit"
-                aria-label="open pattern list"
-                edge="start"
-                onClick={(e)=>{ this.setState( {patternsOpen: true } )}}
-                className={clsx({
-                  [classes.hide] : !this.state.patternsOpen
-                })}
-                >
-                <MenuIcon />
-              </IconButton>
-              <IconButton
-                color="inherit"
-                aria-label="home"
-                edge="start"
-                component={Link}
-                to='/'
-                >
-                <HomeIcon />
-              </IconButton>
-              <Typography variant="h6" color="inherit" noWrap style={{"flexGrow": 1, "textOverflow": "ellipsis"}}>
-                {this.state.songName}
-              </Typography>
-              <IconButton
-                color="inherit"
-                aria-label="open settings"
-                edge="end"
-                onClick={(e)=>{ this.setState( {settingsOpen: true } )}}
-                className={clsx(this.state.settingsOpen && classes.hide)}
-              >
-                <SettingsIcon />
-              </IconButton>
-            </Toolbar>
-          </AppBar>
+          <TabitBar
+            title={this.state.songName}
+            settingsToggle={(e)=>{this.setState({settingsOpen: !this.state.settingsOpen})}}
+            patternsToggle={(e)=>{this.setState({patternsOpen: !this.state.patternsOpen})}}
+          />
           {patternContent}
           <Grid container>
           {instrumentConfigColumns < 12 ? <Grid item xs={(12 - instrumentConfigColumns) / 2} /> : null}
