@@ -296,13 +296,21 @@ class ToneController
     const length = this.patternDetails[patternName].length;
     const oldLength = oldPatternName !== null ? this.patternDetails[oldPatternName] : null
 
+    // TODO: Since introducing a scheduling delay, this fudge factor is less reliable
+    // Particularly, the transition gets queued but the first beat is a little sloppy
+    // it's possible the whole transition functor needs to be faster
+
     // we have a little fudge in here... if we're transitioning from a 4 beat loop
     // to an 8 beat pattern ... we probably really wanted to hit the start of that pattern,
     // not to transition at 3.75 beats and play the latter half
-    const timeFromBarEnd = Tone.getTransport().loopEnd - ( Tone.getTransport().toSeconds(Tone.getTransport().position) + AUDIO_DELAY );
+    const timeFromBarEnd = Tone.getTransport().loopEnd - ( Tone.getTransport().toSeconds(Tone.getTransport().position) - AUDIO_DELAY );
+
     const queueTransition = oldPatternName !== null
     && Tone.getTransport().state === "started"
     && ( timeFromBarEnd > 0 && timeFromBarEnd < Tone.getTransport().toSeconds(Tone.Time("8n")));
+
+    // create this before starting the "transaction"
+    const nextSequence = this.createSequenceForPattern(this.instrumentIndex, this.patternDetails[patternName].pattern);
 
     const enableNewTrack = (time) => {
       if(oldPatternName !== null)
@@ -315,7 +323,7 @@ class ToneController
 
         Tone.getTransport().setLoopPoints(0, Tone.Time("4n") * (length / 48.0));
       }
-      this.sequence = this.createSequenceForPattern(this.instrumentIndex, this.patternDetails[patternName].pattern)
+      this.sequence = nextSequence;
       this.sequence._part.mute = false;
       this.currentPatternName = patternName;
     };
