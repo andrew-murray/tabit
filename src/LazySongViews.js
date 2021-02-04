@@ -144,7 +144,6 @@ class SongStorageSongView extends React.Component
       );
     };
     const setError = (err)=>{
-      console.log(err);
       this.setState({
         errorMessage: "Failed to load song " + this.props.songID + " from database. " +
         "This could represent a corrupted entry/a bug in our software. Please consider raising an issue in github!"
@@ -152,6 +151,7 @@ class SongStorageSongView extends React.Component
     };
     SongStorage.get(this.props.songID)
       .then( data => {
+        console.log(data);
         return SongLoaders.LoadJSON(
           data,
           data.songName,

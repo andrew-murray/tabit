@@ -47,7 +47,29 @@ const get = (songID) =>
     });
 }
 
+const put = (exportState) =>
+{
+  const stateToShare = encodeState(exportState);
+  const stateHash = hash(stateToShare);
+  const uploadUrl = getJsonStorageUrl(stateHash);
+
+  const metadata = {
+    method: "PUT",
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(stateToShare)
+  };
+
+  const permanentUrl = window.origin + process.env.PUBLIC_URL + "/song/" + stateHash;
+  return fetch(uploadUrl, metadata).then(
+    e => {
+      console.log(exportState);
+      return permanentUrl;
+    }
+  );
+};
+
 export {
   decodeState,
-  get
+  get,
+  put
 };

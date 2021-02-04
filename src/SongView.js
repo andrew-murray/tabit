@@ -11,6 +11,9 @@ import PatternDrawer from "./PatternDrawer"
 import ToneController from "./ToneController"
 import SettingsDrawer from "./SettingsDrawer"
 import { isMobile } from "./Mobile";
+import SharingDialog from "./SharingDialog";
+// todo: pass the needed .put function via a prop?
+import * as SongStorage from "./SongStorage";
 
 const figurePatternSettings = (patterns)=>{
   return Array.from(
@@ -28,7 +31,8 @@ class SongView extends React.Component
     formatSettings: Object.assign({}, DefaultSettings),
     songData: Object.assign({},this.props.songData),
     settingsOpen: false,
-    patternsOpen: false
+    patternsOpen: false,
+    sharingDialogOpen: false
   }
 
   constructor(props)
@@ -63,6 +67,19 @@ class SongView extends React.Component
       this.audio.teardown();
       delete this.audio;
     }
+  }
+
+  getExportState()
+  {
+    return {
+      instruments : this.state.songData.instruments,
+      instrumentIndex : this.state.songData.instrumentIndex,
+      patterns : this.state.songData.patterns,
+      songName: this.state.songData.title,
+      formatSettings: this.state.formatSettings,
+      patternSettings : this.state.patternSettings,
+      version: "1.1.0"
+    };
   }
 
   render()
@@ -159,6 +176,14 @@ class SongView extends React.Component
       );
     };
 
+    const onShare = ()=>{
+      SongStorage.put(this.getExportState())
+        .then(permanentUrl=>{
+          this.setState({permanentUrl: permanentUrl, sharingDialogOpen: true});
+        })
+        .catch((err)=>{alert("Couldn't contact external server at this time.")});
+    };
+
     return (
       <div className="App">
         <TabitBar
@@ -207,8 +232,13 @@ class SongView extends React.Component
           settings={resolvedSettings}
           onChange={handleSettingsChange}
           // onSave: PropTypes.func,
-          // onShare: PropTypes.func
+          onShare ={onShare}
          />
+         <SharingDialog
+          open={this.state.sharingDialogOpen}
+          onClose={()=>{this.setState({sharingDialogOpen:false});}}
+          url={this.state.permanentUrl}
+          />
       </div>
     );
   }

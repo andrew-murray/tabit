@@ -21,11 +21,6 @@ function SettingsDrawer(props)
     length: notation.getPatternLength(props.pattern)
   } : null;
 
-  /*
-  classes={{
-    paper: classes.drawerPaper
-  }}
-  */
   const noop = () => {};
   return (
     <SwipeableDrawer disableBackdropTransition={!iOS} disableDiscovery={iOS}
