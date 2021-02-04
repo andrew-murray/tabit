@@ -117,7 +117,7 @@ function FormatSettings(props) {
   if( !lineLengths.includes( props.pattern.length ) )
   {
     lineLengths.push( props.pattern.length );
-    lineLengths.sort();
+    lineLengths.sort((a, b)=>{return a-b});
   }
 
   const candidateBeatResolutions = [24, 36, 48, 72, 96];
