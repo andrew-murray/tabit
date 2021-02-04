@@ -9,7 +9,7 @@ const useStyles = theme => ({
     textAlign: "left",
     whiteSpace:"pre",
     "& .activeNote": {
-      color : theme.palette.primary.main
+      color : theme.palette.secondary.main
     },
     "margin": "auto"
   },

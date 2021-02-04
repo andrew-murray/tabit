@@ -146,12 +146,12 @@ class SongView extends React.Component
       if("volume" in event)
       {
         const instrumentID = this.state.songData.instrumentIndex[ event.instrument ].id;
-        this.audio ?? this.audio.setVolumeForInstrument( instrumentID, event.volume );
+        if(this.audio){ this.audio.setVolumeForInstrument( instrumentID, event.volume ); }
       }
       else if("muted" in event)
       {
         const instrumentID = this.state.songData.instrumentIndex[ event.instrument ].id;
-        this.audio ?? this.audio.setMutedForInstrument( instrumentID, event.muted );
+        if(this.audio){ this.audio.setMutedForInstrument( instrumentID, event.muted ); }
       }
     };
 
