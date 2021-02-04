@@ -14,8 +14,7 @@ import SettingsIcon from "@material-ui/icons/Settings";
 const useStyles = makeStyles((theme) => ({
   root: {
     zIndex: theme.zIndex.drawer + 1,
-    backgroundColor: "#0077b6",
-    color: "white"
+    backgroundColor: theme.palette.secondary
   }
 }));
 

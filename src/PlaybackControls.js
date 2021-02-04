@@ -17,18 +17,16 @@ function PlaybackControls(props)
       <React.Fragment>
         <div>
           <IconButton
-            color="primary"
             aria-label="play"
             onClick={onPlay}
           >
-            <PlayArrowIcon />
+            <PlayArrowIcon style={{color: "#4cbb17"}}/>
           </IconButton>
           <IconButton
-            color="secondary"
             aria-label="stop"
             onClick={onStop}
           >
-            <StopIcon />
+            <StopIcon style={{color: '#ff0800'}}/>
           </IconButton>
         </div>
 

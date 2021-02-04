@@ -5,6 +5,13 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListSubheader from '@material-ui/core/ListSubheader';
+import Paper from '@material-ui/core/Paper';
+import Box from '@material-ui/core/Box';
+import Typography from '@material-ui/core/Typography';
 import Switch from '@material-ui/core/Switch';
 import Select from '@material-ui/core/Select';
 import notation from "./notation";
@@ -37,48 +44,57 @@ function FormatSettings(props) {
     return value === "space" ? " " : value;
   }
 
-  const handleOptionChange = (name, value) => {
-    const updatedState = {...props.settings, [name]: value};
-    props.onChange(updatedState);
+  // currently the only options which are pattern-local
+  // are supported by handleOptionChange
+
+  const handleOptionChange = (name, value, local) => {
+    // const updatedState = {...props.settings, [name]: value};
+    props.onChange({key: name, value: value, local: local});
   };
 
   const handleCheckedChange = (event) => {
-    const updatedState = {...props.settings, [event.target.name]: event.target.checked};
-    props.onChange(updatedState);
+    // const updatedState = {...props.settings, [event.target.name]: event.target.checked};
+    props.onChange({key: event.target.name, value: event.target.checked, local: false});
   };
 
   function createOptionMenu(
     name,
     options,
     itemToState = tokenItemToState,
-    stateToItem = tokenStateToItem
+    stateToItem = tokenStateToItem,
+    localSetting = false
   )
   {
     const idString = "form-control-" + name + "-id";
     return (
-      <FormControl variant="filled" className={classes.formControl} key={idString} id={idString}>
-        <InputLabel id="settings-option-{name}">{name}</InputLabel>
-        <Select
-          labelId={"settings-option-" + name + "-labelID"}
-          id={"settings-option-" + name + "-id"}
-          value={stateToItem(props.settings[name])}
-          name={name}
-          onChange={(e) => handleOptionChange( e.target.name, itemToState(e.target.value))}
-        >
-          {options.map((op) => <MenuItem key={"settings-menu-item-" + name + "-" + op} value={stateToItem(op)}>{stateToItem(op)}</MenuItem>)}
-        </Select>
-      </FormControl>
+      <ListItem variant="filled" className={classes.formControl} key={idString} id={idString} style={{width:"100%"}}>
+        <FormControl style={{width:"100%"}}>
+          <InputLabel id="settings-option-{name}">{name}</InputLabel>
+          <Select
+            labelId={"settings-option-" + name + "-labelID"}
+            id={"settings-option-" + name + "-id"}
+            value={stateToItem(props.settings[name])}
+            name={name}
+            onChange={(e) => handleOptionChange( e.target.name, itemToState(e.target.value), localSetting)}
+            style={{width:"75%", textAlign: "center"}}
+          >
+            {options.map((op) => <MenuItem key={"settings-menu-item-" + name + "-" + op} value={stateToItem(op)} style={{textAlign: "center"}}>{stateToItem(op)}</MenuItem>)}
+          </Select>
+        </FormControl>
+      </ListItem>
     );
   };
 
   function createBoolControl(name)
   {
     return (
-      <FormControlLabel
-        control={<Switch checked={props.settings[name]} onChange={handleCheckedChange} name={name} />}
-        label={camelToReadable(name)}
-        key={"switch-"+name}
-      />
+      <ListItem style={{width:"100%"}}>
+        <FormControlLabel
+          control={<Switch checked={props.settings[name]} onChange={handleCheckedChange} name={name} />}
+          label={camelToReadable(name)}
+          key={"switch-"+name}
+        />
+      </ListItem>
     );
   };
 
@@ -115,24 +131,28 @@ function FormatSettings(props) {
   }
   return (
     <FormGroup className={classes.root}>
-      {notation.FORMAT_CONFIG_STRINGS.map( op => createOptionMenu( op[0], op[1] ) ).reduce((prev, curr) => [prev, curr])}
-      {notation.FORMAT_CONFIG_BOOLS.map( op => createBoolControl( op )).reduce((prev, curr) => [prev, curr]) }
-      <div style={{backgroundColor : "white", color : theme.palette.background.default}}><p> {props.pattern.name + " Options"} </p></div>
-      {
-        createOptionMenu(
-          "beatResolution",
-          beatResolutions,
-          (v) => v.toString(), // stateToItem
-          (v) => parseInt(v) // itemToState
-        )
-      }
-      {createOptionMenu(
-        "lineResolution",
-        lineLengths,
-        beatStringToResolution,
-        resolutionToBeatString
-      )}
-    </FormGroup>
+      <List>
+        {notation.FORMAT_CONFIG_STRINGS.map( op => createOptionMenu( op[0], op[1] ) ).reduce((prev, curr) => [prev, curr])}
+        {notation.FORMAT_CONFIG_BOOLS.map( op => createBoolControl( op )).reduce((prev, curr) => [prev, curr]) }
+          <ListSubheader>{props.pattern.name + " Options"} </ListSubheader>
+          {
+            createOptionMenu(
+              "beatResolution",
+              beatResolutions,
+              (v) => v.toString(), // stateToItem
+              (v) => parseInt(v), // itemToState
+              true
+            )
+          }
+          {createOptionMenu(
+            "lineResolution",
+            lineLengths,
+            beatStringToResolution,
+            resolutionToBeatString,
+            true // localSetting
+          )}
+        </List>
+      </FormGroup>
   );
 }
 

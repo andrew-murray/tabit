@@ -1,18 +1,12 @@
 import React from 'react';
-import FileImport from "./FileImport";
 import Pattern from "./Pattern";
 import h2 from './h2';
-import './App.css';
-
-import { Alert } from '@material-ui/lab';
-import CircularProgress from '@material-ui/core/CircularProgress';
 
 // define mui theme, including responsiveFont
 import { createMuiTheme, ThemeProvider, responsiveFontSizes } from '@material-ui/core/styles';
 
 // drawer
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -28,18 +22,16 @@ import { withStyles } from '@material-ui/core/styles';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
 import Toolbar from '@material-ui/core/Toolbar';
 
+import SongLoaders from "./SongLoaders"
+
 // notationSettings
 
 import {FormatSettings, DefaultSettings} from "./formatSettings";
-import {createInstrumentMask, InstrumentConfig} from "./instrumentConfig";
-import { activeInstrumentation, figureInstruments, DEFAULT_INSTRUMENT_SYMBOLS } from "./instrumentation";
+import InstrumentConfig from "./instrumentConfig";
+import { createInstrumentMask } from "./instrumentation";
 import notation from "./notation";
 
 import Grid from '@material-ui/core/Grid';
-
-// load static data
-import kuva from "./kuva.json";
-import track from "./track";
 
 import { saveAs } from 'file-saver';
 
@@ -53,17 +45,7 @@ import copy from "copy-to-clipboard";
 
 import { isMobile } from "./Mobile";
 
-import History from "./History";
 import TabitBar from "./TabitBar";
-
-// mui theme config
-let theme = responsiveFontSizes( createMuiTheme( {
-  palette: {
-    type: 'dark',
-    primary: { main: '#36d9be' },
-    secondary: { main: '#f50057' }
-   }
-} ) );
 
 const ignoreEvent = (event) => {
   return event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift');
@@ -84,26 +66,19 @@ const getJsonStorageUrl = (slug) => {
   return cors_url + getJsonDestinationUrl(slug);
 }
 
-const licenseBannerStyles = {
-  position:"absolute",
-  bottom:0,
-  "width": "95%",
-  "textAlign": "center",
-  "backgroundColor" : "#282c34", // same background color as app
-  "zIndex" : theme.zIndex.drawer
-};
-
-const modalStyles = {
-  modal: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  paper: {
-    backgroundColor: theme.palette.background.paper,
-    border: '2px solid #000',
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
+const modalStyles = (theme) => {
+  return {
+    modal: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    paper: {
+      backgroundColor: theme.palette.background.paper,
+      border: '2px solid #000',
+      boxShadow: theme.shadows[5],
+      padding: theme.spacing(2, 4, 3),
+    }
   }
 };
 
@@ -183,7 +158,7 @@ class App extends React.Component
       {
         throw new Error("Hash did not match");
       }
-      this.handleJson(songTitle, decodedState);
+      this.handleJSON(decodedState, songTitle, decodedState.loadedFile);
     }).catch( (e) => {
       this.setState({showTitleOptions : true});
       alert("Song " + (songTitle ?? songID) + " could not be found." );
@@ -199,7 +174,7 @@ class App extends React.Component
       {
         throw new Error("Hash did not match");
       }
-      this.handleJson(song.name, decodedState);
+      this.handleJSON(decodedState, song.name, decodedState.loadedFile);
     };
 
     const displayError = (err) => {
@@ -327,55 +302,26 @@ class App extends React.Component
     }
   }
 
-  handleJson(title, prevState)
+  handleJSON(data, title, filename)
   {
-    const createTracks = (patternData) =>
-    {
-      // the instruments currently work as simple objects
-      // we need to create tracks!
-      let patterns = [];
-      for( let pattern of patternData )
-      {
-        let replacedTracks = {};
-        // todo: find a more compact way of doing this
-        for( const [id, trackData] of Object.entries(pattern.instrumentTracks) )
-        {
-          replacedTracks[id] = new track( trackData.rep, trackData.resolution );
-        }
-        let patternWithTracks = Object.assign({}, pattern);
-        patternWithTracks.instrumentTracks = replacedTracks;
-        patterns.push(patternWithTracks);
-      }
-      return patterns;
-    }
-
-    this.setState(
-      {
-        instrumentIndex : prevState.instrumentIndex,
-        instrumentMask : createInstrumentMask(prevState.instrumentIndex, prevState.instruments),
-        instruments : prevState.instruments,
-        patterns : createTracks(prevState.patterns),
-        formatSettings : prevState.formatSettings,
-        patternSettings : prevState.patternSettings,
-        // general app state
-        loadedFile : title ?? prevState.loadedFile,
-        selectedPattern : prevState.patterns.length === 0 ? null : 0,
-        patternsOpen : prevState.patterns.length !== 0,
-        songName: title ?? ( prevState.songName ?? ( prevState.loadedFile ? this.songNameFromFile(prevState.loadedFile) : "untitled" ) )
-      },
-      () => {
-        // if mobile prioritise smooth playback
-        const latencyHint = isMobile() ? "playback" : null;
-        // always default tempo to 100bpm for now
-        this.audio = new ToneController(
-          this.state.instrumentIndex,
-          this.state.patterns,
-          100.0,
-          (time)=>{this.onPatternTimeChange(time);},
-          latencyHint
+    SongLoaders.LoadJSON(data, title, filename).then(
+      (songData) => {
+        console.log("SongData")
+        console.log(songData)
+        this.setState(
+          {
+            instrumentIndex : songData.instrumentIndex,
+            instrumentMask : songData.instrumentMask,
+            instruments : songData.instruments,
+            patterns : songData.patterns,
+            selectedPattern : songData.patterns.length === 0 ? null : 0,
+            loadedFile : songData.sourceFile,
+            patternsOpen : true,
+            patternSettings : this.figurePatternSettings(songData.patterns),
+            songName : songData.title
+          },
+          ()=>{ this.handleSongChange(true); } // no need to record the example, it's embedded into the website anyway
         );
-        this.audio.setActivePattern( this.state.patterns[this.state.selectedPattern].name );
-        this.recordSongVisited();
       }
     );
   }
@@ -384,113 +330,57 @@ class App extends React.Component
   {
     if( e.file.name.includes("h2song") )
     {
-      // e = { file : , content : }
       h2.parseHydrogenPromise(e.content).then(h => {
-        const assessedInstruments = figureInstruments(h.instruments, DEFAULT_INSTRUMENT_SYMBOLS, h.patterns);
-        const instrumentIndex = activeInstrumentation(h.instruments, h.patterns);
-
-        // fixme: convert hydrogen volume/gain to normal values, somewhere
-        for( let instrument of instrumentIndex )
-        {
-          instrument.volume = 0.5;
-        }
-
-        this.setState(
-          {
-            // data
-            instrumentIndex : instrumentIndex,
-            instrumentMask : createInstrumentMask(instrumentIndex, assessedInstruments),
-            instruments : assessedInstruments,
-            patterns : h.patterns,
-            patternSettings : this.figurePatternSettings(h.patterns),
-            // general app state
-            loadedFile : e.file.name,
-            patternsOpen : true,
-            selectedPattern : h.patterns.length === 0 ? null : 0,
-            songName: this.songNameFromFile(e.file.name)
-          },
-          ()=>{
-            // if mobile prioritise smooth playback
-            const latencyHint = isMobile() ? "playback" : null;
-            // always default tempo to 100bpm for now
-            this.audio = new ToneController(
-              this.state.instrumentIndex,
-              this.state.patterns,
-              100.0,
-              (time)=>{this.onPatternTimeChange(time);},
-              latencyHint
-            );
-            this.audio.setActivePattern( this.state.patterns[this.state.selectedPattern].name );
-            this.recordSongVisited();
-          }
-        );
+        this.handleJSON(h, this.songNameFromFile(e.file.name), e.file.name);
       }).catch( (error)=>{ alert("Failed to load file " + e.file.name  + " with error " + error); } );
     }
     else
     {
-
       // assume it's a tabit file!
       Promise.resolve(e.content)
         .then(JSON.parse)
-        .then( prevState => { this.handleJson(this.songNameFromFile(e.file.name),prevState); } )
+        .then( prevState => { this.handleJSON(prevState, this.songNameFromFile(e.file.name), e.file.name); } )
         .catch( (error)=>{ alert("Failed to load file " + e.file.name  + " with error " + error); } );
+    }
+  }
+
+  handleSongChange(recordHistory)
+  {
+    // if mobile prioritise smooth playback
+    const latencyHint = isMobile() ? "playback" : null;
+    // always default tempo to 100bpm for now
+    this.audio = new ToneController(
+      this.state.instrumentIndex,
+      this.state.patterns,
+      100.0,
+      (time)=>{this.onPatternTimeChange(time);},
+      latencyHint
+    );
+    this.audio.setActivePattern( this.state.patterns[this.state.selectedPattern].name );
+    if(recordHistory)
+    {
+      this.recordSongVisited();
     }
   }
 
   loadExample()
   {
-    const createObjects = (state) =>
-    {
-      // the instruments currently work as simple objects
-      // we need to create tracks!
-      for( let pattern of state.patterns )
-      {
-        let replacedTracks = {};
-        // todo: find a more compact way of doing this
-        for( const [id, trackData] of Object.entries(pattern.instrumentTracks) )
-        {
-          replacedTracks[id] = new track( trackData.rep, trackData.resolution );
-        }
-        pattern.instrumentTracks = replacedTracks;
-      }
-      return state;
-    }
-    const k = createObjects(kuva);
-    const assessedInstruments = figureInstruments(k.instruments, DEFAULT_INSTRUMENT_SYMBOLS, k.patterns);
-    const instrumentIndex = activeInstrumentation(k.instruments, k.patterns);
-
-    // fixme: convert hydrogen volume/gain to normal values, somewhere
-    for( let instrument of instrumentIndex )
-    {
-      instrument.volume = 0.5;
-    }
-
-    this.setState(
-      {
-        instrumentIndex : instrumentIndex,
-        instrumentMask : createInstrumentMask(instrumentIndex, assessedInstruments),
-        instruments : assessedInstruments,
-        patterns : k.patterns,
-        selectedPattern : k.patterns.length === 0 ? null : 0,
-        loadedFile : "kuva.example",
-        patternsOpen : true,
-        patternSettings : this.figurePatternSettings(k.patterns),
-        songName : "kuva"
-      },
-      () => {
-        // if mobile prioritise smooth playback
-        const latencyHint = isMobile() ? "playback" : null;
-        // always default tempo to 100bpm for now
-        this.audio = new ToneController(
-          this.state.instrumentIndex,
-          this.state.patterns,
-          100.0,
-          (time)=>{this.onPatternTimeChange(time);},
-          latencyHint
+    SongLoaders.LoadExample().then(
+      (songData) => {
+        this.setState(
+          {
+            instrumentIndex : songData.instrumentIndex,
+            instrumentMask : songData.instrumentMask,
+            instruments : songData.instruments,
+            patterns : songData.patterns,
+            selectedPattern : songData.patterns.length === 0 ? null : 0,
+            loadedFile : songData.sourceFile,
+            patternsOpen : true,
+            patternSettings : this.figurePatternSettings(songData.patterns),
+            songName : songData.title
+          },
+          ()=>{ this.handleSongChange(false); } // no need to record the example, it's embedded into the website anyway
         );
-        this.audio.setActivePattern( this.state.patterns[this.state.selectedPattern].name );
-        // no need to record the example, it's embedded into the website anyway
-        // this.recordSongVisited();
       }
     );
   }
@@ -559,42 +449,7 @@ class App extends React.Component
 
   renderTitlePage()
   {
-    const showAlert = this.state.patterns != null && this.state.patterns.length === 0;
-    const optionalAlert = showAlert ? ( <Alert severity="error">{this.state.loadedFile} contained no patterns! Try another.</Alert> )
-                                    : "";
-    // if a load of a song is in flight don't show file open buttons
-    const controls = (
-      <React.Fragment>
-        <Button variant="contained" onClick={this.loadExample.bind(this)} style={{margin: "1em"}}>Load example</Button>
-        <FileImport
-          style={{margin: "1em"}}
-          variant="contained"
-          onImport={this.handleFileImport.bind(this)}
-          accept=".tabit,.h2song"
-          />
-          {optionalAlert}
-      </React.Fragment>
-    );
-    const waitingMessage = (<React.Fragment>
-        <p> Loading song... </p>
-        <CircularProgress />
-      </React.Fragment>
-    );
-    return (
-      <React.Fragment>
-      <div>
-        <h2>tabit</h2>
-        <p>I read .h2songs and write tab</p>
-        {this.state.showTitleOptions ? controls : waitingMessage}
-      </div>
-      <div style={{"marginLeft" : "auto", "marginRight": "auto"}}>
-      { this.state.history.length > 0 ? <History data={this.state.history} onClick={(piece)=>{this.loadLocalSong(piece);}}/> : "" }
-      </div>
-      <div style={licenseBannerStyles} >
-        <p>tabit relies on publicly available sound libraries listed at <a href="https://github.com/andrew-murray/tabit">https://github.com/andrew-murray/tabit</a></p>
-      </div>
-      </React.Fragment>
-    );
+    return <div></div>;
   }
 
   renderPatternDrawer(iOS, mobile)
@@ -669,6 +524,8 @@ class App extends React.Component
       resolution : patternToRender.resolution,
       "length" : this.getTrackLength(patternToRender)
     };
+
+    const { theme } = this.props
 
     return (
       <SwipeableDrawer disableBackdropTransition={!iOS} disableDiscovery={iOS}
@@ -806,10 +663,7 @@ class App extends React.Component
     const mainContent = this.renderMainContent();
     return (
       <div className="App">
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          {mainContent}
-        </ThemeProvider>
+        {mainContent}
       </div>
     );
   }

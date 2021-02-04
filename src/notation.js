@@ -255,6 +255,27 @@ class notation
 
     return formattedLineArray.join("\n");
   }
+
+  static getPatternLength(pattern)
+  {
+    let trackLength = 48;
+    for(const [,t] of Object.entries(pattern.instrumentTracks))
+    {
+        trackLength = Math.max( trackLength, t.length() );
+    }
+    return trackLength;
+  }
+
+  static getPatternResolution(pattern)
+  {
+    let resolution = 48;
+    for(const [,t] of Object.entries(pattern.instrumentTracks))
+    {
+        resolution = Math.min( resolution, t.resolution );
+    }
+    return resolution;
+  }
+
 };
 
 export default notation;

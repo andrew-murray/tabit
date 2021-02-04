@@ -329,4 +329,31 @@ function figureInstruments(instrumentsRaw, symbolConfig, patterns)
   return output;
 }
 
-export { activeInstrumentation, DEFAULT_INSTRUMENT_SYMBOLS, figureClickyInstruments, figureDjembes, figureShakers, figureSnares, figureInstruments };
+function createInstrumentMask(instrumentIndex, instruments)
+{
+  let instrumentMask = Array(instrumentIndex.length);
+  for( let baseInstrumentIndex = 0; baseInstrumentIndex < instrumentIndex.length; ++baseInstrumentIndex )
+  {
+    const baseInstrumentId = instrumentIndex[baseInstrumentIndex].id;
+    for( let targetInstrumentIndex = 0; targetInstrumentIndex < instruments.length; ++targetInstrumentIndex)
+    {
+      const target = instruments[targetInstrumentIndex];
+      if(baseInstrumentId.toString() in target[1])
+      {
+        instrumentMask[baseInstrumentIndex] = targetInstrumentIndex;
+      }
+    }
+  }
+  return instrumentMask;
+}
+
+export {
+  activeInstrumentation,
+  createInstrumentMask,
+  DEFAULT_INSTRUMENT_SYMBOLS,
+  figureClickyInstruments,
+  figureDjembes,
+  figureShakers,
+  figureSnares,
+  figureInstruments
+};

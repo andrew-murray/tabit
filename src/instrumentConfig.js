@@ -167,7 +167,7 @@ class RawInstrumentEditDialog extends React.Component
   render() {
 
     const cancel = (e) => {
-      this.setState({"currentSymbol" : null});
+      this.setState({currentSymbol : null});
       if(this.props.onCancel){
         this.props.onCancel();
       }
@@ -178,6 +178,7 @@ class RawInstrumentEditDialog extends React.Component
       {
         if(this.props.onChange){
           this.props.onChange(this.state.currentSymbol);
+          this.setState({currentSymbol: null});
         }
       }
       else
@@ -463,6 +464,11 @@ function InstrumentTable(props)
 }
 
 function InstrumentConfig(props) {
+  console.log("InstrumentConfig.props");
+  console.log(props.instruments)
+  console.log(props.instrumentIndex)
+  console.log(props.instrumentMask)
+
   const [editingSymbol, setEditingSymbol] = React.useState(null);
   const [renamingInstrument, setRenamingInstrument] = React.useState(null);
 
@@ -550,22 +556,4 @@ function InstrumentConfig(props) {
   );
 }
 
-function createInstrumentMask(instrumentIndex, instruments)
-{
-  let instrumentMask = Array(instrumentIndex.length);
-  for( let baseInstrumentIndex = 0; baseInstrumentIndex < instrumentIndex.length; ++baseInstrumentIndex )
-  {
-    const baseInstrumentId = instrumentIndex[baseInstrumentIndex].id;
-    for( let targetInstrumentIndex = 0; targetInstrumentIndex < instruments.length; ++targetInstrumentIndex)
-    {
-      const target = instruments[targetInstrumentIndex];
-      if(baseInstrumentId.toString() in target[1])
-      {
-        instrumentMask[baseInstrumentIndex] = targetInstrumentIndex;
-      }
-    }
-  }
-  return instrumentMask;
-}
-
-export { createInstrumentMask, InstrumentConfig };
+export default InstrumentConfig;
