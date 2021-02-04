@@ -12,6 +12,7 @@ import ToneController from "./ToneController"
 import SettingsDrawer from "./SettingsDrawer"
 import { isMobile } from "./Mobile";
 import SharingDialog from "./SharingDialog";
+import Toolbar from '@material-ui/core/Toolbar';
 // todo: pass the needed .put function via a prop?
 import * as SongStorage from "./SongStorage";
 
@@ -187,6 +188,8 @@ class SongView extends React.Component
 
     return (
       <div className="App">
+        // todo: make this unnecessary, it ensures pattern renders in the right place right now
+        <Toolbar variant="dense"/>
         <TabitBar
           title={this.state.songData.title}
           settingsToggle={(e)=>{this.setState({settingsOpen: !this.state.settingsOpen})}}
