@@ -134,7 +134,7 @@ function FormatSettings(props) {
       <List>
         {notation.FORMAT_CONFIG_STRINGS.map( op => createOptionMenu( op[0], op[1] ) ).reduce((prev, curr) => [prev, curr])}
         {notation.FORMAT_CONFIG_BOOLS.map( op => createBoolControl( op )).reduce((prev, curr) => [prev, curr]) }
-          <ListSubheader>{props.pattern.name + " Options"} </ListSubheader>
+          <ListSubheader>{"Pattern " + props.pattern.name + " Options"} </ListSubheader>
           {
             createOptionMenu(
               "beatResolution",
