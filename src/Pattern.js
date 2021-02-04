@@ -17,25 +17,6 @@ const useStyles = theme => ({
 
 class Pattern extends React.Component
 {
-  constructor(props) {
-    super(props);
-    this.state = {
-      patternTime : undefined
-    };
-  }
-
-  onPatternTimeChange(patternTime)
-  {
-    if( patternTime !== null && patternTime !== undefined )
-    {
-      this.setState({patternTime : patternTime});
-    }
-    else
-    {
-      this.setState({patternTime : undefined });
-    }
-  }
-
   render() {
     const { classes } = this.props;
     const instrumentIndices = [...this.props.instruments.keys()];
@@ -50,7 +31,7 @@ class Pattern extends React.Component
               instrument={this.props.instruments[instrumentIndex][1]}
               tracks={this.props.tracks}
               config={this.props.config}
-              activeNote={this.state.patternTime !== undefined ? Math.floor(this.state.patternTime / beatResolution) : undefined}
+              activeNote={this.props.patternTime !== undefined ? Math.floor(this.props.patternTime / beatResolution) : undefined}
             /> )
           )
         }

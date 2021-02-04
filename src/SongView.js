@@ -32,7 +32,8 @@ class SongView extends React.Component
     songData: Object.assign({},this.props.songData),
     settingsOpen: false,
     patternsOpen: false,
-    sharingDialogOpen: false
+    sharingDialogOpen: false,
+    patternTime: null
   }
 
   constructor(props)
@@ -49,7 +50,7 @@ class SongView extends React.Component
       this.state.songData.instrumentIndex,
       this.state.songData.patterns,
       100.0,
-      (time)=>{/*this.onPatternTimeChange(time);*/},
+      (time)=>{this.setState( {patternTime: time} )},
       latencyHint
     );
     this.audio.setActivePattern( this.state.songData.patterns[this.state.selectedPattern].name );
@@ -196,7 +197,7 @@ class SongView extends React.Component
           tracks={pattern.instrumentTracks}
           config={resolvedSettings}
           active={this.state.progress}
-          // ref={this.pattern}
+          patternTime={this.state.patternTime}
         />
         <PlaybackControls
           onPlay={()=>{if(this.audio){this.audio.play();}}}

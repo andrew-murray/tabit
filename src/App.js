@@ -359,7 +359,7 @@ class App extends React.Component
     this.audio.setActivePattern( this.state.patterns[this.state.selectedPattern].name );
     if(recordHistory)
     {
-      this.recordSongVisited();
+      // this.recordSongVisited();
     }
   }
 
@@ -420,11 +420,7 @@ class App extends React.Component
 
   onPatternTimeChange(time)
   {
-    // this only needs to be checked at teardown I believe
-    if(this.pattern.current)
-    {
-      this.pattern.current.onPatternTimeChange(time);
-    }
+    this.setState({patternTime: time})
   }
 
   getTrackLength(pattern)
@@ -561,6 +557,29 @@ class App extends React.Component
   renderSharingDialog()
   {
     return (
+      <Dialog
+        open={this.state.showSharingDialog}
+        onClose={(e)=>{this.setState({showSharingDialog: false});}}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+          Your song is available at
+          </DialogContentText>
+          <DialogContentText>
+          {this.state.permanentUrl}
+          <IconButton onClick={(e)=>{ copy(this.state.permanentUrl); }}>
+            <FileCopyIcon />
+          </IconButton>
+          </DialogContentText>
+          <DialogActions>
+            <Button onClick={(e)=>{this.setState({showSharingDialog: false})}}>
+              Close
+            </Button>
+          </DialogActions>
+        </DialogContent>
+      </Dialog>
     );
   }
 
