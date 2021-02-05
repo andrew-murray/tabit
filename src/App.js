@@ -306,8 +306,6 @@ class App extends React.Component
   {
     SongLoaders.LoadJSON(data, title, filename).then(
       (songData) => {
-        console.log("SongData")
-        console.log(songData)
         this.setState(
           {
             instrumentIndex : songData.instrumentIndex,

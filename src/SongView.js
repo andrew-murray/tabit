@@ -27,7 +27,6 @@ class SongView extends React.Component
 {
   state = {
     selectedPattern: 0,
-    progress: 0,
     patternSettings: this.props.songData ? figurePatternSettings(this.props.songData.patterns) : null,
     formatSettings: Object.assign({}, DefaultSettings),
     songData: Object.assign({},this.props.songData),
@@ -51,7 +50,12 @@ class SongView extends React.Component
       this.state.songData.instrumentIndex,
       this.state.songData.patterns,
       100.0,
-      (time)=>{this.setState( {patternTime: time} )},
+      (time)=>{
+        if( time / 48 != this.state.patternTime / 48 )
+        {
+          this.setState( {patternTime: time} )
+        }
+      },
       latencyHint
     );
     this.audio.setActivePattern( this.state.songData.patterns[this.state.selectedPattern].name );
@@ -199,8 +203,7 @@ class SongView extends React.Component
           instruments={this.state.songData.instruments}
           tracks={pattern.instrumentTracks}
           config={resolvedSettings}
-          active={this.state.progress}
-          patternTime={this.state.patternTime}
+          patternTime={this.state.patternTime != null ? this.state.patternTime : undefined}
         />
         <PlaybackControls
           onPlay={()=>{if(this.audio){this.audio.play();}}}

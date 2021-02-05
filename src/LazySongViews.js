@@ -151,7 +151,6 @@ class SongStorageSongView extends React.Component
     };
     SongStorage.get(this.props.songID)
       .then( data => {
-        console.log(data);
         return SongLoaders.LoadJSON(
           data,
           data.songName,

@@ -77,7 +77,6 @@ export default function Routes(props) {
           <Route
             path="/import"
             render={(props)=>{
-              console.log(props)
               return <FileImportSongView
                 history={props.history}
                 location={props.location}

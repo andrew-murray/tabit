@@ -464,11 +464,6 @@ function InstrumentTable(props)
 }
 
 function InstrumentConfig(props) {
-  console.log("InstrumentConfig.props");
-  console.log(props.instruments)
-  console.log(props.instrumentIndex)
-  console.log(props.instrumentMask)
-
   const [editingSymbol, setEditingSymbol] = React.useState(null);
   const [renamingInstrument, setRenamingInstrument] = React.useState(null);
 
