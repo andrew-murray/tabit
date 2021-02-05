@@ -74,4 +74,4 @@ function TabitBar(props) {
   );
 }
 
-export default TabitBar;
+export default React.memo(TabitBar);

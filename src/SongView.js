@@ -88,6 +88,31 @@ class SongView extends React.Component
     };
   }
 
+  // note these functions could cleanly be locally defined
+  // but react gives better performance by not doing this, sadly
+  changeInstruments(instruments){
+    let songData = Object.assign({}, this.state.songData);
+    songData.instruments = instruments;
+    songData.instrumentMask = createInstrumentMask(this.state.songData.instrumentIndex, instruments);
+    this.setState( {
+      songData: songData
+    } );
+  }
+
+  sendVolumeEvent(event)
+  {
+    if("volume" in event)
+    {
+      const instrumentID = this.state.songData.instrumentIndex[ event.instrument ].id;
+      if(this.audio){ this.audio.setVolumeForInstrument( instrumentID, event.volume ); }
+    }
+    else if("muted" in event)
+    {
+      const instrumentID = this.state.songData.instrumentIndex[ event.instrument ].id;
+      if(this.audio){ this.audio.setMutedForInstrument( instrumentID, event.muted ); }
+    }
+  }
+
   render()
   {
     const pattern = this.state.songData.patterns[
@@ -133,32 +158,9 @@ class SongView extends React.Component
       }
     };
 
-    const changeInstrumentsCallback = (instruments) => {
-      let songData = Object.assign({}, this.state.songData);
-      songData.instruments = instruments;
-      songData.instrumentMask = createInstrumentMask(this.state.songData.instrumentIndex, instruments);
-      this.setState( {
-        songData: songData
-      } );
-    };
-
     const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
     const mobile = isMobile();
     const instrumentConfigColumns = mobile ? 12 : 8;
-
-    const sendVolumeEvent = (event) =>
-    {
-      if("volume" in event)
-      {
-        const instrumentID = this.state.songData.instrumentIndex[ event.instrument ].id;
-        if(this.audio){ this.audio.setVolumeForInstrument( instrumentID, event.volume ); }
-      }
-      else if("muted" in event)
-      {
-        const instrumentID = this.state.songData.instrumentIndex[ event.instrument ].id;
-        if(this.audio){ this.audio.setMutedForInstrument( instrumentID, event.muted ); }
-      }
-    };
 
     const handlePatternsToggle = (e) => {
       this.setState( { patternsOpen : !this.state.patternsOpen } );
@@ -217,8 +219,8 @@ class SongView extends React.Component
             instruments={this.state.songData.instruments}
             instrumentIndex={this.state.songData.instrumentIndex}
             instrumentMask={this.state.songData.instrumentMask}
-            onChange={changeInstrumentsCallback}
-            onVolumeEvent={sendVolumeEvent}
+            onChange={this.changeInstruments.bind(this)}
+            onVolumeEvent={this.sendVolumeEvent.bind(this)}
           />
         </Grid>
         {instrumentConfigColumns < 12 ? <Grid item xs={(12 - instrumentConfigColumns) / 2} /> : null}

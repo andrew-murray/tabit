@@ -68,4 +68,4 @@ SettingsDrawer.propTypes = {
   className: PropTypes.string
 }
 
-export default SettingsDrawer;
+export default React.memo(SettingsDrawer);

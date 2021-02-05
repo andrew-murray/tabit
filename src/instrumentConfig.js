@@ -551,4 +551,4 @@ function InstrumentConfig(props) {
   );
 }
 
-export default InstrumentConfig;
+export default React.memo( InstrumentConfig );

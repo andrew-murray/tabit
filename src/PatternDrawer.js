@@ -1,3 +1,4 @@
+import React from "react";
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -46,4 +47,4 @@ function PatternDrawer(props)
 
 // open, onOpen, onClose, patterns, selectPattern
 
-export default PatternDrawer;
+export default React.memo(PatternDrawer);
