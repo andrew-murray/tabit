@@ -264,7 +264,7 @@ class SongView extends React.Component
           pattern={pattern}
           settings={resolvedSettings}
           onChange={this.handleSettingsChange}
-          // onSave: PropTypes.func, # don't currently support download.
+          // onSave: PropTypes.func, # don't currently support download, doesn't seem worthwhile
           onShare={this.onShare}
          />
          <SharingDialog
