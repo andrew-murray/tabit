@@ -15,6 +15,7 @@ import SharingDialog from "./SharingDialog";
 import Toolbar from '@material-ui/core/Toolbar';
 // todo: pass the needed .put function via a prop?
 import * as SongStorage from "./SongStorage";
+import memoizeOne from 'memoize-one';
 
 const figurePatternSettings = (patterns)=>{
   return Array.from(
@@ -22,6 +23,15 @@ const figurePatternSettings = (patterns)=>{
     (p) => notation.guessPerPatternSettings( p.instrumentTracks )
   );
 };
+
+const makeResolvedSettings = memoizeOne( (globalSettings, patternSettings) => {
+  let resolvedSettings = Object.assign({}, globalSettings);
+  if(patternSettings)
+  {
+    resolvedSettings = Object.assign(resolvedSettings, patternSettings);
+  }
+  return resolvedSettings;
+});
 
 class SongView extends React.Component
 {
@@ -59,15 +69,15 @@ class SongView extends React.Component
       latencyHint
     );
     this.audio.setActivePattern( this.state.songData.patterns[this.state.selectedPattern].name );
-    const recordHistory = false;
-    if(recordHistory)
-    {
-      // recordSongVisited();
-    }
+    // save our work when we navigate away via tab-close
+    window.addEventListener('beforeunload', this.onSave);
   }
 
   componentWillUnmount()
   {
+    // save our work, as we may be about to navigate away somewhere else in tabit
+    this.onSave();
+    window.removeEventListener('beforeunload', this.onSave);
     if( this.audio )
     {
       this.audio.teardown();
@@ -90,7 +100,8 @@ class SongView extends React.Component
 
   // note these functions could cleanly be locally defined
   // but react gives better performance by not doing this, sadly
-  changeInstruments(instruments){
+  changeInstruments = (instruments) =>
+  {
     let songData = Object.assign({}, this.state.songData);
     songData.instruments = instruments;
     songData.instrumentMask = createInstrumentMask(this.state.songData.instrumentIndex, instruments);
@@ -99,7 +110,7 @@ class SongView extends React.Component
     } );
   }
 
-  sendVolumeEvent(event)
+  sendVolumeEvent = (event) =>
   {
     if("volume" in event)
     {
@@ -113,84 +124,97 @@ class SongView extends React.Component
     }
   }
 
+  handleSettingsChange = (change) =>
+  {
+    // change returns an object with .key, .value and .local
+    if(change.local)
+    {
+      const updateState = (state) => {
+        const modifiedSettings = state.patternSettings.map( (settings, index) => {
+          if(index !== state.selectedPattern){ return settings; }
+          else {
+            return Object.assign(
+              {},
+              state.patternSettings[state.selectedPattern],
+              {[change.key]: change.value}
+            );
+          }
+        });
+        return {patternSettings: modifiedSettings};
+      };
+      this.setState(updateState);
+    }
+    else
+    {
+      const updatedSettings = Object.assign(
+        {},
+        this.state.formatSettings,
+        {[change.key]: change.value}
+      );
+      this.setState(
+        {formatSettings: updatedSettings}
+      )
+    }
+  };
+
+  handlePatternsToggle = (e) => {
+    this.setState( { patternsOpen : !this.state.patternsOpen } );
+  };
+
+  handleSettingsToggle = (e) => {
+    this.setState( { settingsOpen : !this.state.settingsOpen } );
+  };
+
+  selectPattern = (patternIndex) =>
+  {
+    // it's important to do this before we re-render components
+    if(this.audio)
+    {
+      this.audio.setActivePattern(
+        this.state.songData.patterns[patternIndex].name
+      );
+    }
+
+    this.setState(
+      { selectedPattern: patternIndex }
+    );
+  };
+
+  onShare = () => {
+    SongStorage.put(this.getExportState())
+      .then(permanentUrl=>{
+        this.setState({permanentUrl: permanentUrl, sharingDialogOpen: true});
+      })
+      .catch((err)=>{alert("Couldn't contact external server at this time.")});
+  };
+
+  onSave = () => {
+    SongStorage.saveToLocalHistory(this.getExportState());
+  }
+
+  handleSettingsToggle = (e)=>{
+    this.setState({settingsOpen: !this.state.settingsOpen});
+  }
+
+  handlePatternsToggle = (e)=>{
+    this.setState({patternsOpen: !this.state.patternsOpen})
+  }
+
+  closeSharingDialog = ()=>{
+    this.setState({sharingDialogOpen:false});
+  }
+
   render()
   {
     const pattern = this.state.songData.patterns[
       this.state.selectedPattern
     ];
-    let resolvedSettings = Object.assign({}, this.state.formatSettings);
-    if(this.state.songData && this.state.patternSettings)
-    {
-      const patternSettings = this.state.patternSettings[this.state.selectedPattern];
-      resolvedSettings = Object.assign(resolvedSettings, patternSettings);
-    }
-
-    const handleSettingsChange = (change) =>
-    {
-      // change returns an object with .key, .value and .local
-      if(change.local)
-      {
-        const updateState = (state) => {
-          const modifiedSettings = state.patternSettings.map( (settings, index) => {
-            if(index !== state.selectedPattern){ return settings; }
-            else {
-              return Object.assign(
-                {},
-                state.patternSettings[state.selectedPattern],
-                {[change.key]: change.value}
-              );
-            }
-          });
-          return {patternSettings: modifiedSettings};
-        };
-        this.setState(updateState);
-      }
-      else
-      {
-        const updatedSettings = Object.assign(
-          {},
-          this.state.formatSettings,
-          {[change.key]: change.value}
-        );
-        this.setState(
-          {formatSettings: updatedSettings}
-        )
-      }
-    };
+    const patternSpecifics = ( this.state.songData && this.state.patternSettings) ? this.state.patternSettings[this.state.selectedPattern] : null;
+    const resolvedSettings = makeResolvedSettings( this.state.formatSettings, patternSpecifics );
 
     const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
     const mobile = isMobile();
     const instrumentConfigColumns = mobile ? 12 : 8;
-
-    const handlePatternsToggle = (e) => {
-      this.setState( { patternsOpen : !this.state.patternsOpen } );
-    };
-    const handleSettingsToggle = (e) => {
-      this.setState( { settingsOpen : !this.state.settingsOpen } );
-    };
-
-    const selectPattern = (patternIndex) =>
-    {
-      // it's important to do this before we re-render components
-      if(this.audio)
-      {
-        this.audio.setActivePattern(
-          this.state.songData.patterns[patternIndex].name
-        );
-      }
-
-      this.setState(
-        { selectedPattern: patternIndex }
-      );
-    };
-
-    const onShare = ()=>{
-      SongStorage.put(this.getExportState())
-        .then(permanentUrl=>{
-          this.setState({permanentUrl: permanentUrl, sharingDialogOpen: true});
-        })
-        .catch((err)=>{alert("Couldn't contact external server at this time.")});
-    };
 
     return (
       <div className="App">
@@ -198,8 +222,8 @@ class SongView extends React.Component
         <Toolbar variant="dense"/>
         <TabitBar
           title={this.state.songData.title}
-          settingsToggle={(e)=>{this.setState({settingsOpen: !this.state.settingsOpen})}}
-          patternsToggle={(e)=>{this.setState({patternsOpen: !this.state.patternsOpen})}}
+          settingsToggle={this.handleSettingsToggle}
+          patternsToggle={this.handlePatternsToggle}
         />
         <Pattern
           instruments={this.state.songData.instruments}
@@ -219,33 +243,33 @@ class SongView extends React.Component
             instruments={this.state.songData.instruments}
             instrumentIndex={this.state.songData.instrumentIndex}
             instrumentMask={this.state.songData.instrumentMask}
-            onChange={this.changeInstruments.bind(this)}
-            onVolumeEvent={this.sendVolumeEvent.bind(this)}
+            onChange={this.changeInstruments}
+            onVolumeEvent={this.sendVolumeEvent}
           />
         </Grid>
         {instrumentConfigColumns < 12 ? <Grid item xs={(12 - instrumentConfigColumns) / 2} /> : null}
         </Grid>
         <PatternDrawer
           open={this.state.patternsOpen}
-          onOpen={handlePatternsToggle}
-          onClose={handlePatternsToggle}
+          onOpen={this.handlePatternsToggle}
+          onClose={this.handlePatternsToggle}
           patterns={this.state.songData.patterns}
-          selectPattern={selectPattern}
+          selectPattern={this.selectPattern}
         />
         <SettingsDrawer
           open={this.state.settingsOpen}
-          onOpen={handleSettingsToggle}
-          onClose={handleSettingsToggle}
+          onOpen={this.handleSettingsToggle}
+          onClose={this.handleSettingsToggle}
           anchor="right"
           pattern={pattern}
           settings={resolvedSettings}
-          onChange={handleSettingsChange}
-          // onSave: PropTypes.func,
-          onShare ={onShare}
+          onChange={this.handleSettingsChange}
+          // onSave: PropTypes.func, # don't currently support download.
+          onShare={this.onShare}
          />
          <SharingDialog
           open={this.state.sharingDialogOpen}
-          onClose={()=>{this.setState({sharingDialogOpen:false});}}
+          onClose={this.closeSharingDialog}
           url={this.state.permanentUrl}
           />
       </div>

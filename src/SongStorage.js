@@ -1,6 +1,33 @@
 import hash from "object-hash";
 import zlib from "zlib";
 
+const storageAvailable = (type) => {
+    // this is code copied from https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API/Using_the_Web_Storage_API
+    let storage;
+    try {
+        storage = window[type];
+        let x = '__storage_test__';
+        storage.setItem(x, x);
+        storage.removeItem(x);
+        return true;
+    }
+    catch(e) {
+    // accept certain types of exceptions as legitimate consequences of the feature working
+        return e instanceof DOMException && (
+            // everything except Firefox
+            e.code === 22 ||
+            // Firefox
+            e.code === 1014 ||
+            // test name field too, because code might not be present
+            // everything except Firefox
+            e.name === 'QuotaExceededError' ||
+            // Firefox
+            e.name === 'NS_ERROR_DOM_QUOTA_REACHED') &&
+            // acknowledge QuotaExceededError only if there's something already stored
+            (storage && storage.length !== 0);
+    }
+};
+
 const getJsonDestinationUrl = (slug) => {
   const jsonbase_url = "https://jsonbase.com/tabit-song/" + slug;
   return jsonbase_url;
@@ -62,14 +89,54 @@ const put = (exportState) =>
   const permanentUrl = window.origin + process.env.PUBLIC_URL + "/song/" + stateHash;
   return fetch(uploadUrl, metadata).then(
     e => {
-      console.log(exportState);
       return permanentUrl;
     }
   );
 };
 
+const getLocalHistory = () => {
+  if(!storageAvailable('localStorage'))
+  {
+    return [];
+  }
+  const jsonHistory = localStorage.getItem("tabit-history");
+  const songHistory = jsonHistory ? JSON.parse(jsonHistory).sort( (a,b) =>(b.date - a.date) ) : [];
+  return songHistory;
+};
+
+const saveToLocalHistory = (exportState) => {
+    const stateToShare = encodeState(exportState);
+    const stateHash = hash(stateToShare);
+    let history = getLocalHistory();
+    const relevantHistory = history.filter( song => ( song.id === stateHash && song.name === exportState.songName ) );
+    if( relevantHistory.length !== 0 )
+    {
+      // found at least one history entry identical to this one ...
+      // update one, so it's the most recent entry
+      relevantHistory[0].date = Date.now();
+    }
+    else
+    {
+      // add history entry
+      const historyEntry = {
+        name: exportState.songName,
+        id: stateHash,
+        date: Date.now(),
+        content: stateToShare
+      };
+      history.push(historyEntry);
+    }
+
+    // resort & cap how many files we remember
+    const restrictedHistory = history.sort( (a,b) =>(b.date - a.date)  ).slice(0, 10);
+    localStorage.setItem("tabit-history", JSON.stringify(restrictedHistory));
+};
+
 export {
   decodeState,
   get,
-  put
+  put,
+
+  getLocalHistory,
+  saveToLocalHistory
 };
