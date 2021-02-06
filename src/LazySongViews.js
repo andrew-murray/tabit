@@ -8,6 +8,8 @@ import History from "./History";
 import SongLoaders from "./SongLoaders"
 import * as SongStorage from "./SongStorage";
 import SongView from "./SongView"
+import {decodeState} from "./SongStorage";
+import hash from "object-hash";
 import h2 from "./h2"
 
 function WaitingMessage(props)
@@ -23,27 +25,31 @@ function WaitingMessage(props)
 class ExampleSongView extends React.Component
 {
   state = {
-    songData: null,
-    errorMessage: null
+    songData: null
   }
 
   componentDidMount()
   {
+    const navigateHomeWithError = (err) => {
+      let history = this.props.history;
+      history.push({
+        pathname: '/',
+        error: "Failed to load example data. " +
+        "This likely represents a bug - please raise an issue in github!"
+      });
+    };
     SongLoaders.LoadExample().then(
       (songData) => {
         this.setState(
           { songData : songData }
         );
       }
-    ).catch((err)=>{this.setState({
-      errorMessage: "Failed to load example data. This likely represents a bug - please raise an issue in github!"
-    })});
+    ).catch(navigateHomeWithError);
   }
 
   render()
   {
-    return this.state.errorMessage ? <Alert severity="error">{this.state.errorMessage}</Alert>
-        :  this.state.songData ? <SongView songData={this.state.songData} key={this.state.songData}/>
+    return this.state.songData ? <SongView songData={this.state.songData} key={this.state.songData}/>
                                : <WaitingMessage />;
   }
 };
@@ -68,8 +74,7 @@ function SongNameFromFile(filename)
 class FileImportSongView extends React.Component
 {
   state = {
-    songData: null,
-    errorMessage: null
+    songData: null
   }
 
   componentDidMount()
@@ -79,10 +84,19 @@ class FileImportSongView extends React.Component
         { songData : songData }
       );
     };
-    const setError = (err)=>{
-      this.setState({
-        errorMessage: "Failed to load " + this.props.filename + ". " +
-        "This could represent a corrupted file/a bug in our software. Please consider raising an issue in github!"
+    if(!this.props.filename)
+    {
+      // silently navigate home
+      let history = this.props.history;
+      history.push({pathname: '/'});
+      return;
+    }
+    const navigateHomeWithError = (err) => {
+      let history = this.props.history;
+      history.push({
+        pathname: '/',
+        error: "Failed to load " + this.props.filename + ". " +
+        "If you're sure this is a Hydrogen file, please consider raising an issue in github!"
       });
     };
     if(this.props.filename.includes("h2song"))
@@ -98,7 +112,7 @@ class FileImportSongView extends React.Component
             );
           })
           .then(setState)
-          .catch(setError);
+          .catch(navigateHomeWithError);
     }
     else
     {
@@ -116,14 +130,13 @@ class FileImportSongView extends React.Component
           );
         } )
         .then(setState)
-        .catch(setError);
+        .catch(navigateHomeWithError);
     }
   }
 
   render()
   {
-    return this.state.errorMessage ? <Alert severity="error">{this.state.errorMessage}</Alert>
-        :  this.state.songData ? <SongView songData={this.state.songData} key={this.state.songData}/>
+    return this.state.songData ? <SongView songData={this.state.songData} key={this.state.songData}/>
                                : <WaitingMessage />;
   }
 };
@@ -132,8 +145,7 @@ class FileImportSongView extends React.Component
 class SongStorageSongView extends React.Component
 {
   state = {
-    songData: null,
-    errorMessage: null
+    songData: null
   }
 
   componentDidMount()
@@ -143,9 +155,11 @@ class SongStorageSongView extends React.Component
         { songData : songData }
       );
     };
-    const setError = (err)=>{
-      this.setState({
-        errorMessage: "Failed to load song " + this.props.songID + " from database. " +
+    const navigateHomeWithError = (err) => {
+      let history = this.props.history;
+      history.push({
+        pathname: '/',
+        error: "Failed to load song " + this.props.songID + " from database. " +
         "This could represent a corrupted entry/a bug in our software. Please consider raising an issue in github!"
       });
     };
@@ -159,20 +173,75 @@ class SongStorageSongView extends React.Component
         );
       } )
       .then(setState)
-      .catch(setError);
+      .catch(navigateHomeWithError);
   }
 
   render()
   {
-    return this.state.errorMessage ? <Alert severity="error">{this.state.errorMessage}</Alert>
-        :  this.state.songData ? <SongView songData={this.state.songData} key={this.state.songData}/>
+    return this.state.songData ? <SongView songData={this.state.songData} key={this.state.songData}/>
                                : <WaitingMessage />;
   }
 };
 
+class LocalStorageSongView extends React.Component
+{
+  state = {
+    songData: null
+  }
+
+  componentDidMount()
+  {
+    const navigateHomeWithError = (err) => {
+      let history = this.props.history;
+      history.push({
+        pathname: '/',
+        error: "Failed to load recently viewed song " + this.props.name + ". "
+      });
+    };
+    const setState = (songData) => {
+      this.setState(
+        { songData : songData }
+      );
+    };
+
+    const history = SongStorage.getLocalHistory();
+    const matches = history.filter( song => ( song.id === this.props.songID ) );
+    if(matches.length < 1)
+    {
+      // provide no error message, its not currently logged
+      navigateHomeWithError();
+    }
+
+    Promise.resolve(matches[0])
+      .then( (song)=>{
+        const stateHash = hash(song.content);
+        if( stateHash !== this.props.songID )
+        {
+          throw new Error("Hash did not match");
+        }
+        const decodedState = decodeState(song.content);
+        return decodedState;
+      }).then( data => {
+        return SongLoaders.LoadJSON(
+          data,
+          data.songName,
+          data.songName,
+          false // fromHydrogen
+        );
+      }).then(setState)
+      .catch(navigateHomeWithError);
+    }
+
+    render()
+    {
+      return this.state.songData ? <SongView songData={this.state.songData} key={this.state.songData}/>
+                                 : <WaitingMessage />;
+    }
+}
 
 export {
   ExampleSongView,
   FileImportSongView,
-  SongStorageSongView
+  SongStorageSongView,
+  LocalStorageSongView
 };

@@ -8,19 +8,15 @@ import TitleScreen from "./TitleScreen";
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { createMuiTheme, ThemeProvider, responsiveFontSizes } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+import * as SongStorage from "./SongStorage";
 import {
   ExampleSongView,
   FileImportSongView,
-  SongStorageSongView
+  SongStorageSongView,
+  LocalStorageSongView
 } from "./LazySongViews";
 
 export default function Routes(props) {
-  const getSongHistory = ()=>{
-    const jsonHistory = localStorage.getItem("tabit-history");
-    const songHistory = jsonHistory ? JSON.parse(jsonHistory).sort( (a,b) =>(b.date - a.date) ) : [];
-    return songHistory;
-  };
-
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
   const theme = React.useMemo(
     () =>
@@ -50,7 +46,8 @@ export default function Routes(props) {
               return <TitleScreen
                 history={props.history}
                 location={props.location}
-                songHistory={getSongHistory()}
+                songHistory={SongStorage.getLocalHistory()}
+                error={props.location.error}
               />
             }}
           />
@@ -82,6 +79,16 @@ export default function Routes(props) {
                 location={props.location}
                 filename={props.location.filename}
                 content={props.location.content}
+              />
+            }}
+          />
+          <Route
+            path="/recent/:songID"
+            render={(props)=>{
+              return <LocalStorageSongView
+                history={props.history}
+                location={props.location}
+                songID={props.match.params.songID}
               />
             }}
           />

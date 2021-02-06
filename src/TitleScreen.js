@@ -1,12 +1,10 @@
 import React from 'react'
 import { withStyles } from '@material-ui/core/styles';
 import FileImport from "./FileImport";
-import { Alert } from '@material-ui/lab';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Button from '@material-ui/core/Button';
 import History from "./History";
-import {decodeState} from "./SongStorage";
-import hash from "object-hash";
+import TitledDialog from "./TitledDialog"
 import './App.css';
 
 const styles = (theme)=>{
@@ -36,22 +34,7 @@ const styles = (theme)=>{
 class TitleScreen extends React.Component
 {
   state = {
-    errorMessage: null
-  }
-
-  loadExample()
-  {
-
-  }
-
-  loadLocalSong(piece)
-  {
-
-  }
-
-  handleFileImport()
-  {
-
+    error: this.props.error
   }
 
   render()
@@ -59,7 +42,6 @@ class TitleScreen extends React.Component
     let history = this.props.history;
     const songHistory = this.props.songHistory;
     // if a load of a song is in flight don't show file open buttons
-
     const handleFileImport = (e) =>
     {
       history.push({
@@ -69,18 +51,9 @@ class TitleScreen extends React.Component
       });
     };
 
-    const handleHistoryImport = (song) => {
-      const decodedState = decodeState(song.content);
-      const stateHash = hash(song.content);
-      if( stateHash !== song.id )
-      {
-        throw new Error("Hash did not match");
-      }
-      history.push({
-        pathname: '/import',
-        filename: song.name,
-        content: decodedState
-      });
+    const navigateRecent = (song) => {
+      console.log(song);
+      history.push('/recent/' + song.id + "/");
     };
 
     const controls = (
@@ -92,9 +65,6 @@ class TitleScreen extends React.Component
           onImport={handleFileImport}
           accept=".tabit,.h2song"
           />
-          {this.state.errorMessage === null ||
-            <Alert severity="error">{this.state.errorMessage}</Alert>
-          }
       </React.Fragment>
     );
     const waitingMessage = (<React.Fragment>
@@ -112,9 +82,18 @@ class TitleScreen extends React.Component
         </div>
         <div style={{"marginLeft" : "auto", "marginRight": "auto"}}>
         { songHistory.length > 0 &&
-          <History data={songHistory} onClick={handleHistoryImport}/>
+          <History data={songHistory} onClick={navigateRecent}/>
         }
         </div>
+        { !!this.state.error &&
+          <TitledDialog
+            title="Something went wrong."
+            open={!!this.state.error}
+            onClose={()=>{this.setState({error: null})}}
+          >
+            {this.state.error}
+          </TitledDialog>
+        }
         <div className={classes.licenseBanner} >
           <p>tabit relies on publicly available sound libraries listed at <a href="https://github.com/andrew-murray/tabit">https://github.com/andrew-murray/tabit</a></p>
         </div>
