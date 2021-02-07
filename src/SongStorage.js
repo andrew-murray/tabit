@@ -89,7 +89,11 @@ const put = (exportState) =>
 
   const permanentUrl = window.origin + process.env.PUBLIC_URL + "/song/" + stateHash;
   return fetch(uploadUrl, metadata).then(
-    e => {
+    response => {
+      if(!response.ok)
+      {
+        throw new Error("Failed to upload song to " + uploadUrl);
+      }
       return permanentUrl;
     }
   );

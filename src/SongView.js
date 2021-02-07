@@ -221,6 +221,8 @@ class SongView extends React.Component
           title={this.state.songData.title}
           settingsToggle={this.handleSettingsToggle}
           patternsToggle={this.handlePatternsToggle}
+          onDownload={this.onDownload}
+          onShare={this.onShare}
         />
         <Pattern
           instruments={this.state.songData.instruments}
@@ -261,8 +263,6 @@ class SongView extends React.Component
           pattern={pattern}
           settings={resolvedSettings}
           onChange={this.handleSettingsChange}
-          onSave={this.onDownload}
-          onShare={this.onShare}
          />
          <SharingDialog
           open={this.state.sharingDialogOpen}

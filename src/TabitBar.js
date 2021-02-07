@@ -10,6 +10,8 @@ import HomeIcon from '@material-ui/icons/Home';
 import { Link } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import SettingsIcon from "@material-ui/icons/Settings";
+import SaveAltIcon from '@material-ui/icons/SaveAlt';
+import ShareIcon from '@material-ui/icons/Share';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -61,6 +63,22 @@ function TabitBar(props) {
         <Typography variant="h6" color="inherit" noWrap style={{"flexGrow": 1, "textOverflow": "ellipsis"}}>
           {props.title}
         </Typography>
+        <IconButton
+          color="inherit"
+          aria-label="download"
+          edge="start"
+          onClick={props.onDownload}
+          >
+          <SaveAltIcon />
+        </IconButton>
+        <IconButton
+          color="inherit"
+          aria-label="download"
+          edge="start"
+          onClick={props.onShare}
+          >
+          <ShareIcon />
+        </IconButton>
         <IconButton
           color="inherit"
           aria-label="open settings"
