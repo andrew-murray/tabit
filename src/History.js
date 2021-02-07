@@ -35,7 +35,7 @@ function History(props)
   return (
     <div className={classes.root}>
       <Paper>
-        <Typography component="h2">Recently viewed</Typography>
+        <Typography>Recently viewed</Typography>
         <Divider />
         <List>
               {[...items.keys()].map ( x => renderRow({
