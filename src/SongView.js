@@ -1,7 +1,7 @@
 import React from 'react';
 import Pattern from "./Pattern";
 import PlaybackControls from "./PlaybackControls";
-import {FormatSettings, DefaultSettings} from "./formatSettings";
+import {DefaultSettings} from "./formatSettings";
 import notation from "./notation";
 import InstrumentConfig from "./instrumentConfig";
 import { createInstrumentMask } from "./instrumentation";
@@ -46,11 +46,6 @@ class SongView extends React.Component
     patternTime: null
   }
 
-  constructor(props)
-  {
-    super(props);
-  }
-
   componentDidMount()
   {
     // is this  a prop?
@@ -61,7 +56,7 @@ class SongView extends React.Component
       this.state.songData.patterns,
       100.0,
       (time)=>{
-        if( time / 48 != this.state.patternTime / 48 )
+        if( time / 48 !== this.state.patternTime / 48 )
         {
           this.setState( {patternTime: time} )
         }
@@ -211,14 +206,12 @@ class SongView extends React.Component
     ];
     const patternSpecifics = ( this.state.songData && this.state.patternSettings) ? this.state.patternSettings[this.state.selectedPattern] : null;
     const resolvedSettings = makeResolvedSettings( this.state.formatSettings, patternSpecifics );
-
-    const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
     const mobile = isMobile();
     const instrumentConfigColumns = mobile ? 12 : 8;
 
+    // todo: make this Toolbar unnecessary, it ensures pattern renders in the right place right now
     return (
       <div className="App">
-        // todo: make this unnecessary, it ensures pattern renders in the right place right now
         <Toolbar variant="dense"/>
         <TabitBar
           title={this.state.songData.title}

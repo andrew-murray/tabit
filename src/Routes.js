@@ -18,7 +18,7 @@ import {
 
 export default function Routes(props) {
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
-  const theme = React.useMemo(
+  const theme = responsiveFontSizes( React.useMemo(
     () =>
       createMuiTheme({
         palette: {
@@ -32,7 +32,7 @@ export default function Routes(props) {
         },
       }),
     [prefersDarkMode]
-  );
+  ) );
 
   return (
     <Router basename={process.env.PUBLIC_URL}>

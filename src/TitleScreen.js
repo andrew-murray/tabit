@@ -1,7 +1,6 @@
 import React from 'react'
 import { withStyles } from '@material-ui/core/styles';
 import FileImport from "./FileImport";
-import CircularProgress from '@material-ui/core/CircularProgress';
 import Button from '@material-ui/core/Button';
 import History from "./History";
 import TitledDialog from "./TitledDialog"
@@ -65,11 +64,6 @@ class TitleScreen extends React.Component
           onImport={handleFileImport}
           accept=".tabit,.h2song"
           />
-      </React.Fragment>
-    );
-    const waitingMessage = (<React.Fragment>
-        <p> Loading song... </p>
-        <CircularProgress />
       </React.Fragment>
     );
     const { classes } = this.props;

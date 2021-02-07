@@ -3,7 +3,6 @@
 import track from "./track";
 import xml2js from "xml2js";
 import { calculateResolution } from "./utilities";
-import { figureInstruments, DEFAULT_INSTRUMENT_SYMBOLS } from "./instrumentation";
 
 // TODO: This file was written with the hope that using xml2js would make things cleaner
 // it didn't, purely because xml2js is an okay library doing a difficult task

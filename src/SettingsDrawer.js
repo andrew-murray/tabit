@@ -4,8 +4,7 @@ import notation from "./notation"
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import Button from '@material-ui/core/Button';
 import Divider from "@material-ui/core/Divider";
-import {FormatSettings, DefaultSettings} from "./formatSettings";
-import { useTheme } from '@material-ui/styles';
+import {FormatSettings} from "./formatSettings";
 import { isMobile } from "./Mobile";
 import TabitBar from "./TabitBar";
 
@@ -13,7 +12,6 @@ function SettingsDrawer(props)
 {
   const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
   const mobile = isMobile();
-  const theme = useTheme();
 
   const patternDetails = props.pattern ? {
     name : props.pattern.name,
