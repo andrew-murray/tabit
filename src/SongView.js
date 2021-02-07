@@ -183,6 +183,10 @@ class SongView extends React.Component
       .catch((err)=>{alert("Couldn't contact external server at this time.")});
   };
 
+  onDownload = () => {
+    SongStorage.download(this.getExportState())
+  }
+
   onSave = () => {
     SongStorage.saveToLocalHistory(this.getExportState());
   }
@@ -257,7 +261,7 @@ class SongView extends React.Component
           pattern={pattern}
           settings={resolvedSettings}
           onChange={this.handleSettingsChange}
-          // onSave: PropTypes.func, # don't currently support download, doesn't seem worthwhile
+          onSave={this.onDownload}
           onShare={this.onShare}
          />
          <SharingDialog

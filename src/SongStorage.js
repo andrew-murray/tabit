@@ -1,5 +1,6 @@
 import hash from "object-hash";
 import zlib from "zlib";
+import { saveAs } from 'file-saver';
 
 const storageAvailable = (type) => {
     // this is code copied from https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API/Using_the_Web_Storage_API
@@ -132,11 +133,18 @@ const saveToLocalHistory = (exportState) => {
     localStorage.setItem("tabit-history", JSON.stringify(restrictedHistory));
 };
 
+const download = (exportState) => {
+  const destFilename = exportState.songName + ".tabit";
+  const js = JSON.stringify(exportState, null, 4);
+  const blob = new Blob([js], {type: "application/json"});
+  saveAs(blob, destFilename);
+};
+
 export {
   decodeState,
   get,
   put,
-
+  download,
   getLocalHistory,
   saveToLocalHistory
 };

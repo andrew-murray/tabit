@@ -41,7 +41,7 @@ function SettingsDrawer(props)
       {patternDetails && props.onSave &&
         <React.Fragment>
           <Button
-            onClick={(e) => { props.OnSave(); } }
+            onClick={(e) => { props.onSave(); } }
           >Download</Button>
           <Divider />
         </React.Fragment>
