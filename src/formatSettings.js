@@ -62,7 +62,7 @@ function FormatSettings(props) {
   {
     const idString = "form-control-" + name + "-id";
     return (
-      <ListItem variant="filled" className={classes.formControl} key={idString} id={idString} style={{width:"100%"}}>
+      <ListItem variant="filled" className={classes.formControl} key={idString} id={idString} style={{width:"75%"}}>
         <FormControl style={{width:"100%"}}>
           <InputLabel id="settings-option-{name}">{name}</InputLabel>
           <Select
@@ -83,7 +83,7 @@ function FormatSettings(props) {
   function createBoolControl(name)
   {
     return (
-      <ListItem style={{width:"100%"}}>
+      <ListItem key={"form-control-" + name}>
         <FormControlLabel
           control={<Switch checked={props.settings[name]} onChange={handleCheckedChange} name={name} />}
           label={camelToReadable(name)}
