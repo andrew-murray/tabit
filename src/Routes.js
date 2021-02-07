@@ -36,9 +36,9 @@ export default function Routes(props) {
 
   return (
     <Router basename={process.env.PUBLIC_URL}>
+      <ThemeProvider theme={theme}>
+      <CssBaseline />
       <Switch>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
           <Route
             exact
             path="/"
@@ -92,8 +92,8 @@ export default function Routes(props) {
               />
             }}
           />
-        </ThemeProvider>
-      </Switch>
+        </Switch>
+      </ThemeProvider>
     </Router>
   )
 };
