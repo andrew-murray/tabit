@@ -1,5 +1,6 @@
 import React from 'react'
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Typography from '@material-ui/core/Typography';
 import SongLoaders from "./SongLoaders"
 import * as SongStorage from "./SongStorage";
 import SongView from "./SongView"
@@ -10,10 +11,12 @@ import h2 from "./h2"
 function WaitingMessage(props)
 {
   return (
-    <React.Fragment>
-      <p> Loading song... </p>
-      <CircularProgress />
-    </React.Fragment>
+    <div className="App">
+      <div>
+        <CircularProgress color="secondary"/>
+        <Typography> Loading song... </Typography>
+      </div>
+    </div>
   );
 }
 
