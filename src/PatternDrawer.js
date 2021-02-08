@@ -4,11 +4,12 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import TabitBar from "./TabitBar";
+import { isMobile } from "./Mobile";
 
 function PatternDrawer(props)
 {
-  const iOS = props.iOS;
-  const mobile = props.mobile;
+  const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
+  const mobile = isMobile();
 
   // SwipableDawer has undesirable behaviour,
   // (a) persistent isn't handled properly
