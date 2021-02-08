@@ -177,7 +177,8 @@ class SongView extends React.Component
 
   onShare = () => {
     SongStorage.put(this.getExportState())
-      .then(permanentUrl=>{
+      .then(songID =>{
+        const permanentUrl = window.origin + process.env.PUBLIC_URL + "/song/" + songID;
         this.setState({permanentUrl: permanentUrl, sharingDialogOpen: true});
       })
       .catch((err)=>{alert("Couldn't contact external server at this time.")});

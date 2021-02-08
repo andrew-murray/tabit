@@ -29,21 +29,6 @@ const storageAvailable = (type) => {
     }
 };
 
-const getJsonDestinationUrl = (slug) => {
-  const jsonbase_url = "https://jsonbase.com/tabit-song/" + slug;
-  return jsonbase_url;
-}
-
-const getJsonStorageUrl = (slug) => {
-  // jsonbase doesn't give cross-origin headers,
-  // so we use cors-anywhere to add them
-
-  // this is obviously a hack, but it enables us to use jsonbase
-  // as a transitive (semi-permanent) database, on a static site!
-  const cors_url = "https://cors-anywhere.herokuapp.com/";
-  return cors_url + getJsonDestinationUrl(slug);
-}
-
 const encodeState = (songData) =>
 {
   // json
@@ -60,43 +45,62 @@ const decodeState = (state) =>
   return JSON.parse(decompressedString);
 };
 
-const get = (songID) =>
+const JSON_BIN_API = "https://api.jsonbin.io";
+const JSON_BIN_API_BINS = JSON_BIN_API + "/b";
+const JSON_BIN_API_SECRET = "$2b$10$Z2eAUT2PfRKn5RB55/Y30ujW8aUB1CCgRuUua3Jo9JX2WTetZRfIG";
+const TABIT_SONG_COLLECTION_ID = "60218fa606934b65f53046ad";
+
+const put = (exportState, name) =>
 {
-  return fetch(getJsonStorageUrl(songID))
-    .then( response => { return response.json(); } )
-    .then( js => {
-      const decodedState = decodeState(js);
-      const stateHash = hash(js);
-      if( stateHash !== songID )
+  const binName = name ? name : exportState.songName;
+  // names are limited to 128 characters, let's be safe
+  const binShort = binName.slice(0, 64);
+  const stateToShare = encodeState(exportState);
+  const metadata = {
+    method: "POST",
+    headers: {
+      'Content-Type': 'application/json',
+      "secret-key": JSON_BIN_API_SECRET,
+      "collection-id": TABIT_SONG_COLLECTION_ID,
+      private: false,
+      name: binShort
+    },
+    body: JSON.stringify(stateToShare)
+  };
+  return fetch( JSON_BIN_API_BINS, metadata )
+    .then(response => {
+      if(!response.ok)
       {
-        throw new Error("Hash did not match");
+        throw new Error("Failed to upload song");
       }
-      return decodedState;
+      else
+      {
+        return response.json();
+      }
+    }).then(data => {
+      return data.id;
     });
 }
 
-const put = (exportState) =>
+const get = (binID) =>
 {
-  const stateToShare = encodeState(exportState);
-  const stateHash = hash(stateToShare);
-  const uploadUrl = getJsonStorageUrl(stateHash);
-
   const metadata = {
-    method: "PUT",
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(stateToShare)
   };
-
-  const permanentUrl = window.origin + process.env.PUBLIC_URL + "/song/" + stateHash;
-  return fetch(uploadUrl, metadata).then(
-    response => {
+  return fetch( JSON_BIN_API_BINS + "/" + binID, metadata )
+    .then( response => {
       if(!response.ok)
       {
-        throw new Error("Failed to upload song to " + uploadUrl);
+        throw new Error("Failed to upload song");
       }
-      return permanentUrl;
-    }
-  );
+      else
+      {
+        return response.json();
+      }
+    } )
+    .then( js => {
+      return decodeState(js);
+    });
 };
 
 const getLocalHistory = () => {
