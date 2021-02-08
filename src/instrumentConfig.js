@@ -12,6 +12,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
+import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
+import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import EditIcon from '@material-ui/icons/Edit';
 import Button from '@material-ui/core/Button';
@@ -26,7 +28,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-
+import { useTheme } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import VolumeOffIcon from '@material-ui/icons/VolumeOff';
 import VolumeMuteIcon from '@material-ui/icons/VolumeMute';
@@ -384,6 +386,8 @@ function InstrumentTable(props)
     props.onChange(replacedInstruments);
   };
 
+  let [open, setOpen] = React.useState( false );
+
   const createCell = (x,y) =>
   {
       return (
@@ -391,9 +395,9 @@ function InstrumentTable(props)
           align="center"
           key={"instrumentPanel-cell-" + y.toString() + "-" + x.toString()}
         >
-        <ThinFormControlLabel
-          control={<Checkbox checked={props.instrumentMask[x] === y} onChange={(e) =>{handleChange(x,y,e);}} name={x + "," + y.toString()} />}
-        />
+          <ThinFormControlLabel
+            control={<Checkbox checked={props.instrumentMask[x] === y} onChange={(e) =>{handleChange(x,y,e);}} name={x + "," + y.toString()} />}
+          />
         </TableCell>
       );
   }
@@ -402,12 +406,12 @@ function InstrumentTable(props)
   {
     return (
       <TableRow key={"instrumentPanel-row-" + y.toString()}>
-        <TableCell component="th" scope="row" key={"instrumentPanel-row-" + y.toString() + "-name"}>
-          <Typography>{props.instruments[y][0]}</Typography>
-          <InlinableIconButton onClick={(e)=>{editRow(y);}}><EditIcon fontSize="small"/></InlinableIconButton>
-          <InlinableIconButton onClick={(e)=>{removeRow(y);}}><ClearIcon fontSize="small"/></InlinableIconButton>
-        </TableCell>
-        {[...Array(props.instrumentMask.length).keys()].map(x=>createCell(x,y))}
+          <TableCell component="th" scope="row" key={"instrumentPanel-row-" + y.toString() + "-name"}>
+            <Typography>{props.instruments[y][0]}</Typography>
+            <InlinableIconButton onClick={(e)=>{editRow(y);}}><EditIcon fontSize="small"/></InlinableIconButton>
+            <InlinableIconButton onClick={(e)=>{removeRow(y);}}><ClearIcon fontSize="small"/></InlinableIconButton>
+          </TableCell>
+          {[...Array(props.instrumentMask.length).keys()].map(x=>createCell(x,y))}
       </TableRow>
     );
   };
@@ -436,7 +440,11 @@ function InstrumentTable(props)
               </NoDividerCenterTableCell>)}
         </TableRow>
         <TableRow key={"instrumentPanel-row-controls"}>
-          <TableCell key={"instrumentPanel-row-instrument"}></TableCell>
+          <CenterTableCell key={"instrumentPanel-row-instrument"}>
+            <IconButton aria-label="Show Instrument Matcher" size="small" onClick={() => setOpen(!open)}>
+              {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+            </IconButton>
+          </CenterTableCell>
           {[...Array(props.instrumentIndex.length).keys()].map(x=>
               <CenterTableCell key={"instrumentPanel-row-controls-cell-" + x.toString()}>
                 <Grid container>
@@ -457,14 +465,15 @@ function InstrumentTable(props)
         </TableRow>
       </TableHead>
       <TableBody>
-        {[...Array(props.instruments.length).keys()].map(y=>createMatchingRow(y))}
-        {createEditRow()}
+        {open && [...Array(props.instruments.length).keys()].map(y=>createMatchingRow(y))}
+        {open && createEditRow()}
       </TableBody>
     </Table>
   );
 }
 
 function InstrumentConfig(props) {
+  const theme = useTheme();
   const [editingSymbol, setEditingSymbol] = React.useState(null);
   const [renamingInstrument, setRenamingInstrument] = React.useState(null);
 
@@ -522,7 +531,7 @@ function InstrumentConfig(props) {
     "borderRadius": "8px"
   };
   return (
-    <div style={{"paddingBottom" : "5px"}}>
+    <div style={{"paddingBottom" : theme.spacing(1)}}>
       <InstrumentRenameDialog
         open={renamingInstrument !== null}
         onCancel={()=>{setRenamingInstrument(null);}}
