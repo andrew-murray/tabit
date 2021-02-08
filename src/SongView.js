@@ -48,19 +48,19 @@ class SongView extends React.Component
 
   componentDidMount()
   {
-    // is this  a prop?
     const latencyHint = isMobile() ? "playback" : null;
+    const animateCallback = (time)=>{
+      if( Math.floor(time / this.state.patternSettings.beatResolution) !== Math.floor(this.state.patternTime / this.state.patternSettings.beatResolution) )
+      {
+        this.setState( {patternTime: time} )
+      }
+    };
     // always default tempo to 100bpm for now
     this.audio = new ToneController(
       this.state.songData.instrumentIndex,
       this.state.songData.patterns,
       100.0,
-      (time)=>{
-        if( time / 48 !== this.state.patternTime / 48 )
-        {
-          this.setState( {patternTime: time} )
-        }
-      },
+      animateCallback,
       latencyHint
     );
     this.audio.setActivePattern( this.state.songData.patterns[this.state.selectedPattern].name );
@@ -204,6 +204,17 @@ class SongView extends React.Component
     this.setState({sharingDialogOpen:false});
   }
 
+  onPlay = ()=>{
+    if(this.audio){ this.audio.play(); }
+  }
+  onStop = ()=>{
+    if(this.audio){ this.audio.stop(); }
+
+  }
+  onSetTempo = (tempo)=>{
+    if(this.audio){ this.audio.setTempo(tempo); }
+  }
+
   render()
   {
     const pattern = this.state.songData.patterns[
@@ -234,9 +245,9 @@ class SongView extends React.Component
         />
         <div style={{display: "flex", flexGrow : 1}} />
         <PlaybackControls
-          onPlay={()=>{if(this.audio){this.audio.play();}}}
-          onStop={()=>{if(this.audio){this.audio.stop();}}}
-          onTempoChange={(tempo)=>{if(this.audio){this.audio.setTempo(tempo);}}}
+          onPlay={this.onPlay}
+          onStop={this.onStop}
+          onTempoChange={this.onSetTempo}
         />
         <Grid container>
         {instrumentConfigColumns < 12 ? <Grid item xs={(12 - instrumentConfigColumns) / 2} /> : null}
