@@ -13,7 +13,7 @@ const styles = (theme)=>{
       bottom:0,
       "width": "95%",
       "textAlign": "center",
-      "backgroundColor" : "#333", // same background color as app
+      "backgroundColor" : "#212121", // same background color as app
       "zIndex" : theme.zIndex.drawer
     },
     modal: {
