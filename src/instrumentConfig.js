@@ -10,6 +10,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
 
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import EditIcon from '@material-ui/icons/Edit';
@@ -534,7 +535,7 @@ function InstrumentConfig(props) {
         onChange={(s)=>{endEditingSymbol(s);}}
         value={editingSymbol !== null ? getSymbol(editingSymbol) : ""}
         />
-      <TableContainer style={containerStyle}>
+      <TableContainer component={Paper} style={containerStyle}>
         <InstrumentTable
           instrumentIndex={props.instrumentIndex}
           instrumentMask={props.instrumentMask}
