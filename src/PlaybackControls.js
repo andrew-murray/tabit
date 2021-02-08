@@ -49,4 +49,4 @@ function PlaybackControls(props)
    );
 };
 
-export default PlaybackControls;
+export default React.memo(PlaybackControls);
