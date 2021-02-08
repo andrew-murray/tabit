@@ -41,7 +41,7 @@ class SongView extends React.Component
     formatSettings: Object.assign({}, DefaultSettings),
     songData: Object.assign({},this.props.songData),
     settingsOpen: false,
-    patternsOpen: false,
+    patternsOpen: true,
     sharingDialogOpen: false,
     patternTime: null
   }
