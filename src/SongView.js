@@ -225,12 +225,14 @@ class SongView extends React.Component
           onDownload={this.onDownload}
           onShare={this.onShare}
         />
+        <div style={{display: "flex", flexGrow : 1}} />
         <Pattern
           instruments={this.state.songData.instruments}
           tracks={pattern.instrumentTracks}
           config={resolvedSettings}
           patternTime={this.state.patternTime != null ? this.state.patternTime : undefined}
         />
+        <div style={{display: "flex", flexGrow : 1}} />
         <PlaybackControls
           onPlay={()=>{if(this.audio){this.audio.play();}}}
           onStop={()=>{if(this.audio){this.audio.stop();}}}
