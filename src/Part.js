@@ -57,7 +57,7 @@ class Part extends React.Component
           <PreTypography variant="subtitle1" component="span" key={"line-start-" + key}>{this.props.config.lineMark}</PreTypography>
           {
             beats.map( beat => <React.Fragment key={"fragment-beat-"+ (beat + startBeat).toString()}>
-              <PreTypography variant="subtitle1" component="span" key={"span-beat-" + (beat + startBeat).toString()} className={(beat + startBeat) === this.props.activeNote ? "activeNote" : ""}>{line[beat].join("")}</PreTypography>
+              <PreTypography variant="subtitle1" component="span" key={"span-beat-" + (beat + startBeat).toString()} className={"partNote"+ (beat + startBeat).toString()}>{line[beat].join("")}</PreTypography>
               <PreTypography variant="subtitle1" component="span" key={"span-beat-marker-" + (beat + startBeat).toString()}>{(this.props.config.showBeatMark && beat !== beats[beats.length-1]) ? this.props.config.beatMark : ""}</PreTypography>
             </React.Fragment>
             )

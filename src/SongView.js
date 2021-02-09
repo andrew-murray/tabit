@@ -50,7 +50,11 @@ class SongView extends React.Component
   {
     const latencyHint = isMobile() ? "playback" : null;
     const animateCallback = (time)=>{
-      if( Math.floor(time / this.state.patternSettings.beatResolution) !== Math.floor(this.state.patternTime / this.state.patternSettings.beatResolution) )
+      const nullCheck = (this.state.patternTime === null) != (time === null);
+      const currentBeatResolution = this.state.patternSettings[this.state.selectedPattern].beatResolution;
+      const currentBeat = Math.floor(this.state.patternTime / currentBeatResolution);
+      const nextBeat =  Math.floor(time / currentBeatResolution);
+      if( nullCheck || currentBeat !== nextBeat )
       {
         this.setState( {patternTime: time} )
       }
@@ -241,7 +245,7 @@ class SongView extends React.Component
           instruments={this.state.songData.instruments}
           tracks={pattern.instrumentTracks}
           config={resolvedSettings}
-          patternTime={this.state.patternTime != null ? this.state.patternTime : undefined}
+          patternTime={this.state.patternTime}
         />
         <div style={{display: "flex", flexGrow : 1}} />
         <PlaybackControls

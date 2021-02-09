@@ -26,7 +26,6 @@ class PartWithTitle extends React.Component
           instrument={this.props.instrument}
           tracks={this.props.tracks}
           config={this.props.config}
-          activeNote={this.props.activeNote}
         />
       </article>
     );
