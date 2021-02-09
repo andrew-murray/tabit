@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import React from 'react';
 import copy from "copy-to-clipboard";
 import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
@@ -42,4 +43,4 @@ SharingDialog.propTypes = {
   url: PropTypes.string
 }
 
-export default SharingDialog;
+export default React.memo(SharingDialog);

@@ -81,6 +81,7 @@ const createSequenceCallback = (pattern, sampleSource) =>
           const sampleData = sampleSource.samples[id];
           if( sampleData !== undefined )
           {
+            sampleData.player.stop(time + AUDIO_DELAY);
             sampleData.player.start(time + AUDIO_DELAY);
           }
         }
@@ -140,6 +141,18 @@ class ToneController
     {
       let context = new Tone.Context({latencyHint: latencyHint});
       Tone.setContext(context);
+    }
+
+    // also configure a larger audio delay, if we're being requested to
+    // prioritise playback over latency
+    if(latencyHint == "playback")
+    {
+      // value in seconds (relatively arbitrary)
+      setAudioDelay(0.35)
+    }
+    else
+    {
+      setAudioDelay(0.12);
     }
 
     // this thing has a lot of state, eh?
