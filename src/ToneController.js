@@ -3,8 +3,11 @@ import Audio from "./Audio"
 import * as Tone from "tone";
 
 // we schedule for a delay of 120ms to allow the audio context to catch up
-const AUDIO_DELAY = 0.12;
+let AUDIO_DELAY = 0.12;
 
+const setAudioDelay = (value) => {
+  AUDIO_DELAY = value;
+};
 // these are the hydrogen drumkits available by GPL/CC
 
 const DRUMKITS = [
@@ -84,7 +87,7 @@ const createSequenceCallback = (pattern, sampleSource) =>
     }
     if(sampleSource.onPatternTimeChange)
     {
-      Tone.Draw.schedule(
+      Tone.getDraw().schedule(
         ()=>{
           if(Tone.getTransport().state === "started")
           {
@@ -358,7 +361,7 @@ class ToneController
       Tone.getTransport().stop();
       if( this.onPatternTimeChange )
       {
-        Tone.Draw.schedule(
+        Tone.getDraw().schedule(
           ()=>{
             this.onPatternTimeChange( null );
           },
