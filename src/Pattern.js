@@ -1,7 +1,6 @@
 import React from 'react';
 import PartWithTitle from "./PartWithTitle";
 import { withStyles } from '@material-ui/core/styles';
-import { useTheme } from '@material-ui/core/styles';
 
 const useStyles = theme => ({
   root: {
@@ -18,9 +17,7 @@ const useStyles = theme => ({
 
 const Pattern = React.memo((props)=>
 {
-  const { classes } = props;
   const instrumentIndices = [...props.instruments.keys()];
-  const beatResolution = props.config.beatResolution;
   return (
     <div style={{"margin": "auto"}}>
       { instrumentIndices.map(

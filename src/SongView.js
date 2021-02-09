@@ -50,7 +50,7 @@ class SongView extends React.Component
   {
     const latencyHint = isMobile() ? "playback" : null;
     const animateCallback = (time)=>{
-      const nullCheck = (this.state.patternTime === null) != (time === null);
+      const nullCheck = (this.state.patternTime === null) !== (time === null);
       const currentBeatResolution = this.state.patternSettings[this.state.selectedPattern].beatResolution;
       const currentBeat = Math.floor(this.state.patternTime / currentBeatResolution);
       const nextBeat =  Math.floor(time / currentBeatResolution);

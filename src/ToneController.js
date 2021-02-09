@@ -145,7 +145,7 @@ class ToneController
 
     // also configure a larger audio delay, if we're being requested to
     // prioritise playback over latency
-    if(latencyHint == "playback")
+    if(latencyHint === "playback")
     {
       // value in seconds (relatively arbitrary)
       setAudioDelay(0.35)
