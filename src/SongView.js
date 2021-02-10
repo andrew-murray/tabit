@@ -5,7 +5,11 @@ import {DefaultSettings} from "./formatSettings";
 import notation from "./notation";
 import InstrumentConfig from "./instrumentConfig";
 import { createInstrumentMask } from "./instrumentation";
+import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
+import Alert from '@material-ui/lab/Alert';
+import AlertTitle from '@material-ui/lab/AlertTitle';
+import Snackbar from '@material-ui/core/Snackbar';
 import TabitBar from "./TabitBar";
 import PatternDrawer from "./PatternDrawer"
 import ToneController from "./ToneController"
@@ -43,7 +47,8 @@ class SongView extends React.Component
     settingsOpen: false,
     patternsOpen: true,
     sharingDialogOpen: false,
-    patternTime: null
+    patternTime: null,
+    errorAlert: null
   }
 
   componentDidMount()
@@ -65,7 +70,8 @@ class SongView extends React.Component
       this.state.songData.patterns,
       100.0,
       animateCallback,
-      latencyHint
+      latencyHint,
+      (errorMessage)=>{this.setState({errorAlert: errorMessage})}
     );
     this.audio.setActivePattern( this.state.songData.patterns[this.state.selectedPattern].name );
     // save our work when we navigate away via tab-close
@@ -208,14 +214,15 @@ class SongView extends React.Component
     this.setState({sharingDialogOpen:false});
   }
 
-  onPlay = ()=>{
+  onPlay = () => {
     if(this.audio){ this.audio.play(); }
   }
-  onStop = ()=>{
-    if(this.audio){ this.audio.stop(); }
 
+  onStop = () => {
+    if(this.audio){ this.audio.stop(); }
   }
-  onSetTempo = (tempo)=>{
+
+  onSetTempo = (tempo) => {
     if(this.audio){ this.audio.setTempo(tempo); }
   }
 
@@ -228,8 +235,8 @@ class SongView extends React.Component
     const resolvedSettings = makeResolvedSettings( this.state.formatSettings, patternSpecifics );
     const mobile = isMobile();
     const instrumentConfigColumns = mobile ? 12 : 8;
-
     // todo: make this Toolbar unnecessary, it ensures pattern renders in the right place right now
+
     return (
       <div className="App">
         <Toolbar variant="dense"/>
@@ -240,6 +247,16 @@ class SongView extends React.Component
           onDownload={this.onDownload}
           onShare={this.onShare}
         />
+        {this.state.errorAlert &&
+        <Snackbar severity="error" open={true} autoHideDuration={5000} onClose={() => {this.setState({errorAlert: null})}}>
+          <Alert severity="error"  onClose={() => {this.setState({errorAlert: null})}}>
+            <AlertTitle>Error Loading Samples</AlertTitle>
+            <Box>
+            {this.state.errorAlert.split("\n").map(line=><Box>{line}</Box>)}
+            </Box>
+          </Alert>
+        </Snackbar>
+        }
         <div style={{display: "flex", flexGrow : 1}} />
         <Pattern
           instruments={this.state.songData.instruments}

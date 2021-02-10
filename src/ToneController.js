@@ -133,7 +133,8 @@ class ToneController
     patterns,
     tempo,
     onTimeChange,
-    latencyHint
+    latencyHint,
+    onLoadError
   )
   {
 
@@ -185,18 +186,25 @@ class ToneController
 
     if(failures.length > 0)
     {
-      let message = "Failed to load samples for instruments:\n";
-      let sortedFailures = createSortedUnique(failures);
-      for( const [drumkit, name] of sortedFailures )
+      const sortedFailures = createSortedUnique(failures);
+      const plural = sortedFailures.length > 1 ;
+      const s = plural ? "s" : "";
+      let message = "Failed to load sample" + s + " for instrument" + s + ": " + (plural ? "{" : "");
+      for( let failureIndex = 0; failureIndex < sortedFailures.length; ++failureIndex )
       {
-        message += "    -" + name;
+        const [drumkit, name] = sortedFailures[failureIndex];
+        message += name;
         if( drumkit !== "" ){ message += " (" + drumkit + ")"; }
-        message += "\n";
+        if(failureIndex !== sortedFailures.length - 1){ message += ", "; }
+        else{ message += (plural ? "}" : "") + "." }
       }
-      message += "This is typically because they belong to commercial sound libraries. " +
-       "tabit's supported drumkits are\n" + DRUMKITS.join( ", " ) + ".";
+      message += "\n" +
+       "tabit's supported drumkits are " + DRUMKITS.join( ", " ) + ".";
 
-      alert(message);
+      if(onLoadError)
+      {
+        onLoadError(message);
+      }
     }
   }
 
