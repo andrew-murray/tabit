@@ -1,3 +1,4 @@
+import track from "./track";
 
 class notation
 {
@@ -274,6 +275,42 @@ class notation
         resolution = Math.min( resolution, t.resolution );
     }
     return resolution;
+  }
+
+  static combinePatterns(name, patternA, patternB)
+  {
+    /* pattern = {
+      size: int,
+      name: string,
+      notes: ...redundant,
+      resolution: int,
+      instrumentTracks: {
+        instrumentID (str) : track = { rep, resolution }
+      }
+    } */
+
+    const resolution = track.optimalResolution( patternA.resolution, patternB.resolution );
+    const totalSize = patternA.size + patternB.size;
+    window.patternA = patternA;
+    window.patternB = patternB;
+    const instrumentKeys = new Set( [...Object.keys(patternA.instrumentTracks), ...Object.keys(patternA.instrumentTracks)] );
+    let instrumentTracks = {};
+    for(const k of instrumentKeys)
+    {
+      instrumentTracks[k] = track.combine(
+        patternA.instrumentTracks[k],
+        patternB.instrumentTracks[k],
+        totalSize,
+        resolution
+      );
+    }
+
+    return {
+      resolution: resolution,
+      size: totalSize,
+      name: name,
+      instrumentTracks: instrumentTracks
+    };
   }
 
 };

@@ -59,6 +59,11 @@ class track
     return count;
   }
 
+  static optimalResolution(a,b)
+  {
+    return findHCF(a,b);
+  }
+
   countOverlaps(other)
   {
     if( this.resolution === other.resolution )
@@ -67,7 +72,7 @@ class track
     }
     else
     {
-      const hcf = findHCF(this.resolution, other.resolution);
+      const hcf = track.optimalResolution(this.resolution, other.resolution);
       const a = this.formatResolution( hcf );
       const b = other.formatResolution( hcf );
       return this._sumOverlapsOfArrays( a.rep, b.rep );
@@ -91,7 +96,7 @@ class track
     }
     else
     {
-      const hcf = findHCF(this.resolution, other.resolution);
+      const hcf = track.optimalResolution(this.resolution, other.resolution);
       const a = this.formatResolution( hcf );
       const b = other.formatResolution( hcf );
       return a.aggregate(b);
@@ -163,6 +168,23 @@ class track
       track.representPoints(positions, resolutionToUse, size),
       resolutionToUse
     );
+  }
+
+  static combine(a, b, size, resolution)
+  {
+    if(!a && !b)
+    {
+      throw new Error("Can't combine two null tracks");
+    }
+    if(!size || !resolution)
+    {
+      throw new Error("Need size and resolution parameters to be set");
+    }
+    const pointsA = a ? a.toPoints() : [];
+    const sizeA = a ? a.length() : size - b.length();
+    const pointsB = b ? b.toPoints().map(ix => ix + sizeA) : [];
+    const allPoints = [ ...pointsA, ...pointsB ];
+    return track.fromPositions(allPoints, size, resolution);
   }
 }
 
