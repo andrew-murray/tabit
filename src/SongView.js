@@ -55,6 +55,14 @@ class SongView extends React.Component
 
   componentDidMount()
   {
+    this.createController();
+    // save our work when we navigate away via tab-close
+    window.addEventListener('beforeunload', this.onSave);
+  }
+
+  createController()
+  {
+    if(this.audio){ this.audio.teardown(); }
     const latencyHint = isMobile() ? "playback" : null;
     const animateCallback = (time)=>{
       const nullCheck = (this.state.patternTime === null) !== (time === null);
@@ -66,7 +74,6 @@ class SongView extends React.Component
         this.setState( {patternTime: time} )
       }
     };
-    // always default tempo to 100bpm for now
     this.audio = new ToneController(
       this.state.songData.instrumentIndex,
       this.state.songData.patterns,
@@ -76,8 +83,52 @@ class SongView extends React.Component
       (errorMessage)=>{this.setState({errorAlert: errorMessage})}
     );
     this.audio.setActivePattern( this.state.songData.patterns[this.state.selectedPattern].name );
-    // save our work when we navigate away via tab-close
-    window.addEventListener('beforeunload', this.onSave);
+  }
+
+  removePattern = (index) =>
+  {
+    if(this.audio){this.audio.stop();}
+
+    const indices = [...Array(this.state.songData.patterns.length).keys()].filter(ix => ix !== index);
+    const newPatterns = indices.map( ix => this.state.songData.patterns[ix] );
+    const patternSettings =  indices.map( ix => this.state.patternSettings[ix] );
+    const updatedSongData = Object.assign(
+      Object.assign({}, this.state.songData),
+      {patterns: newPatterns}
+    );
+
+    this.setState(
+      {songData: updatedSongData, patternSettings: patternSettings},
+      () => {
+        this.createController();
+      }
+    );
+
+  }
+
+  addCombinedPattern = (name, recipe) =>
+  {
+    if(this.audio){this.audio.stop();}
+
+    let pattern = notation.clonePattern(name, this.state.songData.patterns[recipe[0]]);
+    for(let recipeIndex = 1; recipeIndex < recipe.length; ++recipeIndex)
+    {
+      pattern = notation.combinePatterns(name, pattern, this.state.songData.patterns[recipe[recipeIndex]])
+    }
+
+    const patternSettings = notation.guessPerPatternSettings(pattern.instrumentTracks);
+
+    const updatedSongData = Object.assign(
+      Object.assign({}, this.state.songData),
+      {patterns: this.state.songData.patterns.concat(pattern)}
+    );
+
+    this.setState(
+      {songData: updatedSongData, patternSettings: this.state.patternSettings.concat(patternSettings)},
+      () => {
+        this.createController();
+      }
+    );
   }
 
   componentWillUnmount()
