@@ -61,7 +61,7 @@ export default function TransferList({items}) {
     setChecked(items.map(item => false))
   };
 
-  const customList = (items) => (
+  const customList = (items, checkable) => (
     <Paper className={classes.paper}>
       <List dense component="div" role="list">
         {items.map((item) => {
@@ -74,14 +74,16 @@ export default function TransferList({items}) {
               button
               onClick={()=>{handleChecked(item.value)}}
             >
-              <ListItemIcon>
+              { checkable &&
+                <ListItemIcon>
                 <Checkbox
                   checked={checked[item.value]}
                   tabIndex={-1}
                   disableRipple
                   inputProps={{ "aria-labelledby": labelId }}
                 />
-              </ListItemIcon>
+                </ListItemIcon>
+              }
               <ListItemText id={labelId} primary={item.label} />
             </ListItem>
           );
@@ -99,7 +101,7 @@ export default function TransferList({items}) {
       alignItems="center"
       className={classes.root}
     >
-      <Grid item>{customList(items)}</Grid>
+      <Grid item>{customList(items, true)}</Grid>
       <Grid item>
         <Grid container direction="column" alignItems="center">
           <IconButton
@@ -121,7 +123,7 @@ export default function TransferList({items}) {
           </IconButton>
         </Grid>
       </Grid>
-      <Grid item>{customList(selectedItems)}</Grid>
+      <Grid item>{customList(selectedItems, false)}</Grid>
     </Grid>
   );
 }
