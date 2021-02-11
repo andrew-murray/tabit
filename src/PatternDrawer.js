@@ -1,9 +1,13 @@
 import React from "react";
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import List from '@material-ui/core/List';
+import IconButton from '@material-ui/core/IconButton';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
 import TabitBar from "./TabitBar";
+import ClearIcon from '@material-ui/icons/Clear';
+import AddBoxIcon from '@material-ui/icons/AddBox';
 import { isMobile } from "./Mobile";
 
 function PatternDrawer(props)
@@ -38,8 +42,31 @@ function PatternDrawer(props)
               onClick={() => { if(props.selectPattern){props.selectPattern(index);} }}
             >
               <ListItemText primary={pattern.name} />
+              {props.onRemove &&
+                <ListItemIcon>
+                  <IconButton onClick={(event)=>{
+                    event.stopPropagation();
+                    event.preventDefault();
+                    props.onRemove(index);}
+                  }>
+                    <ClearIcon fontSize="small"/>
+                  </IconButton>
+                </ListItemIcon>
+              }
             </ListItem>
           ))}
+          {props.onAdd &&
+            <ListItem
+              button
+              key={"drawer-add-button"}
+            >
+              <ListItemIcon>
+                <IconButton onClick={()=>{props.onAdd();}} aria-label="add">
+                  <AddBoxIcon/>
+                </IconButton>
+              </ListItemIcon>
+            </ListItem>
+          }
         </List>
       </div>
     </SwipeableDrawer>
