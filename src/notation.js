@@ -277,6 +277,19 @@ class notation
     return resolution;
   }
 
+  static clonePattern(name, pattern)
+  {
+    const trackArray = Object.keys(pattern.instrumentTracks).map(
+      k => [k, pattern.instrumentTracks[k].clone()]
+    );
+    return {
+      size: pattern.size,
+      name: name,
+      resolution: pattern.resolution,
+      instrumentTracks: Object.fromEntries(trackArray)
+    };
+  }
+
   static combinePatterns(name, patternA, patternB)
   {
     /* pattern = {

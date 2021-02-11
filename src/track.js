@@ -186,6 +186,11 @@ class track
     const allPoints = [ ...pointsA, ...pointsB ];
     return track.fromPositions(allPoints, size, resolution);
   }
+
+  clone()
+  {
+    return new track( [...this.rep], this.resolution );
+  }
 }
 
 export default track;
