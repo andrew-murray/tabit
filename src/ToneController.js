@@ -138,6 +138,16 @@ class ToneController
   )
   {
 
+    if(onLoadError)
+    {
+      const patternNames = patterns.map(p=>p.name);
+      const patternNameSet = new Set(patternNames);
+      if(patternNames.length !== patternNameSet.size)
+      {
+          onLoadError("Warning: tabit currently only supports inputs where all the pattern names are unique. Good luck!");
+      }
+    }
+
     if(latencyHint && Tone.context.latencyHint !== latencyHint)
     {
       let context = new Tone.Context({latencyHint: latencyHint});
@@ -184,7 +194,7 @@ class ToneController
     this.currentPatternName = null;
     this.instrumentIndex = instrumentIndex;
 
-    if(failures.length > 0)
+    if(failures.length > 0 && onLoadError)
     {
       const sortedFailures = createSortedUnique(failures);
       const plural = sortedFailures.length > 1 ;
@@ -201,10 +211,7 @@ class ToneController
       message += "\n" +
        "tabit's supported drumkits are " + DRUMKITS.join( ", " ) + ".";
 
-      if(onLoadError)
-      {
-        onLoadError(message);
-      }
+      onLoadError(message);
     }
   }
 
