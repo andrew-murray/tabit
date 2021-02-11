@@ -8,6 +8,14 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Checkbox from "@material-ui/core/Checkbox";
 import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
+import IconButton from '@material-ui/core/IconButton';
+import ReplayIcon from '@material-ui/icons/Replay';
+import AddIcon from '@material-ui/icons/Add';
+
+/*
+  This file is based on the transfer-list example available in material UI.
+  https://material-ui.com/components/transfer-list/
+*/
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,72 +39,50 @@ function intersection(a, b) {
   return a.filter((value) => b.indexOf(value) !== -1);
 }
 
-export default function TransferList() {
+export default function TransferList({items}) {
   const classes = useStyles();
-  const [checked, setChecked] = React.useState([]);
-  const [left, setLeft] = React.useState([0, 1, 2, 3]);
-  const [right, setRight] = React.useState([4, 5, 6, 7]);
 
-  const leftChecked = intersection(checked, left);
-  const rightChecked = intersection(checked, right);
+  const [checked, setChecked] = React.useState(items.map(item => false));
+  const [selectedItems, setSelectedItems] = React.useState([]);
 
-  const handleToggle = (value) => () => {
-    const currentIndex = checked.indexOf(value);
-    const newChecked = [...checked];
-
-    if (currentIndex === -1) {
-      newChecked.push(value);
-    } else {
-      newChecked.splice(currentIndex, 1);
-    }
-
-    setChecked(newChecked);
-  };
-
-  const handleAllRight = () => {
-    setRight(right.concat(left));
-    setLeft([]);
+  const handleChecked = (itemIndex) => {
+    const newChecked = [...checked.keys()].map(index=>(index===itemIndex ? !checked[index] : checked[index]));
+    setChecked( newChecked );
   };
 
   const handleCheckedRight = () => {
-    setRight(right.concat(leftChecked));
-    setLeft(not(left, leftChecked));
-    setChecked(not(checked, leftChecked));
+    const newValues = items.filter(item=>checked[item.value]);
+    setSelectedItems(selectedItems.concat(newValues))
+    setChecked(items.map(item => false))
   };
 
-  const handleCheckedLeft = () => {
-    setLeft(left.concat(rightChecked));
-    setRight(not(right, rightChecked));
-    setChecked(not(checked, rightChecked));
-  };
-
-  const handleAllLeft = () => {
-    setLeft(left.concat(right));
-    setRight([]);
+  const handleReset = () => {
+    setSelectedItems([]);
+    setChecked(items.map(item => false))
   };
 
   const customList = (items) => (
     <Paper className={classes.paper}>
       <List dense component="div" role="list">
-        {items.map((value) => {
-          const labelId = `transfer-list-item-${value}-label`;
+        {items.map((item) => {
+          const labelId = `transfer-list-item-${item.value}-label`;
 
           return (
             <ListItem
-              key={value}
+              key={item.value}
               role="listitem"
               button
-              onClick={handleToggle(value)}
+              onClick={()=>{handleChecked(item.value)}}
             >
               <ListItemIcon>
                 <Checkbox
-                  checked={checked.indexOf(value) !== -1}
+                  checked={checked[item.value]}
                   tabIndex={-1}
                   disableRipple
                   inputProps={{ "aria-labelledby": labelId }}
                 />
               </ListItemIcon>
-              <ListItemText id={labelId} primary={`List item ${value + 1}`} />
+              <ListItemText id={labelId} primary={item.label} />
             </ListItem>
           );
         })}
@@ -113,52 +99,29 @@ export default function TransferList() {
       alignItems="center"
       className={classes.root}
     >
-      <Grid item>{customList(left)}</Grid>
+      <Grid item>{customList(items)}</Grid>
       <Grid item>
         <Grid container direction="column" alignItems="center">
-          <Button
-            variant="outlined"
-            size="small"
-            className={classes.button}
-            onClick={handleAllRight}
-            disabled={left.length === 0}
-            aria-label="move all right"
-          >
-            ≫
-          </Button>
-          <Button
-            variant="outlined"
+          <IconButton
             size="small"
             className={classes.button}
             onClick={handleCheckedRight}
-            disabled={leftChecked.length === 0}
             aria-label="move selected right"
           >
-            &gt;
-          </Button>
-          <Button
+            <AddIcon />
+          </IconButton>
+          <IconButton
             variant="outlined"
             size="small"
             className={classes.button}
-            onClick={handleCheckedLeft}
-            disabled={rightChecked.length === 0}
-            aria-label="move selected left"
+            onClick={handleReset}
+            aria-label="reset"
           >
-            &lt;
-          </Button>
-          <Button
-            variant="outlined"
-            size="small"
-            className={classes.button}
-            onClick={handleAllLeft}
-            disabled={right.length === 0}
-            aria-label="move all left"
-          >
-            ≪
-          </Button>
+            <ReplayIcon />
+          </IconButton>
         </Grid>
       </Grid>
-      <Grid item>{customList(right)}</Grid>
+      <Grid item>{customList(selectedItems)}</Grid>
     </Grid>
   );
 }

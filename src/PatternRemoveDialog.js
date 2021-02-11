@@ -37,13 +37,9 @@ function PatternRemoveDialog(props)
       <DialogContentText>
         Remove Pattern (this is a permanent operation)
       </DialogContentText>
-      <Select
-        value={selectedPatternIndex}
-        onChange={(event)=>{setSelectedPatternIndex(event.target.value)}}
-      >
-        {patternChoices.map(choice=><MenuItem value={choice.value}>{choice.label}</MenuItem>)}
-      </Select>
-      <CustomTransferList />
+      <CustomTransferList
+        items={patternChoices}
+      />
       <DialogActions>
         <Button onClick={closeAndCommit}>
           Confirm
