@@ -16,6 +16,7 @@ import ToneController from "./ToneController"
 import SettingsDrawer from "./SettingsDrawer"
 import { isMobile } from "./Mobile";
 import SharingDialog from "./SharingDialog";
+import PatternRemoveDialog from "./PatternRemoveDialog";
 import Toolbar from '@material-ui/core/Toolbar';
 // todo: pass the needed .put function via a prop?
 import * as SongStorage from "./SongStorage";
@@ -47,6 +48,7 @@ class SongView extends React.Component
     settingsOpen: false,
     patternsOpen: true,
     sharingDialogOpen: false,
+    removeDialogOpen: false,
     patternTime: null,
     errorAlert: null
   }
@@ -195,7 +197,12 @@ class SongView extends React.Component
   };
 
   onDownload = () => {
-    SongStorage.download(this.getExportState())
+    this.setState({removeDialogOpen: true});
+    // SongStorage.download(this.getExportState())
+  }
+
+  closeRemoveDialog = () => {
+    this.setState({removeDialogOpen: false});
   }
 
   onSave = () => {
@@ -299,11 +306,17 @@ class SongView extends React.Component
           settings={resolvedSettings}
           onChange={this.handleSettingsChange}
          />
-         <SharingDialog
+        <SharingDialog
           open={this.state.sharingDialogOpen}
           onClose={this.closeSharingDialog}
           url={this.state.permanentUrl}
           />
+        <PatternRemoveDialog
+          open={this.state.removeDialogOpen}
+          onClose={this.closeRemoveDialog}
+          onChange={()=>{}}
+          patterns={[...this.state.songData.patterns.keys()].map(index=>this.state.songData.patterns[index].name)}
+        />
       </div>
     );
   }
