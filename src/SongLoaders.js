@@ -6,7 +6,15 @@ import {
   figureInstruments
 } from "./instrumentation";
 import track from "./track";
+import {DefaultSettings} from "./formatSettings";
+import notation from "./notation"
 
+const figurePatternSettings = (patterns)=>{
+  return Array.from(
+    patterns,
+    (p) => notation.guessPerPatternSettings( p.instrumentTracks )
+  );
+};
 // note that a Pattern contains
 // {
 //    size, name, notes
@@ -20,7 +28,9 @@ class SongData {
     instruments,
     instrumentIndex,
     instrumentMask,
-    patterns
+    patterns,
+    formatSettings,
+    patternSettings
   )
   {
     this.title = title;
@@ -29,6 +39,8 @@ class SongData {
     this.instrumentIndex = instrumentIndex;
     this.instrumentMask = instrumentMask;
     this.patterns = patterns;
+    this.formatSettings = formatSettings;
+    this.patternSettings = patternSettings;
   }
 };
 
@@ -75,13 +87,17 @@ function LoadJSON(jsonData, title, filename, fromHydrogen)
       const instrumentIndex = jsonData.instrumentIndex ? jsonData.instrumentIndex
         : prepHydrogenVolumes( activeInstrumentation(jsonData.instruments, patterns) );
       const instrumentMask = createInstrumentMask(instrumentIndex, instruments);
+      const formatSettings = jsonData.formatSettings ? jsonData.formatSettings : Object.assign({}, DefaultSettings);
+      const patternSettings = jsonData.patternSettings ? jsonData.patternSettings : figurePatternSettings(jsonData.patterns);
       resolve( new SongData(
         title,
         filename,
         instruments,
         instrumentIndex,
         instrumentMask,
-        patterns
+        patterns,
+        formatSettings,
+        patternSettings
       ) );
     }
   );
