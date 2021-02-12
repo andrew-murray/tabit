@@ -433,7 +433,7 @@ function InstrumentTable(props)
     <Table className={classes.table} aria-label="simple table">
       <TableHead>
         <TableRow key={"instrumentPanel-row-header"}>
-          <NoDividerCenterTableCell key={"instrumentPanel-row-instrument"}> Instrument </NoDividerCenterTableCell>
+          <NoDividerCenterTableCell key={"instrumentPanel-row-instrument"}></NoDividerCenterTableCell>
           {[...Array(props.instrumentIndex.length).keys()].map(x=>
               <NoDividerCenterTableCell key={"instrumentPanel-row-header-cell-" + x.toString()}>
                 <Typography>{props.instrumentIndex[x].name}</Typography>
