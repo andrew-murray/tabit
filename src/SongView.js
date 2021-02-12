@@ -22,13 +22,6 @@ import Toolbar from '@material-ui/core/Toolbar';
 import * as SongStorage from "./SongStorage";
 import memoizeOne from 'memoize-one';
 
-const figurePatternSettings = (patterns)=>{
-  return Array.from(
-    patterns,
-    (p) => notation.guessPerPatternSettings( p.instrumentTracks )
-  );
-};
-
 const makeResolvedSettings = memoizeOne( (globalSettings, patternSettings) => {
   let resolvedSettings = Object.assign({}, globalSettings);
   if(patternSettings)
@@ -40,11 +33,17 @@ const makeResolvedSettings = memoizeOne( (globalSettings, patternSettings) => {
 
 class SongView extends React.Component
 {
+
   state = {
     selectedPattern: 0,
-    patternSettings: this.props.songData ? figurePatternSettings(this.props.songData.patterns) : null,
-    formatSettings: Object.assign({}, DefaultSettings),
-    songData: Object.assign({},this.props.songData),
+    patternSettings: this.props.songData.patternSettings,
+    formatSettings: this.props.songData.formatSettings,
+    songData: {instruments: this.props.songData.instruments,
+        instrumentIndex: this.props.songData.instrumentIndex,
+        instrumentMask: this.props.songData.instrumentMask,
+        patterns: this.props.songData.patterns,
+        title: this.props.songData.title
+    },
     settingsOpen: false,
     patternsOpen: true,
     sharingDialogOpen: false,
@@ -170,6 +169,8 @@ class SongView extends React.Component
 
   sendVolumeEvent = (event) =>
   {
+    // TODO: volume & muted should not be ephemeral, they should go into
+    // exportState so that a mixing-profile can be preserved
     if("volume" in event)
     {
       const instrumentID = this.state.songData.instrumentIndex[ event.instrument ].id;
