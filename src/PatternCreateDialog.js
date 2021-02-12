@@ -7,15 +7,17 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import CustomTransferList from "./CustomTransferList";
 
-function PatternRemoveDialog(props)
+function PatternCreateDialog(props)
 {
   let [selectedPatternIndex, setSelectedPatternIndex] = React.useState(null);
+  let [patternRecipe, setPatternRecipe] = React.useState([]);
+
 
   const closeAndCommit = ()=>{
-    if(selectedPatternIndex !== null)
+    if(patternRecipe.length)
     {
-      props.onChange({ index: selectedPatternIndex, name: props.patterns[selectedPatternIndex] } );
-      setSelectedPatternIndex(null);
+      props.onChange({name: "next", recipe: patternRecipe});
+      setPatternRecipe([]);
     }
     props.onClose();
   };
@@ -32,10 +34,12 @@ function PatternRemoveDialog(props)
   >
     <DialogContent>
       <DialogContentText>
-        Remove Pattern (this is a permanent operation)
+        Combine Patterns
       </DialogContentText>
       <CustomTransferList
         items={patternChoices}
+        selectedItems={patternRecipe}
+        onChange={setPatternRecipe}
       />
       <DialogActions>
         <Button onClick={closeAndCommit}>
@@ -49,11 +53,11 @@ function PatternRemoveDialog(props)
   </Dialog>
 }
 
-PatternRemoveDialog.propTypes = {
+PatternCreateDialog.propTypes = {
   open: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   patterns: PropTypes.array.isRequired,
   onChange: PropTypes.func.isRequired
 }
 
-export default PatternRemoveDialog;
+export default PatternCreateDialog;

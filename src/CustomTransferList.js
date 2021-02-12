@@ -30,11 +30,10 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function TransferList({items}) {
+export default function TransferList({items, selectedItems, onChange}) {
   const classes = useStyles();
 
   const [checked, setChecked] = React.useState(items.map(item => false));
-  const [selectedItems, setSelectedItems] = React.useState([]);
 
   const handleChecked = (itemIndex) => {
     const newChecked = [...checked.keys()].map(index=>(index===itemIndex ? !checked[index] : checked[index]));
@@ -42,13 +41,13 @@ export default function TransferList({items}) {
   };
 
   const handleCheckedRight = () => {
-    const newValues = items.filter(item=>checked[item.value]);
-    setSelectedItems(selectedItems.concat(newValues))
+    const newValues = selectedItems.concat( items.filter(item=>checked[item.value]) );
+    if(onChange){ onChange(newValues); }
     setChecked(items.map(item => false))
   };
 
   const handleReset = () => {
-    setSelectedItems([]);
+    if(onChange){ onChange([]); }
     setChecked(items.map(item => false))
   };
 
@@ -101,7 +100,7 @@ export default function TransferList({items}) {
             onClick={handleCheckedRight}
             aria-label="move selected right"
           >
-            <AddIcon />
+            &gt;
           </IconButton>
           <IconButton
             variant="outlined"

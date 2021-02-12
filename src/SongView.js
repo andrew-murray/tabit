@@ -15,7 +15,7 @@ import ToneController from "./ToneController"
 import SettingsDrawer from "./SettingsDrawer"
 import { isMobile } from "./Mobile";
 import SharingDialog from "./SharingDialog";
-import PatternRemoveDialog from "./PatternRemoveDialog";
+import PatternCreateDialog from "./PatternCreateDialog";
 import Toolbar from '@material-ui/core/Toolbar';
 // todo: pass the needed .put function via a prop?
 import * as SongStorage from "./SongStorage";
@@ -46,7 +46,7 @@ class SongView extends React.Component
     settingsOpen: false,
     patternsOpen: true,
     sharingDialogOpen: false,
-    removeDialogOpen: false,
+    patternCreateDialogOpen: false,
     patternTime: null,
     errorAlert: null,
     locked: true
@@ -109,10 +109,10 @@ class SongView extends React.Component
   {
     if(this.audio){this.audio.stop();}
 
-    let pattern = notation.clonePattern(name, this.state.songData.patterns[recipe[0]]);
+    let pattern = notation.clonePattern(name, this.state.songData.patterns[recipe[0].value]);
     for(let recipeIndex = 1; recipeIndex < recipe.length; ++recipeIndex)
     {
-      pattern = notation.combinePatterns(name, pattern, this.state.songData.patterns[recipe[recipeIndex]])
+      pattern = notation.combinePatterns(name, pattern, this.state.songData.patterns[recipe[recipeIndex].value])
     }
 
     const patternSettings = notation.guessPerPatternSettings(pattern.instrumentTracks);
@@ -249,16 +249,20 @@ class SongView extends React.Component
   };
 
   onDownload = () => {
-    this.setState({removeDialogOpen: true});
-    // SongStorage.download(this.getExportState())
+    SongStorage.download(this.getExportState())
   }
 
-  closeRemoveDialog = () => {
-    this.setState({removeDialogOpen: false});
+  closePatternCreateDialog = () => {
+    this.setState({patternCreateDialogOpen: false});
+  }
+
+  openPatternCreateDialog = () => {
+    this.setState({patternCreateDialogOpen: true});
   }
 
   onSave = () => {
-    SongStorage.saveToLocalHistory(this.getExportState());
+    // remove onsave temporarily, while I'm testing pattern modifications
+    // SongStorage.saveToLocalHistory(this.getExportState());
   }
 
   handleSettingsToggle = (e)=>{
@@ -360,6 +364,8 @@ class SongView extends React.Component
           onClose={this.handlePatternsToggle}
           patterns={this.state.songData.patterns}
           selectPattern={this.selectPattern}
+          onRemove={!this.state.locked ? this.removePattern : undefined}
+          onAdd={!this.state.locked ? this.openPatternCreateDialog : undefined}
         />
         <SettingsDrawer
           open={this.state.settingsOpen}
@@ -375,10 +381,10 @@ class SongView extends React.Component
           onClose={this.closeSharingDialog}
           url={this.state.permanentUrl}
           />
-        <PatternRemoveDialog
-          open={this.state.removeDialogOpen}
-          onClose={this.closeRemoveDialog}
-          onChange={()=>{}}
+        <PatternCreateDialog
+          open={this.state.patternCreateDialogOpen}
+          onClose={this.closePatternCreateDialog}
+          onChange={(change)=>{this.addCombinedPattern(change.name, change.recipe)}}
           patterns={[...this.state.songData.patterns.keys()].map(index=>this.state.songData.patterns[index].name)}
         />
       </div>

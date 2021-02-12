@@ -4,7 +4,7 @@ import List from '@material-ui/core/List';
 import IconButton from '@material-ui/core/IconButton';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import TabitBar from "./TabitBar";
 import ClearIcon from '@material-ui/icons/Clear';
 import AddBoxIcon from '@material-ui/icons/AddBox';
@@ -43,28 +43,39 @@ function PatternDrawer(props)
             >
               <ListItemText primary={pattern.name} />
               {props.onRemove &&
-                <ListItemIcon>
-                  <IconButton onClick={(event)=>{
-                    event.stopPropagation();
-                    event.preventDefault();
-                    props.onRemove(index);}
-                  }>
+                <ListItemSecondaryAction>
+                  <IconButton
+                    edge="end"
+                    size="small"
+                    onClick={(event)=>{
+                      event.stopPropagation();
+                      event.preventDefault();
+                      props.onRemove(index);}
+                    }
+                  >
                     <ClearIcon fontSize="small"/>
                   </IconButton>
-                </ListItemIcon>
+                </ListItemSecondaryAction>
               }
             </ListItem>
           ))}
           {props.onAdd &&
             <ListItem
-              button
               key={"drawer-add-button"}
             >
-              <ListItemIcon>
-                <IconButton onClick={()=>{props.onAdd();}} aria-label="add">
-                  <AddBoxIcon/>
+              <ListItemText />
+              <ListItemSecondaryAction>
+                <IconButton
+                  size="small"
+                  edge="end"
+                  onClick={()=>{props.onAdd();}}
+                  aria-label="add"
+                >
+                  <AddBoxIcon
+                    size="small"
+                    />
                 </IconButton>
-              </ListItemIcon>
+              </ListItemSecondaryAction>
             </ListItem>
           }
         </List>
