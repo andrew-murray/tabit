@@ -137,7 +137,7 @@ const saveToLocalHistory = (exportState) => {
     }
 
     // resort & cap how many files we remember
-    const restrictedHistory = history.sort( (a,b) =>(b.date - a.date)  ).slice(0, 10);
+    const restrictedHistory = history.sort( (a,b) =>(b.date - a.date)  ).slice(0, 30);
     localStorage.setItem("tabit-history", JSON.stringify(restrictedHistory));
 };
 
