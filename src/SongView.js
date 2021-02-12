@@ -88,6 +88,12 @@ class SongView extends React.Component
   {
     if(this.audio){this.audio.stop();}
 
+    if( this.state.songData.patterns.length === 1 )
+    {
+      // don't let the app get into a bad state
+      return this.setError("Can't delete the last pattern")
+    }
+
     const indices = [...Array(this.state.songData.patterns.length).keys()].filter(ix => ix !== index);
     const newPatterns = indices.map( ix => this.state.songData.patterns[ix] );
     const patternSettings =  indices.map( ix => this.state.patternSettings[ix] );
@@ -95,9 +101,19 @@ class SongView extends React.Component
       Object.assign({}, this.state.songData),
       {patterns: newPatterns}
     );
+    // if ix === selected, use the lower pattern index
+    // ix < selected shift down by one to keep the same pattern
+    // ix > selected, keep the same index
+    const samePatternIndex = index <= this.state.selectedPattern ? this.state.selectedPattern - 1 : this.state.selectedPattern;
+    // note that since we sometimes shift down, let's just bound ourselves sanely
+    const boundedPatternIndex = Math.min( Math.max( 0, samePatternIndex ), indices.length - 1 );
 
     this.setState(
-      {songData: updatedSongData, patternSettings: patternSettings},
+      {
+        songData: updatedSongData,
+        patternSettings: patternSettings,
+        selectedPattern: boundedPatternIndex
+      },
       () => {
         this.createController();
       }
