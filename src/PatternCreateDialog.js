@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import Button from '@material-ui/core/Button';
+import Box from '@material-ui/core/Box';
+import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -9,15 +11,16 @@ import CustomTransferList from "./CustomTransferList";
 
 function PatternCreateDialog(props)
 {
-  let [selectedPatternIndex, setSelectedPatternIndex] = React.useState(null);
+  let [patternName, setPatternName] = React.useState(null);
   let [patternRecipe, setPatternRecipe] = React.useState([]);
 
 
   const closeAndCommit = ()=>{
-    if(patternRecipe.length)
+    if(patternRecipe.length && patternName)
     {
-      props.onChange({name: "next", recipe: patternRecipe});
+      props.onChange({name: patternName, recipe: patternRecipe});
       setPatternRecipe([]);
+      setPatternName(null);
     }
     props.onClose();
   };
@@ -25,6 +28,8 @@ function PatternCreateDialog(props)
   const patternChoices = [...props.patterns.keys()].map(
     index =>{ return {value: index, label: props.patterns[index]}; }
   );
+
+  const invalidPatternName = patternName && props.patterns.indexOf(patternName) != -1;
 
   return <Dialog
     open={props.open}
@@ -41,8 +46,18 @@ function PatternCreateDialog(props)
         selectedItems={patternRecipe}
         onChange={setPatternRecipe}
       />
+      <Box style={{display: "flex", flexDirection: "column"}}>
+        <TextField
+          error={invalidPatternName}
+          label="Pattern Name"
+          helperText={invalidPatternName ? "Pattern names must be unique." : undefined}
+          variant="outlined"
+          onChange={(event)=>{setPatternName(event.target.value);}}
+          style={{alignSelf: "flex-end"}}
+        />
+      </Box>
       <DialogActions>
-        <Button onClick={closeAndCommit}>
+        <Button onClick={closeAndCommit} disabled={!(patternRecipe.length > 0 && patternName)}>
           Confirm
         </Button>
         <Button onClick={closeAndCommit}>
