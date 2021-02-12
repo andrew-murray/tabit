@@ -46,7 +46,6 @@ export default function Routes(props) {
               return <TitleScreen
                 history={props.history}
                 location={props.location}
-                songHistory={SongStorage.getLocalHistory()}
                 error={props.location.error}
               />
             }}

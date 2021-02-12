@@ -4,6 +4,7 @@ import FileImport from "./FileImport";
 import Button from '@material-ui/core/Button';
 import History from "./History";
 import TitledDialog from "./TitledDialog"
+import * as SongStorage from "./SongStorage"
 import './App.css';
 
 const styles = (theme)=>{
@@ -33,13 +34,19 @@ const styles = (theme)=>{
 class TitleScreen extends React.Component
 {
   state = {
-    error: this.props.error
+    error: this.props.error,
+    songHistory: []
+  }
+
+  componentDidMount = () => {
+    this.setState(
+      {songHistory: SongStorage.getLocalHistory()}
+    )
   }
 
   render()
   {
     let history = this.props.history;
-    const songHistory = this.props.songHistory;
     // if a load of a song is in flight don't show file open buttons
     const handleFileImport = (e) =>
     {
@@ -51,7 +58,6 @@ class TitleScreen extends React.Component
     };
 
     const navigateRecent = (song) => {
-      console.log(song);
       history.push('/recent/' + song.id + "/");
     };
 
@@ -75,8 +81,8 @@ class TitleScreen extends React.Component
           {controls}
         </div>
         <div style={{"marginLeft" : "auto", "marginRight": "auto"}}>
-        { songHistory.length > 0 &&
-          <History data={songHistory} onClick={navigateRecent}/>
+        { this.state.songHistory.length > 0 &&
+          <History data={this.state.songHistory} onClick={navigateRecent}/>
         }
         </div>
         { !!this.state.error &&
