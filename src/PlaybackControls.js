@@ -19,14 +19,16 @@ function PlaybackControls(props)
           <IconButton
             aria-label="play"
             onClick={onPlay}
+            disabled={props.disabled}
           >
-            <PlayArrowIcon style={{color: "#4cbb17"}}/>
+            <PlayArrowIcon style={{color: props.disabled ? "#cccccc": "#4cbb17"}}/>
           </IconButton>
           <IconButton
             aria-label="stop"
             onClick={onStop}
+            disabled={props.disabled}
           >
-            <StopIcon style={{color: '#ff0800'}}/>
+            <StopIcon style={{color: props.disabled ? "#cccccc": "#ff0800"}}/>
           </IconButton>
         </div>
 
