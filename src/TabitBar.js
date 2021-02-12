@@ -12,6 +12,8 @@ import Typography from '@material-ui/core/Typography';
 import SettingsIcon from "@material-ui/icons/Settings";
 import SaveAltIcon from '@material-ui/icons/SaveAlt';
 import ShareIcon from '@material-ui/icons/Share';
+import LockIcon from '@material-ui/icons/Lock';
+import LockOpenIcon from '@material-ui/icons/LockOpen';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -65,11 +67,11 @@ function TabitBar(props) {
         </Typography>
         <IconButton
           color="inherit"
-          aria-label="download"
+          aria-label={props.locked ? "unlock" : "lock"}
           edge="start"
-          onClick={props.onDownload}
+          onClick={props.onLockUnlock}
           >
-          <SaveAltIcon />
+          {props.locked ? <LockIcon /> : <LockOpenIcon />}
         </IconButton>
         <IconButton
           color="inherit"
@@ -78,6 +80,14 @@ function TabitBar(props) {
           onClick={props.onShare}
           >
           <ShareIcon />
+        </IconButton>
+        <IconButton
+          color="inherit"
+          aria-label="download"
+          edge="start"
+          onClick={props.onDownload}
+          >
+          <SaveAltIcon />
         </IconButton>
         <IconButton
           color="inherit"

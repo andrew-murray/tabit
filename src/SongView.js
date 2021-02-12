@@ -48,7 +48,8 @@ class SongView extends React.Component
     sharingDialogOpen: false,
     removeDialogOpen: false,
     patternTime: null,
-    errorAlert: null
+    errorAlert: null,
+    locked: true
   }
 
   componentDidMount()
@@ -284,6 +285,16 @@ class SongView extends React.Component
     if(this.audio){ this.audio.setTempo(tempo); }
   }
 
+  onToggleLocked = () => {
+    this.setState(
+      (state)=>{
+        const nowLocked = !state.locked;
+        // if we're unlocking the patterns, pop open the pattern drawer
+        return {locked: nowLocked, patternsOpen: state.patternsOpen || !nowLocked};
+      }
+    );
+  }
+
   render()
   {
     const pattern = this.state.songData.patterns[
@@ -304,6 +315,8 @@ class SongView extends React.Component
           patternsToggle={this.handlePatternsToggle}
           onDownload={this.onDownload}
           onShare={this.onShare}
+          locked={this.state.locked}
+          onLockUnlock={this.onToggleLocked}
         />
         {this.state.errorAlert &&
         <Snackbar severity="error" open={true} autoHideDuration={5000} onClose={() => {this.setState({errorAlert: null})}}>
