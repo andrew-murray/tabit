@@ -4,6 +4,7 @@ import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import StopIcon from '@material-ui/icons/Stop';
 import Slider from '@material-ui/core/Slider';
 import Grid from '@material-ui/core/Grid';
+import Tooltip from '@material-ui/core/Tooltip';
 
 function PlaybackControls(props)
 {
@@ -12,24 +13,31 @@ function PlaybackControls(props)
   const onPlay = ()=>{ if(props.onPlay){ props.onPlay(); }; };
   const onStop = ()=>{ if(props.onStop){ props.onStop(); }; };
   const onSetTempo = (event, tempo)=>{ if(props.onTempoChange){ props.onTempoChange(tempo); } };
+  const tooltipMsg = "Playback disabled while content unlocked."
+  const playTooltip = props.disabled ? tooltipMsg : "";
+  const stopTooltip = props.disabled ? tooltipMsg : "";
 
   return (
       <React.Fragment>
         <div>
-          <IconButton
-            aria-label="play"
-            onClick={onPlay}
-            disabled={props.disabled}
-          >
-            <PlayArrowIcon style={{color: props.disabled ? "#cccccc": "#4cbb17"}}/>
-          </IconButton>
-          <IconButton
-            aria-label="stop"
-            onClick={onStop}
-            disabled={props.disabled}
-          >
-            <StopIcon style={{color: props.disabled ? "#cccccc": "#ff0800"}}/>
-          </IconButton>
+          <Tooltip title={playTooltip} aria-label={playTooltip}>
+            <IconButton
+              onClick={props.disabled ? undefined : onPlay}
+              disableRipple={props.disabled}
+              disableFocusRipple={props.disabled}
+            >
+              <PlayArrowIcon style={{color: props.disabled ? "#cccccc": "#4cbb17"}}/>
+            </IconButton>
+          </Tooltip>
+          <Tooltip title={stopTooltip} aria-label={stopTooltip}>
+            <IconButton
+              onClick={props.disabled ? undefined : onStop}
+              disableRipple={props.disabled}
+              disableFocusRipple={props.disabled}
+            >
+              <StopIcon style={{color: props.disabled ? "#cccccc": "#ff0800"}}/>
+            </IconButton>
+          </Tooltip>
         </div>
 
         <Grid container>

@@ -79,7 +79,7 @@ class SongView extends React.Component
       100.0,
       animateCallback,
       latencyHint,
-      (errorMessage)=>{this.setState({errorAlert: errorMessage})}
+      this.setError
     );
     this.audio.setActivePattern( this.state.songData.patterns[this.state.selectedPattern].name );
   }
@@ -288,6 +288,10 @@ class SongView extends React.Component
     if(this.audio){ this.audio.setTempo(tempo); }
   }
 
+  setError = (message) => {
+    this.setState({errorAlert: message});
+  }
+
   onToggleLocked = () => {
     this.setState(
       (state)=>{
@@ -325,7 +329,7 @@ class SongView extends React.Component
         {this.state.errorAlert &&
         <Snackbar severity="error" open={true} autoHideDuration={5000} onClose={() => {this.setState({errorAlert: null})}}>
           <Alert severity="error"  onClose={() => {this.setState({errorAlert: null})}}>
-            <AlertTitle>Error Loading Samples</AlertTitle>
+            <AlertTitle>Error</AlertTitle>
             <Box>
             {this.state.errorAlert.split("\n").map(line=><Box>{line}</Box>)}
             </Box>
