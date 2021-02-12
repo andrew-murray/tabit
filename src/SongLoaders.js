@@ -88,7 +88,7 @@ function LoadJSON(jsonData, title, filename, fromHydrogen)
         : prepHydrogenVolumes( activeInstrumentation(jsonData.instruments, patterns) );
       const instrumentMask = createInstrumentMask(instrumentIndex, instruments);
       const formatSettings = jsonData.formatSettings ? jsonData.formatSettings : Object.assign({}, DefaultSettings);
-      const patternSettings = jsonData.patternSettings ? jsonData.patternSettings : figurePatternSettings(jsonData.patterns);
+      const patternSettings = jsonData.patternSettings ? jsonData.patternSettings : figurePatternSettings(patterns);
       resolve( new SongData(
         title,
         filename,
