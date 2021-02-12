@@ -296,7 +296,7 @@ class SongView extends React.Component
     this.setState(
       (state)=>{
         const nowLocked = !state.locked;
-        if(nowLocked && this.audio){ this.audio.stop(); }
+        if(!nowLocked && this.audio){ this.audio.stop(); }
         // if we're unlocking the patterns, pop open the pattern drawer
         return {locked: nowLocked, patternsOpen: state.patternsOpen || !nowLocked};
       }
