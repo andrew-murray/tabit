@@ -9,7 +9,6 @@ import Checkbox from "@material-ui/core/Checkbox";
 import Paper from "@material-ui/core/Paper";
 import IconButton from '@material-ui/core/IconButton';
 import ReplayIcon from '@material-ui/icons/Replay';
-import AddIcon from '@material-ui/icons/Add';
 
 /*
   This file is based on the transfer-list example available in material UI.

@@ -29,7 +29,7 @@ function PatternCreateDialog(props)
     index =>{ return {value: index, label: props.patterns[index]}; }
   );
 
-  const invalidPatternName = patternName && props.patterns.indexOf(patternName) != -1;
+  const invalidPatternName = patternName && props.patterns.indexOf(patternName) !== -1;
 
   return <Dialog
     open={props.open}
