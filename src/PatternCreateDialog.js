@@ -15,13 +15,13 @@ function PatternCreateDialog(props)
   let [patternRecipe, setPatternRecipe] = React.useState([]);
 
 
-  const closeAndCommit = ()=>{
-    if(patternRecipe.length && patternName)
+  const closeAndCommit = (commit)=>{
+    if(commit && patternRecipe.length && patternName)
     {
       props.onChange({name: patternName, recipe: patternRecipe});
-      setPatternRecipe([]);
-      setPatternName(null);
     }
+    setPatternRecipe([]);
+    setPatternName(null);
     props.onClose();
   };
 
@@ -57,10 +57,10 @@ function PatternCreateDialog(props)
         />
       </Box>
       <DialogActions>
-        <Button onClick={closeAndCommit} disabled={!(patternRecipe.length > 0 && patternName)}>
+        <Button onClick={()=>{closeAndCommit(true)}} disabled={patternRecipe.length === 0 || !patternName || invalidPatternName}>
           Confirm
         </Button>
-        <Button onClick={closeAndCommit}>
+        <Button onClick={()=>{closeAndCommit(false)}}>
           Close
         </Button>
       </DialogActions>
