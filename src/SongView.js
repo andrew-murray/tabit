@@ -1,7 +1,6 @@
 import React from 'react';
 import Pattern from "./Pattern";
 import PlaybackControls from "./PlaybackControls";
-import {DefaultSettings} from "./formatSettings";
 import notation from "./notation";
 import InstrumentConfig from "./instrumentConfig";
 import { createInstrumentMask } from "./instrumentation";

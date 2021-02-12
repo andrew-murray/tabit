@@ -8,7 +8,6 @@ import TitleScreen from "./TitleScreen";
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { createMuiTheme, ThemeProvider, responsiveFontSizes } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import * as SongStorage from "./SongStorage";
 import {
   ExampleSongView,
   FileImportSongView,
