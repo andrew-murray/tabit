@@ -355,6 +355,7 @@ class SongView extends React.Component
             instrumentMask={this.state.songData.instrumentMask}
             onChange={this.changeInstruments}
             onVolumeEvent={this.sendVolumeEvent}
+            showAdvanced={!this.state.locked}
           />
         </Grid>
         {instrumentConfigColumns < 12 ? <Grid item xs={(12 - instrumentConfigColumns) / 2} /> : null}

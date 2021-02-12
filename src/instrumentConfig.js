@@ -433,18 +433,20 @@ function InstrumentTable(props)
     <Table className={classes.table} aria-label="simple table">
       <TableHead>
         <TableRow key={"instrumentPanel-row-header"}>
-          <NoDividerCenterTableCell key={"instrumentPanel-row-instrument"}></NoDividerCenterTableCell>
+          { props.showAdvanced && <NoDividerCenterTableCell key={"instrumentPanel-row-instrument"}></NoDividerCenterTableCell> }
           {[...Array(props.instrumentIndex.length).keys()].map(x=>
               <NoDividerCenterTableCell key={"instrumentPanel-row-header-cell-" + x.toString()}>
                 <Typography>{props.instrumentIndex[x].name}</Typography>
               </NoDividerCenterTableCell>)}
         </TableRow>
         <TableRow key={"instrumentPanel-row-controls"}>
-          <CenterTableCell key={"instrumentPanel-row-instrument"}>
-            <IconButton aria-label="Show Instrument Matcher" size="small" onClick={() => setOpen(!open)}>
-              {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-            </IconButton>
-          </CenterTableCell>
+          { props.showAdvanced &&
+            <CenterTableCell key={"instrumentPanel-row-instrument"}>
+              <IconButton aria-label="Show Instrument Matcher" size="small" onClick={() => setOpen(!open)}>
+                {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+              </IconButton>
+            </CenterTableCell>
+          }
           {[...Array(props.instrumentIndex.length).keys()].map(x=>
               <CenterTableCell key={"instrumentPanel-row-controls-cell-" + x.toString()}>
                 <Grid container>
@@ -465,8 +467,8 @@ function InstrumentTable(props)
         </TableRow>
       </TableHead>
       <TableBody>
-        {open && [...Array(props.instruments.length).keys()].map(y=>createMatchingRow(y))}
-        {open && createEditRow()}
+        {open && props.showAdvanced && [...Array(props.instruments.length).keys()].map(y=>createMatchingRow(y))}
+        {open && props.showAdvanced && createEditRow()}
       </TableBody>
     </Table>
   );
@@ -555,6 +557,7 @@ function InstrumentConfig(props) {
           onRemoveRow={(y)=>{removeInstrument(y);}}
           onVolumeEvent={props.onVolumeEvent}
           onChange={props.onChange}
+          showAdvanced={props.showAdvanced}
         />
       </TableContainer>
     </div>
