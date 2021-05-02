@@ -26,6 +26,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import RenameDialog from "./RenameDialog";
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import { useTheme } from '@material-ui/core/styles';
@@ -232,93 +233,6 @@ class RawInstrumentEditDialog extends React.Component
     );
   }
 }
-
-class InstrumentRenameDialog extends React.Component
-{
-  constructor(props)
-  {
-    super(props)
-    this.state = {
-      currentName : null
-    };
-  }
-
-  render()
-  {
-
-    const cancel = () => {
-      if(this.props.onCancel)
-      {
-        this.props.onCancel();
-      }
-      this.setState({currentName: null});
-    };
-
-    const confirm = () => {
-      if(this.state.currentName !== null)
-      {
-        const instrumentName = this.state.currentName.trim();
-        if( instrumentName.length > 0 )
-        {
-          if(this.props.onChange)
-          {
-            this.props.onChange(this.state.currentName);
-          }
-          this.setState({currentName: null});
-        }
-        else
-        {
-          // todo: prettier error communication?
-          alert(
-            "You selected an invalid instrument name \"" + this.state.currentName + "\".\n" +
-            "Must be non-empty."
-          );
-        }
-      }
-      else
-      {
-        cancel();
-      }
-    };
-
-    const handleEnter = (e) =>
-    {
-      if(e.keyCode === 13)
-      {
-        e.preventDefault();
-        confirm();
-      }
-    };
-
-    return (
-      <Dialog open={this.props.open} onClose={cancel} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title"></DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            Enter instrument name
-          </DialogContentText>
-          <TextField
-            margin="dense"
-            id="name"
-            fullWidth
-            value={this.state.currentName ?? this.props.value}
-            onChange={(e)=>{this.setState({currentName: e.target.value});}}
-            onKeyDown={handleEnter}
-            autoFocus
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={cancel} color="primary">
-            Cancel
-          </Button>
-          <Button onClick={confirm} color="primary">
-            Confirm
-          </Button>
-        </DialogActions>
-      </Dialog>
-    );
-  }
-};
 
 function InstrumentTable(props)
 {
@@ -534,11 +448,12 @@ function InstrumentConfig(props) {
   };
   return (
     <div style={{"paddingBottom" : theme.spacing(1)}}>
-      <InstrumentRenameDialog
+      <RenameDialog
         open={renamingInstrument !== null}
         onCancel={()=>{setRenamingInstrument(null);}}
         onChange={(s)=>{renameInstrument(s);}}
         value={renamingInstrument !== null ? getName(renamingInstrument) : ""}
+        instruction="Enter instrument name"
       />
       <RawInstrumentEditDialog
         open={editingSymbol !== null}
