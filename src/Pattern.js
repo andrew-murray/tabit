@@ -1,4 +1,5 @@
 import React from 'react';
+import Part from "./Part";
 import PartWithTitle from "./PartWithTitle";
 import { withStyles } from '@material-ui/core/styles';
 
@@ -15,23 +16,57 @@ const useStyles = theme => ({
   },
 });
 
+const makeCompactConfig = (config, index) => {
+  if(index === 0 ){
+    return {
+      ...config
+    };
+  }
+  else {
+    return {
+      ...config,
+      showBeatNumbers : false
+    };
+  }
+};
+
 const Pattern = React.memo((props)=>
 {
   const instrumentIndices = [...props.instruments.keys()];
-  return (
-    <div style={{"margin": "auto"}}>
-      { instrumentIndices.map(
-          (instrumentIndex) => ( <PartWithTitle
-            key={"part-" + instrumentIndex.toString()}
-            instrumentName={props.instruments[instrumentIndex][0]}
-            instrument={props.instruments[instrumentIndex][1]}
-            tracks={props.tracks}
-            config={props.config}
-          /> )
-        )
-      }
-    </div>
-  );
+  if(props.compact)
+  {
+    // worry about titles in a minute
+    return (
+      <div style={{"margin": "auto"}}>
+        { instrumentIndices.map(
+            (instrumentIndex) => ( <Part
+              key={"part-" + instrumentIndex.toString()}
+              instrument={props.instruments[instrumentIndex][1]}
+              tracks={props.tracks}
+              config={makeCompactConfig(props.config, instrumentIndex)}
+            /> )
+          )
+        }
+      </div>
+    );
+  }
+  else
+  {
+    return (
+      <div style={{"margin": "auto"}}>
+        { instrumentIndices.map(
+            (instrumentIndex) => ( <PartWithTitle
+              key={"part-" + instrumentIndex.toString()}
+              instrumentName={props.instruments[instrumentIndex][0]}
+              instrument={props.instruments[instrumentIndex][1]}
+              tracks={props.tracks}
+              config={props.config}
+            /> )
+          )
+        }
+      </div>
+    );
+  }
 });
 
 class ActivePattern extends React.Component
