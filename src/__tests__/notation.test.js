@@ -137,3 +137,26 @@ test('unit test formatLineWithMarkers', () => {
 test('unit test notationFromInstrumentAndTrack', () => {
   // FIXME: The testing of fromInstrumentAndTrack is not as thorough as other functions
 });
+
+test('unit test parseStandardForm', () => {
+  const testConfig = {
+    beatMark: "|",
+    restMark: "-",
+    lineMark: "|"
+  };
+
+  const coco = notation.parseStandardForm(
+    "|O-|XO|-O|-O|O-|XO|XO|XO|",
+    "8/4",
+    false,
+    testConfig
+  );
+
+    const jam = notation.parseStandardForm(
+      "|---|X-X|O--|X-X|---|X-X|O--|X--|",
+      "12/8",
+      false,
+      testConfig
+    );
+
+});

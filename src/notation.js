@@ -325,6 +325,81 @@ class notation
     };
   }
 
+  static assertStringContainsOnlyCharacters(
+    s,
+    allowed
+  )
+  {
+    let stripped = s;
+    for(const c of allowed)
+    {
+      stripped = stripped.split(c).join('');
+    }
+    console.assert(stripped.length === 0);
+  }
+
+  static parseTimeSignature(timeSignature)
+  {
+    const times = timeSignature.split("/");
+    console.assert(times.length === 2);
+    return [parseInt(times[0]), parseInt(times[1])];
+  }
+
+  static parseStandardForm(
+    noteString,
+    patternLengthString,
+    enableTriplets,
+    config
+  )
+  {
+    console.assert(!enableTriplets);
+    // let's just handle the simple case for now
+    const allowed = ['O', 'X', config.restMark, config.beatMark, config.lineMark ];
+    if(noteString[0] !== config.lineMark || noteString[noteString.length - 1] !== config.lineMark )
+    {
+      // hint error at start or end
+      throw Error("Some problem occurred.");
+    }
+    notation.assertStringContainsOnlyCharacters(noteString, allowed);
+    // let's only handle one line at first
+    const beats = noteString.substring(1,noteString.length - 1).split(config.beatMark);
+    const patternLength = notation.parseTimeSignature(patternLengthString);
+
+    // how do we assert stuff?
+
+    // let's just deal with the easy 4/4 ish stuff
+
+    if( timeSig[1] !== 2 && timeSig[1] !== 4 && timeSig[1] !== 8 )
+    {
+      throw Error("We only support time signatures where the lower number is {2,4,8}");
+    }
+    const quarterNotesInSignature = timeSig[0] / ( timeSig[1] / 4 );
+    // Let's just assume 4/4
+    const strokesInBeats = beats.map( beat => beat.length );
+    const strokeSet = Set( strokesInBeats );
+
+    if( (quarterNotesInSignature % 1 ) === 0 && strokeSet.length !== 1 )
+    {
+      // we were expecting evenly written beats ...
+      throw Error("I needed evenly written beats");
+    }
+    else if( (quarterNotesInSignature % 1 ) !== 0 )
+    {
+      // need to check
+      const strokesExcludingFinal = beats.slice(0,beats.length-1).map( beat => beat.length )
+      const strokeSetExcludingFinal = Set( strokeSetExcludingFinal );
+      if(strokeSetExcludingFinal.length !== 1)
+      {
+        throw Error("I needed evenly written beats");
+      }
+    }
+
+
+
+
+
+  }
+
 };
 
 export default notation;
