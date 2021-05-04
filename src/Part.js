@@ -78,10 +78,11 @@ class Part extends React.Component
       numberLine,
       this.props.config.beatResolution / patternResolution
     );
+    const prefixIndent = this.props.prefix ? ' '.repeat(this.props.prefix.length) : null;
     return (
       <React.Fragment>
-        {this.props.config.showBeatNumbers ? formatLine("beat", beatChunks, 0, this.props.prefix ? ' '.repeat(this.props.prefix.length) : null) : "" }
-        {lineIndices.map(lineIndex=>formatLine(lineIndex.toString(), linesWithBeats[lineIndex], beatsPerLine * lineIndex, lineIndex === 0 ? this.props.prefix : null))}
+        {this.props.config.showBeatNumbers ? formatLine("beat", beatChunks, 0, prefixIndent) : "" }
+        {lineIndices.map(lineIndex=>formatLine(lineIndex.toString(), linesWithBeats[lineIndex], beatsPerLine * lineIndex, lineIndex === 0 ? this.props.prefix : prefixIndent))}
       </React.Fragment>
     );
   }
