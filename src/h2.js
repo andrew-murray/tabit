@@ -34,10 +34,10 @@ function parseHydrogenJs(result)
         let inst = {
           "id" : parseInt(element.id),
           "name" : element.name[0],
-           "volume" : parseFloat(element.volume),
-           "muted" : element.isMuted[0] === "true",
-           "gain" : parseFloat(element.gain),
-           "drumkit" : element.drumkit[0]
+          "volume" : parseFloat(element.volume),
+          "muted" : element.isMuted[0] === "true",
+          "gain" : parseFloat(element.gain),
+          "drumkit" : element.drumkit[0]
         };
         if( "layer" in instrumentComponent )
         {

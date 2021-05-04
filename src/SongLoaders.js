@@ -3,7 +3,8 @@ import {
   activeInstrumentation,
   createInstrumentMask,
   DEFAULT_INSTRUMENT_SYMBOLS,
-  figureInstruments
+  figureInstruments,
+  guessShortName
 } from "./instrumentation";
 import track from "./track";
 import {DefaultSettings} from "./formatSettings";
@@ -74,16 +75,34 @@ function prepHydrogenVolumes(instrumentIndex)
   return instrumentIndex;
 }
 
+function upgradeOldInstruments(instruments)
+{
+  // instruments is an array of [name, symbolmapping, possible metadata]
+  return instruments.map(
+    inst => {
+      if(inst.length === 2)
+      {
+        return [inst[0], inst[1], { "shortName" : guessShortName(inst[0])}];
+      }
+      else
+      {
+        return inst;
+      }
+    }
+  )
+}
+
 function LoadJSON(jsonData, title, filename, fromHydrogen)
 {
   return new Promise((resolve) =>
     {
       const patterns = createPatternsFromData(jsonData.patterns);
-      const instruments = !fromHydrogen? jsonData.instruments : figureInstruments(
+      const oldInstruments = !fromHydrogen? jsonData.instruments : figureInstruments(
         jsonData.instruments,
         DEFAULT_INSTRUMENT_SYMBOLS,
         patterns
       );
+      const instruments = upgradeOldInstruments(oldInstruments);
       const instrumentIndex = jsonData.instrumentIndex ? jsonData.instrumentIndex
         : prepHydrogenVolumes( activeInstrumentation(jsonData.instruments, patterns) );
       const instrumentMask = createInstrumentMask(instrumentIndex, instruments);

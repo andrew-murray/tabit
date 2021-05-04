@@ -347,6 +347,19 @@ function createInstrumentMask(instrumentIndex, instruments)
   return instrumentMask;
 }
 
+function guessShortName(instrumentName)
+{
+  const match = instrumentName.match(/\d+/);
+  if(match)
+  {
+    return instrumentName.substr(0,2) + match[0];
+  }
+  else
+  {
+    return instrumentName.substr(0,2);
+  }
+}
+
 export {
   activeInstrumentation,
   createInstrumentMask,
@@ -355,5 +368,6 @@ export {
   figureDjembes,
   figureShakers,
   figureSnares,
-  figureInstruments
+  figureInstruments,
+  guessShortName
 };

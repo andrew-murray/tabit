@@ -32,6 +32,11 @@ const makeCompactConfig = (config, index) => {
 const Pattern = React.memo((props)=>
 {
   const instrumentIndices = [...props.instruments.keys()];
+  const shortNameLengths = props.instruments.map( inst => inst[2].shortName.length );
+  const maxShortNameLength = Math.max( ... shortNameLengths );
+  const formatShortTitle = (s) => {
+    return s + ' '.repeat(maxShortNameLength - s.length);
+  };
   if(props.config.compactDisplay)
   {
     // worry about titles in a minute
@@ -43,7 +48,9 @@ const Pattern = React.memo((props)=>
               instrument={props.instruments[instrumentIndex][1]}
               tracks={props.tracks}
               config={makeCompactConfig(props.config, instrumentIndex)}
-            /> )
+              prefix={formatShortTitle(props.instruments[instrumentIndex][2].shortName)}
+            />
+            )
           )
         }
       </div>

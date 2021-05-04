@@ -50,10 +50,11 @@ class Part extends React.Component
       line => notation.chunkArray( line, beatChunkSize )
     );
     const lineIndices = [...patternLines.keys()];
-    const formatLine = (key, line, startBeat)=>{
+    const formatLine = (key, line, startBeat, prefix)=>{
       const beats = [...line.keys()];
       return (
         <PreTypography key={"pattern-line-" + key}>
+          {prefix && <PreTypography variant="subtitle1" component="span" key={"line-prefix-" + key}>{prefix}</PreTypography>}
           <PreTypography variant="subtitle1" component="span" key={"line-start-" + key}>{this.props.config.lineMark}</PreTypography>
           {
             beats.map( beat => <React.Fragment key={"fragment-beat-"+ (beat + startBeat).toString()}>
@@ -79,8 +80,8 @@ class Part extends React.Component
     );
     return (
       <React.Fragment>
-        {this.props.config.showBeatNumbers ? formatLine("beat", beatChunks, 0) : "" }
-        {lineIndices.map(lineIndex=>formatLine(lineIndex.toString(), linesWithBeats[lineIndex], beatsPerLine * lineIndex))}
+        {this.props.config.showBeatNumbers ? formatLine("beat", beatChunks, 0, this.props.prefix ? ' '.repeat(this.props.prefix.length) : null) : "" }
+        {lineIndices.map(lineIndex=>formatLine(lineIndex.toString(), linesWithBeats[lineIndex], beatsPerLine * lineIndex, lineIndex === 0 ? this.props.prefix : null))}
       </React.Fragment>
     );
   }
