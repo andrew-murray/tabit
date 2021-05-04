@@ -5,7 +5,6 @@ import { withStyles } from '@material-ui/core/styles';
 
 const useStyles = theme => ({
   root: {
-    "margin-bottom": theme.spacing(2),
     fontFamily: "Roboto Mono",
     textAlign: "left",
     whiteSpace:"pre",
@@ -33,7 +32,7 @@ const makeCompactConfig = (config, index) => {
 const Pattern = React.memo((props)=>
 {
   const instrumentIndices = [...props.instruments.keys()];
-  if(props.compact)
+  if(props.config.compactDisplay)
   {
     // worry about titles in a minute
     return (

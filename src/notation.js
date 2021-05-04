@@ -11,6 +11,7 @@ class notation
     "beatResolution" : 48,
     "showBeatMark" : true,
     "showBeatNumbers" : true,
+    "compactDisplay" : false,
     // lineResolution is typically determined on a per-pattern basis
     // however it used to be in here, and some tests still rely on this
     "lineResolution" : 48 * 8
@@ -23,7 +24,8 @@ class notation
 
   static FORMAT_CONFIG_BOOLS = [
     "showBeatMark",
-    "showBeatNumbers"
+    "showBeatNumbers",
+    "compactDisplay"
   ];
 
   static validateConfig(config, patternResolution) {
