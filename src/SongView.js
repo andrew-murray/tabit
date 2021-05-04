@@ -30,13 +30,21 @@ const makeResolvedSettings = memoizeOne( (globalSettings, patternSettings) => {
   return resolvedSettings;
 });
 
+const defaultFormatSettings = (settings) => {
+  const mobile = isMobile();
+  return {
+    ...settings,
+    compactDisplay: mobile
+  };
+};
+
 class SongView extends React.Component
 {
 
   state = {
     selectedPattern: 0,
     patternSettings: this.props.songData.patternSettings,
-    formatSettings: this.props.songData.formatSettings,
+    formatSettings: defaultFormatSettings(this.props.songData.formatSettings),
     songData: {instruments: this.props.songData.instruments,
         instrumentIndex: this.props.songData.instrumentIndex,
         instrumentMask: this.props.songData.instrumentMask,
