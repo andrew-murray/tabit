@@ -47,7 +47,7 @@ function TabitBar(props) {
     >
 
       <Toolbar variant="dense">
-        <IconButton
+        {props.patternsToggle && <IconButton
           color="inherit"
           aria-label="open pattern list"
           edge="start"
@@ -55,6 +55,7 @@ function TabitBar(props) {
           >
           <MenuIcon />
         </IconButton>
+        }
         <IconButton
           color="inherit"
           aria-label="home"
@@ -67,7 +68,7 @@ function TabitBar(props) {
         <Typography variant="h6" color="inherit" noWrap style={{"flexGrow": 1, "textOverflow": "ellipsis"}}>
           {props.title}
         </Typography>
-        <IconButton
+        {props.onLockUnlock && <IconButton
           color="inherit"
           aria-label={props.locked ? "unlock" : "lock"}
           edge="start"
@@ -75,7 +76,8 @@ function TabitBar(props) {
           >
           {props.locked ? <LockIcon /> : <LockOpenIcon />}
         </IconButton>
-        <IconButton
+        }
+        {props.onToggleCompact && <IconButton
           color="inherit"
           aria-label={props.compact ? "toggle-to-dense-view" : "toggle-to-compact-view"}
           edge="start"
@@ -83,15 +85,17 @@ function TabitBar(props) {
           >
           {props.compact ? <ViewListIcon /> : <CalendarViewDayIcon />}
         </IconButton>
-        <IconButton
+        }
+        {props.onShare && <IconButton
           color="inherit"
-          aria-label="download"
+          aria-label="share"
           edge="start"
           onClick={props.onShare}
           >
           <ShareIcon />
         </IconButton>
-        <IconButton
+        }
+        {props.onDownload && <IconButton
           color="inherit"
           aria-label="download"
           edge="start"
@@ -99,7 +103,8 @@ function TabitBar(props) {
           >
           <SaveAltIcon />
         </IconButton>
-        <IconButton
+        }
+        {props.settingsToggle && <IconButton
           color="inherit"
           aria-label="open settings"
           edge="end"
@@ -107,6 +112,7 @@ function TabitBar(props) {
         >
           <SettingsIcon />
         </IconButton>
+        }
       </Toolbar>
     </AppBar>
   );
