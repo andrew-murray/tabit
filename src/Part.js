@@ -2,18 +2,32 @@ import React from 'react';
 import notation from "./notation"
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
+import clsx from 'clsx';
 
 const styles = (theme)=>({
+  root: {
+    whiteSpace: "pre",
+    fontFamily: "Roboto Mono",
+    fontSize: '1.2rem',
+    '@media (min-width:800px)': {
+      fontSize: '1.4rem',
+    }
+  }
+});
+
+const denseStyles = (theme)=>({
   root: {
     whiteSpace: "pre",
     fontFamily: "Roboto Mono",
     fontSize: '0.8rem',
     '@media (min-width:800px)': {
       fontSize: '1rem',
-    },
+    }
   }
 });
+
 const PreTypography = withStyles(styles)(Typography);
+const DensePreTypography = withStyles(denseStyles)(Typography);
 
 class Part extends React.Component
 {
@@ -50,21 +64,22 @@ class Part extends React.Component
       line => notation.chunkArray( line, beatChunkSize )
     );
     const lineIndices = [...patternLines.keys()];
+    const Typo = this.props.dense ? DensePreTypography : PreTypography;
     const formatLine = (key, line, startBeat, prefix)=>{
       const beats = [...line.keys()];
       return (
-        <PreTypography key={"pattern-line-" + key}>
-          {prefix && <PreTypography variant="subtitle1" component="span" key={"line-prefix-" + key}>{prefix}</PreTypography>}
-          <PreTypography variant="subtitle1" component="span" key={"line-start-" + key}>{this.props.config.lineMark}</PreTypography>
+        <Typo key={"pattern-line-" + key}>
+          {prefix && <Typo variant="subtitle1" component="span" key={"line-prefix-" + key}>{prefix}</Typo>}
+          <Typo variant="subtitle1" component="span" key={"line-start-" + key}>{this.props.config.lineMark}</Typo>
           {
             beats.map( beat => <React.Fragment key={"fragment-beat-"+ (beat + startBeat).toString()}>
-              <PreTypography variant="subtitle1" component="span" key={"span-beat-" + (beat + startBeat).toString()} className={"partNote"+ (beat + startBeat).toString()}>{line[beat].join("")}</PreTypography>
-              <PreTypography variant="subtitle1" component="span" key={"span-beat-marker-" + (beat + startBeat).toString()}>{(this.props.config.showBeatMark && beat !== beats[beats.length-1]) ? this.props.config.beatMark : ""}</PreTypography>
+              <Typo variant="subtitle1" component="span" key={"span-beat-" + (beat + startBeat).toString()} className={"partNote"+ (beat + startBeat).toString()}>{line[beat].join("")}</Typo>
+              <Typo variant="subtitle1" component="span" key={"span-beat-marker-" + (beat + startBeat).toString()}>{(this.props.config.showBeatMark && beat !== beats[beats.length-1]) ? this.props.config.beatMark : ""}</Typo>
             </React.Fragment>
             )
           }
-          <PreTypography variant="subtitle1" component="span" key={"line-end-" + key}>{this.props.config.lineMark}</PreTypography>
-        </PreTypography>
+          <Typo variant="subtitle1" component="span" key={"line-end-" + key}>{this.props.config.lineMark}</Typo>
+        </Typo>
       );
     };
 
@@ -79,6 +94,7 @@ class Part extends React.Component
       this.props.config.beatResolution / patternResolution
     );
     const prefixIndent = this.props.prefix ? ' '.repeat(this.props.prefix.length) : null;
+
     return (
       <React.Fragment>
         {this.props.config.showBeatNumbers ? formatLine("beat", beatChunks, 0, prefixIndent) : "" }

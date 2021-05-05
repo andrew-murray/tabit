@@ -67,6 +67,7 @@ const Pattern = React.memo((props)=>
               instrument={props.instruments[instrumentIndex][1]}
               tracks={props.tracks}
               config={props.config}
+              dense
             /> )
           )
         }
