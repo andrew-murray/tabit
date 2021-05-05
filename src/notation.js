@@ -24,8 +24,7 @@ class notation
 
   static FORMAT_CONFIG_BOOLS = [
     "showBeatMark",
-    "showBeatNumbers",
-    "compactDisplay"
+    "showBeatNumbers"
   ];
 
   static validateConfig(config, patternResolution) {

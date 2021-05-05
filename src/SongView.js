@@ -30,21 +30,13 @@ const makeResolvedSettings = memoizeOne( (globalSettings, patternSettings) => {
   return resolvedSettings;
 });
 
-const defaultFormatSettings = (settings) => {
-  const mobile = isMobile();
-  return {
-    ...settings,
-    compactDisplay: mobile
-  };
-};
-
 class SongView extends React.Component
 {
 
   state = {
     selectedPattern: 0,
     patternSettings: this.props.songData.patternSettings,
-    formatSettings: defaultFormatSettings(this.props.songData.formatSettings),
+    formatSettings: this.props.songData.formatSettings,
     songData: {instruments: this.props.songData.instruments,
         instrumentIndex: this.props.songData.instrumentIndex,
         instrumentMask: this.props.songData.instrumentMask,
@@ -327,6 +319,19 @@ class SongView extends React.Component
     );
   }
 
+  onToggleCompact = ()  => {
+    this.setState(
+      (state)=>{
+        const nowCompact = !this.state.formatSettings.compactDisplay;
+        const updatedSettings = {
+          ...this.state.formatSettings,
+          compactDisplay: nowCompact
+        };
+        return {formatSettings: updatedSettings};
+      }
+    );
+  }
+
   render()
   {
     const pattern = this.state.songData.patterns[
@@ -349,6 +354,8 @@ class SongView extends React.Component
           onShare={this.onShare}
           locked={this.state.locked}
           onLockUnlock={this.onToggleLocked}
+          compact={this.state.formatSettings.compactDisplay}
+          onToggleCompact={this.onToggleCompact}
         />
         {this.state.errorAlert &&
         <Snackbar severity="error" open={true} autoHideDuration={5000} onClose={() => {this.setState({errorAlert: null})}}>
@@ -360,7 +367,7 @@ class SongView extends React.Component
           </Alert>
         </Snackbar>
         }
-        <div style={{display: "flex", flexGrow : 1}} />
+        <div style={{display: "flex", flexGrow : 1, minHeight: 20}} />
         <Pattern
           instruments={this.state.songData.instruments}
           tracks={pattern.instrumentTracks}

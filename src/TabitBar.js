@@ -14,6 +14,8 @@ import SaveAltIcon from '@material-ui/icons/SaveAlt';
 import ShareIcon from '@material-ui/icons/Share';
 import LockIcon from '@material-ui/icons/Lock';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
+import ViewListIcon from '@material-ui/icons/ViewList';
+import CalendarViewDayIcon from '@material-ui/icons/CalendarViewDay';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -72,6 +74,14 @@ function TabitBar(props) {
           onClick={props.onLockUnlock}
           >
           {props.locked ? <LockIcon /> : <LockOpenIcon />}
+        </IconButton>
+        <IconButton
+          color="inherit"
+          aria-label={props.compact ? "toggle-to-dense-view" : "toggle-to-compact-view"}
+          edge="start"
+          onClick={props.onToggleCompact}
+          >
+          {props.compact ? <ViewListIcon /> : <CalendarViewDayIcon />}
         </IconButton>
         <IconButton
           color="inherit"
