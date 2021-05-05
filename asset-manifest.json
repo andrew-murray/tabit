@@ -1,20 +1,20 @@
 {
   "files": {
     "main.css": "/tabit/static/css/main.3a7214ab.chunk.css",
-    "main.js": "/tabit/static/js/main.2bcd88dc.chunk.js",
-    "main.js.map": "/tabit/static/js/main.2bcd88dc.chunk.js.map",
+    "main.js": "/tabit/static/js/main.a1cb1aea.chunk.js",
+    "main.js.map": "/tabit/static/js/main.a1cb1aea.chunk.js.map",
     "runtime-main.js": "/tabit/static/js/runtime-main.d27671b4.js",
     "runtime-main.js.map": "/tabit/static/js/runtime-main.d27671b4.js.map",
-    "static/js/2.a4cf6b79.chunk.js": "/tabit/static/js/2.a4cf6b79.chunk.js",
-    "static/js/2.a4cf6b79.chunk.js.map": "/tabit/static/js/2.a4cf6b79.chunk.js.map",
+    "static/js/2.65568328.chunk.js": "/tabit/static/js/2.65568328.chunk.js",
+    "static/js/2.65568328.chunk.js.map": "/tabit/static/js/2.65568328.chunk.js.map",
     "index.html": "/tabit/index.html",
     "static/css/main.3a7214ab.chunk.css.map": "/tabit/static/css/main.3a7214ab.chunk.css.map",
-    "static/js/2.a4cf6b79.chunk.js.LICENSE.txt": "/tabit/static/js/2.a4cf6b79.chunk.js.LICENSE.txt"
+    "static/js/2.65568328.chunk.js.LICENSE.txt": "/tabit/static/js/2.65568328.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.d27671b4.js",
-    "static/js/2.a4cf6b79.chunk.js",
+    "static/js/2.65568328.chunk.js",
     "static/css/main.3a7214ab.chunk.css",
-    "static/js/main.2bcd88dc.chunk.js"
+    "static/js/main.a1cb1aea.chunk.js"
   ]
 }
