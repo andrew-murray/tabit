@@ -57,7 +57,7 @@ class SongView extends React.Component
     this.createController();
     // save our work when we navigate away via tab-close
     window.addEventListener('beforeunload', this.onSave);
-    window.addEventListener("visibilitychange", this.onHideView);
+    if(isMobile()){ window.addEventListener("visibilitychange", this.onHideView); }
   }
 
   createController()
@@ -152,7 +152,7 @@ class SongView extends React.Component
     // save our work, as we may be about to navigate away somewhere else in tabit
     this.onSave();
     window.removeEventListener('beforeunload', this.onSave);
-    window.removeEventListener("visibilitychange", this.onHideView);
+    if(isMobile()){ window.removeEventListener("visibilitychange", this.onHideView); }
     if( this.audio )
     {
       this.audio.teardown();
@@ -283,7 +283,7 @@ class SongView extends React.Component
   }
 
   onHideView = () => {
-      if(this.audio){this.audio.stop();}
+      this.onStop();
   }
 
   handleSettingsToggle = (e)=>{
@@ -304,6 +304,9 @@ class SongView extends React.Component
 
   onStop = () => {
     if(this.audio){ this.audio.stop(); }
+    // this in most cases seems to be already covered by the animation
+    // but not all cases
+    this.setState({patternTime: null});
   }
 
   onSetTempo = (tempo) => {
