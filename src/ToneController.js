@@ -3,7 +3,8 @@ import Audio from "./Audio"
 import * as Tone from "tone";
 
 // we schedule for a delay of 120ms to allow the audio context to catch up
-let AUDIO_DELAY = 0.12;
+const DEFAULT_AUDIO_DELAY = 0.05;
+let AUDIO_DELAY = DEFAULT_AUDIO_DELAY;
 
 const setAudioDelay = (value) => {
   AUDIO_DELAY = value;
@@ -159,11 +160,11 @@ class ToneController
     if(latencyHint === "playback")
     {
       // value in seconds (relatively arbitrary)
-      setAudioDelay(0.35)
+      setAudioDelay(0.2)
     }
     else
     {
-      setAudioDelay(0.12);
+      setAudioDelay(DEFAULT_AUDIO_DELAY);
     }
 
     // this thing has a lot of state, eh?
