@@ -33,7 +33,7 @@ const Pattern = React.memo((props)=>
 {
   const instrumentIndices = [...props.instruments.keys()];
   const shortNameLengths = props.instruments.map( inst => inst[2].shortName.length );
-  const maxShortNameLength = Math.max( ... shortNameLengths );
+  const maxShortNameLength = Math.max( ...shortNameLengths );
   const formatShortTitle = (s) => {
     return s + ' '.repeat(maxShortNameLength - s.length);
   };

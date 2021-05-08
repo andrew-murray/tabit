@@ -2,7 +2,6 @@ import React from 'react';
 import notation from "./notation"
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
-import clsx from 'clsx';
 
 const styles = (theme)=>({
   root: {
