@@ -305,8 +305,6 @@ class notation
 
     const resolution = track.optimalResolution( patternA.resolution, patternB.resolution );
     const totalSize = patternA.size + patternB.size;
-    window.patternA = patternA;
-    window.patternB = patternB;
     const instrumentKeys = new Set( [...Object.keys(patternA.instrumentTracks), ...Object.keys(patternA.instrumentTracks)] );
     let instrumentTracks = {};
     for(const k of instrumentKeys)
