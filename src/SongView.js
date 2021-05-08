@@ -57,6 +57,7 @@ class SongView extends React.Component
     this.createController();
     // save our work when we navigate away via tab-close
     window.addEventListener('beforeunload', this.onSave);
+    window.addEventListener("visibilitychange", this.onHideView);
   }
 
   createController()
@@ -151,6 +152,7 @@ class SongView extends React.Component
     // save our work, as we may be about to navigate away somewhere else in tabit
     this.onSave();
     window.removeEventListener('beforeunload', this.onSave);
+    window.removeEventListener("visibilitychange", this.onHideView);
     if( this.audio )
     {
       this.audio.teardown();
@@ -278,6 +280,10 @@ class SongView extends React.Component
 
   onSave = () => {
     SongStorage.saveToLocalHistory(this.getExportState());
+  }
+
+  onHideView = () => {
+      if(this.audio){this.audio.stop();}
   }
 
   handleSettingsToggle = (e)=>{
