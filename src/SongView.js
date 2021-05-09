@@ -19,6 +19,7 @@ import PatternCreateDialog from "./PatternCreateDialog";
 import Toolbar from '@material-ui/core/Toolbar';
 // todo: pass the needed .put function via a prop?
 import * as SongStorage from "./SongStorage";
+import PatternEditor from "./PatternEditor";
 import memoizeOne from 'memoize-one';
 
 const makeResolvedSettings = memoizeOne( (globalSettings, patternSettings) => {
@@ -47,6 +48,9 @@ class SongView extends React.Component
     patternsOpen: true,
     sharingDialogOpen: false,
     patternCreateDialogOpen: false,
+    patternEditorOpen: false,
+    patternEditorContent: null,
+    patternEditorErrors: [],
     patternTime: null,
     errorAlert: null,
     locked: true
@@ -57,7 +61,6 @@ class SongView extends React.Component
     this.createController();
     // save our work when we navigate away via tab-close
     window.addEventListener('beforeunload', this.onSave);
-    if(isMobile()){ window.addEventListener("visibilitychange", this.onHideView); }
   }
 
   createController()
@@ -152,7 +155,6 @@ class SongView extends React.Component
     // save our work, as we may be about to navigate away somewhere else in tabit
     this.onSave();
     window.removeEventListener('beforeunload', this.onSave);
-    if(isMobile()){ window.removeEventListener("visibilitychange", this.onHideView); }
     if( this.audio )
     {
       this.audio.teardown();
@@ -282,10 +284,6 @@ class SongView extends React.Component
     SongStorage.saveToLocalHistory(this.getExportState());
   }
 
-  onHideView = () => {
-      this.onStop();
-  }
-
   handleSettingsToggle = (e)=>{
     this.setState({settingsOpen: !this.state.settingsOpen});
   }
@@ -298,15 +296,39 @@ class SongView extends React.Component
     this.setState({sharingDialogOpen:false});
   }
 
+  onPatternEditorContentChange = (content) => {
+    // todo: move this to a promise
+    const patternSpecifics = ( this.state.songData && this.state.patternSettings) ? this.state.patternSettings[this.state.selectedPattern] : null;
+    const resolvedSettings = makeResolvedSettings( this.state.formatSettings, patternSpecifics );
+    const parseResult = notation.parseNotationLines(
+      content,
+      "4/4",
+      false, // enableTriplets
+      resolvedSettings,
+      this.state.songData.instruments
+    );
+    window.parseResult = parseResult;
+    if(parseResult.errors)
+    {
+      this.setState({patternEditorErrors: parseResult.errors});
+    }
+    else
+    {
+      this.setState({patternEditorErrors: []});
+    }
+  }
+
+  onPatternEditorFinalize = (content) => {
+  }
+
   onPlay = () => {
-    if(this.audio){ this.audio.play(); }
+    this.setState({patternEditorOpen: true});
+    // if(this.audio){ this.audio.play(); }
   }
 
   onStop = () => {
-    if(this.audio){ this.audio.stop(); }
-    // this in most cases seems to be already covered by the animation
-    // but not all cases
-    this.setState({patternTime: null});
+    this.setState({patternEditorOpen: false});
+    // if(this.audio){ this.audio.stop(); }
   }
 
   onSetTempo = (tempo) => {
@@ -328,21 +350,9 @@ class SongView extends React.Component
     );
   }
 
-  onToggleCompact = ()  => {
-    this.setState(
-      (state)=>{
-        const nowCompact = !this.state.formatSettings.compactDisplay;
-        const updatedSettings = {
-          ...this.state.formatSettings,
-          compactDisplay: nowCompact
-        };
-        return {formatSettings: updatedSettings};
-      }
-    );
-  }
-
   render()
   {
+    window.songData = this.state.songData;
     const pattern = this.state.songData.patterns[
       this.state.selectedPattern
     ];
@@ -359,11 +369,10 @@ class SongView extends React.Component
           title={this.state.songData.title}
           settingsToggle={this.handleSettingsToggle}
           patternsToggle={this.handlePatternsToggle}
+          onDownload={this.onDownload}
           onShare={this.onShare}
           locked={this.state.locked}
           onLockUnlock={this.onToggleLocked}
-          compact={this.state.formatSettings.compactDisplay}
-          onToggleCompact={this.onToggleCompact}
         />
         {this.state.errorAlert &&
         <Snackbar severity="error" open={true} autoHideDuration={5000} onClose={() => {this.setState({errorAlert: null})}}>
@@ -375,13 +384,20 @@ class SongView extends React.Component
           </Alert>
         </Snackbar>
         }
-        <div style={{display: "flex", flexGrow : 1, minHeight: 20}} />
-        <Pattern
-          instruments={this.state.songData.instruments}
-          tracks={pattern.instrumentTracks}
-          config={resolvedSettings}
-          patternTime={this.state.patternTime}
-        />
+        <div style={{display: "flex", flexGrow : 1}} />
+        {this.state.patternEditorOpen ?
+          <PatternEditor
+            content=""
+            errors={this.state.patternEditorErrors}
+            onChange={this.onPatternEditorContentChange}
+          /> :
+          <Pattern
+            instruments={this.state.songData.instruments}
+            tracks={pattern.instrumentTracks}
+            config={resolvedSettings}
+            patternTime={this.state.patternTime}
+          />
+        }
         <div style={{display: "flex", flexGrow : 1}} />
         <PlaybackControls
           onPlay={this.onPlay}
@@ -420,7 +436,6 @@ class SongView extends React.Component
           pattern={pattern}
           settings={resolvedSettings}
           onChange={this.handleSettingsChange}
-          onSave={this.onDownload}
          />
         <SharingDialog
           open={this.state.sharingDialogOpen}
