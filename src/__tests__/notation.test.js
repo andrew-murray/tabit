@@ -138,25 +138,17 @@ test('unit test notationFromInstrumentAndTrack', () => {
   // FIXME: The testing of fromInstrumentAndTrack is not as thorough as other functions
 });
 
-test('unit test parseStandardForm', () => {
-  const testConfig = {
-    beatMark: "|",
-    restMark: "-",
-    lineMark: "|"
-  };
+test('unit test testClassifyLines', () => {
+  const lineAndClass = [
+    ["|O-|XO|-O|-O|O-|XO|XO|XO|", "tab"],
+    ["    ", "trivial"],
+    ["# some sort of instrument", "instrument"],
+    ["# # # # # ## #", null],
+    ["    #", null]
+  ];
 
-  const coco = notation.parseStandardForm(
-    "|O-|XO|-O|-O|O-|XO|XO|XO|",
-    "8/4",
-    false,
-    testConfig
-  );
-
-    const jam = notation.parseStandardForm(
-      "|---|X-X|O--|X-X|---|X-X|O--|X--|",
-      "12/8",
-      false,
-      testConfig
-    );
-
+  for(const [l,c] of lineAndClass)
+  {
+    expect(notation.classifyLine(l)).toStrictEqual(c);
+  }
 });

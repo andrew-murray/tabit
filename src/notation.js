@@ -361,7 +361,7 @@ class notation
     {
       // hint error
       return {
-        "error" : "some problem occurred in some place"
+        "errors": [ {"message":  "some problem occurred in some place" } ]
       };
     }
     notation.assertStringContainsOnlyCharacters(noteString, allowed);
@@ -376,25 +376,18 @@ class notation
     if( timeSig[1] !== 2 && timeSig[1] !== 4 && timeSig[1] !== 8 )
     {
       return {
-        "error" : "We only support time signatures where the lower number is {2,4,8}"
+        "errors": [ {"message": "We only support time signatures where the lower number is {2,4,8}" } ]
       };
     }
     const quarterNotesInSignature = timeSig[0] / ( timeSig[1] / 4 );
     // Let's just assume 4/4
     const strokesInBeats = beats.map( beat => beat.length );
-    console.log(strokesInBeats);
-    window.beats = beats;
     const strokeSet = new Set( strokesInBeats );
-
-    console.log({
-      quarterNotesInSignature: quarterNotesInSignature,
-      strokeSet: strokeSet
-    });
 
     if( (quarterNotesInSignature % 1 ) === 0 && strokeSet.size !== 1 )
     {
       return {
-        "error" : "Each beat is expected to be written to the same resolution."
+         "errors": [ {"message": "Each beat is expected to be written to the same resolution." } ]
       };
     }
     else if( (quarterNotesInSignature % 1 ) !== 0 )
@@ -405,14 +398,14 @@ class notation
       if(strokeSetExcludingFinal.size !== 1)
       {
         return {
-          "error" : "Each beat is expected to be written to the same resolution."
+          "errors" :  [ {"message": "Each beat is expected to be written to the same resolution."} ]
         };
       }
       else
       {
         // fixme: check the final beat conforms to the time signature's expectation
         return {
-          "error": "Exotic time signatures are not yet supported (for some definition of exotic)"
+          "errors": [ {"message": "Exotic time signatures are not yet supported (for some definition of exotic)" } ]
         };
       }
     }
@@ -424,15 +417,17 @@ class notation
     const patternLength = beats.length * 48;
 
     let instrumentTracks = new Map();
-    for(const symbol of instrumentSymbols)
+    for(const [trackID, symbol] of Object.entries(instrument[1]))
     {
-      // const patternForSymbol = noteString.map( symbolEntry => symbolEntry == symbol);
-      // instrumentTracks[symbol] =
+      // we join and split beats, to ensure the beatSymbols don't get back involved
+      const patternForSymbol = beats.join("").split("").map( ch => ch === symbol ? 1 : 0);
+      const generatedTrack = new track(patternForSymbol, resolution);
+      instrumentTracks[trackID] = generatedTrack;
     }
-
     return {
-      "status" : "success"
-    }
+      "tracks": instrumentTracks,
+      "errors": []
+    };
   }
 
   static isInstrumentLine(line)
@@ -714,6 +709,7 @@ class notation
     const instrumentHeadingLineIndices = indexedLines
       .filter(lineData => lineData.class === "instrument")
       .map(lineData=>lineData.index);
+
     let instrumentSections = [];
     for(let headingIndex = 0; headingIndex < instrumentHeadingLineIndices.length; ++headingIndex)
     {
@@ -754,11 +750,17 @@ class notation
 
     let instrumentNotations = [];
     let errorsFromNotationParsing = [];
-    for(let instrumentIndex = 0; instrumentIndex < instrumentSections; ++instrumentIndex)
+    for(let instrumentIndex = 0; instrumentIndex < instrumentSections.length; ++instrumentIndex)
     {
       const section = instrumentSections[instrumentIndex];
       const instrument = instrumentSections[instrumentIndex].instrument;
       let notationBits = [];
+      const notationLines = indexedLines.slice(section.startIndex, section.endIndex).filter(l => l.class === "tab" );
+      if(notationLines.length > 1)
+      {
+        errorsFromNotationParsing.push({"message": "Only one line of notation per instrument is currently supported."});
+        break;
+      }
       for(let lineIndex = section.startIndex; lineIndex < section.endIndex; ++lineIndex)
       {
         if( indexedLines[lineIndex].class !== "tab" )
@@ -767,7 +769,7 @@ class notation
         }
         const parsedLine = notation.parseStandardForm(
           indexedLines[lineIndex].content,
-          "4/4",
+          patternLengthString, // note: when supporting multiple lines ... this isn't patternLengthString
           enableTriplets,
           config,
           instrument // an instrument is a [name, {track_id: symbol}, metadata]
@@ -781,7 +783,7 @@ class notation
         }
         else
         {
-          notationBits.push(parsedLine);
+          notationBits.push(parsedLine.tracks);
         }
       }
       // todo: support multiple lines?
@@ -790,7 +792,13 @@ class notation
         "tracks": notationBits[0]
       })
     }
-    return {"errors": errorsFromNotationParsing};
+
+    // ensure that instruments that haven't been notated get an empty track??
+
+    return {
+      "pattern": instrumentNotations,
+      "errors": errorsFromNotationParsing
+    };
   }
 
 

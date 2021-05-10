@@ -5,13 +5,16 @@ import fs from "fs"
 import notation from "../notation"
 import track from "../track"
 
-function formatAsPage(state, instruments, config = {})
+function formatAsPage(state, instruments, config = {}, parsableFormat = false)
 {
   let page = "";
   for( const track of state.patterns )
   {
     const name = track.name;
-    page += name + "\n\n";
+    if(!parsableFormat)
+    {
+      page += name + "\n\n";
+    }
     for( const [instrumentName, instrument] of instruments )
     {
       const notationString = notation.fromInstrumentAndTrack(
@@ -20,7 +23,14 @@ function formatAsPage(state, instruments, config = {})
         false, // asHTML
         config
       );
-      page += instrumentName + "\n\n";
+      if(parsableFormat)
+      {
+        page += "# " + instrumentName + "\n\n";
+      }
+      else
+      {
+        page += instrumentName + "\n\n";
+      }
       page += notationString + "\n\n";
     }
   }
@@ -131,3 +141,61 @@ test('notation coconot', () => {
   const output = formatAsPage( state, coconotInstrumentMappings );
   expect(output).toMatchSnapshot();
 });
+
+const getStateWithSinglePattern = (
+  state,
+  patternTitle
+) =>
+{
+  const matchingPatterns = state.patterns.filter(p => p.name === patternTitle);
+  if(matchingPatterns.length !== 1)
+  {
+    const patternKeys = state.patterns.map(p=>p.name);
+    throw Error("Failed to match single pattern " + patternTitle + ". Found patterns [" + patternKeys.join(", ") + "].");
+  }
+  return {
+    ...state,
+    "patterns": matchingPatterns
+  };
+}
+
+test("notation parse kuva", () => {
+  const state = createObjects(JSON.parse(fs.readFileSync("./test_data/kivakovakivikuva.json")));
+  const patternOneState = getStateWithSinglePattern(state, "k-1");
+  const patternTwoState = getStateWithSinglePattern(state, "k-2");;
+  const p1 = formatAsPage( patternOneState, configuredInstrumentMappings, {showBeatNumbers: false}, true );
+  const p2 = formatAsPage( patternTwoState, configuredInstrumentMappings, {showBeatNumbers: false}, true );
+
+  const p1Lines = p1.split("\n");
+  const pattern1Parsed = notation.parseNotationLines(
+    p1Lines,
+    "8/4", // todo: how to nuke this?
+    false,
+    notation.DEFAULT_FORMAT_CONFIG,
+    configuredInstrumentMappings
+  );
+
+  const compareContent = (expected, parsed) => {
+    for( const result of parsed.pattern)
+    {
+      const inst = result.instrument;
+      const tracks = result.tracks;
+      // we inject these into the snapshot, for readability
+      for( const [trackID, t] of Object.entries(tracks) )
+      {
+        expect(t.resolution).toStrictEqual(expected.resolution);
+        expect(t.length()).toStrictEqual(expected.size);
+        expect(t.resolution).toStrictEqual(expected.instrumentTracks[trackID].resolution);
+        // strictly comparing to the old output almost matches! ... but when ghost notes
+        // overlap with the rest symbol ... we *add* ghost-notes where there were none,
+        // which is good! but means this comparison will fail
+        if( inst[1][trackID] !== "-")
+        {
+          expect(t.rep.toString()).toStrictEqual(expected.instrumentTracks[trackID].rep.toString());
+        }
+      }
+    }
+  };
+
+  compareContent(patternOneState.patterns[0], pattern1Parsed);
+})
