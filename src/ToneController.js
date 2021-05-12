@@ -16,7 +16,8 @@ const DRUMKITS = [
   "DeathMetal",
   "The Black Pearl 1.0",
   "GMRockKit",
-  "TR808EmulationKit"
+  "TR808EmulationKit",
+  "Millo_MultiLayered3"  
 ];
 
 const convertNormalToAudible = (value) => {
