@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 import TitleScreen from "./TitleScreen";
 import CssBaseline from '@material-ui/core/CssBaseline';
+import EditorView from "./EditorView";
 import { createMuiTheme, ThemeProvider, responsiveFontSizes } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import {
@@ -46,6 +47,17 @@ export default function Routes(props) {
                 history={props.history}
                 location={props.location}
                 error={props.location.error}
+              />
+            }}
+          />
+          <Route
+            exact
+            path="/edit"
+            render={(props)=>{
+              return <EditorView
+                history={props.history}
+                location={props.location}
+                songData={{}}
               />
             }}
           />
