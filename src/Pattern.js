@@ -8,7 +8,9 @@ const useStyles = theme => ({
     fontFamily: "Roboto Mono",
     textAlign: "left",
     whiteSpace:"pre",
-    "margin": "auto",
+    margin: "auto",
+    paddingLeft: 10,
+    paddingRight: 10,
     "& .activeNote": {
       color: theme.palette.secondary.main
     }

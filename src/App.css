@@ -2,10 +2,10 @@
   text-align: center;
   background-color: #212121;
   min-height: 100vh;
-  display: flex;
   flex-direction: column;
   justify-content: safe center;
   color: white;
+  display: inline-flex;
 }
 
 .App-logo {

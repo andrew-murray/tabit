@@ -353,7 +353,7 @@ class SongView extends React.Component
     // todo: make this Toolbar unnecessary, it ensures pattern renders in the right place right now
 
     return (
-      <div className="App">
+      <div className="App" style={{width: "100%", minWidth: "100%"}}>
         <Toolbar variant="dense"/>
         <TabitBar
           title={this.state.songData.title}
@@ -375,34 +375,53 @@ class SongView extends React.Component
           </Alert>
         </Snackbar>
         }
-        <div style={{display: "flex", flexGrow : 1, minHeight: 20}} />
-        <Pattern
-          instruments={this.state.songData.instruments}
-          tracks={pattern.instrumentTracks}
-          config={resolvedSettings}
-          patternTime={this.state.patternTime}
-        />
-        <div style={{display: "flex", flexGrow : 1}} />
-        <PlaybackControls
-          onPlay={this.onPlay}
-          onStop={this.onStop}
-          onTempoChange={this.onSetTempo}
-          disabled={!this.state.locked}
-        />
+        <div style={{
+          display: "flex",
+          overflow: "auto",
+          flexDirection: "column",
+          justifyContent: "safe center",
+          display: "inline-flex",
+          width: "100%",
+          maxWidth: "100%"
+        }}>
+          <Pattern
+            instruments={this.state.songData.instruments}
+            tracks={pattern.instrumentTracks}
+            config={resolvedSettings}
+            patternTime={this.state.patternTime}
+          />
+          <div style={{display: "flex", flexGrow : 1}} />
+          <PlaybackControls
+            onPlay={this.onPlay}
+            onStop={this.onStop}
+            onTempoChange={this.onSetTempo}
+            disabled={!this.state.locked}
+          />
+        </div>
+        <div style={{
+          display: "flex",
+          overflow: "auto",
+          flexDirection: "column",
+          justifyContent: "safe center",
+          display: "inline-flex",
+          width: "100%",
+          maxWidth: "100%"
+        }}>
         <Grid container>
         {instrumentConfigColumns < 12 ? <Grid item xs={(12 - instrumentConfigColumns) / 2} /> : null}
         <Grid item xs={instrumentConfigColumns}>
-        <InstrumentConfig
-            instruments={this.state.songData.instruments}
-            instrumentIndex={this.state.songData.instrumentIndex}
-            instrumentMask={this.state.songData.instrumentMask}
-            onChange={this.changeInstruments}
-            onVolumeEvent={this.sendVolumeEvent}
-            showAdvanced={!this.state.locked}
-          />
+          <InstrumentConfig
+              instruments={this.state.songData.instruments}
+              instrumentIndex={this.state.songData.instrumentIndex}
+              instrumentMask={this.state.songData.instrumentMask}
+              onChange={this.changeInstruments}
+              onVolumeEvent={this.sendVolumeEvent}
+              showAdvanced={!this.state.locked}
+            />
         </Grid>
         {instrumentConfigColumns < 12 ? <Grid item xs={(12 - instrumentConfigColumns) / 2} /> : null}
         </Grid>
+        </div>
         <PatternDrawer
           open={this.state.patternsOpen}
           onOpen={this.handlePatternsToggle}
