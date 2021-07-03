@@ -353,7 +353,7 @@ class SongView extends React.Component
     // todo: make this Toolbar unnecessary, it ensures pattern renders in the right place right now
 
     return (
-      <div className="App" style={{width: "100%", minWidth: "100%"}}>
+      <div className="App">
         <Toolbar variant="dense"/>
         <TabitBar
           title={this.state.songData.title}

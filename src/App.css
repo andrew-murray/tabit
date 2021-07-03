@@ -6,6 +6,8 @@
   justify-content: safe center;
   color: white;
   display: inline-flex;
+  width: 100%;
+  minWidth: 100%;
 }
 
 .App-logo {
