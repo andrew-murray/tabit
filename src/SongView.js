@@ -380,7 +380,6 @@ class SongView extends React.Component
           overflowX: "auto",
           flexDirection: "column",
           justifyContent: "safe center",
-          display: "inline-flex",
           width: "100%",
           maxWidth: "100%"
         }}>
@@ -390,20 +389,19 @@ class SongView extends React.Component
             config={resolvedSettings}
             patternTime={this.state.patternTime}
           />
-          <div style={{display: "flex", flexGrow : 1}} />
-          <PlaybackControls
-            onPlay={this.onPlay}
-            onStop={this.onStop}
-            onTempoChange={this.onSetTempo}
-            disabled={!this.state.locked}
-          />
         </div>
+        <div style={{display: "flex", flexGrow : 1}} />
+        <PlaybackControls
+          onPlay={this.onPlay}
+          onStop={this.onStop}
+          onTempoChange={this.onSetTempo}
+          disabled={!this.state.locked}
+        />
         <div style={{
           display: "flex",
           overflowX: "auto",
           flexDirection: "column",
           justifyContent: "safe center",
-          display: "inline-flex",
           width: "100%",
           maxWidth: "100%"
         }}>

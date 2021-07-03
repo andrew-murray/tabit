@@ -18,7 +18,7 @@ const denseStyles = (theme)=>({
     fontFamily: "Roboto Mono",
     fontSize: '0.8rem',
     '@media (min-width:800px)': {
-      fontSize: '1rem',
+      fontSize: '1.1rem',
     }
   }
 });

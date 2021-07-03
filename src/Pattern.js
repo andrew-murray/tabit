@@ -31,10 +31,6 @@ const makeCompactConfig = (config, index) => {
   }
 };
 
-const leftIfValid = (left, right) => {
-  return left ? left : right;
-};
-
 const Pattern = React.memo((props)=>
 {
   const instrumentIndices = [...props.instruments.keys()];
