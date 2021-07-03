@@ -40,11 +40,12 @@ const Pattern = React.memo((props)=>
     return s + ' '.repeat(maxShortNameLength - s.length);
   };
 
-  const toResolution = (track, resolution) => {
-    if(!props.config.primaryResolution) return track;
-    if(track.resolution === props.config.primaryResolution) return track;
-    const compatible = track.compatible(props.config.primaryResolution);
-    return compatible ? track.format(props.config.primaryResolution) : track;
+  const toResolution = (track, resolutionS) => {
+    if(!resolutionS) return track;
+    const resolution = parseInt(resolutionS);
+    if(track.resolution === resolution) return track;
+    const compatible = track.compatible(resolution);
+    return compatible ? track.format(resolution) : track;
   };
   let tracksForResolution = new Map();
   for(const inst of props.instruments)

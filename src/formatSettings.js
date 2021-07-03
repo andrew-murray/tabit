@@ -124,6 +124,28 @@ function FormatSettings(props) {
       beatResolutions.push( c );
     }
   }
+
+  const candidatePrimaryResolutions = [12, 16, 24, 36, 48];
+  let primaryResolutions = [];
+  for( const c of candidatePrimaryResolutions )
+  {
+    if( ( (c % props.pattern.resolution) === 0 || (props.pattern.resolution % c) === 0 ) && ( props.settings.lineResolution % c ) === 0)
+    {
+      primaryResolutions.push( c );
+    }
+  }
+  /*
+  // primaryResolution ~ not yet supported
+  {
+    createOptionMenu(
+      "primaryResolution",
+      primaryResolutions,
+      (v) => v.toString(), // stateToItem
+      (v) => parseInt(v), // itemToState
+      true
+    )
+  }
+  */
   return (
     <FormGroup className={classes.root}>
       <List>

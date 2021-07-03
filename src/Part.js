@@ -47,7 +47,8 @@ class Part extends React.Component
     );
     // don't support a multi-line pattern, that doesn't divide the beatResolution
     // because it's a nightmare!
-    const patternResolution = tracks[0].resolution;
+    const exampleTrackID = Object.keys(this.props.instrument)[0]
+    const patternResolution = this.props.tracks[exampleTrackID].resolution;
     if( (this.props.config.lineResolution % this.props.config.beatResolution) !== 0
         && ( patternArray.length * patternResolution > this.props.config.lineResolution ) )
     {
