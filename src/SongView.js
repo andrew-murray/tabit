@@ -377,7 +377,7 @@ class SongView extends React.Component
         }
         <div style={{
           display: "flex",
-          overflow: "auto",
+          overflowX: "auto",
           flexDirection: "column",
           justifyContent: "safe center",
           display: "inline-flex",
@@ -400,7 +400,7 @@ class SongView extends React.Component
         </div>
         <div style={{
           display: "flex",
-          overflow: "auto",
+          overflowX: "auto",
           flexDirection: "column",
           justifyContent: "safe center",
           display: "inline-flex",

@@ -31,6 +31,10 @@ const makeCompactConfig = (config, index) => {
   }
 };
 
+const leftIfValid = (left, right) => {
+  return left ? left : right;
+};
+
 const Pattern = React.memo((props)=>
 {
   const instrumentIndices = [...props.instruments.keys()];
@@ -39,6 +43,40 @@ const Pattern = React.memo((props)=>
   const formatShortTitle = (s) => {
     return s + ' '.repeat(maxShortNameLength - s.length);
   };
+
+  const toResolution = (track, resolution) => {
+    if(!props.config.primaryResolution) return track;
+    if(track.resolution === props.config.primaryResolution) return track;
+    const compatible = track.compatible(props.config.primaryResolution);
+    return compatible ? track.format(props.config.primaryResolution) : track;
+  };
+  let tracksForResolution = new Map();
+  for(const inst of props.instruments)
+  {
+    const instrumentIDs = Object.keys(inst[1]);
+    if(!props.config.primaryResolution)
+    {
+      for( const instID of instrumentIDs )
+      {
+        tracksForResolution[instID] = props.tracks[instID];
+      }
+    }
+    else
+    {
+      let instrumentIsCompatible = true;
+      for( const instID of instrumentIDs )
+      {
+        instrumentIsCompatible &= props.tracks[instID].compatible(props.config.primaryResolution);
+      }
+      for( const instID of instrumentIDs )
+      {
+        tracksForResolution[instID] = instrumentIsCompatible ?
+          toResolution(props.tracks[instID], props.config.primaryResolution)
+          : props.tracks[instID];
+      }
+    }
+  }
+
   if(props.config.compactDisplay)
   {
     // worry about titles in a minute
@@ -48,7 +86,7 @@ const Pattern = React.memo((props)=>
             (instrumentIndex) => ( <Part
               key={"part-" + instrumentIndex.toString()}
               instrument={props.instruments[instrumentIndex][1]}
-              tracks={props.tracks}
+              tracks={tracksForResolution}
               config={makeCompactConfig(props.config, instrumentIndex)}
               prefix={formatShortTitle(props.instruments[instrumentIndex][2].shortName)}
             />
@@ -67,7 +105,7 @@ const Pattern = React.memo((props)=>
               key={"part-" + instrumentIndex.toString()}
               instrumentName={props.instruments[instrumentIndex][0]}
               instrument={props.instruments[instrumentIndex][1]}
-              tracks={props.tracks}
+              tracks={tracksForResolution}
               config={props.config}
               dense
             /> )
