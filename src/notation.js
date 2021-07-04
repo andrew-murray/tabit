@@ -195,8 +195,9 @@ class notation
       return "";
     }
 
-    const patternSize = instrumentTracks[0].length();
-    const patternResolution = instrumentTracks[0].resolution;
+    const exampleTrackID = Object.keys(instrument)[0]
+    const patternResolution = trackDict[exampleTrackID].resolution;
+    const patternSize = trackDict[exampleTrackID].length();
     const notationLength = patternSize / patternResolution;
 
     let patternArray = Array(notationLength).fill(restMark);

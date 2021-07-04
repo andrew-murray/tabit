@@ -130,6 +130,23 @@ class track
     return s;
   }
 
+  compatible(formatResolution)
+  {
+    const points = this.toPoints();
+    if(this.length() % formatResolution !== 0)
+    {
+      return false;
+    }
+    for(const point of points)
+    {
+      if( point % formatResolution !== 0)
+      {
+        return false;
+      }
+    }
+    return true;
+  }
+
   format(formatResolution)
   {
     // formatResolution must cleanly divide for every hit & the length of the pattern

@@ -5,7 +5,6 @@ import { withStyles } from '@material-ui/core/styles';
 
 const styles = (theme)=>({
   root: {
-    whiteSpace: "pre",
     fontFamily: "Roboto Mono",
     fontSize: '1.2rem',
     '@media (min-width:800px)': {
@@ -16,11 +15,10 @@ const styles = (theme)=>({
 
 const denseStyles = (theme)=>({
   root: {
-    whiteSpace: "pre",
     fontFamily: "Roboto Mono",
     fontSize: '0.8rem',
     '@media (min-width:800px)': {
-      fontSize: '1rem',
+      fontSize: '1.1rem',
     }
   }
 });
@@ -49,7 +47,8 @@ class Part extends React.Component
     );
     // don't support a multi-line pattern, that doesn't divide the beatResolution
     // because it's a nightmare!
-    const patternResolution = tracks[0].resolution;
+    const exampleTrackID = Object.keys(this.props.instrument)[0]
+    const patternResolution = this.props.tracks[exampleTrackID].resolution;
     if( (this.props.config.lineResolution % this.props.config.beatResolution) !== 0
         && ( patternArray.length * patternResolution > this.props.config.lineResolution ) )
     {
@@ -64,16 +63,17 @@ class Part extends React.Component
     );
     const lineIndices = [...patternLines.keys()];
     const Typo = this.props.dense ? DensePreTypography : PreTypography;
-    const formatLine = (key, line, startBeat, prefix)=>{
+    const formatLine = (key, line, startBeats, prefix)=>{
       const beats = [...line.keys()];
+      const makeClasses = beat => startBeats.map(sb => "partNote"+ (beat + sb).toString()).join(" ");
       return (
-        <Typo key={"pattern-line-" + key}>
-          {prefix && <Typo variant="subtitle1" component="span" key={"line-prefix-" + key}>{prefix}</Typo>}
-          <Typo variant="subtitle1" component="span" key={"line-start-" + key}>{this.props.config.lineMark}</Typo>
+        <Typo key={"pattern-line-" + key} component="div">
+          {prefix && <Typo variant="subtitle1" component="span" key={"line-prefix-" + key} style={{display: "inline-block"}}>{prefix}</Typo>}
+          <Typo variant="subtitle1" component="span" key={"line-start-" + key} style={{display: "inline-block"}}>{this.props.config.lineMark}</Typo>
           {
-            beats.map( beat => <React.Fragment key={"fragment-beat-"+ (beat + startBeat).toString()}>
-              <Typo variant="subtitle1" component="span" key={"span-beat-" + (beat + startBeat).toString()} className={"partNote"+ (beat + startBeat).toString()}>{line[beat].join("")}</Typo>
-              <Typo variant="subtitle1" component="span" key={"span-beat-marker-" + (beat + startBeat).toString()}>{(this.props.config.showBeatMark && beat !== beats[beats.length-1]) ? this.props.config.beatMark : ""}</Typo>
+            beats.map( beat => <React.Fragment key={"fragment-beat-"+ (beat + startBeats[0]).toString()}>
+              <Typo variant="subtitle1" component="span" key={"span-beat-" + (beat + startBeats[0]).toString()} className={makeClasses(beat)} style={{display: "inline-block"}}>{line[beat].join("")}</Typo>
+              <Typo variant="subtitle1" component="span" key={"span-beat-marker-" + (beat + startBeats[0]).toString()} style={{display: "inline-block"}}>{(this.props.config.showBeatMark && beat !== beats[beats.length-1]) ? this.props.config.beatMark : ""}</Typo>
             </React.Fragment>
             )
           }
@@ -94,11 +94,13 @@ class Part extends React.Component
     );
     const prefixIndent = this.props.prefix ? ' '.repeat(this.props.prefix.length) : null;
 
+    //const startBeatsForNumberLine =
+
     return (
-      <React.Fragment>
-        {this.props.config.showBeatNumbers ? formatLine("beat", beatChunks, 0, prefixIndent) : "" }
-        {lineIndices.map(lineIndex=>formatLine(lineIndex.toString(), linesWithBeats[lineIndex], beatsPerLine * lineIndex, lineIndex === 0 ? this.props.prefix : prefixIndent))}
-      </React.Fragment>
+      <div>
+        {this.props.config.showBeatNumbers ? formatLine("beat", beatChunks, [0], prefixIndent) : "" }
+        {lineIndices.map(lineIndex=>formatLine(lineIndex.toString(), linesWithBeats[lineIndex], [beatsPerLine * lineIndex], lineIndex === 0 ? this.props.prefix : prefixIndent))}
+      </div>
     );
   }
 }

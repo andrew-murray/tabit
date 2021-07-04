@@ -8,7 +8,9 @@ const useStyles = theme => ({
     fontFamily: "Roboto Mono",
     textAlign: "left",
     whiteSpace:"pre",
-    "margin": "auto",
+    margin: "auto",
+    paddingLeft: 10,
+    paddingRight: 10,
     "& .activeNote": {
       color: theme.palette.secondary.main
     }
@@ -37,6 +39,41 @@ const Pattern = React.memo((props)=>
   const formatShortTitle = (s) => {
     return s + ' '.repeat(maxShortNameLength - s.length);
   };
+
+  const toResolution = (track, resolutionS) => {
+    if(!resolutionS) return track;
+    const resolution = parseInt(resolutionS);
+    if(track.resolution === resolution) return track;
+    const compatible = track.compatible(resolution);
+    return compatible ? track.format(resolution) : track;
+  };
+  let tracksForResolution = new Map();
+  for(const inst of props.instruments)
+  {
+    const instrumentIDs = Object.keys(inst[1]);
+    if(!props.config.primaryResolution)
+    {
+      for( const instID of instrumentIDs )
+      {
+        tracksForResolution[instID] = props.tracks[instID];
+      }
+    }
+    else
+    {
+      let instrumentIsCompatible = true;
+      for( const instID of instrumentIDs )
+      {
+        instrumentIsCompatible &= props.tracks[instID].compatible(props.config.primaryResolution);
+      }
+      for( const instID of instrumentIDs )
+      {
+        tracksForResolution[instID] = instrumentIsCompatible ?
+          toResolution(props.tracks[instID], props.config.primaryResolution)
+          : props.tracks[instID];
+      }
+    }
+  }
+
   if(props.config.compactDisplay)
   {
     // worry about titles in a minute
@@ -46,7 +83,7 @@ const Pattern = React.memo((props)=>
             (instrumentIndex) => ( <Part
               key={"part-" + instrumentIndex.toString()}
               instrument={props.instruments[instrumentIndex][1]}
-              tracks={props.tracks}
+              tracks={tracksForResolution}
               config={makeCompactConfig(props.config, instrumentIndex)}
               prefix={formatShortTitle(props.instruments[instrumentIndex][2].shortName)}
             />
@@ -65,7 +102,7 @@ const Pattern = React.memo((props)=>
               key={"part-" + instrumentIndex.toString()}
               instrumentName={props.instruments[instrumentIndex][0]}
               instrument={props.instruments[instrumentIndex][1]}
-              tracks={props.tracks}
+              tracks={tracksForResolution}
               config={props.config}
               dense
             /> )

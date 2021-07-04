@@ -16,7 +16,8 @@ const DRUMKITS = [
   "DeathMetal",
   "The Black Pearl 1.0",
   "GMRockKit",
-  "TR808EmulationKit"
+  "TR808EmulationKit",
+  "Millo_MultiLayered3"
 ];
 
 const convertNormalToAudible = (value) => {
@@ -40,7 +41,7 @@ const chooseAppropriateUrlForInstrument = (drumkitName, instrumentName) =>
   }
   else if(name.includes("tom"))
   {
-      return "TR808EmulationKit/808_Tom_Mid.wav"
+      return "Millo_MultiLayered3/ft_01.wav"
   }
   else if(name.includes("clap"))
   {

@@ -384,20 +384,28 @@ class SongView extends React.Component
           </Alert>
         </Snackbar>
         }
-        <div style={{display: "flex", flexGrow : 1}} />
-        {this.state.patternEditorOpen ?
-          <PatternEditor
-            content=""
-            errors={this.state.patternEditorErrors}
-            onChange={this.onPatternEditorContentChange}
-          /> :
+        <div style={{
+          display: "flex",
+          overflowX: "auto",
+          flexDirection: "column",  
+          justifyContent: "safe center",
+          width: "100%",
+          maxWidth: "100%"
+        }}>
+          {this.state.patternEditorOpen ?
+            <PatternEditor
+              content=""
+              errors={this.state.patternEditorErrors}
+              onChange={this.onPatternEditorContentChange}
+            /> :
           <Pattern
             instruments={this.state.songData.instruments}
             tracks={pattern.instrumentTracks}
             config={resolvedSettings}
             patternTime={this.state.patternTime}
           />
-        }
+          }
+        </div>
         <div style={{display: "flex", flexGrow : 1}} />
         <PlaybackControls
           onPlay={this.onPlay}
@@ -405,20 +413,29 @@ class SongView extends React.Component
           onTempoChange={this.onSetTempo}
           disabled={!this.state.locked}
         />
+        <div style={{
+          display: "flex",
+          overflowX: "auto",
+          flexDirection: "column",
+          justifyContent: "safe center",
+          width: "100%",
+          maxWidth: "100%"
+        }}>
         <Grid container>
         {instrumentConfigColumns < 12 ? <Grid item xs={(12 - instrumentConfigColumns) / 2} /> : null}
         <Grid item xs={instrumentConfigColumns}>
-        <InstrumentConfig
-            instruments={this.state.songData.instruments}
-            instrumentIndex={this.state.songData.instrumentIndex}
-            instrumentMask={this.state.songData.instrumentMask}
-            onChange={this.changeInstruments}
-            onVolumeEvent={this.sendVolumeEvent}
-            showAdvanced={!this.state.locked}
-          />
+          <InstrumentConfig
+              instruments={this.state.songData.instruments}
+              instrumentIndex={this.state.songData.instrumentIndex}
+              instrumentMask={this.state.songData.instrumentMask}
+              onChange={this.changeInstruments}
+              onVolumeEvent={this.sendVolumeEvent}
+              showAdvanced={!this.state.locked}
+            />
         </Grid>
         {instrumentConfigColumns < 12 ? <Grid item xs={(12 - instrumentConfigColumns) / 2} /> : null}
         </Grid>
+        </div>
         <PatternDrawer
           open={this.state.patternsOpen}
           onOpen={this.handlePatternsToggle}
