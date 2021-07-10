@@ -414,9 +414,6 @@ class notation
     // we have evenly written beats! let's create a pattern from them?
 
     const resolution = 48 / beats[0].length;
-    // todo: ragged patterns?
-    const patternLength = beats.length * 48;
-
     let instrumentTracks = new Map();
     for(const [trackID, symbol] of Object.entries(instrument[1]))
     {
