@@ -20,6 +20,42 @@ function WaitingMessage(props)
   );
 }
 
+class BlankSongView extends React.Component
+{
+  state = {
+    songData: null
+  }
+  BlankSongView(title)
+  {
+    this.title = title;
+  }
+
+  componentDidMount()
+  {
+    const navigateHomeWithError = (err) => {
+      let history = this.props.history;
+      history.push({
+        pathname: '/',
+        error: "Failed to create new piece '" + this.title + "'. " +
+        "This likely represents a bug - please raise an issue in github!"
+      });
+    };
+    SongLoaders.CreateEmpty(this.title).then(
+      songData => {
+        this.setState(
+          { songData: songData }
+        );
+      }
+    ).catch(navigateHomeWithError);
+  }
+
+  render()
+  {
+    return this.state.songData ? <SongView songData={this.state.songData} key={this.state.songData}/>
+                               : <WaitingMessage />;
+  }
+};
+
 class ExampleSongView extends React.Component
 {
   state = {
@@ -238,6 +274,7 @@ class LocalStorageSongView extends React.Component
 }
 
 export {
+  BlankSongView,
   ExampleSongView,
   FileImportSongView,
   SongStorageSongView,

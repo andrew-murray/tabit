@@ -6,10 +6,10 @@ import {
 } from "react-router-dom";
 import TitleScreen from "./TitleScreen";
 import CssBaseline from '@material-ui/core/CssBaseline';
-import EditorView from "./EditorView";
 import { createMuiTheme, ThemeProvider, responsiveFontSizes } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import {
+  BlankSongView,
   ExampleSongView,
   FileImportSongView,
   SongStorageSongView,
@@ -52,12 +52,12 @@ export default function Routes(props) {
           />
           <Route
             exact
-            path="/edit"
+            path="/edit/:title"
             render={(props)=>{
-              return <EditorView
+              return <BlankSongView
                 history={props.history}
                 location={props.location}
-                songData={{}}
+                title={props.title}
               />
             }}
           />

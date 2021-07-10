@@ -3,6 +3,7 @@ import { withStyles } from '@material-ui/core/styles';
 import FileImport from "./FileImport";
 import Button from '@material-ui/core/Button';
 import History from "./History";
+import RenameDialog from "./RenameDialog"
 import TitledDialog from "./TitledDialog"
 import * as SongStorage from "./SongStorage"
 import './App.css';
@@ -35,6 +36,7 @@ class TitleScreen extends React.Component
 {
   state = {
     error: this.props.error,
+    showCreateDialog: false,
     songHistory: []
   }
 
@@ -63,13 +65,19 @@ class TitleScreen extends React.Component
 
     const controls = (
       <React.Fragment>
-        <Button variant="contained" onClick={()=>{history.push("/example")}} style={{margin: "1em"}}>Load example</Button>
         <FileImport
           style={{margin: "1em"}}
           variant="contained"
           onImport={handleFileImport}
           accept=".tabit,.h2song"
           />
+        <Button
+          variant="contained"
+          onClick={()=>{this.setState({showCreateDialog: true})}}
+          style={{margin: "1em"}}
+        >
+          New
+        </Button>
       </React.Fragment>
     );
     const { classes } = this.props;
@@ -78,6 +86,15 @@ class TitleScreen extends React.Component
         <div>
           <h2>tabit</h2>
           <p>I read .h2songs and write tab</p>
+          <div>
+            <Button
+              variant="contained"
+              onClick={()=>{history.push("/example")}}
+              style={{margin: "1em"}}
+            >
+              Load example
+            </Button>
+          </div>
           {controls}
         </div>
         <div style={{"marginLeft" : "auto", "marginRight": "auto"}}>
@@ -93,6 +110,15 @@ class TitleScreen extends React.Component
           >
             {this.state.error}
           </TitledDialog>
+        }
+        {
+          !this.state.error &&
+          <RenameDialog
+            open={this.state.showCreateDialog}
+            onCancel={()=>{this.setState({showCreateDialog: false});}}
+            onChange={(title)=>{history.push("/edit/" + title)}}
+            instruction="Enter a title"
+          />
         }
         <div className={classes.licenseBanner} >
           <p>tabit relies on publicly available sound libraries listed at <a href="https://github.com/andrew-murray/tabit">https://github.com/andrew-murray/tabit</a></p>

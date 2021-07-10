@@ -133,8 +133,41 @@ function LoadExample()
   );
 }
 
+const DefaultInstrumentation = () => {
+  // todo: this should be editable & have local settings
+  return LoadExample().then(
+    (kuvaData) => {
+      return {
+        instruments: kuvaData.instruments,
+        index : kuvaData.instrumentIndex,
+        mask: kuvaData.instrumentMask
+      }
+    }
+  );
+};
+
+const CreateEmpty = (title) => {
+  return DefaultInstrumentation().then(
+    (instrumentation) => {
+      const sd = new SongData(
+        title,
+        null, // sourceFile
+        instrumentation.instruments,
+        instrumentation.index,
+        instrumentation.mask,
+        [], // no patterns
+        null, // formatSettings
+        null // patternSettings
+      );
+      console.log(sd)
+      return sd;
+    }
+  );
+};
+
 
 const moduleExports = {
+  CreateEmpty,
   LoadExample,
   LoadJSON
 };

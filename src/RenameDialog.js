@@ -42,14 +42,6 @@ class RenameDialog extends React.Component
           }
           this.setState({currentValue: null});
         }
-        else
-        {
-          // todo: prettier error communication?
-          alert(
-            "You selected an invalid name \"" + this.state.currentValue + "\".\n" +
-            "Must be non-empty."
-          );
-        }
       }
       else
       {

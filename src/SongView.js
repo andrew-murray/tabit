@@ -19,7 +19,6 @@ import PatternCreateDialog from "./PatternCreateDialog";
 import Toolbar from '@material-ui/core/Toolbar';
 // todo: pass the needed .put function via a prop?
 import * as SongStorage from "./SongStorage";
-import PatternEditor from "./PatternEditor";
 import memoizeOne from 'memoize-one';
 
 const makeResolvedSettings = memoizeOne( (globalSettings, patternSettings) => {
@@ -38,11 +37,12 @@ class SongView extends React.Component
     selectedPattern: 0,
     patternSettings: this.props.songData.patternSettings,
     formatSettings: this.props.songData.formatSettings,
-    songData: {instruments: this.props.songData.instruments,
-        instrumentIndex: this.props.songData.instrumentIndex,
-        instrumentMask: this.props.songData.instrumentMask,
-        patterns: this.props.songData.patterns,
-        title: this.props.songData.title
+    songData: {
+      instruments: this.props.songData.instruments,
+      instrumentIndex: this.props.songData.instrumentIndex,
+      instrumentMask: this.props.songData.instrumentMask,
+      patterns: this.props.songData.patterns,
+      title: this.props.songData.title
     },
     settingsOpen: false,
     patternsOpen: true,
@@ -85,7 +85,11 @@ class SongView extends React.Component
       latencyHint,
       this.setError
     );
-    this.audio.setActivePattern( this.state.songData.patterns[this.state.selectedPattern].name );
+    const pattern = this.state.songData.patterns[this.state.selectedPattern];
+    if( pattern )
+    {
+      this.audio.setActivePattern( pattern.name );
+    }
   }
 
   removePattern = (index) =>
@@ -387,23 +391,18 @@ class SongView extends React.Component
         <div style={{
           display: "flex",
           overflowX: "auto",
-          flexDirection: "column",  
+          flexDirection: "column",
           justifyContent: "safe center",
           width: "100%",
           maxWidth: "100%"
         }}>
-          {this.state.patternEditorOpen ?
-            <PatternEditor
-              content=""
-              errors={this.state.patternEditorErrors}
-              onChange={this.onPatternEditorContentChange}
-            /> :
-          <Pattern
-            instruments={this.state.songData.instruments}
-            tracks={pattern.instrumentTracks}
-            config={resolvedSettings}
-            patternTime={this.state.patternTime}
-          />
+          { pattern &&
+            <Pattern
+              instruments={this.state.songData.instruments}
+              tracks={pattern.instrumentTracks}
+              config={resolvedSettings}
+              patternTime={this.state.patternTime}
+            />
           }
         </div>
         <div style={{display: "flex", flexGrow : 1}} />
