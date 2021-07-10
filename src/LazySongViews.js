@@ -25,10 +25,6 @@ class BlankSongView extends React.Component
   state = {
     songData: null
   }
-  BlankSongView(title)
-  {
-    this.title = title;
-  }
 
   componentDidMount()
   {
@@ -40,7 +36,7 @@ class BlankSongView extends React.Component
         "This likely represents a bug - please raise an issue in github!"
       });
     };
-    SongLoaders.CreateEmpty(this.title).then(
+    SongLoaders.CreateEmpty(this.props.title).then(
       songData => {
         this.setState(
           { songData: songData }

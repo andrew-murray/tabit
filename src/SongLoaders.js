@@ -149,7 +149,7 @@ const DefaultInstrumentation = () => {
 const CreateEmpty = (title) => {
   return DefaultInstrumentation().then(
     (instrumentation) => {
-      const sd = new SongData(
+      return new SongData(
         title,
         null, // sourceFile
         instrumentation.instruments,
@@ -159,8 +159,6 @@ const CreateEmpty = (title) => {
         null, // formatSettings
         null // patternSettings
       );
-      console.log(sd)
-      return sd;
     }
   );
 };

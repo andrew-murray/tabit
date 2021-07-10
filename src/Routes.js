@@ -57,7 +57,7 @@ export default function Routes(props) {
               return <BlankSongView
                 history={props.history}
                 location={props.location}
-                title={props.title}
+                title={props.match.params.title}
               />
             }}
           />
