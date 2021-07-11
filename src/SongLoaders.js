@@ -156,8 +156,8 @@ const CreateEmpty = (title) => {
         instrumentation.index,
         instrumentation.mask,
         [], // no patterns
-        null, // formatSettings
-        null // patternSettings
+        notation.DEFAULT_FORMAT_CONFIG, // formatSettings
+        {} // patternSettings
       );
     }
   );
