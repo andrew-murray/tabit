@@ -10,6 +10,67 @@ import ClearIcon from '@material-ui/icons/Clear';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import { isMobile } from "./Mobile";
 
+function DrawerContent(props)
+{
+  const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
+  const mobile = isMobile();
+  return (<React.Fragment>
+    {!mobile ? <TabitBar placeholder /> : null }
+    <div
+      style={{overflow: "auto"}}
+    >
+      <List>
+        {(props.patterns ?? []).map( (pattern, index) => (
+          <ListItem
+            button
+            key={"drawer-pattern" + index.toString()}
+            onClick={() => { if(props.selectPattern){props.selectPattern(index);} }}
+          >
+            <ListItemText primary={pattern.name} />
+            {props.onRemove &&
+              <ListItemSecondaryAction>
+                <IconButton
+                  edge="end"
+                  size="small"
+                  onClick={(event)=>{
+                    event.stopPropagation();
+                    event.preventDefault();
+                    props.onRemove(index);}
+                  }
+                >
+                  <ClearIcon fontSize="small"/>
+                </IconButton>
+              </ListItemSecondaryAction>
+            }
+          </ListItem>
+        ))}
+        {props.onAdd &&
+          <ListItem
+            key={"drawer-add-button"}
+          >
+            <ListItemText />
+            <ListItemSecondaryAction>
+              <IconButton
+                size="small"
+                edge="end"
+                onClick={()=>{props.onAdd();}}
+                aria-label="add"
+              >
+                <AddBoxIcon
+                  size="small"
+                  />
+              </IconButton>
+            </ListItemSecondaryAction>
+          </ListItem>
+        }
+      </List>
+    </div>
+  </React.Fragment>
+  );
+}
+
+const MemoizedDrawerContent = React.memo(DrawerContent);
+
 function PatternDrawer(props)
 {
   const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
@@ -30,56 +91,12 @@ function PatternDrawer(props)
     onOpen={props.onOpen}
     onClose={props.onClose}
     >
-      {!mobile ? <TabitBar placeholder /> : null }
-      <div
-        style={{overflow: "auto"}}
-      >
-        <List>
-          {(props.patterns ?? []).map( (pattern, index) => (
-            <ListItem
-              button
-              key={"drawer-pattern" + index.toString()}
-              onClick={() => { if(props.selectPattern){props.selectPattern(index);} }}
-            >
-              <ListItemText primary={pattern.name} />
-              {props.onRemove &&
-                <ListItemSecondaryAction>
-                  <IconButton
-                    edge="end"
-                    size="small"
-                    onClick={(event)=>{
-                      event.stopPropagation();
-                      event.preventDefault();
-                      props.onRemove(index);}
-                    }
-                  >
-                    <ClearIcon fontSize="small"/>
-                  </IconButton>
-                </ListItemSecondaryAction>
-              }
-            </ListItem>
-          ))}
-          {props.onAdd &&
-            <ListItem
-              key={"drawer-add-button"}
-            >
-              <ListItemText />
-              <ListItemSecondaryAction>
-                <IconButton
-                  size="small"
-                  edge="end"
-                  onClick={()=>{props.onAdd();}}
-                  aria-label="add"
-                >
-                  <AddBoxIcon
-                    size="small"
-                    />
-                </IconButton>
-              </ListItemSecondaryAction>
-            </ListItem>
-          }
-        </List>
-      </div>
+      <MemoizedDrawerContent
+        patterns={props.patterns}
+        onRemove={props.onRemove}
+        selectPattern={props.selectPattern}
+        onAdd={props.onAdd}
+      />
     </SwipeableDrawer>
   );
 };
