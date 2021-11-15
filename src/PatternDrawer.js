@@ -10,6 +10,49 @@ import ClearIcon from '@material-ui/icons/Clear';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import { isMobile } from "./Mobile";
 
+const PatternListItem = (props) =>
+{
+  const {
+    selectPattern,
+    index,
+    pattern,
+    onRemove
+  } = props;
+  const selectCallback = React.useCallback(
+    ()=>{
+      if(selectPattern){selectPattern(index);}
+    },
+    [index, selectPattern]
+  );
+  const removeCallback = React.useCallback(
+    (event)=>{
+      event.stopPropagation();
+      event.preventDefault();
+      onRemove(index);
+    },
+    [index, onRemove]
+  );
+  return (<ListItem
+    button
+    key={"drawer-pattern" + index.toString()}
+    onClick={selectCallback}
+  >
+    <ListItemText primary={pattern.name} />
+    {onRemove &&
+      <ListItemSecondaryAction>
+        <IconButton
+          edge="end"
+          size="small"
+          onClick={removeCallback}
+        >
+          <ClearIcon fontSize="small"/>
+        </IconButton>
+      </ListItemSecondaryAction>
+    }
+  </ListItem>
+  );
+};
+
 function DrawerContent(props)
 {
   const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
@@ -20,30 +63,14 @@ function DrawerContent(props)
       style={{overflow: "auto"}}
     >
       <List>
-        {(props.patterns ?? []).map( (pattern, index) => (
-          <ListItem
-            button
-            key={"drawer-pattern" + index.toString()}
-            onClick={() => { if(props.selectPattern){props.selectPattern(index);} }}
-          >
-            <ListItemText primary={pattern.name} />
-            {props.onRemove &&
-              <ListItemSecondaryAction>
-                <IconButton
-                  edge="end"
-                  size="small"
-                  onClick={(event)=>{
-                    event.stopPropagation();
-                    event.preventDefault();
-                    props.onRemove(index);}
-                  }
-                >
-                  <ClearIcon fontSize="small"/>
-                </IconButton>
-              </ListItemSecondaryAction>
-            }
-          </ListItem>
-        ))}
+        {(props.patterns ?? []).map( (pattern, index) =>
+          <PatternListItem
+            pattern={pattern}
+            index={index}
+            onRemove={props.onRemove}
+            selectPattern={props.selectPattern}
+          />
+        )}
         {props.onAdd &&
           <ListItem
             key={"drawer-add-button"}
@@ -76,20 +103,18 @@ function PatternDrawer(props)
   const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
   const mobile = isMobile();
 
-  // SwipableDawer has undesirable behaviour,
-  // (a) persistent isn't handled properly
-  // (b) onOpen of swipable drawer, is only called on swipe events
-  // I can't find convenient callbacks to hook into that are called "when the component exists"
-  // (components are deleted when the swipable drawer is closed)
-  // I think my approach would have to involve modifying the content in the swipeable drawer in
-  // a somewhat complex way sadly - not yet
-
   return (
-    <SwipeableDrawer disableBackdropTransition={!iOS} disableDiscovery={iOS}
+    <SwipeableDrawer
+    disableBackdropTransition={!iOS} disableDiscovery={iOS}
     variant={mobile ? undefined : "persistent"}
     open={props.open}
     onOpen={props.onOpen}
     onClose={props.onClose}
+    // we insist that the component not be created from scratch,
+    // as this causes a horrible lag in the component rendering/sound stutter
+    ModalProps={{
+      keepMounted: true,
+    }}
     >
       <MemoizedDrawerContent
         patterns={props.patterns}
