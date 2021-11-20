@@ -168,6 +168,8 @@ class ToneController
       setAudioDelay(DEFAULT_AUDIO_DELAY);
     }
 
+    this.latencyHint = latencyHint;
+
     // this thing has a lot of state, eh?
     // would love if this state was a bit more structured
     this.samples = {};
@@ -325,6 +327,10 @@ class ToneController
 
   setActivePattern( patternName )
   {
+    if(patternName === this.currentPatternName)
+    {
+      return;
+    }
     const oldPatternName = this.currentPatternName !== null ? this.currentPatternName : null;
     const length = this.patternDetails[patternName].length;
     const oldLength = oldPatternName !== null ? this.patternDetails[oldPatternName] : null
@@ -338,9 +344,12 @@ class ToneController
     // not to transition at 3.75 beats and play the latter half
     const timeFromBarEnd = Tone.getTransport().loopEnd - ( Tone.getTransport().toSeconds(Tone.getTransport().position) - AUDIO_DELAY );
 
-    const queueTransition = oldPatternName !== null
-    && Tone.getTransport().state === "started"
-    && ( timeFromBarEnd > 0 && timeFromBarEnd < Tone.getTransport().toSeconds(Tone.Time("8n")));
+    // if we've been told playback speed should be prioritised, let's just pause as we change
+    const stopToChange = this.latencyHint == "playback";
+    const queueTransition = !stopToChange
+      && oldPatternName !== null
+      && Tone.getTransport().state === "started"
+      && ( timeFromBarEnd > 0 && timeFromBarEnd < Tone.getTransport().toSeconds(Tone.Time("8n")));
 
     // create this before starting the "transaction"
     const nextSequence = this.createSequenceForPattern(this.instrumentIndex, this.patternDetails[patternName].pattern);
@@ -361,6 +370,12 @@ class ToneController
       this.currentPatternName = patternName;
     };
 
+    const playing = Tone.getTransport().state === "started";
+    if(stopToChange && playing)
+    {
+      this.stop();
+    }
+
     if( queueTransition ) {
       Tone.getTransport().scheduleOnce(
         enableNewTrack,
@@ -370,6 +385,10 @@ class ToneController
     else
     {
       enableNewTrack();
+    }
+    if(stopToChange && playing)
+    {
+      this.play();
     }
   }
 
