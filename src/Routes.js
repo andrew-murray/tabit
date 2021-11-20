@@ -1,7 +1,7 @@
 import React from "react";
 import {
   BrowserRouter as Router,
-  Switch,
+  Routes,
   Route
 } from "react-router-dom";
 import TitleScreen from "./TitleScreen";
@@ -15,7 +15,7 @@ import {
   LocalStorageSongView
 } from "./LazySongViews";
 
-export default function Routes(props) {
+export default function TabitRoutes(props) {
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
   const theme = responsiveFontSizes( React.useMemo(
     () =>
@@ -37,7 +37,7 @@ export default function Routes(props) {
     <Router basename={process.env.PUBLIC_URL}>
       <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Switch>
+      <Routes>
           <Route
             exact
             path="/"
@@ -90,7 +90,7 @@ export default function Routes(props) {
               />
             }}
           />
-        </Switch>
+        </Routes>
       </ThemeProvider>
     </Router>
   )
