@@ -51,7 +51,10 @@ const Pattern = React.memo((props)=>
   for(const inst of props.instruments)
   {
     const instrumentIDs = Object.keys(inst[1]);
-    if(!props.config.primaryResolution)
+    // don't reformat patterns, assume them to be in the correct resolution to start
+    // with, at the moment this should be true. In future when we actually support
+    // "primaryResolution" this will need to be re-enabled
+    if(true || !props.config.primaryResolution)
     {
       for( const instID of instrumentIDs )
       {
