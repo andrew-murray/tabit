@@ -345,7 +345,7 @@ class ToneController
     const timeFromBarEnd = Tone.getTransport().loopEnd - ( Tone.getTransport().toSeconds(Tone.getTransport().position) - AUDIO_DELAY );
 
     // if we've been told playback speed should be prioritised, let's just pause as we change
-    const stopToChange = this.latencyHint == "playback";
+    const stopToChange = this.latencyHint === "playback";
     const queueTransition = !stopToChange
       && oldPatternName !== null
       && Tone.getTransport().state === "started"
