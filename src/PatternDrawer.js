@@ -55,7 +55,6 @@ const PatternListItem = (props) =>
 
 function DrawerContent(props)
 {
-  const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
   const mobile = isMobile();
   return (<React.Fragment>
     {!mobile ? <TabitBar placeholder /> : null }
@@ -66,6 +65,7 @@ function DrawerContent(props)
         {(props.patterns ?? []).map( (pattern, index) =>
           <PatternListItem
             pattern={pattern}
+            key={"pattern-key-" + String(index)}
             index={index}
             onRemove={props.onRemove}
             selectPattern={props.selectPattern}
