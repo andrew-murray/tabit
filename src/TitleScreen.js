@@ -46,24 +46,34 @@ class TitleScreen extends React.Component
 
   render()
   {
-    let history = this.props.history;
     // if a load of a song is in flight don't show file open buttons
     const handleFileImport = (e) =>
     {
-      history.push({
-        pathname: '/import',
-        filename: e.file.name,
-        content: e.content
-      });
+      this.props.navigate(
+        '/import',
+        {
+          state: {
+            filename: e.file.name,
+            content: e.content
+          }
+        }
+      );
     };
 
     const navigateRecent = (song) => {
-      history.push('/recent/' + song.id + "/");
+      this.props.navigate(
+        '/recent/' + song.id + "/",
+        {
+          state: {
+            songName: song.name
+          }
+        }
+      );
     };
 
     const controls = (
       <React.Fragment>
-        <Button variant="contained" onClick={()=>{history.push("/example")}} style={{margin: "1em"}}>Load example</Button>
+        <Button variant="contained" onClick={()=>{this.props.navigate("/example")}} style={{margin: "1em"}}>Load example</Button>
         <FileImport
           style={{margin: "1em"}}
           variant="contained"
