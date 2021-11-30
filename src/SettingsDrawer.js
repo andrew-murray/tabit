@@ -7,6 +7,8 @@ import Divider from "@material-ui/core/Divider";
 import {FormatSettings} from "./formatSettings";
 import { isMobile } from "./Mobile";
 import TabitBar from "./TabitBar";
+import Switch from '@material-ui/core/Switch';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 function SettingsDrawer(props)
 {
@@ -20,6 +22,12 @@ function SettingsDrawer(props)
   } : null;
 
   const noop = () => {};
+  const animateChange = (event) => {
+    if(props.onChange)
+    {
+      props.onChange({key: "animate", value: event.target.checked, local: false});
+    }
+  };
   return (
     <SwipeableDrawer disableBackdropTransition={!iOS} disableDiscovery={iOS}
       className={props.className}
@@ -37,6 +45,15 @@ function SettingsDrawer(props)
           settings={props.settings}
           pattern={patternDetails}
           />
+      }
+      {true &&
+        <div>
+        <FormControlLabel
+          control={<Switch checked={props.animating} onChange={animateChange} name={"Display Beat"} />}
+            label={"Display Beat"}
+            key={"DisplayBeat"}
+        />
+        </div>
       }
       {patternDetails && props.onSave &&
         <React.Fragment>

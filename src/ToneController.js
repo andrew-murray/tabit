@@ -100,7 +100,10 @@ const createSequenceCallback = (pattern, sampleSource) =>
           if(Tone.getTransport().state === "started")
           {
             const notePosition = (index * pattern.resolution) % pattern.length;
-            sampleSource.onPatternTimeChange(notePosition);
+            if(sampleSource.onPatternTimeChange)
+            {
+              sampleSource.onPatternTimeChange(notePosition);
+            }
           }
         },
         time + AUDIO_DELAY
@@ -423,6 +426,15 @@ class ToneController
         );
       }
     }
+  }
+
+  setAnimateCallback(onPatternTimeChange)
+  {
+    if(this.onPatternTimeChange)
+    {
+      this.onPatternTimeChange(null);
+    }
+    this.onPatternTimeChange = onPatternTimeChange;
   }
 
   setMutedForInstrument(instrumentID, muted)

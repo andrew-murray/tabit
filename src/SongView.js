@@ -49,7 +49,8 @@ class SongView extends React.Component
     patternCreateDialogOpen: false,
     patternTime: null,
     errorAlert: null,
-    locked: true
+    locked: true,
+    animating: true
   }
 
   componentDidMount()
@@ -58,12 +59,10 @@ class SongView extends React.Component
     // save our work when we navigate away via tab-close
     window.addEventListener('beforeunload', this.onSave);
     if(isMobile()){ window.addEventListener("visibilitychange", this.onHideView); }
-  }
 
-  createController()
+  }
+  createAnimateCallback()
   {
-    if(this.audio){ this.audio.teardown(); }
-    const latencyHint = isMobile() ? "playback" : null;
     const animateCallback = (time)=>{
       if(window.trace)
       {
@@ -87,6 +86,14 @@ class SongView extends React.Component
         this.setState( {patternTime: time } );
       }
     };
+    return animateCallback;
+  }
+
+  createController()
+  {
+    if(this.audio){ this.audio.teardown(); }
+    const latencyHint = isMobile() ? "playback" : null;
+    const animateCallback = this.createAnimateCallback();
     this.audio = new ToneController(
       this.state.songData.instrumentIndex,
       this.state.songData.patterns,
@@ -216,6 +223,29 @@ class SongView extends React.Component
 
   handleSettingsChange = (change) =>
   {
+    // manipulate audio's state directly
+    if(change.key === "animate")
+    {
+      if(change.value === true)
+      {
+        this.setState(
+          {animating: true},
+          () => {
+            if(this.audio){ this.audio.setAnimateCallback(this.createAnimateCallback()); }
+          }
+        )
+      }
+      else
+      {
+        this.setState(
+          {animating: false},
+          () => {
+            if(this.audio) { this.audio.setAnimateCallback(null); }
+          }
+        )
+      }
+      return;
+    }
     // change returns an object with .key, .value and .local
     if(change.local)
     {
@@ -451,6 +481,7 @@ class SongView extends React.Component
           settings={resolvedSettings}
           onChange={this.handleSettingsChange}
           onSave={this.onDownload}
+          animating={this.state.animating}
          />
         <SharingDialog
           open={this.state.sharingDialogOpen}
