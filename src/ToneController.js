@@ -17,7 +17,8 @@ const DRUMKITS = [
   "The Black Pearl 1.0",
   "GMRockKit",
   "TR808EmulationKit",
-  "Millo_MultiLayered3"
+  "Millo_MultiLayered3",
+  "BFS drumming"
 ];
 
 const convertNormalToAudible = (value) => {
