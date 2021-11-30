@@ -76,6 +76,10 @@ const createSequenceCallback = (pattern, sampleSource) =>
     }
     const trackLengthRes = ( pattern.length / pattern.resolution );
     const index = indexFromStart % trackLengthRes;
+    if(window.trace)
+    {
+      window.trace("playing sequence callback at time " + String(time) + " index " + String(indexFromStart) );
+    }
     for(const [id,t] of Object.entries(pattern.tracks))
     {
         if( t.rep[index] )

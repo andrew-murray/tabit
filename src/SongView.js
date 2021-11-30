@@ -65,13 +65,26 @@ class SongView extends React.Component
     if(this.audio){ this.audio.teardown(); }
     const latencyHint = isMobile() ? "playback" : null;
     const animateCallback = (time)=>{
+      if(window.trace)
+      {
+        window.trace("animate step " + String(time));
+      }
       const nullCheck = (this.state.patternTime === null) !== (time === null);
       const currentBeatResolution = this.state.patternSettings[this.state.selectedPattern].beatResolution;
       const currentBeat = Math.floor(this.state.patternTime / currentBeatResolution);
       const nextBeat =  Math.floor(time / currentBeatResolution);
       if( nullCheck || currentBeat !== nextBeat )
       {
-        this.setState( {patternTime: time} )
+        if(window.trace)
+        {
+          window.trace(
+            "setting pattern time (c,n,state, time) ("
+            + String(currentBeat) + ", " + String(nextBeat) + "," + String(this.state.patternTime) + "," + String(time)
+            +  ")"
+          );
+        }
+
+        this.setState( {patternTime: time } );
       }
     };
     this.audio = new ToneController(
