@@ -78,7 +78,7 @@ class SongView extends React.Component
         if(window.trace)
         {
           window.trace(
-            "setting pattern time (c,n,state, time) ("
+            "setting pattern time (currentBeat, nextBeat, state.patternTime, time) ("
             + String(currentBeat) + ", " + String(nextBeat) + "," + String(this.state.patternTime) + "," + String(time)
             +  ")"
           );
