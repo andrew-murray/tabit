@@ -170,6 +170,7 @@ function figureClickyInstruments(instrumentsRaw, symbolConfig, patterns)
     !inst.name.includes("djembe") &&
     ( inst.name.includes("click") ||
     inst.name.includes("stick") ||
+    inst.name.includes("rim") ||
     inst.name.includes("tom") ||
     inst.name.includes("bass") ||
     inst.name.includes("kick") )
@@ -177,7 +178,7 @@ function figureClickyInstruments(instrumentsRaw, symbolConfig, patterns)
 
   const trackIsClick = Array.from(
     relevantTracks,
-    (t) => t.name.includes("click") || t.name.includes("stick")
+    (t) => t.name.includes("click") || t.name.includes("stick") || t.name.includes("rim")
   );
   // we prioritise the early tracks
   // and hope for the best
