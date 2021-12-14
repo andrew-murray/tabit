@@ -26,6 +26,43 @@ const denseStyles = (theme)=>({
 const PreTypography = withStyles(styles)(Typography);
 const DensePreTypography = withStyles(denseStyles)(Typography);
 
+const compareArray = (a,b) => {
+  if(a.length !== b.length)
+  {
+    return false;
+  }
+  for(let i = 0; i < a.length; ++i)
+  {
+    if(a[i] !== b[i])
+    {
+      return false;
+    }
+  }
+  return true;
+}
+
+const countRepeats = (patternLines) => {
+  let repeatMatrix = [];
+  for(let lineIndex = 0; lineIndex < patternLines.length; ++lineIndex)
+  {
+    let totalRepeats = 1;
+    for(let compareIndex = lineIndex + 1; compareIndex < patternLines.length; ++compareIndex)
+    {
+      const comp = compareArray(patternLines[lineIndex], patternLines[compareIndex]);
+      if(comp)
+      {
+        totalRepeats++;
+      }
+      else
+      {
+        break;
+      }
+    }
+    repeatMatrix.push(totalRepeats);
+  }
+  return repeatMatrix;
+};
+
 class Part extends React.Component
 {
   constructor(props) {
@@ -58,12 +95,9 @@ class Part extends React.Component
     const patternLines = notation.chunkArray(patternArray, this.props.config.lineResolution / patternResolution, 0);
     const beatsPerLine = this.props.config.lineResolution / this.props.config.beatResolution;
     const beatChunkSize = this.props.config.beatResolution / patternResolution;
-    const linesWithBeats = patternLines.map(
-      line => notation.chunkArray( line, beatChunkSize )
-    );
     const lineIndices = [...patternLines.keys()];
     const Typo = this.props.dense ? DensePreTypography : PreTypography;
-    const formatLine = (key, line, startBeats, prefix)=>{
+    const formatLine = (key, line, startBeats, prefix, showRepeatCount)=>{
       const beats = [...line.keys()];
       const makeClasses = beat => startBeats.map(sb => "partNote"+ (beat + sb).toString()).join(" ");
       return (
@@ -78,6 +112,7 @@ class Part extends React.Component
             )
           }
           <Typo variant="subtitle1" component="span" key={"line-end-" + key}>{this.props.config.lineMark}</Typo>
+          {showRepeatCount && <Typo variant="subtitle1" component="span" key={"rep-marker"}>x{startBeats.length.toString()}</Typo>}
         </Typo>
       );
     };
@@ -93,13 +128,43 @@ class Part extends React.Component
       this.props.config.beatResolution / patternResolution
     );
     const prefixIndent = this.props.prefix ? ' '.repeat(this.props.prefix.length) : null;
+    const repeatMatrix = countRepeats(patternLines);
 
-    //const startBeatsForNumberLine =
+    const lineElements = [];
+    // disable showing a repeat count if it would be labelling one line with a x1
+    if(false && repeatMatrix.length == 1)
+    {
+      const startBeats = [...patternLines.keys()].map( lineIndex => lineIndex * beatsPerLine);
+      const showRepeatCount = false;
+      lineElements.push(
+        formatLine("0", notation.chunkArray( patternLines[0], beatChunkSize ), startBeats, this.props.prefix, showRepeatCount)
+      );
+    }
+    else
+    {
+      let lineIndex = 0;
+      const someLinesMatch = repeatMatrix.reduce((partial_sum, to_add) => partial_sum + to_add, 0) > repeatMatrix.length;
+      while(lineIndex < repeatMatrix.length)
+      {
+        const startPoint = beatsPerLine * lineIndex;
+        const startBeats = [...Array(repeatMatrix[lineIndex]).keys()].map(repeatLine => startPoint + repeatLine * beatsPerLine);
+        // we could inject user-preferences here
+        // two possible suggestions
+        // "never"
+        // "only for line one" ... as ABBC patterns mightlook pretty confusing I reckon
+        // "always"
+        const showRepeats = someLinesMatch;
+        lineElements.push(
+          formatLine(lineIndex.toString(), notation.chunkArray(patternLines[lineIndex], beatChunkSize), startBeats, lineIndex === 0 ? this.props.prefix : prefixIndent, showRepeats)
+        );
+        lineIndex += startBeats.length;
+      }
+    }
 
     return (
       <div>
-        {this.props.config.showBeatNumbers ? formatLine("beat", beatChunks, [0], prefixIndent) : "" }
-        {lineIndices.map(lineIndex=>formatLine(lineIndex.toString(), linesWithBeats[lineIndex], [beatsPerLine * lineIndex], lineIndex === 0 ? this.props.prefix : prefixIndent))}
+      {this.props.config.showBeatNumbers ? formatLine("beat", beatChunks, lineIndices.map(lineIndex=>lineIndex * beatsPerLine), prefixIndent) : "" }
+      {lineElements}
       </div>
     );
   }
