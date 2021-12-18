@@ -98,7 +98,26 @@ class Part extends React.Component
     const lineIndices = [...patternLines.keys()];
     const Typo = this.props.dense ? DensePreTypography : PreTypography;
     // <Typo variant="subtitle1" component="span" key={"span-beat-" + (beat + startBeats[0]).toString()} className={makeClasses(beat)} style={{display: "inline-block"}}>{line[beat].map(c => <Button size="small" elementType="span" style={{display: "inline", marginBlock: 0, padding: 0, minWidth: 1, fontStretch: undefined}}>{c}</Button>)}</Typo>
+
     const formatLine = (key, line, startBeats, prefix, showRepeatCount)=>{
+      const createBeatFragment = (beat) => {
+        return <React.Fragment key={"fragment-beat-"+ (beat + startBeats[0]).toString()}>
+          <Typo variant="subtitle1" component="span" key={"span-beat-" + (beat + startBeats[0]).toString()} className={makeClasses(beat)} style={{display: "inline-block"}}>
+            {[...Array(line[beat].length).keys()].map(
+              i => <Typo
+                key={"beat-part-" + i.toString()}
+                component="span"
+                onClick={()=>{
+                  // console.log(beat.toString() + "-" + i.toString());}
+                }}>
+                  {line[beat][i]}
+              </Typo>
+              )
+            }
+          </Typo>
+          <Typo variant="subtitle1" component="span" key={"span-beat-marker-" + (beat + startBeats[0]).toString()} style={{display: "inline-block"}}>{(this.props.config.showBeatMark && beat !== beats[beats.length-1]) ? this.props.config.beatMark : ""}</Typo>
+        </React.Fragment>
+      }
       const beats = [...line.keys()];
       const makeClasses = beat => startBeats.map(sb => "partNote"+ (beat + sb).toString()).join(" ");
       return (
@@ -106,13 +125,7 @@ class Part extends React.Component
           {prefix && <Typo variant="subtitle1" component="span" key={"line-prefix-" + key} style={{display: "inline-block"}}>{prefix}</Typo>}
           <Typo variant="subtitle1" component="span" key={"line-start-" + key} style={{display: "inline-block"}}>{this.props.config.lineMark}</Typo>
           {
-            beats.map( beat => <React.Fragment key={"fragment-beat-"+ (beat + startBeats[0]).toString()}>
-              <Typo variant="subtitle1" component="span" key={"span-beat-" + (beat + startBeats[0]).toString()} className={makeClasses(beat)} style={{display: "inline-block"}}>
-                {[...Array(line[beat].length).keys()].map(i => <span key={"beat-part-" + i.toString()}>{line[beat][i]}</span>)}
-              </Typo>
-              <Typo variant="subtitle1" component="span" key={"span-beat-marker-" + (beat + startBeats[0]).toString()} style={{display: "inline-block"}}>{(this.props.config.showBeatMark && beat !== beats[beats.length-1]) ? this.props.config.beatMark : ""}</Typo>
-            </React.Fragment>
-            )
+            beats.map( createBeatFragment )
           }
           <Typo variant="subtitle1" component="span" key={"line-end-" + key}>{this.props.config.lineMark}</Typo>
           {showRepeatCount && <Typo variant="subtitle1" component="span" key={"rep-marker"}>x{startBeats.length.toString()}</Typo>}
