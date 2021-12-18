@@ -422,6 +422,7 @@ class SongView extends React.Component
           </Alert>
         </Snackbar>
         }
+        <div style={{display: "flex", flexGrow : 1}} />
         <div style={{
           display: "flex",
           overflowX: "auto",
