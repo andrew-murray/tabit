@@ -170,7 +170,11 @@ class SongView extends React.Component
   componentWillUnmount()
   {
     // save our work, as we may be about to navigate away somewhere else in tabit
-    this.onSave();
+    // disabled my default in dev mode as we're likely to do things to screw up state
+    if(!!process.env.NODE_ENV && process.env.NODE_ENV === 'production')
+    {
+      this.onSave();
+    }
     window.removeEventListener('beforeunload', this.onSave);
     if(isMobile()){ window.removeEventListener("visibilitychange", this.onHideView); }
     if( this.audio )
