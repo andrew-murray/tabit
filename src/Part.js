@@ -97,6 +97,7 @@ class Part extends React.Component
     const beatChunkSize = this.props.config.beatResolution / patternResolution;
     const lineIndices = [...patternLines.keys()];
     const Typo = this.props.dense ? DensePreTypography : PreTypography;
+    // <Typo variant="subtitle1" component="span" key={"span-beat-" + (beat + startBeats[0]).toString()} className={makeClasses(beat)} style={{display: "inline-block"}}>{line[beat].map(c => <Button size="small" elementType="span" style={{display: "inline", marginBlock: 0, padding: 0, minWidth: 1, fontStretch: undefined}}>{c}</Button>)}</Typo>
     const formatLine = (key, line, startBeats, prefix, showRepeatCount)=>{
       const beats = [...line.keys()];
       const makeClasses = beat => startBeats.map(sb => "partNote"+ (beat + sb).toString()).join(" ");
@@ -106,7 +107,9 @@ class Part extends React.Component
           <Typo variant="subtitle1" component="span" key={"line-start-" + key} style={{display: "inline-block"}}>{this.props.config.lineMark}</Typo>
           {
             beats.map( beat => <React.Fragment key={"fragment-beat-"+ (beat + startBeats[0]).toString()}>
-              <Typo variant="subtitle1" component="span" key={"span-beat-" + (beat + startBeats[0]).toString()} className={makeClasses(beat)} style={{display: "inline-block"}}>{line[beat].join("")}</Typo>
+              <Typo variant="subtitle1" component="span" key={"span-beat-" + (beat + startBeats[0]).toString()} className={makeClasses(beat)} style={{display: "inline-block"}}>
+                {[...Array(line[beat].length).keys()].map(i => <span key={"beat-part-" + i.toString()}>{line[beat][i]}</span>)}
+              </Typo>
               <Typo variant="subtitle1" component="span" key={"span-beat-marker-" + (beat + startBeats[0]).toString()} style={{display: "inline-block"}}>{(this.props.config.showBeatMark && beat !== beats[beats.length-1]) ? this.props.config.beatMark : ""}</Typo>
             </React.Fragment>
             )
@@ -131,34 +134,23 @@ class Part extends React.Component
     const repeatMatrix = countRepeats(patternLines);
 
     const lineElements = [];
-    // disable showing a repeat count if it would be labelling one line with a x1
-    if(false && repeatMatrix.length == 1)
+    let lineIndex = 0;
+    // disable showing a repeat count if it would be labelling every line with a x1
+    const someLinesMatch = repeatMatrix.reduce((partial_sum, to_add) => partial_sum + to_add, 0) > repeatMatrix.length;
+    while(lineIndex < repeatMatrix.length)
     {
-      const startBeats = [...patternLines.keys()].map( lineIndex => lineIndex * beatsPerLine);
-      const showRepeatCount = false;
+      const startPoint = beatsPerLine * lineIndex;
+      const startBeats = [...Array(repeatMatrix[lineIndex]).keys()].map(repeatLine => startPoint + repeatLine * beatsPerLine);
+      // we could inject user-preferences here
+      // two possible suggestions
+      // "never"
+      // "only for line one" ... as ABBC patterns mightlook pretty confusing I reckon
+      // "always"
+      const showRepeats = someLinesMatch;
       lineElements.push(
-        formatLine("0", notation.chunkArray( patternLines[0], beatChunkSize ), startBeats, this.props.prefix, showRepeatCount)
+        formatLine(lineIndex.toString(), notation.chunkArray(patternLines[lineIndex], beatChunkSize), startBeats, lineIndex === 0 ? this.props.prefix : prefixIndent, showRepeats)
       );
-    }
-    else
-    {
-      let lineIndex = 0;
-      const someLinesMatch = repeatMatrix.reduce((partial_sum, to_add) => partial_sum + to_add, 0) > repeatMatrix.length;
-      while(lineIndex < repeatMatrix.length)
-      {
-        const startPoint = beatsPerLine * lineIndex;
-        const startBeats = [...Array(repeatMatrix[lineIndex]).keys()].map(repeatLine => startPoint + repeatLine * beatsPerLine);
-        // we could inject user-preferences here
-        // two possible suggestions
-        // "never"
-        // "only for line one" ... as ABBC patterns mightlook pretty confusing I reckon
-        // "always"
-        const showRepeats = someLinesMatch;
-        lineElements.push(
-          formatLine(lineIndex.toString(), notation.chunkArray(patternLines[lineIndex], beatChunkSize), startBeats, lineIndex === 0 ? this.props.prefix : prefixIndent, showRepeats)
-        );
-        lineIndex += startBeats.length;
-      }
+      lineIndex += startBeats.length;
     }
 
     return (
