@@ -400,6 +400,12 @@ class ToneController
     }
   }
 
+  isPlaying()
+  {
+      const playing = Tone.getTransport().state === "started";
+      return playing;
+  }
+  
   play()
   {
     // Tone.start is needed to be triggered from a user interaction
