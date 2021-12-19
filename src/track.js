@@ -59,6 +59,25 @@ class track
     return count;
   }
 
+  queryPoint(h)
+  {
+    if((h % this.resolution) === 0)
+    {
+      return this.rep[ h / this.resolution];
+    }
+    return false;
+  }
+
+  setPoint(h, value)
+  {
+    if((h % this.resolution) !== 0)
+    {
+      // we don't support this yet, possibly unnecessary
+      throw new Error("attempting to set point " + h.toString() + " but track has resolution " + this.resolution.toString());
+    }
+    this.rep[ h / this.resolution ] = value;
+  }
+
   static optimalResolution(a,b)
   {
     return findHCF(a,b);
