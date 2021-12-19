@@ -99,6 +99,10 @@ class Part extends React.Component
     const Typo = this.props.dense ? DensePreTypography : PreTypography;
     // <Typo variant="subtitle1" component="span" key={"span-beat-" + (beat + startBeats[0]).toString()} className={makeClasses(beat)} style={{display: "inline-block"}}>{line[beat].map(c => <Button size="small" elementType="span" style={{display: "inline", marginBlock: 0, padding: 0, minWidth: 1, fontStretch: undefined}}>{c}</Button>)}</Typo>
 
+    const interactiveStyles = {
+      cursor: "pointer"
+    };
+
     const formatLine = (key, line, startBeats, prefix, showRepeatCount, interactive)=>{
       const createBeatFragment = (beat) => {
         return <React.Fragment key={"fragment-beat-"+ (beat + startBeats[0]).toString()}>
@@ -107,6 +111,8 @@ class Part extends React.Component
               i => <Typo
                 key={"beat-part-" + i.toString()}
                 component="span"
+                style={interactive ? interactiveStyles : undefined}
+                className={interactive ? "hoverableNote" : undefined}
                 onClick={!interactive || !this.props.modifyPatternLocation ? undefined : ()=>{
                   const placesToEdit = startBeats.map( sb => ( (sb + beat) * this.props.config.beatResolution + i * patternResolution));
                   this.props.modifyPatternLocation(

@@ -38,3 +38,8 @@
     transform: rotate(360deg);
   }
 }
+
+.hoverableNote:hover
+{
+  color: #FF7F50;
+}
