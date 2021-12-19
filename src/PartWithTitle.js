@@ -27,6 +27,7 @@ class PartWithTitle extends React.Component
           tracks={this.props.tracks}
           config={this.props.config}
           dense={this.props.dense}
+          modifyPatternLocation={this.props.modifyPatternLocation}
         />
       </article>
     );

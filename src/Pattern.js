@@ -107,6 +107,7 @@ const Pattern = React.memo((props)=>
               instrument={props.instruments[instrumentIndex][1]}
               tracks={tracksForResolution}
               config={props.config}
+              modifyPatternLocation={props.modifyPatternLocation}
               dense
             /> )
           )
@@ -208,6 +209,7 @@ class ActivePattern extends React.Component
           instruments={this.props.instruments}
           tracks={this.props.tracks}
           config={this.props.config}
+          modifyPatternLocation={this.props.modifyPatternLocation}
         />
       </div>
     );

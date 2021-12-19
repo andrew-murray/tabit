@@ -99,7 +99,7 @@ class Part extends React.Component
     const Typo = this.props.dense ? DensePreTypography : PreTypography;
     // <Typo variant="subtitle1" component="span" key={"span-beat-" + (beat + startBeats[0]).toString()} className={makeClasses(beat)} style={{display: "inline-block"}}>{line[beat].map(c => <Button size="small" elementType="span" style={{display: "inline", marginBlock: 0, padding: 0, minWidth: 1, fontStretch: undefined}}>{c}</Button>)}</Typo>
 
-    const formatLine = (key, line, startBeats, prefix, showRepeatCount)=>{
+    const formatLine = (key, line, startBeats, prefix, showRepeatCount, interactive)=>{
       const createBeatFragment = (beat) => {
         return <React.Fragment key={"fragment-beat-"+ (beat + startBeats[0]).toString()}>
           <Typo variant="subtitle1" component="span" key={"span-beat-" + (beat + startBeats[0]).toString()} className={makeClasses(beat)} style={{display: "inline-block"}}>
@@ -107,8 +107,13 @@ class Part extends React.Component
               i => <Typo
                 key={"beat-part-" + i.toString()}
                 component="span"
-                onClick={()=>{
-                  // console.log(beat.toString() + "-" + i.toString());}
+                onClick={!interactive ? undefined : ()=>{
+                  if(!this.props.modifyPatternLocation){ return; }
+                  const placesToEdit = startBeats.map( sb => ( (sb + beat) * this.props.config.beatResolution + i * patternResolution));
+                  this.props.modifyPatternLocation(
+                    placesToEdit,
+                    this.props.instrument
+                  );
                 }}>
                   {line[beat][i]}
               </Typo>
@@ -161,14 +166,14 @@ class Part extends React.Component
       // "always"
       const showRepeats = someLinesMatch;
       lineElements.push(
-        formatLine(lineIndex.toString(), notation.chunkArray(patternLines[lineIndex], beatChunkSize), startBeats, lineIndex === 0 ? this.props.prefix : prefixIndent, showRepeats)
+        formatLine(lineIndex.toString(), notation.chunkArray(patternLines[lineIndex], beatChunkSize), startBeats, lineIndex === 0 ? this.props.prefix : prefixIndent, showRepeats, true)
       );
       lineIndex += startBeats.length;
     }
 
     return (
       <div>
-      {this.props.config.showBeatNumbers ? formatLine("beat", beatChunks, lineIndices.map(lineIndex=>lineIndex * beatsPerLine), prefixIndent) : "" }
+      {this.props.config.showBeatNumbers ? formatLine("beat", beatChunks, lineIndices.map(lineIndex=>lineIndex * beatsPerLine), prefixIndent, false, false) : "" }
       {lineElements}
       </div>
     );
