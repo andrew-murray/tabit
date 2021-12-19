@@ -142,6 +142,79 @@ class SongView extends React.Component
 
   }
 
+  // cells will be at hydrogen-esque-resolution
+  cycleCellContent = (modificationCells, instrument) =>
+  {
+    // note: we'll be provided multiple cells in the case where a pattern is like AAAB
+    // we only support the case where all the cells we're updating have identical content
+    // and will switch to identical content
+
+    const representativeCell = modificationCells[0];
+    // sort by the symbol content, to get intuitive behaviour
+    const entries = [...Object.entries(instrument)].sort( (e1, e2)=>{return e1[1] < e1[2];} );
+
+    const currentPattern = notation.clonePattern(
+      this.state.songData.patterns[ this.state.selectedPattern ].name,
+      this.state.songData.patterns[ this.state.selectedPattern ]
+    );
+
+    // so there's redundancy in the songData
+    // we have instrumentTracks and also
+    // "notes" which contains everything, we should keep notes in sync
+    // but at the moment we don't
+
+    let currentActiveTrackIndex = null;
+    for( let entryIndex = 0; entryIndex < entries.length; ++entryIndex)
+    {
+      const entry = entries[entryIndex];
+      const trackID = entry[0];
+      // first point should be representative, see note above
+      if(currentPattern.instrumentTracks[trackID].queryPoint(representativeCell) === 1)
+      {
+        currentActiveTrackIndex = entryIndex;
+        break;
+      }
+    }
+    // increment (allowing for "null")
+    const targetTrackIndex = currentActiveTrackIndex === null ? 0
+                          : currentActiveTrackIndex === entries.length - 1 ? null
+                          : currentActiveTrackIndex + 1;
+
+    const currentTrack = currentActiveTrackIndex === null ? null : currentPattern.instrumentTracks[ entries[currentActiveTrackIndex][0] ];
+    const targetTrack = targetTrackIndex === null ? null : currentPattern.instrumentTracks[ entries[targetTrackIndex][0] ];
+    for( const cell of modificationCells )
+    {
+      if( currentTrack )
+      {
+        currentTrack.setPoint( cell, 0 );
+      }
+      if(targetTrack)
+      {
+        targetTrack.setPoint( cell, 1 );
+      }
+    }
+    const modifiedPatterns =
+      this.state.songData.patterns.slice(0, this.state.selectedPattern).concat(
+      [currentPattern]
+    ).concat(
+      this.state.songData.patterns.slice(this.state.selectedPattern+1)
+    );
+    const updatedSongData = Object.assign(
+      Object.assign({}, this.state.songData),
+      {patterns: modifiedPatterns}
+    );
+    this.setState(
+      {songData: updatedSongData},
+      () => {
+        const playing = this.audio && this.audio.isPlaying();
+        if(playing){this.audio.stop();}
+        // todo: more restrictive update
+        this.createController();
+        if(playing){this.audio.play();}
+      }
+    );
+  }
+
   addCombinedPattern = (name, recipe) =>
   {
     if(this.audio){this.audio.stop();}
@@ -436,6 +509,7 @@ class SongView extends React.Component
             tracks={pattern.instrumentTracks}
             config={resolvedSettings}
             patternTime={this.state.patternTime}
+            modifyPatternLocation={true ? undefined : this.cycleCellContent}
           />
         </div>
         <div style={{display: "flex", flexGrow : 1}} />

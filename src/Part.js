@@ -107,8 +107,7 @@ class Part extends React.Component
               i => <Typo
                 key={"beat-part-" + i.toString()}
                 component="span"
-                onClick={!interactive ? undefined : ()=>{
-                  if(!this.props.modifyPatternLocation){ return; }
+                onClick={!interactive || !this.props.modifyPatternLocation ? undefined : ()=>{
                   const placesToEdit = startBeats.map( sb => ( (sb + beat) * this.props.config.beatResolution + i * patternResolution));
                   this.props.modifyPatternLocation(
                     placesToEdit,
