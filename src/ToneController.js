@@ -260,6 +260,17 @@ class ToneController
     }
   }
 
+  removePattern = (patternName) =>
+  {
+    if(patternName === this.currentPatternName)
+    {
+      // todo: we could support this, but it should be unnecessary
+      // the above class should always change away first
+      throw new Error("Can't delete the current pattern!");
+    }
+    this.patternDetails[patternName] = undefined;
+  }
+
   populateSamples(instrumentIndex, tracks, failures)
   {
     this.sampleCount = 0;

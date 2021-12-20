@@ -133,6 +133,8 @@ class SongView extends React.Component
     // note that since we sometimes shift down, let's just bound ourselves sanely
     const boundedPatternIndex = Math.min( Math.max( 0, samePatternIndex ), indices.length - 1 );
 
+    const oldActivePatternName = this.state.selectedPattern;
+
     this.setState(
       {
         songData: updatedSongData,
@@ -140,7 +142,9 @@ class SongView extends React.Component
         selectedPattern: boundedPatternIndex
       },
       () => {
-        this.createController();
+        // we change away before removing the pattern, this is currently enforced by the ToneController
+        this.audio.setActivePattern( this.state.songData.patterns[this.state.selectedPattern].name );
+        this.audio.removePattern(oldActivePatternName);
       }
     );
 
@@ -238,7 +242,10 @@ class SongView extends React.Component
     this.setState(
       {songData: updatedSongData, patternSettings: this.state.patternSettings.concat(patternSettings)},
       () => {
-        this.createController();
+        if(this.audio)
+        {
+          this.audio.updatePattern( pattern );
+        }
       }
     );
   }
