@@ -91,13 +91,17 @@ class SongView extends React.Component
 
   createController()
   {
-    if(this.audio){ this.audio.teardown(); }
+    let tempo = 100.0; // default
+    if(this.audio){ 
+      tempo = this.audio.getTempo();
+      this.audio.teardown();
+    }
     const latencyHint = isMobile() ? "playback" : null;
     const animateCallback = this.createAnimateCallback();
     this.audio = new ToneController(
       this.state.songData.instrumentIndex,
       this.state.songData.patterns,
-      100.0,
+      tempo,
       animateCallback,
       latencyHint,
       this.setError

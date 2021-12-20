@@ -457,6 +457,11 @@ class ToneController
   {
     Tone.getTransport().bpm.value = tempo;
   }
+
+  getTempo()
+  {
+    return Tone.getTransport().bpm.value;
+  }
 };
 
 
