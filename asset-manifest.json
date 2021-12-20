@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.css": "/tabit/static/css/main.17ad44b9.chunk.css",
-    "main.js": "/tabit/static/js/main.c98cee45.chunk.js",
-    "main.js.map": "/tabit/static/js/main.c98cee45.chunk.js.map",
-    "runtime-main.js": "/tabit/static/js/runtime-main.b91151e5.js",
-    "runtime-main.js.map": "/tabit/static/js/runtime-main.b91151e5.js.map",
-    "static/js/2.a5e876db.chunk.js": "/tabit/static/js/2.a5e876db.chunk.js",
-    "static/js/2.a5e876db.chunk.js.map": "/tabit/static/js/2.a5e876db.chunk.js.map",
+    "main.css": "/tabit/static/css/main.0f3ef76e.chunk.css",
+    "main.js": "/tabit/static/js/main.734c185f.chunk.js",
+    "main.js.map": "/tabit/static/js/main.734c185f.chunk.js.map",
+    "runtime-main.js": "/tabit/static/js/runtime-main.ba7b2426.js",
+    "runtime-main.js.map": "/tabit/static/js/runtime-main.ba7b2426.js.map",
+    "static/js/2.08887be8.chunk.js": "/tabit/static/js/2.08887be8.chunk.js",
+    "static/js/2.08887be8.chunk.js.map": "/tabit/static/js/2.08887be8.chunk.js.map",
     "index.html": "/tabit/index.html",
-    "static/css/main.17ad44b9.chunk.css.map": "/tabit/static/css/main.17ad44b9.chunk.css.map",
-    "static/js/2.a5e876db.chunk.js.LICENSE.txt": "/tabit/static/js/2.a5e876db.chunk.js.LICENSE.txt"
+    "static/css/main.0f3ef76e.chunk.css.map": "/tabit/static/css/main.0f3ef76e.chunk.css.map",
+    "static/js/2.08887be8.chunk.js.LICENSE.txt": "/tabit/static/js/2.08887be8.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.b91151e5.js",
-    "static/js/2.a5e876db.chunk.js",
-    "static/css/main.17ad44b9.chunk.css",
-    "static/js/main.c98cee45.chunk.js"
+    "static/js/runtime-main.ba7b2426.js",
+    "static/js/2.08887be8.chunk.js",
+    "static/css/main.0f3ef76e.chunk.css",
+    "static/js/main.734c185f.chunk.js"
   ]
 }
