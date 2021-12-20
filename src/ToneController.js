@@ -241,6 +241,25 @@ class ToneController
     return this.sampleCount === this.expectedSampleCount;
   }
 
+  updatePattern = (p) =>
+  {
+    this.patternDetails[p.name] = {
+      resolution: Audio.determineMinResolution(this.instrumentIndex, p.instrumentTracks ),
+      length : Audio.determineTrackLength(this.instrumentIndex, p.instrumentTracks ),
+      name: p.name,
+      tracks: p.instrumentTracks,
+      pattern: p
+    };
+
+    if( p.name === this.currentPatternName)
+    {
+      const updatedSequence = this.createSequenceForPattern(this.instrumentIndex, this.patternDetails[p.name].pattern);
+      this.sequence._part.mute = true;
+      this.sequence = updatedSequence;
+      updatedSequence._part.mute = false;
+    }
+  }
+
   populateSamples(instrumentIndex, tracks, failures)
   {
     this.sampleCount = 0;

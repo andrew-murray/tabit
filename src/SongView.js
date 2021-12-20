@@ -210,11 +210,10 @@ class SongView extends React.Component
     this.setState(
       {songData: updatedSongData},
       () => {
-        const playing = this.audio && this.audio.isPlaying();
-        if(playing){this.audio.stop();}
-        // todo: more restrictive update
-        this.createController();
-        if(playing){this.audio.play();}
+        if(this.audio)
+        {
+          this.audio.updatePattern( this.state.songData.patterns[this.state.selectedPattern] );
+        }
       }
     );
   }
