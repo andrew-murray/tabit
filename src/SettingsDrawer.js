@@ -28,6 +28,12 @@ function SettingsDrawer(props)
       props.onChange({key: "animate", value: event.target.checked, local: false});
     }
   };
+  const interactiveChange = (event) => {
+    if(props.onChange)
+    {
+      props.onChange({key: "interactive", value: event.target.checked, local: false});
+    }
+  };
   return (
     <SwipeableDrawer disableBackdropTransition={!iOS} disableDiscovery={iOS}
       className={props.className}
@@ -52,6 +58,15 @@ function SettingsDrawer(props)
           control={<Switch checked={props.animating} onChange={animateChange} name={"Display Beat"} />}
             label={"Display Beat"}
             key={"DisplayBeat"}
+        />
+        </div>
+      }
+      {true &&
+        <div>
+        <FormControlLabel
+          control={<Switch checked={props.interactive} onChange={interactiveChange} name={"Enable Editing"} />}
+            label={"Enable Editing"}
+            key={"EnableEditing"}
         />
         </div>
       }

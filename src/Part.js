@@ -105,15 +105,16 @@ class Part extends React.Component
 
     const formatLine = (key, line, startBeats, prefix, showRepeatCount, interactive)=>{
       const createBeatFragment = (beat) => {
+        const editable = interactive && this.props.modifyPatternLocation;
         return <React.Fragment key={"fragment-beat-"+ (beat + startBeats[0]).toString()}>
           <Typo variant="subtitle1" component="span" key={"span-beat-" + (beat + startBeats[0]).toString()} className={makeClasses(beat)} style={{display: "inline-block"}}>
             {[...Array(line[beat].length).keys()].map(
               i => <Typo
                 key={"beat-part-" + i.toString()}
                 component="span"
-                style={interactive ? interactiveStyles : undefined}
-                className={interactive ? "hoverableNote" : undefined}
-                onClick={!interactive || !this.props.modifyPatternLocation ? undefined : ()=>{
+                style={editable ? interactiveStyles : undefined}
+                className={editable ? "hoverableNote" : undefined}
+                onClick={!editable? undefined : ()=>{
                   const placesToEdit = startBeats.map( sb => ( (sb + beat) * this.props.config.beatResolution + i * patternResolution));
                   this.props.modifyPatternLocation(
                     placesToEdit,

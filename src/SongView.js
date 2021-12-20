@@ -50,7 +50,8 @@ class SongView extends React.Component
     patternTime: null,
     errorAlert: null,
     locked: true,
-    animating: true
+    animating: true,
+    interactive: false
   }
 
   componentDidMount()
@@ -333,6 +334,10 @@ class SongView extends React.Component
       }
       return;
     }
+    else if(change.key === "interactive")
+    {
+      this.setState( {interactive: change.value} );
+    }
     // change returns an object with .key, .value and .local
     if(change.local)
     {
@@ -519,7 +524,7 @@ class SongView extends React.Component
             tracks={pattern.instrumentTracks}
             config={resolvedSettings}
             patternTime={this.state.patternTime}
-            modifyPatternLocation={true ? undefined : this.cycleCellContent}
+            modifyPatternLocation={this.state.interactive ? this.cycleCellContent : undefined}
           />
         </div>
         <div style={{display: "flex", flexGrow : 1}} />
@@ -571,6 +576,7 @@ class SongView extends React.Component
           onChange={this.handleSettingsChange}
           onSave={this.onDownload}
           animating={this.state.animating}
+          interactive={this.state.interactive}
          />
         <SharingDialog
           open={this.state.sharingDialogOpen}
