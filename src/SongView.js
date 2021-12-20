@@ -225,8 +225,6 @@ class SongView extends React.Component
 
   addCombinedPattern = (name, recipe) =>
   {
-    if(this.audio){this.audio.stop();}
-
     let pattern = notation.clonePattern(name, this.state.songData.patterns[recipe[0].value]);
     for(let recipeIndex = 1; recipeIndex < recipe.length; ++recipeIndex)
     {
@@ -564,7 +562,7 @@ class SongView extends React.Component
           patterns={this.state.songData.patterns}
           selectPattern={this.selectPattern}
           onRemove={!this.state.locked ? this.removePattern : undefined}
-          onAdd={!this.state.locked ? this.openPatternCreateDialog : undefined}
+          onAdd={this.openPatternCreateDialog}
         />
         <SettingsDrawer
           open={this.state.settingsOpen}
