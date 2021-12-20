@@ -6,13 +6,28 @@ import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import CustomTransferList from "./CustomTransferList";
+import Accordion from "@material-ui/core/Accordion";
+import AccordionSummary from "@material-ui/core/AccordionSummary";
+import AccordionDetails from "@material-ui/core/AccordionDetails";
+import Typography from "@material-ui/core/Typography";
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) =>
+  createStyles({
+    root: {
+      backgroundColor: "#111111"
+    },
+  }),
+);
 
 function PatternCreateDialog(props)
 {
   let [patternName, setPatternName] = React.useState(null);
   let [patternRecipe, setPatternRecipe] = React.useState([]);
+  let [createExpanded, setCreateExpanded] = React.useState(true);
+  let [combineExpanded, setCombineExpanded] = React.useState(false);
 
 
   const closeAndCommit = (commit)=>{
@@ -31,6 +46,24 @@ function PatternCreateDialog(props)
 
   const invalidPatternName = patternName && props.patterns.indexOf(patternName) !== -1;
 
+  const createExpandedToggle = (event, enabled) =>
+  {
+    setCreateExpanded(enabled);
+    if(combineExpanded)
+    {
+      setCombineExpanded(!enabled);
+    }
+  };
+  const combineExpandedToggle = (event, enabled) =>
+  {
+    if(createExpanded)
+    {
+      setCreateExpanded(!enabled);
+    }
+    setCombineExpanded(enabled);
+  };
+  const classes = useStyles();
+
   return <Dialog
     open={props.open}
     onClose={props.onClose}
@@ -38,14 +71,36 @@ function PatternCreateDialog(props)
     aria-describedby="pattern-edit-dialog"
   >
     <DialogContent>
-      <DialogContentText>
-        Combine Patterns
-      </DialogContentText>
-      <CustomTransferList
-        items={patternChoices}
-        selectedItems={patternRecipe}
-        onChange={setPatternRecipe}
-      />
+      <Accordion expanded={createExpanded} onChange={createExpandedToggle}>
+      <AccordionSummary
+        aria-controls="option-create"
+        id="panel-create"
+        expandIcon={<ExpandMoreIcon />}
+        className={classes.root}
+      >
+        <Typography>Create new pattern</Typography>
+      </AccordionSummary>
+      <AccordionDetails>
+        <Typography>TODO</Typography>
+      </AccordionDetails>
+      </Accordion>
+      <Accordion expanded={combineExpanded} onChange={combineExpandedToggle}>
+      <AccordionSummary
+        aria-controls="option-combine"
+        id="panel-combine"
+        expandIcon={<ExpandMoreIcon />}
+        className={classes.root}
+      >
+        <Typography>Combine Patterns</Typography>
+      </AccordionSummary>
+      <AccordionDetails style={{display: "flex", flexDirection: "column"}}>
+        <CustomTransferList
+          items={patternChoices}
+          selectedItems={patternRecipe}
+          onChange={setPatternRecipe}
+        />
+      </AccordionDetails>
+      </Accordion>
       <Box style={{display: "flex", flexDirection: "column"}}>
         <TextField
           error={invalidPatternName}
