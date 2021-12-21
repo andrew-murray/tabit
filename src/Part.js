@@ -104,8 +104,6 @@ class Part extends React.Component
       cursor: "pointer"
     };
 
-    const mobile = isMobile;
-
     const formatLine = (key, line, startBeats, prefix, showRepeatCount, interactive)=>{
       const createBeatFragment = (beat) => {
         const editable = interactive && this.props.modifyPatternLocation;
@@ -116,7 +114,7 @@ class Part extends React.Component
                 key={"beat-part-" + i.toString()}
                 component="span"
                 style={editable ? interactiveStyles : undefined}
-                className={editable && !mobile ? "hoverableNote" : undefined}
+                className={editable && !isMobile ? "hoverableNote" : undefined}
                 onClick={!editable? undefined : ()=>{
                   const placesToEdit = startBeats.map( sb => ( (sb + beat) * this.props.config.beatResolution + i * patternResolution));
                   this.props.modifyPatternLocation(
