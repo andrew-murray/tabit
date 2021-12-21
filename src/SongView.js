@@ -251,12 +251,13 @@ class SongView extends React.Component
 
   componentWillUnmount()
   {
-    // save our work, as we may be about to navigate away somewhere else in tabit
-    // disabled my default in dev mode as we're likely to do things to screw up state
-    if(!!process.env.NODE_ENV && process.env.NODE_ENV === 'production')
-    {
-      this.onSave();
-    }
+    // todo: I'd like to detect dev/production and choose not to save in dev, but
+    // I seem to be having issues using process.env.NODE_ENV on the client,
+    // I could define it apparently but for now just *always* save
+    // (It's unclear if this should be available, create-react-app might be set up to provide it
+    // and I still seem to have issues during webpack's reload, for modules assuming process exists...
+    // if(!!process.env.NODE_ENV && process.env.NODE_ENV === 'production')
+    this.onSave();
     window.removeEventListener('beforeunload', this.onSave);
     if(isMobile){ window.removeEventListener("visibilitychange", this.onHideView); }
     if( this.audio )
