@@ -88,6 +88,7 @@ const Pattern = React.memo((props)=>
               instrument={props.instruments[instrumentIndex][1]}
               tracks={tracksForResolution}
               config={makeCompactConfig(props.config, instrumentIndex)}
+              modifyPatternLocation={props.modifyPatternLocation}
               prefix={formatShortTitle(props.instruments[instrumentIndex][2].shortName)}
             />
             )
