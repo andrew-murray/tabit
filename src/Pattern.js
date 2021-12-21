@@ -79,7 +79,6 @@ const Pattern = React.memo((props)=>
 
   if(props.config.compactDisplay)
   {
-    // worry about titles in a minute
     return (
       <div style={{"margin": "auto"}}>
         { instrumentIndices.map(
