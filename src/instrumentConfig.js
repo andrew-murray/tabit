@@ -106,8 +106,6 @@ function VolumeWidget(props)
   // for desktop/tablet
   // we click'n'hold and propagate focus to the slider, so that our drag
   // will pull the slider up and down
-  const mobile = isMobile();
-
   const holdDesktop = (start, event)=>{
     if(!active){ setActive(true); }
     if(sliderRef){ sliderRef.current.dispatchEvent(event.nativeEvent);}
@@ -123,7 +121,7 @@ function VolumeWidget(props)
 
   const commitVolume = (event,value)=>
   {
-    if( mobile ){ setActive(false); }
+    if( isMobile ){ setActive(false); }
     setVolume(event,value);
   };
 
@@ -136,8 +134,8 @@ function VolumeWidget(props)
   return (
     <ClickNHold
       time={0.5} // Time to keep pressing. Default is 2
-      onClickNHold={mobile ? holdMobile : holdDesktop}
-      onEnd={mobile ? null : holdEndDesktop} >
+      onClickNHold={isMobile ? holdMobile : holdDesktop}
+      onEnd={isMobile ? null : holdEndDesktop} >
       <InlinableIconButton disableRipple disableFocusRipple onClick={onMuteChange} >
         <div style={SliderStyles}>
           <Slider

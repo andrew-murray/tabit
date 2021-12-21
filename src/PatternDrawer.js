@@ -55,9 +55,8 @@ const PatternListItem = (props) =>
 
 function DrawerContent(props)
 {
-  const mobile = isMobile();
   return (<React.Fragment>
-    {!mobile ? <TabitBar placeholder /> : null }
+    {!isMobile ? <TabitBar placeholder /> : null }
     <div
       style={{overflow: "auto"}}
     >
@@ -101,12 +100,11 @@ const MemoizedDrawerContent = React.memo(DrawerContent);
 function PatternDrawer(props)
 {
   const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
-  const mobile = isMobile();
 
   return (
     <SwipeableDrawer
     disableBackdropTransition={!iOS} disableDiscovery={iOS}
-    variant={mobile ? undefined : "persistent"}
+    variant={isMobile ? undefined : "persistent"}
     open={props.open}
     onOpen={props.onOpen}
     onClose={props.onClose}

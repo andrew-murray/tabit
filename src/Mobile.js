@@ -1,6 +1,6 @@
 // Mobile.js
 
-function  isMobile()
+function detectMobile()
 {
   // the simple version from
   // https://stackoverflow.com/questions/11381673/detecting-a-mobile-browser
@@ -19,5 +19,7 @@ function  isMobile()
       return userAgent.match(toMatchItem);
   });
 }
+
+const isMobile = detectMobile();
 
 export { isMobile };

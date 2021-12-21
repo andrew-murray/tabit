@@ -39,7 +39,7 @@
   }
 }
 
-.hoverableNote:hover
+.hoverableNote:hover, .hoverableNote:active
 {
   color: #FF7F50;
 }

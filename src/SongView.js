@@ -59,7 +59,7 @@ class SongView extends React.Component
     this.createController();
     // save our work when we navigate away via tab-close
     window.addEventListener('beforeunload', this.onSave);
-    if(isMobile()){ window.addEventListener("visibilitychange", this.onHideView); }
+    if(isMobile){ window.addEventListener("visibilitychange", this.onHideView); }
 
   }
   createAnimateCallback()
@@ -97,7 +97,7 @@ class SongView extends React.Component
       tempo = this.audio.getTempo();
       this.audio.teardown();
     }
-    const latencyHint = isMobile() ? "playback" : null;
+    const latencyHint = isMobile ? "playback" : null;
     const animateCallback = this.createAnimateCallback();
     this.audio = new ToneController(
       this.state.songData.instrumentIndex,
@@ -258,7 +258,7 @@ class SongView extends React.Component
       this.onSave();
     }
     window.removeEventListener('beforeunload', this.onSave);
-    if(isMobile()){ window.removeEventListener("visibilitychange", this.onHideView); }
+    if(isMobile){ window.removeEventListener("visibilitychange", this.onHideView); }
     if( this.audio )
     {
       this.audio.teardown();
@@ -481,8 +481,7 @@ class SongView extends React.Component
     ];
     const patternSpecifics = ( this.state.songData && this.state.patternSettings) ? this.state.patternSettings[this.state.selectedPattern] : null;
     const resolvedSettings = makeResolvedSettings( this.state.formatSettings, patternSpecifics );
-    const mobile = isMobile();
-    const instrumentConfigColumns = mobile ? 12 : 8;
+    const instrumentConfigColumns = isMobile ? 12 : 8;
     // todo: make this Toolbar unnecessary, it ensures pattern renders in the right place right now
 
     return (

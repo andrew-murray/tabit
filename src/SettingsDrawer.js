@@ -13,7 +13,6 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 function SettingsDrawer(props)
 {
   const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
-  const mobile = isMobile();
 
   const patternDetails = props.pattern ? {
     name : props.pattern.name,
@@ -37,14 +36,14 @@ function SettingsDrawer(props)
   return (
     <SwipeableDrawer disableBackdropTransition={!iOS} disableDiscovery={iOS}
       className={props.className}
-      variant={ mobile ? undefined : "persistent" }
+      variant={ isMobile ? undefined : "persistent" }
       anchor={props.anchor}
       open={props.open}
       onOpen={props.onOpen}
       onClose={props.onClose}
       style={{overflow: "hidden"}}
     >
-      {!mobile ? <TabitBar placeholder /> : null }
+      {!isMobile ? <TabitBar placeholder /> : null }
       {patternDetails &&
         <FormatSettings
           onChange={props.onChange ??  noop}
