@@ -14,6 +14,13 @@ import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 
+import FormControl from '@material-ui/core/FormControl';
+import FormGroup from '@material-ui/core/FormGroup';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
+
+
+
 const useStyles = makeStyles((theme) =>
   createStyles({
     root: {
@@ -28,7 +35,9 @@ function PatternCreateDialog(props)
   let [patternRecipe, setPatternRecipe] = React.useState([]);
   let [createExpanded, setCreateExpanded] = React.useState(true);
   let [combineExpanded, setCombineExpanded] = React.useState(false);
-
+  let [timeSignatureDenom, setTimeSignatureDenom] = React.useState(4);
+  let [timeSignatureNum, setTimeSignatureNum] = React.useState(8);
+  let [patternBars, setPatternBars] = React.useState(4);
 
   const closeAndCommit = (commit)=>{
     if(commit && patternRecipe.length && patternName)
@@ -64,6 +73,32 @@ function PatternCreateDialog(props)
   };
   const classes = useStyles();
 
+  const timeSignatureDenomOptions = [2, 4, 8, 16, 32];
+  // this won't be the long-term system, anything makes sense
+  const timeSignatureNumOptions = [2, 3, 4, 5, 6, 7, 8];
+  // onKeyDown={handleEnter}
+
+  const plength = ( <FormControl>
+    <TextField
+      autoFocus
+      margin="dense"
+      id="PatternLength"
+      fullWidth
+      value={patternBars}
+      onChange={(e)=>{
+        const pbars = parseInt(e.value);
+        if(isNaN(pbars))
+        {
+          //handle error
+        }
+        else
+        {
+          setPatternBars(pbars);
+        }
+      }}
+    />
+  </FormControl>);
+
   return <Dialog
     open={props.open}
     onClose={props.onClose}
@@ -81,7 +116,40 @@ function PatternCreateDialog(props)
         <Typography>Create new pattern</Typography>
       </AccordionSummary>
       <AccordionDetails>
-        <Typography>TODO</Typography>
+        <FormGroup aria-label="time-signature-controls" row>
+
+          <Typography style={{"padding": 5}}>TimeSignature</Typography>
+          <FormControl>
+            <Select
+              labelId={"time-signature-numerator-label"}
+              id={"time-signature-numerator"}
+              onChange={(e) => setTimeSignatureNum( e.target.value )}
+              value={timeSignatureNum}
+            >
+              {timeSignatureNumOptions.map((op) => <MenuItem 
+                key={"ts-" + op.toString()} 
+                value={op} 
+                >
+                  {op.toString()}
+                </MenuItem>)}
+            </Select>
+          </FormControl>
+          <Typography style={{"padding": 5}}>/</Typography>
+          <FormControl>
+            <Select              labelId={"time-signature-denom-label"}
+              id={"time-signature-denom"}
+              onChange={(e) => setTimeSignatureDenom( e.target.value )}
+              value={timeSignatureDenom}
+            >
+              {timeSignatureDenomOptions.map((op) => <MenuItem 
+                key={"ts-" + op.toString()} 
+                value={op}
+              >
+                  {op.toString()}
+                </MenuItem>)}
+            </Select>
+          </FormControl>
+        </FormGroup>
       </AccordionDetails>
       </Accordion>
       <Accordion expanded={combineExpanded} onChange={combineExpandedToggle}>

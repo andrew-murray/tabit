@@ -7,7 +7,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import TabitBar from "./TabitBar";
 import ClearIcon from '@material-ui/icons/Clear';
-import AddBoxIcon from '@material-ui/icons/AddBox';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
 import { isMobile } from "./Mobile";
 
 const PatternListItem = (props) =>
@@ -82,8 +82,9 @@ function DrawerContent(props)
                 onClick={()=>{props.onAdd();}}
                 aria-label="add"
               >
-                <AddBoxIcon
+                <AddCircleIcon
                   size="small"
+                  edge="end"
                   />
               </IconButton>
             </ListItemSecondaryAction>
