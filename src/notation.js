@@ -194,10 +194,9 @@ class notation
     {
       return "";
     }
-
-    const exampleTrackID = Object.keys(instrument)[0]
-    const patternResolution = trackDict[exampleTrackID].resolution;
-    const patternSize = trackDict[exampleTrackID].length();
+    const exampleTrack = Array.from(Object.values(trackDict))[0];
+    const patternResolution = exampleTrack.resolution;
+    const patternSize = exampleTrack.length();
     const notationLength = patternSize / patternResolution;
 
     let patternArray = Array(notationLength).fill(restMark);
@@ -289,6 +288,17 @@ class notation
       name: name,
       resolution: pattern.resolution,
       instrumentTracks: Object.fromEntries(trackArray)
+    };
+  }
+
+  static createEmptyPattern(name, resolution, length)
+  {
+    const tracks = [];
+    return {
+      size: length,
+      name: name,
+      resolution: resolution,
+      instrumentTracks: tracks
     };
   }
 
