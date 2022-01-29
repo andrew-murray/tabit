@@ -291,11 +291,16 @@ class notation
     };
   }
 
-  static createEmptyPattern(name, resolution, length)
+  static createEmptyPattern(name, resolution, totalLength, trackKeys)
   {
-    const tracks = [];
+    console.log(trackKeys);
+    const tracks = new Map(
+      Array.from(trackKeys).map(
+        k => (k, track.fromPositions( [], totalLength, resolution))
+      )
+    );
     return {
-      size: length,
+      size: totalLength,
       name: name,
       resolution: resolution,
       instrumentTracks: tracks

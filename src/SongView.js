@@ -56,6 +56,7 @@ class SongView extends React.Component
 
   componentDidMount()
   {
+    window.app = this;
     this.createController();
     // save our work when we navigate away via tab-close
     window.addEventListener('beforeunload', this.onSave);
@@ -93,7 +94,7 @@ class SongView extends React.Component
   createController()
   {
     let tempo = 100.0; // default
-    if(this.audio){ 
+    if(this.audio){
       tempo = this.audio.getTempo();
       this.audio.teardown();
     }
@@ -247,6 +248,40 @@ class SongView extends React.Component
         }
       }
     );
+  }
+
+  createNewPattern = (name, timeSignatureTop, timeSignatureBottom, resolution, patternBars) =>
+  {
+    const beatLength = ( 4 / timeSignatureBottom) *  48;
+    const barLength = timeSignatureTop * beatLength;
+    const patternLength = patternBars * timeSignatureTop;
+    const representativePattern = this.state.songData.patterns[ this.state.selectedPattern ];
+    const repTrackKeys = Array.from(Object.keys(representativePattern.instrumentTracks))[0];
+    const something = notation.createEmptyPattern(
+      name,
+      resolution,
+      patternLength,
+      repTrackKeys
+    );
+    /*
+    let pattern = notation.clonePattern(name, this.state.songData.patterns[recipe[0].value]);
+    const patternSettings = notation.guessPerPatternSettings(pattern.instrumentTracks);
+
+    const updatedSongData = Object.assign(
+      Object.assign({}, this.state.songData),
+      {patterns: this.state.songData.patterns.concat(pattern)}
+    );
+
+    this.setState(
+      {songData: updatedSongData, patternSettings: this.state.patternSettings.concat(patternSettings)},
+      () => {
+        if(this.audio)
+        {
+          this.audio.updatePattern( pattern );
+        }
+      }
+    );
+    */
   }
 
   componentWillUnmount()
@@ -484,6 +519,12 @@ class SongView extends React.Component
     const resolvedSettings = makeResolvedSettings( this.state.formatSettings, patternSpecifics );
     const instrumentConfigColumns = isMobile ? 12 : 8;
     // todo: make this Toolbar unnecessary, it ensures pattern renders in the right place right now
+
+    const bars = 4;
+    const resolution = 16;
+    const totalLength = resolution * bars * 4;
+    this.createNewPattern("test", 4, 4, resolution, totalLength);
+
 
     return (
       <div className="App">
