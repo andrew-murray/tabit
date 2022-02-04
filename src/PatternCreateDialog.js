@@ -31,22 +31,19 @@ const useStyles = makeStyles((theme) =>
 
 function PatternCreateDialog(props)
 {
-  let [patternName, setPatternName] = React.useState(null);
+  let [patternNameCreate, setPatternNameCreate] = React.useState(null);
+  let [patternNameCombine, setPatternNameCombine] = React.useState(null);
   let [patternRecipe, setPatternRecipe] = React.useState([]);
   let [createExpanded, setCreateExpanded] = React.useState(true);
   let [combineExpanded, setCombineExpanded] = React.useState(false);
-  let [timeSignatureNumString, setTimeSignatureNumString] = React.useState("");
-  let [timeSignatureDenom, setTimeSignatureDenom] = React.useState(4);
-  let [patternResolution, setPatternResolution] = React.useState(16);
 
   const resetState = () => {
-    setPatternName(null);
+    setPatternNameCombine(null);
+    setPatternNameCreate(null);
     setPatternRecipe([]);
+    // todo: assume this to be exclusive and change to a "mode" rather than many bool flags
     setCreateExpanded(true);
     setCombineExpanded(false);
-    setTimeSignatureNumString("");
-    setTimeSignatureDenom(4);
-    setPatternResolution(16);
   };
 
   const closeAndCommit = (commit)=>{
@@ -59,32 +56,30 @@ function PatternCreateDialog(props)
     }
     if(createExpanded)
     {
-
+      props.onChange({name: patternNameCreate})
+      resetState();
     }
     else if(combineExpanded)
     {
       // validate all fields and generate errors
-      if(patternRecipe && patternName)
+      if(patternRecipe && patternNameCombine)
       {
-        props.onChange({name: patternName, recipe: patternRecipe});
+        props.onChange({name: patternNameCombine, recipe: patternRecipe});
+        resetState();
       }
-
     }
     else
     {
       console.error("unreachable code in closeAndCommit");
     }
+    props.onClose();
   };
 
   const patternChoices = [...props.patterns.keys()].map(
     index =>{ return {value: index, label: props.patterns[index]}; }
   );
 
-  const invalidPatternName = !patternName || props.patterns.indexOf(patternName) !== -1;
-  const timeSignatureNum = parseInt( timeSignatureNumString );
-  const timeSignatureNaN = isNaN(timeSignatureNum)
-  const timeSignatureNonPositive = !timeSignatureNaN && timeSignatureNum <= 1;
-  const createOptionsCommitable = !timeSignatureNaN && !timeSignatureNonPositive;
+  const patternNameIsValid = (name) => name && props.patterns.indexOf(name) === -1;
 
   const createExpandedToggle = (event, enabled) =>
   {
@@ -104,23 +99,22 @@ function PatternCreateDialog(props)
   };
   const classes = useStyles();
 
-  const timeSignatureDenomOptions = [2, 4, 8, 16, 32];
-  // onKeyDown={handleEnter}
-
-  const resolutionOptions = [
-    "8",
-    "16",
-    "32",
-    "8T",
-    "16T",
-    "32T"
-  ];
-
-  const combineOptionsCommitable = patternRecipe.length >= 1;
-  const canCommit = !invalidPatternName && (
+  const combineOptionsCommitable = patternRecipe.length >= 1 && patternNameIsValid(patternNameCombine);
+  const createOptionsCommitable = patternNameIsValid(patternNameCreate);
+  const canCommit = (
     ( combineExpanded && combineOptionsCommitable)
     || (createExpanded && createOptionsCommitable)
   );
+
+
+  const handleEnter = (e) =>
+  {
+    if(e.keyCode === 13 && canCommit)
+    {
+      e.preventDefault();
+      closeAndCommit(true);
+    }
+  };
 
   // FIXME: This essentially needs tooltips everywhere
 
@@ -141,40 +135,17 @@ function PatternCreateDialog(props)
         <Typography>Create new pattern</Typography>
       </AccordionSummary>
       <AccordionDetails>
-        <FormGroup aria-label="time-signature-controls" row>
-          <Typography style={{"padding": 5}}>PatternLength</Typography>
-          <TextField
-            error={timeSignatureNumString.length > 0 && (timeSignatureNonPositive || timeSignatureNaN)}
-            helperText={
-              timeSignatureNumString.length > 0 && (timeSignatureNonPositive || timeSignatureNaN) ?
-                (timeSignatureNonPositive ? "Please enter a number >= 1." : "Please enter a number.")
-                : undefined
-            }
-            value={timeSignatureNumString}
-            variant="outlined"
-            onChange={(event)=>{
-              console.log("setting ts-num string " + event.target.value)
-              setTimeSignatureNumString(event.target.value);
-            }}
-          />
-          <div style={{alignItems: "center", display: "inline-flex"}}>
-            <Typography style={{paddingLeft: 5, paddingRight: 5}}>/</Typography>
-          </div>
-          <Select
-            labelId={"time-signature-denom-label"}
-            id={"time-signature-denom"}
-            onChange={(e) => setTimeSignatureDenom( e.target.value )}
-            value={timeSignatureDenom}
-            IconComponent={()=><React.Fragment/>}
-          >
-            {timeSignatureDenomOptions.map((op) => <MenuItem
-              key={"ts-" + op.toString()}
-              value={op}
-            >
-                {op.toString()}
-              </MenuItem>)}
-          </Select>
-        </FormGroup>
+      <Box style={{display: "flex", flexDirection: "column"}}>
+        <TextField
+          error={patternNameCreate && !patternNameIsValid(patternNameCreate)}
+          label="Pattern Name"
+          helperText={patternNameCreate && !patternNameIsValid(patternNameCreate) ? "Pattern names must be unique." : undefined}
+          variant="outlined"
+          onChange={(event)=>{setPatternNameCreate(event.target.value);}}
+          style={{alignSelf: "flex-end"}}
+          onKeyDown={handleEnter}
+        />
+      </Box>
       </AccordionDetails>
       </Accordion>
       <Accordion expanded={combineExpanded} onChange={combineExpandedToggle}>
@@ -192,18 +163,19 @@ function PatternCreateDialog(props)
           selectedItems={patternRecipe}
           onChange={setPatternRecipe}
         />
+        <Box style={{display: "flex", flexDirection: "column"}}>
+          <TextField
+            error={patternNameCombine && !patternNameIsValid(patternNameCombine)}
+            label="Pattern Name"
+            helperText={patternNameCombine && !patternNameIsValid(patternNameCombine) ? "Pattern names must be unique." : undefined}
+            variant="outlined"
+            onChange={(event)=>{setPatternNameCombine(event.target.value);}}
+            style={{alignSelf: "flex-end"}}
+            onKeyDown={handleEnter}
+          />
+        </Box>
       </AccordionDetails>
       </Accordion>
-      <Box style={{display: "flex", flexDirection: "column"}}>
-        <TextField
-          error={patternName && invalidPatternName}
-          label="Pattern Name"
-          helperText={patternName && invalidPatternName ? "Pattern names must be unique." : undefined}
-          variant="outlined"
-          onChange={(event)=>{setPatternName(event.target.value);}}
-          style={{alignSelf: "flex-end"}}
-        />
-      </Box>
       <DialogActions>
         <Button onClick={()=>{closeAndCommit(true)}} disabled={!canCommit}>
           Confirm

@@ -246,32 +246,25 @@ class SongView extends React.Component
         {
           this.audio.updatePattern( pattern );
         }
+        this.selectPattern(updatedSongData.patterns.length - 1);
       }
     );
   }
 
-  createNewPattern = (name, timeSignatureTop, timeSignatureBottom, resolution, patternBars) =>
+  createNewPatternWithSettings = (name, res, length, trackKeys) =>
   {
-    const beatLength = ( 4 / timeSignatureBottom) *  48;
-    const barLength = timeSignatureTop * beatLength;
-    const patternLength = patternBars * timeSignatureTop;
-    const representativePattern = this.state.songData.patterns[ this.state.selectedPattern ];
-    const repTrackKeys = Array.from(Object.keys(representativePattern.instrumentTracks))[0];
-    const something = notation.createEmptyPattern(
+    const pattern = notation.createEmptyPattern(
       name,
-      resolution,
-      patternLength,
-      repTrackKeys
+      res,
+      length,
+      trackKeys
     );
-    /*
-    let pattern = notation.clonePattern(name, this.state.songData.patterns[recipe[0].value]);
     const patternSettings = notation.guessPerPatternSettings(pattern.instrumentTracks);
 
     const updatedSongData = Object.assign(
       Object.assign({}, this.state.songData),
       {patterns: this.state.songData.patterns.concat(pattern)}
     );
-
     this.setState(
       {songData: updatedSongData, patternSettings: this.state.patternSettings.concat(patternSettings)},
       () => {
@@ -279,9 +272,36 @@ class SongView extends React.Component
         {
           this.audio.updatePattern( pattern );
         }
+        this.selectPattern(updatedSongData.patterns.length - 1)
       }
     );
-    */
+  }
+
+  createNewPattern = (name) =>
+  {
+    let patternLength = 48 * 8;
+    let patternResolution = 16;
+    let trackKeys = [];
+    if(true) // always grab details from pattern from now, we don't support having no patterns yet
+    {
+      const pattern = this.state.songData.patterns[ this.state.selectedPattern ];
+      patternLength = pattern.size;
+      patternResolution = pattern.resolution;
+      trackKeys = Array.from(Object.keys(pattern.instrumentTracks));
+    }
+    this.createNewPatternWithSettings(name, patternResolution, patternLength, trackKeys);
+  }
+
+  handleCreate = (change) =>
+  {
+    if(change.recipe)
+    {
+      this.addCombinedPattern(change.name, change.recipe)
+    }
+    else
+    {
+      this.createNewPattern(change.name);
+    }
   }
 
   componentWillUnmount()
@@ -518,13 +538,6 @@ class SongView extends React.Component
     const patternSpecifics = ( this.state.songData && this.state.patternSettings) ? this.state.patternSettings[this.state.selectedPattern] : null;
     const resolvedSettings = makeResolvedSettings( this.state.formatSettings, patternSpecifics );
     const instrumentConfigColumns = isMobile ? 12 : 8;
-    // todo: make this Toolbar unnecessary, it ensures pattern renders in the right place right now
-
-    const bars = 4;
-    const resolution = 16;
-    const totalLength = resolution * bars * 4;
-    this.createNewPattern("test", 4, 4, resolution, totalLength);
-
 
     return (
       <div className="App">
@@ -603,7 +616,7 @@ class SongView extends React.Component
           patterns={this.state.songData.patterns}
           selectPattern={this.selectPattern}
           onRemove={!this.state.locked ? this.removePattern : undefined}
-          // onAdd={this.openPatternCreateDialog}
+          onAdd={this.openPatternCreateDialog}
         />
         <SettingsDrawer
           open={this.state.settingsOpen}
@@ -625,7 +638,7 @@ class SongView extends React.Component
         <PatternCreateDialog
           open={this.state.patternCreateDialogOpen}
           onClose={this.closePatternCreateDialog}
-          onChange={(change)=>{this.addCombinedPattern(change.name, change.recipe)}}
+          onChange={this.handleCreate}
           patterns={[...this.state.songData.patterns.keys()].map(index=>this.state.songData.patterns[index].name)}
         />
       </div>

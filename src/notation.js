@@ -293,12 +293,11 @@ class notation
 
   static createEmptyPattern(name, resolution, totalLength, trackKeys)
   {
-    console.log(trackKeys);
-    const tracks = new Map(
+    const tracks = Object.fromEntries( new Map(
       Array.from(trackKeys).map(
-        k => (k, track.fromPositions( [], totalLength, resolution))
+        k => [k, track.fromPositions( [], totalLength, resolution)]
       )
-    );
+    ) );
     return {
       size: totalLength,
       name: name,
@@ -312,7 +311,6 @@ class notation
     /* pattern = {
       size: int,
       name: string,
-      notes: ...redundant,
       resolution: int,
       instrumentTracks: {
         instrumentID (str) : track = { rep, resolution }
