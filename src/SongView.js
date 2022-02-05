@@ -13,6 +13,7 @@ import TabitBar from "./TabitBar";
 import PatternDrawer from "./PatternDrawer"
 import ToneController from "./ToneController"
 import SettingsDrawer from "./SettingsDrawer"
+import RenameDialog from "./RenameDialog"
 import { isMobile } from "./Mobile";
 import SharingDialog from "./SharingDialog";
 import PatternCreateDialog from "./PatternCreateDialog";
@@ -47,11 +48,13 @@ class SongView extends React.Component
     patternsOpen: true,
     sharingDialogOpen: false,
     patternCreateDialogOpen: false,
+    renameDialogOpen: false,
     patternTime: null,
     errorAlert: null,
     locked: true,
     animating: true,
-    interactive: false
+    interactive: false,
+    autosave: true
   }
 
   componentDidMount()
@@ -471,6 +474,13 @@ class SongView extends React.Component
     SongStorage.saveToLocalHistory(this.getExportState());
   }
 
+  optionalUnloadAutosave = () => {
+    if(this.state.autosave)
+    {
+      this.onSave();
+    }
+  }
+
   onHideView = () => {
       this.onStop();
   }
@@ -530,6 +540,25 @@ class SongView extends React.Component
     );
   }
 
+  onEnableRenameDialog = () => {
+    this.setState( {renameDialogOpen: true} );
+  }
+
+  onDisableRenameDialog = () => {
+    this.setState( {renameDialogOpen: false} );
+  }
+
+  onRename = (name) =>
+  {
+    const updatedSongData = Object.assign(
+      Object.assign({}, this.state.songData),
+      {title: name}
+    );
+    this.setState(
+      {songData: updatedSongData, renameDialogOpen: false}
+    );
+  }
+
   render()
   {
     const pattern = this.state.songData.patterns[
@@ -551,6 +580,15 @@ class SongView extends React.Component
           onLockUnlock={this.onToggleLocked}
           compact={this.state.formatSettings.compactDisplay}
           onToggleCompact={this.onToggleCompact}
+          onTitleClick={this.onEnableRenameDialog}
+        />
+        <RenameDialog
+          open={this.state.renameDialogOpen}
+          onCancel={this.onDisableRenameDialog}
+          onChange={this.onRename}
+          value={this.state.songData.title}
+          instruction="Enter new title"
+          requireNonEmpty
         />
         {this.state.errorAlert &&
         <Snackbar severity="error" open={true} autoHideDuration={5000} onClose={() => {this.setState({errorAlert: null})}}>

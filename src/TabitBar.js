@@ -4,6 +4,7 @@ import AppBar from '@material-ui/core/AppBar';
 import { makeStyles } from '@material-ui/core/styles';
 
 
+import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import HomeIcon from '@material-ui/icons/Home';
@@ -65,9 +66,13 @@ function TabitBar(props) {
           >
           <HomeIcon />
         </IconButton>
-        <Typography variant="h6" color="inherit" noWrap style={{"flexGrow": 1, "textOverflow": "ellipsis"}}>
+        <div style={{"flexGrow": 1}}>
+        <Button onClick={props.onTitleClick} color="inherit" style={{"textOverflow": "ellipsis"}}>
+          <Typography variant="h6" color="inherit" noWrap>
           {props.title}
-        </Typography>
+          </Typography>
+        </Button>
+        </div>
         {props.onLockUnlock && <IconButton
           color="inherit"
           aria-label={props.locked ? "unlock" : "lock"}

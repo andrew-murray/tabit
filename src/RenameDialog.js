@@ -31,7 +31,7 @@ class RenameDialog extends React.Component
     };
 
     const confirm = () => {
-      if(this.state.currentName !== null)
+      if(this.state.currentValue!== null)
       {
         const instrumentName = this.state.currentValue.trim();
         if( instrumentName.length > 0 )
@@ -66,6 +66,8 @@ class RenameDialog extends React.Component
       }
     };
 
+    const emptyValue = (this.state.currentValue ?? this.props.value) === "";
+
     return (
       <Dialog open={this.props.open} onClose={cancel} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title"></DialogTitle>
@@ -78,7 +80,9 @@ class RenameDialog extends React.Component
             id="name"
             fullWidth
             value={this.state.currentValue ?? this.props.value}
-            onChange={(e)=>{this.setState({currentValue: e.target.value});}}
+            onChange={(e)=>{
+              this.setState({currentValue: e.target.value});
+            }}
             onKeyDown={handleEnter}
             autoFocus
           />
@@ -87,7 +91,7 @@ class RenameDialog extends React.Component
           <Button onClick={cancel} color="primary">
             Cancel
           </Button>
-          <Button onClick={confirm} color="primary">
+          <Button disabled={this.props.requireNonEmpty && emptyValue} onClick={confirm} color="primary">
             Confirm
           </Button>
         </DialogActions>
