@@ -478,9 +478,15 @@ class ToneController
     this.samples[instrumentID].player.mute = muted;
   }
 
+  setGainForInstrument(instrumentID, gainValue)
+  {
+    this.samples[instrumentID].gain.set( {gain : gainValue } );
+
+  }
+
   setVolumeForInstrument(instrumentID, volume)
   {
-    this.samples[instrumentID].gain.set( {gain : convertNormalToAudible(volume) } );
+    setGainForInstrument(instrumentID, convertNormalToAudible(volume));
   }
 
   setTempo(tempo)
@@ -491,6 +497,33 @@ class ToneController
   getTempo()
   {
     return Tone.getTransport().bpm.value;
+  }
+
+  getExportState = () =>
+  {
+    let volumeMap = new Map();
+    for(const [instrumentID, sample] of Object.entries(this.samples))
+    {
+      volumeMap.set(instrumentID, sample.gain.value);
+    }
+    return {
+      tempo: Tone.getTransport().bpm.value,
+      volumes: volumeMap
+    };
+  }
+
+  applyImportState = (state) =>
+  {
+    if(state.tempo){
+      setTempo(state.tempo);
+    }
+    if(state.volumes)
+    {
+      for(const [instrumentID,gain] of Object.entries(state.volumes))
+      {
+        setGainForInstrument(instrumentID, gain);
+      }
+    }
   }
 };
 

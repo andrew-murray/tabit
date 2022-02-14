@@ -334,7 +334,8 @@ class SongView extends React.Component
       songName: this.state.songData.title,
       formatSettings: this.state.formatSettings,
       patternSettings : this.state.patternSettings,
-      version: "1.1.0"
+      audioState: this.audio !== null ? this.audio.getExportState() : undefined,
+      version: "1.2.0"
     };
   }
 
