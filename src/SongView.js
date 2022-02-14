@@ -377,7 +377,6 @@ class SongView extends React.Component
     this.setState( {
       songData: updatedSongData
     } );
-    console.log(updatedSongData.instrumentIndex);
   }
 
   handleSettingsChange = (change) =>
