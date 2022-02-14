@@ -501,28 +501,9 @@ class ToneController
 
   getExportState = () =>
   {
-    let volumeMap = new Map();
-    for(const [instrumentID, sample] of Object.entries(this.samples))
-    {
-      volumeMap.set(instrumentID, sample.gain.value);
-    }
     return {
       tempo: Tone.getTransport().bpm.value
     };
-  }
-
-  applyImportState = (state) =>
-  {
-    if(state.tempo){
-      this.setTempo(state.tempo);
-    }
-    if(state.volumes)
-    {
-      for(const [instrumentID,gain] of Object.entries(state.volumes))
-      {
-        this.setGainForInstrument(instrumentID, gain);
-      }
-    }
   }
 };
 
