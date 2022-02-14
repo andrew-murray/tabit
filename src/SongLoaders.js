@@ -72,7 +72,9 @@ function prepHydrogenVolumes(instrumentIndex)
   // fixme: convert hydrogen volume/gain to normal values, somewhere
   for( let instrument of instrumentIndex )
   {
-    instrument.volume = 0.5;
+    // hydrogen's volume sliders seem to be a linear slider between [0,1.5]
+    const clamp = (num, min, max) => Math.min(Math.max(num, min), max);
+    instrument.volume = clamp(instrument.volume / 1.5, 0.0, 1.5);
   }
   return instrumentIndex;
 }
