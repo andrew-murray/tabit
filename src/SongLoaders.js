@@ -9,6 +9,7 @@ import {
 import track from "./track";
 import {DefaultSettings} from "./formatSettings";
 import notation from "./notation"
+import Audio from "./Audio"
 
 const figurePatternSettings = (patterns)=>{
   return Array.from(
@@ -67,15 +68,43 @@ function createPatternsFromData(patternData)
   return patterns;
 }
 
+/**
+ * It's hard to match what I hear in hydrogen, as I'd expect.
+ * Let's try a custom curve PulseAudio claims to use a cubic model, from a skim of their code.
+ */
+function pulseAudioConvertNormalToAudible(value){
+  return Math.pow(value, 3.0);
+}
+
+function pulseAudioConvertAudibleToNormal(value){
+  // we provide the inverse of the above, rarely useful
+  return Math.pow(value, 1.0/3.0);
+}
+
 function prepHydrogenVolumes(instrumentIndex)
 {
+  // hydrogen has a [0,1.5] volume
+  // and a [0,5] gain, with 1 being the default in both cases
+
+  // find the maxVolume to normalize to, based on a very naive model of volume/gain
+  let maxVolume = 0.0;
+  const clamp = (num, min, max) => Math.min(Math.max(num, min), max);
+  for( let instrument of instrumentIndex )
+  {
+    const volumeModel = (instrument.volume / 1.5) * pulseAudioConvertAudibleToNormal(instrument.gain);
+    maxVolume = Math.max( volumeModel, maxVolume );
+  }
+
   for( let instrument of instrumentIndex )
   {
     // hydrogen's volume sliders seem to be a slider between [0,1.5]
     // (let's land it on our volume-curve and hope for the best)
-    const clamp = (num, min, max) => Math.min(Math.max(num, min), max);
-    instrument.volume = clamp(instrument.volume / 1.5, 0.0, 1.5);
+    const volumeModel = (instrument.volume / 1.5) * pulseAudioConvertAudibleToNormal(instrument.gain);
+    instrument.volume = clamp(volumeModel / maxVolume, 0.0, 1.0);
+    // remove tshe gain, in the hope that we can handle it with just one model
+    instrument.gain = undefined;
   }
+
   return instrumentIndex;
 }
 

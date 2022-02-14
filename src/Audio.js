@@ -84,6 +84,18 @@ class Audio
     return combined;
   }
 
+  static convertNormalToAudible(value){
+    // add an intuitive feel to gain values, perception of sound is non-linear
+    // https://www.dr-lex.be/info-stuff/volumecontrols.html
+    // note: I tried x^4 and I tried using tone's DB directly but neither felt very good.
+    return Math.pow(value, 2.5);
+  }
+
+  static convertAudibleToNormal(value){
+    // we provide the inverse of the above, rarely useful
+    return Math.pow(value, 1.0/2.5);
+  }
+
   static createMasterTrack(
     context,
     tracks,

@@ -353,18 +353,31 @@ class SongView extends React.Component
 
   sendVolumeEvent = (event) =>
   {
-    // TODO: volume & muted should not be ephemeral, they should go into
-    // exportState so that a mixing-profile can be preserved
+    // assume that the event is valid and will update the instrument
+    const instrumentID = this.state.songData.instrumentIndex[ event.instrument ].id;
+    let instrumentToUpdate = this.state.songData.instrumentIndex[ event.instrument ];
     if("volume" in event)
     {
-      const instrumentID = this.state.songData.instrumentIndex[ event.instrument ].id;
       if(this.audio){ this.audio.setVolumeForInstrument( instrumentID, event.volume ); }
+      instrumentToUpdate.volume = event.volume;
+
     }
     else if("muted" in event)
     {
-      const instrumentID = this.state.songData.instrumentIndex[ event.instrument ].id;
       if(this.audio){ this.audio.setMutedForInstrument( instrumentID, event.muted ); }
+      instrumentToUpdate.muted = event.muted;
     }
+    let updatedInstrumentIndex = this.state.songData.instrumentIndex.slice();
+    updatedInstrumentIndex[event.instrument] = instrumentToUpdate;
+
+    let updatedSongData = Object.assign(
+      Object.assign({}, this.state.songData),
+      {instrumentIndex: updatedInstrumentIndex}
+    );
+    this.setState( {
+      songData: updatedSongData
+    } );
+    console.log(updatedSongData.instrumentIndex);
   }
 
   handleSettingsChange = (change) =>

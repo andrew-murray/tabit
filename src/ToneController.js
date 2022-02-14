@@ -1,4 +1,3 @@
-
 import Audio from "./Audio"
 import * as Tone from "tone";
 
@@ -20,13 +19,6 @@ const DRUMKITS = [
   "Millo_MultiLayered3",
   "BFS drumming"
 ];
-
-const convertNormalToAudible = (value) => {
-  // add an intuitive feel to gain values, perception of sound is non-linear
-  // https://www.dr-lex.be/info-stuff/volumecontrols.html
-  // note: I tried x^4 and I tried using tone's DB directly but neither felt very good.
-  return Math.pow(value, 2.5);
-};
 
 const chooseAppropriateUrlForInstrument = (drumkitName, instrumentName) =>
 {
@@ -182,6 +174,10 @@ class ToneController
     // would love if this state was a bit more structured
     this.samples = {};
     this.currentPattern = null;
+    // we're mostly trying to match hydrogen for this
+    // and since I've rigged import to set volumes to max-1 (rather than knowing about any gain on top)
+    // of where volume would sit, here we add a constant-offset to try and bump the volume, where we're
+    // setting volumes < 1s, is this an acceptable fudge for a somewhat problematic architecture?
     this.gain = new Tone.Gain();
     this.gain.toDestination();
     this.onPatternTimeChange = onTimeChange;
@@ -280,7 +276,7 @@ class ToneController
       if( selected.length > 0)
       {
         const selectedInstrument = selected[0];
-        const clampedVolume = convertNormalToAudible( Math.min( Math.max( 0.0 , selectedInstrument.volume ), 1.0 ) );
+        const clampedVolume = Audio.convertNormalToAudible( Math.min( Math.max( 0.0 , selectedInstrument.volume ), 1.0 ) );
         if( selectedInstrument.id in this.samples )
         {
           continue;
@@ -486,7 +482,7 @@ class ToneController
 
   setVolumeForInstrument(instrumentID, volume)
   {
-    this.setGainForInstrument(instrumentID, convertNormalToAudible(volume));
+    this.setGainForInstrument(instrumentID, Audio.convertNormalToAudible(volume));
   }
 
   setTempo(tempo)
