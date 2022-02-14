@@ -31,7 +31,8 @@ class SongData {
     instrumentMask,
     patterns,
     formatSettings,
-    patternSettings
+    patternSettings,
+    audioState
   )
   {
     this.title = title;
@@ -42,6 +43,7 @@ class SongData {
     this.patterns = patterns;
     this.formatSettings = formatSettings;
     this.patternSettings = patternSettings;
+    this.audioState = audioState;
   }
 };
 
@@ -108,6 +110,7 @@ function LoadJSON(jsonData, title, filename, fromHydrogen)
       const instrumentMask = createInstrumentMask(instrumentIndex, instruments);
       const formatSettings = jsonData.formatSettings ? jsonData.formatSettings : Object.assign({}, DefaultSettings);
       const patternSettings = jsonData.patternSettings ? jsonData.patternSettings : figurePatternSettings(patterns);
+      const audioState = jsonData.audioState ? jsonData.audioState : { tempo : 100.0 };
       resolve( new SongData(
         title,
         filename,
@@ -116,7 +119,8 @@ function LoadJSON(jsonData, title, filename, fromHydrogen)
         instrumentMask,
         patterns,
         formatSettings,
-        patternSettings
+        patternSettings,
+        audioState
       ) );
     }
   );

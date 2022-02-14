@@ -96,7 +96,7 @@ class SongView extends React.Component
 
   createController()
   {
-    let tempo = 100.0; // default
+    let tempo = this.props.songData.audioState.tempo;
     if(this.audio){
       tempo = this.audio.getTempo();
       this.audio.teardown();
@@ -622,6 +622,7 @@ class SongView extends React.Component
         <PlaybackControls
           onPlay={this.onPlay}
           onStop={this.onStop}
+          initialTempo={this.props.songData.audioState.tempo}
           onTempoChange={this.onSetTempo}
           disabled={!this.state.locked}
         />

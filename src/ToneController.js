@@ -486,7 +486,7 @@ class ToneController
 
   setVolumeForInstrument(instrumentID, volume)
   {
-    setGainForInstrument(instrumentID, convertNormalToAudible(volume));
+    this.setGainForInstrument(instrumentID, convertNormalToAudible(volume));
   }
 
   setTempo(tempo)
@@ -507,21 +507,20 @@ class ToneController
       volumeMap.set(instrumentID, sample.gain.value);
     }
     return {
-      tempo: Tone.getTransport().bpm.value,
-      volumes: volumeMap
+      tempo: Tone.getTransport().bpm.value
     };
   }
 
   applyImportState = (state) =>
   {
     if(state.tempo){
-      setTempo(state.tempo);
+      this.setTempo(state.tempo);
     }
     if(state.volumes)
     {
       for(const [instrumentID,gain] of Object.entries(state.volumes))
       {
-        setGainForInstrument(instrumentID, gain);
+        this.setGainForInstrument(instrumentID, gain);
       }
     }
   }

@@ -44,7 +44,7 @@ function PlaybackControls(props)
         <Grid item xs={(12 - tempoControlColumns) / 2} />
         <Grid item xs={tempoControlColumns}>
         <Slider
-          defaultValue={100}
+          defaultValue={props.initialTempo ? props.initialTempo : 100}
           min={60}
           step={1}
           max={180}
