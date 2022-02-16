@@ -68,43 +68,32 @@ function createPatternsFromData(patternData)
   return patterns;
 }
 
-/**
- * It's hard to match what I hear in hydrogen, as I'd expect.
- * Let's try a custom curve PulseAudio claims to use a cubic model, from a skim of their code.
- */
-function pulseAudioConvertNormalToAudible(value){
-  return Math.pow(value, 3.0);
-}
-
-function pulseAudioConvertAudibleToNormal(value){
-  // we provide the inverse of the above, rarely useful
-  return Math.pow(value, 1.0/3.0);
-}
+const clamp = (num, min, max) => Math.min(Math.max(num, min), max);
 
 function prepHydrogenVolumes(instrumentIndex)
 {
-  // hydrogen has a [0,1.5] volume
-  // and a [0,5] gain, with 1 being the default in both cases
 
-  // find the maxVolume to normalize to, based on a very naive model of volume/gain
-  let maxVolume = 0.0;
-  const clamp = (num, min, max) => Math.min(Math.max(num, min), max);
-  for( let instrument of instrumentIndex )
+  // I think hydrogen treats all its volumes/gains as linear,
+  // let's use that assumption, map the max to 1.0 on our volume-curve and
+  // normalize everything else relative to thatss
+
+  // find the maxGain to normalize to
+  let maxGain = 0.0;
+  for( const instrument of instrumentIndex )
   {
-    const volumeModel = (instrument.volume / 1.5) * pulseAudioConvertAudibleToNormal(instrument.gain);
-    maxVolume = Math.max( volumeModel, maxVolume );
+    const perInstrumentGain = instrument.volume * instrument.gain;
+    maxGain = Math.max( perInstrumentGain, maxGain );
   }
 
+  const maxVolume = Audio.convertAudibleToNormal(maxGain);
+
   for( let instrument of instrumentIndex )
   {
-    // hydrogen's volume sliders seem to be a slider between [0,1.5]
-    // (let's land it on our volume-curve and hope for the best)
-    const volumeModel = (instrument.volume / 1.5) * pulseAudioConvertAudibleToNormal(instrument.gain);
+    const volumeModel = Audio.convertAudibleToNormal(instrument.volume * instrument.gain);
     instrument.volume = clamp(volumeModel / maxVolume, 0.0, 1.0);
-    // remove tshe gain, in the hope that we can handle it with just one model
+    // remove the gain, in the hope that we can handle it with just the volume model
     instrument.gain = undefined;
   }
-
   return instrumentIndex;
 }
 
