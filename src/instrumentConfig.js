@@ -1,5 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 
@@ -19,6 +20,9 @@ import EditIcon from '@material-ui/icons/Edit';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import ClearIcon from '@material-ui/icons/Clear';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
 
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -38,6 +42,7 @@ import VolumeDownIcon from '@material-ui/icons/VolumeDown';
 import VolumeUpIcon from '@material-ui/icons/VolumeUp';
 import ClickNHold from 'react-click-n-hold';
 import Slider from '@material-ui/core/Slider';
+import AVAILABLE_SAMPLES from "./samples.json";
 
 import {isMobile} from "./Mobile";
 
@@ -233,6 +238,106 @@ class EditInstrumentSymbolDialog extends React.Component
   }
 }
 
+class EditInstrumentSampleDialog extends React.Component
+{
+  constructor(props) {
+    super(props);
+    const drumkitSelections = [...Object.keys(AVAILABLE_SAMPLES) ];
+    const selectedDrumkit = props.initialDrumkit !== undefined ? drumkitSelections.indexOf(props.initialDrumkit) : 0;
+    const selectedSample = (props.initialDrumkit !== undefined && props.initialSample !== undefined) ?
+      [...AVAILABLE_SAMPLES[props.initialDrumkit]].indexOf(props.initialSample) : 0;
+    this.state = {
+      currentDrumkitIndex : selectedDrumkit,
+      currentSampleIndex: selectedSample
+    };
+  }
+
+  render() {
+
+    const cancel = (e) => {
+      if(this.props.onCancel){
+        this.props.onCancel();
+      }
+    };
+
+    const handleDrumkitChange = (e) => {
+      if(e.target.value !== this.state.currentDrumkitIndex)
+      {
+        this.setState({
+          currentDrumkitIndex: e.target.value,
+          currentSampleIndex: 0
+        });
+      };
+    };
+
+    const handleEnter = (e) =>
+    {
+      if(e.keyCode === 13)
+      {
+        e.preventDefault();
+        confirm();
+      }
+    };
+    const drumkitSelections = [...Object.keys(AVAILABLE_SAMPLES) ];
+    const sampleSelections = [...AVAILABLE_SAMPLES[drumkitSelections[this.state.currentDrumkitIndex]]];
+
+
+    const confirm = (e) => {
+      if(this.state.currentDrumkitIndex !== null && this.state.currentSampleIndex !== null)
+      {
+        if(this.props.onChange){
+          this.props.onChange({
+            drumkit: drumkitSelections[this.state.currentDrumkitIndex],
+            sample: sampleSelections[this.state.currentSampleIndex]
+          });
+        }
+      }
+    };
+
+    return (
+      <Dialog open={this.props.open} onClose={cancel} aria-labelledby="form-dialog-title"
+        onKeyDown={handleEnter}
+      >
+        <DialogTitle id="form-dialog-title"></DialogTitle>
+        <DialogContent>
+          <FormControl variant="standard">
+            <InputLabel id="drumkit-label">Drumkit</InputLabel>
+            <Select
+              labelId="drumkit-select-label"
+              id="drumkit-select"
+              value={this.state.currentDrumkitIndex}
+              onChange={handleDrumkitChange}
+              label="Drumkit"
+            >
+            {drumkitSelections.map( (element,index) => <MenuItem value={index} key={index + "-" + element}> {element} </MenuItem> )}
+            </Select>
+          </FormControl>
+          <FormControl variant="standard">
+            <InputLabel id="sample-label">Sample</InputLabel>
+            <Select
+              labelId="sample-select-label"
+              id="sample-select"
+              value={this.state.currentSampleIndex}
+              onChange={(e)=>{this.setState({currentSampleIndex: e.target.value})}}
+              label="Sample"
+            >
+            {sampleSelections.map( (element,index) => <MenuItem value={index} key={index.toString() + "-" + element}> {element} </MenuItem> )}
+            </Select>
+          </FormControl>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={cancel} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={confirm} color="primary">
+            Confirm
+          </Button>
+        </DialogActions>
+      </Dialog>
+    );
+  }
+}
+
 function InstrumentTable(props)
 {
   const classes = useStyles();
@@ -390,6 +495,7 @@ function InstrumentTable(props)
 function InstrumentConfig(props) {
   const theme = useTheme();
   const [editingSymbol, setEditingSymbol] = React.useState(null);
+  const [editingSample, setEditingSample] = React.useState(null);
   const [renamingInstrument, setRenamingInstrument] = React.useState(null);
   const [editingInstrument, setEditingInstrument] = React.useState(null);
 
@@ -416,6 +522,22 @@ function InstrumentConfig(props) {
       props.onChange(replacedInstruments);
     }
     setEditingSymbol( null );
+  };
+
+  const endEditingSample = (resolvedSample) =>
+  {
+    if(resolvedSample !== null)
+    {
+      const instrument = props.instrumentIndex[editingSample].id;
+      let replacedInstrumentIndex = Array.from(props.instrumentIndex);
+      // for now, there's no way to flush the ToneController to reload the samples, I think
+      // so I haven't yet activated this functionality
+      // replacedInstrumentIndex[editingSample].drumkit = resolvedSample.drumkit;
+      // replacedInstrumentIndex[editingSample].filename = resolvedSample.sample;
+      // there's no particular way to modify this
+      // props.onChange(replacedInstruments);
+    }
+    setEditingSample( null );
   };
 
   const getName = (y) => {
@@ -461,6 +583,15 @@ function InstrumentConfig(props) {
         onChange={(s)=>{endEditingSymbol(s);}}
         value={editingSymbol !== null ? getSymbol(editingSymbol) : ""}
         />
+      {editingSample === null ||
+        <EditInstrumentSampleDialog
+          open={editingSample!== null}
+          onCancel={()=>{endEditingSample(null);}}
+          onChange={(s)=>{endEditingSample(s);}}
+          initialDrumkit={editingSample !== null ? props.instrumentIndex[editingSample].drumkit : undefined}
+          initialSample={editingSample !== null ? props.instrumentIndex[editingSample].filename : undefined}
+        />
+      }
       <DispatchingDialog
         open={editingInstrument !== null}
         onCancel={()=>setEditingInstrument(null)}
@@ -468,6 +599,9 @@ function InstrumentConfig(props) {
       >
         <Button onClick={()=>{setEditingSymbol(editingInstrument);setEditingInstrument(null);}}>
           Edit Symbol
+        </Button>
+        <Button onClick={()=>{setEditingSample(editingInstrument);setEditingInstrument(null);}}>
+          Edit Sample
         </Button>
       </DispatchingDialog>
       <TableContainer component={Paper} style={containerStyle}>

@@ -1,5 +1,6 @@
 import Audio from "./Audio"
 import * as Tone from "tone";
+import AVAILABLE_SAMPLES from "./samples.json";
 
 // we schedule for a delay of 120ms to allow the audio context to catch up
 const DEFAULT_AUDIO_DELAY = 0.05;
@@ -10,15 +11,7 @@ const setAudioDelay = (value) => {
 };
 // these are the hydrogen drumkits available by GPL/CC
 
-const DRUMKITS = [
-  "circAfrique v4",
-  "DeathMetal",
-  "The Black Pearl 1.0",
-  "GMRockKit",
-  "TR808EmulationKit",
-  "Millo_MultiLayered3",
-  "BFS drumming"
-];
+const DRUMKITS = Object.keys( AVAILABLE_SAMPLES );
 
 const chooseAppropriateUrlForInstrument = (drumkitName, instrumentName) =>
 {
