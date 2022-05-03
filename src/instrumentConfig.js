@@ -26,6 +26,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import DispatchingDialog from "./DispatchingDialog"
 import RenameDialog from "./RenameDialog";
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
@@ -157,7 +158,7 @@ function VolumeWidget(props)
   );
 }
 
-class RawInstrumentEditDialog extends React.Component
+class EditInstrumentSymbolDialog extends React.Component
 {
   constructor(props) {
     super(props);
@@ -390,6 +391,7 @@ function InstrumentConfig(props) {
   const theme = useTheme();
   const [editingSymbol, setEditingSymbol] = React.useState(null);
   const [renamingInstrument, setRenamingInstrument] = React.useState(null);
+  const [editingInstrument, setEditingInstrument] = React.useState(null);
 
   const removeInstrument = (y) =>
   {
@@ -453,18 +455,27 @@ function InstrumentConfig(props) {
         value={renamingInstrument !== null ? getName(renamingInstrument) : ""}
         instruction="Enter instrument name"
       />
-      <RawInstrumentEditDialog
+      <EditInstrumentSymbolDialog
         open={editingSymbol !== null}
         onCancel={()=>{endEditingSymbol(null);}}
         onChange={(s)=>{endEditingSymbol(s);}}
         value={editingSymbol !== null ? getSymbol(editingSymbol) : ""}
         />
+      <DispatchingDialog
+        open={editingInstrument !== null}
+        onCancel={()=>setEditingInstrument(null)}
+        title={editingInstrument !== null ? "Edit " + props.instrumentIndex[editingInstrument].name : null}
+      >
+        <Button onClick={()=>{setEditingSymbol(editingInstrument);setEditingInstrument(null);}}>
+          Edit Symbol
+        </Button>
+      </DispatchingDialog>
       <TableContainer component={Paper} style={containerStyle}>
         <InstrumentTable
           instrumentIndex={props.instrumentIndex}
           instrumentMask={props.instrumentMask}
           instruments={props.instruments}
-          onEditColumn={(x)=>{setEditingSymbol(x);}}
+          onEditColumn={(x)=>setEditingInstrument(x)}
           onEditRow={(y)=>{setRenamingInstrument(y);}}
           onAddRow={()=>{setRenamingInstrument(props.instruments.length)}}
           onRemoveRow={(y)=>{removeInstrument(y);}}
