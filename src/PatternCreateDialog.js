@@ -14,20 +14,13 @@ import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 
-import FormControl from '@material-ui/core/FormControl';
-import FormGroup from '@material-ui/core/FormGroup';
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
-
-
-
-const useStyles = makeStyles((theme) =>
+const useStyles = makeStyles((theme) => (
   createStyles({
     root: {
-      backgroundColor: "#111111"
-    },
-  }),
-);
+      backgroundColor: theme.palette.primary.main
+    }
+  })
+));
 
 function PatternCreateDialog(props)
 {
@@ -97,7 +90,6 @@ function PatternCreateDialog(props)
     }
     setCombineExpanded(enabled);
   };
-  const classes = useStyles();
 
   const combineOptionsCommitable = patternRecipe.length >= 1 && patternNameIsValid(patternNameCombine);
   const createOptionsCommitable = patternNameIsValid(patternNameCreate);
@@ -116,7 +108,7 @@ function PatternCreateDialog(props)
     }
   };
 
-  // FIXME: This essentially needs tooltips everywhere
+  const classes = useStyles();
 
   return <Dialog
     open={props.open}
@@ -124,13 +116,14 @@ function PatternCreateDialog(props)
     aria-labelledby="pattern-edit-dialog"
     aria-describedby="pattern-edit-dialog"
   >
-    <DialogContent>
+    <DialogContent
+      className={classes.root}
+    >
       <Accordion expanded={createExpanded} onChange={createExpandedToggle}>
       <AccordionSummary
         aria-controls="option-create"
         id="panel-create"
         expandIcon={<ExpandMoreIcon />}
-        className={classes.root}
       >
         <Typography>Create new pattern</Typography>
       </AccordionSummary>
@@ -153,7 +146,6 @@ function PatternCreateDialog(props)
         aria-controls="option-combine"
         id="panel-combine"
         expandIcon={<ExpandMoreIcon />}
-        className={classes.root}
       >
         <Typography>Combine Patterns</Typography>
       </AccordionSummary>

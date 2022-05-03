@@ -21,7 +21,7 @@ import CalendarViewDayIcon from '@material-ui/icons/CalendarViewDay';
 const useStyles = makeStyles((theme) => ({
   root: {
     zIndex: theme.zIndex.drawer + 1,
-    backgroundColor: theme.palette.secondary
+    backgroundColor: theme.palette.primary.main
   }
 }));
 
