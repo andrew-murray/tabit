@@ -39,11 +39,14 @@ function parseHydrogen(dom)
       {
         // fixme:
         // we can have multiple layers (indicating multiple samples) in an instrument
-        // we currently just take the first one
+        // hydrogen selects the most appropriate based on the gain/volume OF the individual note
         const layers = [].concat(instrumentComponent.layer);
-        if(layers[0].filename)
+        // find the midpoint
+        // (presume that's most appropriate? You could also choose the one that most matches the current gain)
+        const midIndex = Math.min( Math.max( Math.floor(layers.length / 2), 0), layers.length - 1);
+        if(layers[midIndex].filename)
         {
-          if(element.drumkit.toString() in Object.keys(AVAILABLE_SAMPLES))
+          if(element.drumkit.toString() in AVAILABLE_SAMPLES)
           {
             // if we support the drumkit, let's silently swap out flac for wav, nice 'n' early
             inst["filename"] = layers[0].filename.toString().replace(".flac", ".wav");

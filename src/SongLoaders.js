@@ -123,7 +123,7 @@ function upgradeOldInstrumentIndex(instrumentIndex)
   for(let instIndex = 0; instIndex < instrumentIndexCopy.length; ++instIndex)
   {
     const inst = instrumentIndexCopy[instIndex];
-    if( (inst.drumkit && inst.drumkit in Object.keys(AVAILABLE_SAMPLES))
+    if( (inst.drumkit && inst.drumkit in AVAILABLE_SAMPLES)
       && (inst.filename))
     {
       // if we support the drumkit, let's silently swap out flac for wav, nice 'n' early
