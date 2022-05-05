@@ -10,6 +10,7 @@ import track from "./track";
 import {DefaultSettings} from "./formatSettings";
 import notation from "./notation"
 import Audio from "./Audio"
+import AVAILABLE_SAMPLES from "./samples.json"
 
 const figurePatternSettings = (patterns)=>{
   return Array.from(
@@ -114,6 +115,27 @@ function upgradeOldInstruments(instruments)
   )
 }
 
+function upgradeOldInstrumentIndex(instrumentIndex)
+{
+  // we generally want all instrument filenames to refer to wav files in our system, if possible
+  // this was not always needed/enforced, upgrade old things
+  let instrumentIndexCopy = instrumentIndex.slice();
+  for(let instIndex = 0; instIndex < instrumentIndexCopy.length; ++instIndex)
+  {
+    const inst = instrumentIndexCopy[instIndex];
+    if( (inst.drumkit && inst.drumkit in Object.keys(AVAILABLE_SAMPLES))
+      && (inst.filename))
+    {
+      // if we support the drumkit, let's silently swap out flac for wav, nice 'n' early
+      instrumentIndexCopy[instIndex] = Object.assign(
+        inst,
+        {filename: inst.filename.toString().replace(".flac", ".wav")}
+      );
+    }
+  }
+  return instrumentIndexCopy;
+}
+
 function LoadJSON(jsonData, title, filename, fromHydrogen)
 {
   return new Promise((resolve) =>
@@ -125,8 +147,10 @@ function LoadJSON(jsonData, title, filename, fromHydrogen)
         patterns
       );
       const instruments = upgradeOldInstruments(oldInstruments);
-      const instrumentIndex = jsonData.instrumentIndex ? jsonData.instrumentIndex
-        : prepHydrogenVolumes( activeInstrumentation(jsonData.instruments, patterns) );
+      const instrumentIndex = upgradeOldInstrumentIndex(
+        jsonData.instrumentIndex ? jsonData.instrumentIndex
+                                 : prepHydrogenVolumes( activeInstrumentation(jsonData.instruments, patterns) )
+      );
       const instrumentMask = createInstrumentMask(instrumentIndex, instruments);
       const formatSettings = jsonData.formatSettings ? jsonData.formatSettings : Object.assign({}, DefaultSettings);
       const patternSettings = jsonData.patternSettings ? jsonData.patternSettings : figurePatternSettings(patterns);

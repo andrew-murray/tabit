@@ -276,8 +276,7 @@ class ToneController
           "filename" in selectedInstrument &&
           DRUMKITS.includes(selectedInstrument.drumkit) )
         {
-          const filename = selectedInstrument.filename.replace(".flac", ".wav");
-          urlForSample = process.env.PUBLIC_URL + "/wav/" + selectedInstrument.drumkit + "/" + filename;
+          urlForSample = process.env.PUBLIC_URL + "/wav/" + selectedInstrument.drumkit + "/" + selectedInstrument.filename;
         }
         else if("drumkit" in selectedInstrument )
         {

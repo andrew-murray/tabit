@@ -3,6 +3,7 @@
 import track from "./track";
 import {XMLParser} from "fast-xml-parser";
 import { calculateResolution } from "./utilities";
+import AVAILABLE_SAMPLES from "./samples.json"
 
 function calculatePatternResolution(pattern, size)
 {
@@ -42,7 +43,16 @@ function parseHydrogen(dom)
         const layers = [].concat(instrumentComponent.layer);
         if(layers[0].filename)
         {
-          inst["filename"] = layers[0].filename.toString();
+          if(element.drumkit.toString() in Object.keys(AVAILABLE_SAMPLES))
+          {
+            // if we support the drumkit, let's silently swap out flac for wav, nice 'n' early
+            inst["filename"] = layers[0].filename.toString().replace(".flac", ".wav");
+          }
+          else
+          {
+            // else, preserve the filename for more accurate error messages
+            inst["filename"] = layers[0].filename.toString();
+          }
         }
       }
       return inst;
