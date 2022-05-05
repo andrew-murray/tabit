@@ -530,9 +530,6 @@ function InstrumentConfig(props) {
     {
       let replacedInstrumentIndex = props.instrumentIndex.slice();
       // create a new object
-      // TODO: reinstate the modification of the instrumentIndex, after fixing
-      // the infrastructure around this
-      /*
       replacedInstrumentIndex[editingSample] = Object.assign(
         Object.assign( {}, replacedInstrumentIndex[editingSample] ),
         {
@@ -540,7 +537,6 @@ function InstrumentConfig(props) {
           filename: resolvedSample.sample
         }
       );
-      */
       props.onInstrumentIndexChange(replacedInstrumentIndex);
     }
     setEditingSample( null );

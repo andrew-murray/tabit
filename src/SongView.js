@@ -366,8 +366,14 @@ class SongView extends React.Component
         {
           const playing = this.audio.isPlaying();
           if(playing){ this.audio.stop();}
-          // this.audio.refreshSamples(this.state.songData.patterns, instrumentIndex);
-          // this.audio.updatePattern(this.state.songData.patterns[this.state.selectedPattern] );
+          this.audio.instrumentIndex = instrumentIndex;
+          let recordFailures = [];
+          this.audio.populateSamples(
+            instrumentIndex,
+            this.state.songData.patterns[this.state.selectedPattern].instrumentTracks,
+            recordFailures
+          );
+          this.audio.updatePattern(this.state.songData.patterns[this.state.selectedPattern] );
           if(playing){this.audio.play();}
         }
       }
