@@ -13,37 +13,37 @@ const setAudioDelay = (value) => {
 
 const DRUMKITS = Object.keys( AVAILABLE_SAMPLES );
 
-const chooseAppropriateUrlForInstrument = (drumkitName, instrumentName) =>
+const chooseAppropriateInstrument = (drumkitName, instrumentName) =>
 {
   const name = instrumentName.toLowerCase();
   // this is currently very basic
   if(name.includes("kick"))
   {
-      return "The Black Pearl 1.0/PearlKick-Hard.wav";
+      return {drumkit: "The Black Pearl 1.0", filename: "PearlKick-Hard.wav"};
   }
   else if(name.includes("stick"))
   {
-      return "DeathMetal/16297_ltibbits_sticks_low_pitch.wav";
+      return {drumkit: "DeathMetal", filename: "16297_ltibbits_sticks_low_pitch.wav"};
   }
   else if(name.includes("tom"))
   {
-      return "Millo_MultiLayered3/ft_01.wav"
+      return {drumkit: "Millo_MultiLayered3", filename: "ft_01.wav"};
   }
   else if(name.includes("clap"))
   {
-      return "TR808EmulationKit/808_Clap.wav";
+      return {drumkit: "TR808EmulationKit", filename: "808_Clap.wav"};
   }
   else if(name.includes("snare"))
   {
-    return "GMRockKit/Snare-Soft.wav";
+    return {drumkit: "GMRockKit", filename: "Snare-Soft.wav"};
   }
   else if(name.includes("cowbell"))
   {
-    return "GMRockKit/Cowbell-Softest.wav";
+    return {drumkit: "GMRockKit", filename: "Cowbell-Softest.wav"};
   }
   else
   {
-    // todo: snare, cymbals
+    // todo: cymbals
     return null;
   }
 }
@@ -262,62 +262,64 @@ class ToneController
 
   populateSamples(instrumentIndex, tracks, failures)
   {
-    this.sampleCount = 0;
     for(const [id,] of Object.entries(tracks))
     {
       const selected = instrumentIndex.filter(inst => inst.id.toString() === id);
-      if( selected.length > 0)
+      if(selected.length > 0)
       {
         const selectedInstrument = selected[0];
         const clampedVolume = Audio.convertNormalToAudible( Math.min( Math.max( 0.0 , selectedInstrument.volume ), 1.0 ) );
-        if( selectedInstrument.id in this.samples )
-        {
-          continue;
-        }
+
+        let urlForSample = null;
         if(
           "drumkit" in selectedInstrument &&
           "filename" in selectedInstrument &&
           DRUMKITS.includes(selectedInstrument.drumkit) )
         {
           const filename = selectedInstrument.filename.replace(".flac", ".wav");
-          let player = new Tone.Player(
-            process.env.PUBLIC_URL + "/wav/" + selectedInstrument.drumkit + "/" + filename,
-            () => { this.sampleCount++; }
-          );
-          player.mute = selectedInstrument.muted;
-          player.name = selectedInstrument.name;
-          const gain = new Tone.Gain(clampedVolume, "normalRange");
-          player.connect(gain)
-          gain.connect(this.gain);
-          this.samples[selectedInstrument.id] = { player : player, gain : gain }
-          this.expectedSampleCount++;
+          urlForSample = process.env.PUBLIC_URL + "/wav/" + selectedInstrument.drumkit + "/" + filename;
         }
-        else if( "drumkit" in selectedInstrument )
+        else if("drumkit" in selectedInstrument )
         {
-          const relativeUrl = chooseAppropriateUrlForInstrument( selectedInstrument.drumkit, selectedInstrument.name );
-          if(relativeUrl !== null)
-          {
-            let player = new Tone.Player(
-              process.env.PUBLIC_URL + "/wav/" + relativeUrl,
-              () => { this.sampleCount++; }
-            );
-            player.mute = selectedInstrument.muted;
-            player.name = selectedInstrument.name;
-            const gain = new Tone.Gain(clampedVolume, "normalRange");
-            player.connect(gain);
-            gain.connect(this.gain);
-            this.samples[selectedInstrument.id] = { player : player, gain : gain }
-            this.expectedSampleCount++;
-          }
-          else
-          {
-            failures.push( [selectedInstrument.drumkit, selectedInstrument.name] );
-          }
+          const instrumentObject = chooseAppropriateInstrument( selectedInstrument.drumkit, selectedInstrument.name );
+          urlForSample = process.env.PUBLIC_URL + "/wav/" + instrumentObject.drumkit + "/" + instrumentObject.filename;
         }
         else
         {
-            failures.push( ["", selectedInstrument.name] );
+          failures.push( [selectedInstrument.drumkit, selectedInstrument.name] );
+          continue;
         }
+
+        if( selectedInstrument.id in this.samples && this.samples[selectedInstrument.id].url === urlForSample )
+        {
+          // no need to reload
+          continue;
+        }
+
+        if(selectedInstrument.id in this.samples)
+        {
+          this.samples[selectedInstrument.id].gain.disconnect();
+          this.samples[selectedInstrument.id].player.disconnect();
+          this.samples[selectedInstrument.id].gain.dispose();
+          this.samples[selectedInstrument.id].player.dispose();
+        }
+        let player = new Tone.Player(
+          urlForSample,
+          () => { this.sampleCount++; }
+        );
+        player.mute = selectedInstrument.muted;
+        player.name = selectedInstrument.name;
+        const gain = new Tone.Gain(clampedVolume, "normalRange");
+        player.connect(gain)
+        gain.connect(this.gain);
+        this.samples[selectedInstrument.id] = {
+          player : player,
+          gain : gain,
+          drumkit: selectedInstrument.drumkit,
+          filename: selectedInstrument.filename,
+          url: urlForSample
+        };
+        this.expectedSampleCount++;
       }
     }
   }
