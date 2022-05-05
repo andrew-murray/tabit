@@ -528,14 +528,20 @@ function InstrumentConfig(props) {
   {
     if(resolvedSample !== null)
     {
-      const instrument = props.instrumentIndex[editingSample].id;
-      let replacedInstrumentIndex = Array.from(props.instrumentIndex);
-      // for now, there's no way to flush the ToneController to reload the samples, I think
-      // so I haven't yet activated this functionality
-      // replacedInstrumentIndex[editingSample].drumkit = resolvedSample.drumkit;
-      // replacedInstrumentIndex[editingSample].filename = resolvedSample.sample;
-      // there's no particular way to modify this
-      // props.onChange(replacedInstruments);
+      let replacedInstrumentIndex = props.instrumentIndex.slice();
+      // create a new object
+      // TODO: reinstate the modification of the instrumentIndex, after fixing
+      // the infrastructure around this
+      /*
+      replacedInstrumentIndex[editingSample] = Object.assign(
+        Object.assign( {}, replacedInstrumentIndex[editingSample] ),
+        {
+          drumkit: resolvedSample.drumkit,
+          filename: resolvedSample.sample
+        }
+      );
+      */
+      props.onInstrumentIndexChange(replacedInstrumentIndex);
     }
     setEditingSample( null );
   };

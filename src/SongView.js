@@ -351,6 +351,29 @@ class SongView extends React.Component
     } );
   }
 
+  updateInstrumentIndex = (instrumentIndex) =>
+  {
+    const instrumentMask = createInstrumentMask(instrumentIndex, this.state.songData.instruments);
+    this.setState(
+      {
+        songData: Object.assign(
+          Object.assign( {}, this.state.songData ),
+          { instrumentMask, instrumentIndex }
+        )
+      },
+      () => {
+        if(this.audio)
+        {
+          const playing = this.audio.isPlaying();
+          if(playing){ this.audio.stop();}
+          // this.audio.refreshSamples(this.state.songData.patterns, instrumentIndex);
+          // this.audio.updatePattern(this.state.songData.patterns[this.state.selectedPattern] );
+          if(playing){this.audio.play();}
+        }
+      }
+    )
+  }
+
   sendVolumeEvent = (event) =>
   {
     // assume that the event is valid and will update the instrument
@@ -654,6 +677,7 @@ class SongView extends React.Component
               instrumentIndex={this.state.songData.instrumentIndex}
               instrumentMask={this.state.songData.instrumentMask}
               onChange={this.changeInstruments}
+              onInstrumentIndexChange={this.updateInstrumentIndex}
               onVolumeEvent={this.sendVolumeEvent}
               showAdvanced={!this.state.locked}
             />
