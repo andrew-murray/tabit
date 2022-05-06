@@ -66,7 +66,7 @@ function TabitBar(props) {
           >
           <HomeIcon />
         </IconButton>
-        <div style={{"flexGrow": 1}}>
+        <div style={{"flexGrow": 1, "overflow": "hidden"}}>
         <Button onClick={props.onTitleClick} color="inherit" style={{"textOverflow": "ellipsis"}}>
           <Typography variant="h6" color="inherit" noWrap>
           {props.title}
