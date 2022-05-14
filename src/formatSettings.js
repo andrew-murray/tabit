@@ -143,13 +143,20 @@ function FormatSettings(props) {
 
   function instrumentResolutionMenu(
     instSetting,
-    options,
-    itemToState = tokenItemToState,
-    stateToItem = tokenStateToItem
+    options
   )
   {
     const name = instSetting.name;
     const idString = "form-control-" + name + "-resolution-id";
+    const updateInstrumentResolutions = (e) => {
+      let changedResolutions = props.settings["individualResolutions"].slice();
+      changedResolutions[instSetting.index] = {
+        index: instSetting.index,
+        name: instSetting.name,
+        resolution: e.target.value
+      };
+      props.onChange( {key: "individualResolutions", value:changedResolutions, local: true} );
+    }
     return (
       <ListItem variant="filled" className={classes.formControl} key={idString} id={idString} style={{width:"75%"}}>
         <FormControl style={{width:"100%"}}>
@@ -159,10 +166,10 @@ function FormatSettings(props) {
             id={"resolution-option-" + name + "-id"}
             value={props.settings["individualResolutions"][instSetting.index].resolution}
             name={name}
-            onChange={(e) => {}}//do nothing for now}} // handleOptionChange( e.target.name, itemToState(e.target.value), localSetting)
+            onChange={updateInstrumentResolutions}
             style={{width:"75%", textAlign: "center"}}
           >
-            {options.map((op) => <MenuItem key={"settings-menu-item-" + name + "-" + op} value={stateToItem(op)} style={{textAlign: "center"}}>{stateToItem(op)}</MenuItem>)}
+            {options.map((op) => <MenuItem key={"settings-menu-item-" + name + "-" + op} value={op} style={{textAlign: "center"}}>{op}</MenuItem>)}
           </Select>
         </FormControl>
       </ListItem>
@@ -206,8 +213,6 @@ function FormatSettings(props) {
             props.settings["useIndividualResolution"] && props.settings["individualResolutions"].map( instSetting => instrumentResolutionMenu(
               instSetting,
               primaryResolutions,
-              (v) => v.toString(), // stateToItem
-              (v) => parseInt(v) // itemToState
             ) ).reduce((prev, curr) => [prev, curr])
           }
         </List>
