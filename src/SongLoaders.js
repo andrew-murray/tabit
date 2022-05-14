@@ -153,7 +153,19 @@ function LoadJSON(jsonData, title, filename, fromHydrogen)
       );
       const instrumentMask = createInstrumentMask(instrumentIndex, instruments);
       const formatSettings = jsonData.formatSettings ? jsonData.formatSettings : Object.assign({}, DefaultSettings);
-      const patternSettings = jsonData.patternSettings ? jsonData.patternSettings : figurePatternSettings(patterns, instruments);
+      const expectedPatternSettings = figurePatternSettings(patterns, instruments);
+      let patternSettings = null;
+      if(jsonData.patternSettings !== undefined)
+      {
+        // note, while object-assign is a little simplistic (what happens for nested-objects?)
+        // if an individualResolutions (the only nested-object) is defined in the previous-state, we want to take it exactly
+        // and not worry about any complicated state resolution
+        patternSettings = Object.keys(expectedPatternSettings).map( i => Object.assign(expectedPatternSettings[i], jsonData.patternSettings[i]))
+      }
+      else
+      {
+        patternSettings = expectedPatternSettings;
+      }
       const audioState = jsonData.audioState ? jsonData.audioState : { tempo : 100.0 };
       resolve( new SongData(
         title,
