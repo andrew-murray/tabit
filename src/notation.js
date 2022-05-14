@@ -173,13 +173,44 @@ class notation
     }
   }
 
+  static getPatternLength(pattern)
+  {
+    let trackLength = 48;
+    for(const [,t] of Object.entries(pattern.instrumentTracks))
+    {
+        trackLength = Math.max( trackLength, t.length() );
+    }
+    return trackLength;
+  }
+
+  static getPatternResolutionFromTracks(instrumentTracks)
+  {
+    let resolution = 48;
+    for(const [,t] of Object.entries(instrumentTracks))
+    {
+        resolution = Math.min( resolution, t.resolution );
+    }
+    return resolution;
+
+  }
+
+  static getPatternResolution(pattern)
+  {
+    return notation.getPatternResolutionFromTracks(pattern.instrumentTracks);
+  }
+
   static guessPerPatternSettings(
-    trackDict
+    trackDict,
+    instruments
   )
   {
+    const primaryResolution = notation.getPatternResolutionFromTracks(trackDict);
     return {
       "lineResolution" : notation.defaultLineResolution(trackDict, 48), // beatResolution (default)
-      "beatResolution" : 48 // should cover all the cases hopefully
+      "beatResolution" : 48, // should cover all the cases hopefully
+      "primaryResolution": primaryResolution,
+      "individualResolutions" : [...Object.keys(instruments).map( k=>{return {index: k, name: instruments[k][0], resolution: primaryResolution};} )],
+      "useIndividualResolution": false
     };
   }
 
@@ -256,26 +287,6 @@ class notation
     }
 
     return formattedLineArray.join("\n");
-  }
-
-  static getPatternLength(pattern)
-  {
-    let trackLength = 48;
-    for(const [,t] of Object.entries(pattern.instrumentTracks))
-    {
-        trackLength = Math.max( trackLength, t.length() );
-    }
-    return trackLength;
-  }
-
-  static getPatternResolution(pattern)
-  {
-    let resolution = 48;
-    for(const [,t] of Object.entries(pattern.instrumentTracks))
-    {
-        resolution = Math.min( resolution, t.resolution );
-    }
-    return resolution;
   }
 
   static clonePattern(name, pattern)

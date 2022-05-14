@@ -12,10 +12,10 @@ import notation from "./notation"
 import Audio from "./Audio"
 import AVAILABLE_SAMPLES from "./samples.json"
 
-const figurePatternSettings = (patterns)=>{
+const figurePatternSettings = (patterns, instruments)=>{
   return Array.from(
     patterns,
-    (p) => notation.guessPerPatternSettings( p.instrumentTracks )
+    (p) => notation.guessPerPatternSettings( p.instrumentTracks, instruments )
   );
 };
 // note that a Pattern contains
@@ -153,7 +153,7 @@ function LoadJSON(jsonData, title, filename, fromHydrogen)
       );
       const instrumentMask = createInstrumentMask(instrumentIndex, instruments);
       const formatSettings = jsonData.formatSettings ? jsonData.formatSettings : Object.assign({}, DefaultSettings);
-      const patternSettings = jsonData.patternSettings ? jsonData.patternSettings : figurePatternSettings(patterns);
+      const patternSettings = jsonData.patternSettings ? jsonData.patternSettings : figurePatternSettings(patterns, instruments);
       const audioState = jsonData.audioState ? jsonData.audioState : { tempo : 100.0 };
       resolve( new SongData(
         title,

@@ -235,7 +235,10 @@ class SongView extends React.Component
       pattern = notation.combinePatterns(name, pattern, this.state.songData.patterns[recipe[recipeIndex].value])
     }
 
-    const patternSettings = notation.guessPerPatternSettings(pattern.instrumentTracks);
+    const patternSettings = notation.guessPerPatternSettings(
+      pattern.instrumentTracks,
+      this.state.songData.instruments
+    );
 
     const updatedSongData = Object.assign(
       Object.assign({}, this.state.songData),
@@ -262,7 +265,7 @@ class SongView extends React.Component
       length,
       trackKeys
     );
-    const patternSettings = notation.guessPerPatternSettings(pattern.instrumentTracks);
+    const patternSettings = notation.guessPerPatternSettings(pattern.instrumentTracks, this.state.songData.instruments);
 
     const updatedSongData = Object.assign(
       Object.assign({}, this.state.songData),

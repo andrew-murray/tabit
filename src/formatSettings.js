@@ -47,9 +47,9 @@ function FormatSettings(props) {
     props.onChange({key: name, value: value, local: local});
   };
 
-  const handleCheckedChange = (event) => {
+  const handleCheckedChange = (name, value, local) => {
     // const updatedState = {...props.settings, [event.target.name]: event.target.checked};
-    props.onChange({key: event.target.name, value: event.target.checked, local: false});
+    props.onChange({key: name, value: value, local: local});
   };
 
   function createOptionMenu(
@@ -80,12 +80,17 @@ function FormatSettings(props) {
     );
   };
 
-  function createBoolControl(name)
+  function createBoolControl(name, local, settingsName)
   {
+    const sName = settingsName ? settingsName : name;
     return (
       <ListItem key={"form-control-" + name}>
         <FormControlLabel
-          control={<Switch checked={props.settings[name]} onChange={handleCheckedChange} name={name} />}
+          control={<Switch
+            checked={props.settings[sName]}
+            onChange={(e) => handleCheckedChange(e.target.name, e.target.checked, local)}
+            name={sName}
+          />}
           label={camelToReadable(name)}
           key={"switch-"+name}
         />
@@ -125,7 +130,7 @@ function FormatSettings(props) {
     }
   }
 
-  const candidatePrimaryResolutions = [12, 16, 24, 36, 48];
+  const candidatePrimaryResolutions = [8, 12, 16, 24, 36, 48];
   let primaryResolutions = [];
   for( const c of candidatePrimaryResolutions )
   {
@@ -134,23 +139,40 @@ function FormatSettings(props) {
       primaryResolutions.push( c );
     }
   }
-  /*
-  // primaryResolution ~ not yet supported
+
+
+  function instrumentResolutionMenu(
+    instSetting,
+    options,
+    itemToState = tokenItemToState,
+    stateToItem = tokenStateToItem
+  )
   {
-    createOptionMenu(
-      "primaryResolution",
-      primaryResolutions,
-      (v) => v.toString(), // stateToItem
-      (v) => parseInt(v), // itemToState
-      true
-    )
-  }
-  */
+    const name = instSetting.name;
+    const idString = "form-control-" + name + "-resolution-id";
+    return (
+      <ListItem variant="filled" className={classes.formControl} key={idString} id={idString} style={{width:"75%"}}>
+        <FormControl style={{width:"100%"}}>
+          <InputLabel id="settings-option-{name}">{name} resolution</InputLabel>
+          <Select
+            labelId={"resolution-option-" + name + "-labelID"}
+            id={"resolution-option-" + name + "-id"}
+            value={props.settings["individualResolutions"][instSetting.index].resolution}
+            name={name}
+            onChange={(e) => {}}//do nothing for now}} // handleOptionChange( e.target.name, itemToState(e.target.value), localSetting)
+            style={{width:"75%", textAlign: "center"}}
+          >
+            {options.map((op) => <MenuItem key={"settings-menu-item-" + name + "-" + op} value={stateToItem(op)} style={{textAlign: "center"}}>{stateToItem(op)}</MenuItem>)}
+          </Select>
+        </FormControl>
+      </ListItem>
+    );
+  };
   return (
     <FormGroup className={classes.root}>
       <List>
         {notation.FORMAT_CONFIG_STRINGS.map( op => createOptionMenu( op[0], op[1] ) ).reduce((prev, curr) => [prev, curr])}
-        {notation.FORMAT_CONFIG_BOOLS.map( op => createBoolControl( op )).reduce((prev, curr) => [prev, curr]) }
+        {notation.FORMAT_CONFIG_BOOLS.map( op => createBoolControl( op, false )).reduce((prev, curr) => [prev, curr]) }
           <ListSubheader>{"Pattern " + props.pattern.name + " Options"} </ListSubheader>
           {
             createOptionMenu(
@@ -168,6 +190,26 @@ function FormatSettings(props) {
             resolutionToBeatString,
             true // localSetting
           )}
+          {
+            createBoolControl("per-instrumentResolution", true, "useIndividualResolution")
+          }
+          {
+            !props.settings["useIndividualResolution"] && createOptionMenu(
+              "primaryResolution",
+              primaryResolutions,
+              (v) => v.toString(), // stateToItem
+              (v) => parseInt(v), // itemToState
+              true
+            )
+          }
+          {
+            props.settings["useIndividualResolution"] && props.settings["individualResolutions"].map( instSetting => instrumentResolutionMenu(
+              instSetting,
+              primaryResolutions,
+              (v) => v.toString(), // stateToItem
+              (v) => parseInt(v) // itemToState
+            ) ).reduce((prev, curr) => [prev, curr])
+          }
         </List>
       </FormGroup>
   );
