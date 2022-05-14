@@ -48,32 +48,25 @@ const Pattern = React.memo((props)=>
     return compatible ? track.format(resolution) : track;
   };
   let tracksForResolution = new Map();
-  for(const inst of props.instruments)
+  for(const instIndex of [...Object.keys(props.instruments)])
   {
+    const inst = props.instruments[instIndex];
     const instrumentIDs = Object.keys(inst[1]);
-    // don't reformat patterns, assume them to be in the correct resolution to start
-    // with, at the moment this should be true. In future when we actually support
-    // "primaryResolution" this will need to be re-enabled
-    if(true || !props.config.primaryResolution)
+    const resolutionForInstrument = props.config.useIndividualResolution ?
+      props.config.individualResolutions[instIndex].resolution
+      : props.config.primaryResolution;
+
+    let instrumentIsCompatible = true;
+    for( const instID of instrumentIDs )
     {
-      for( const instID of instrumentIDs )
-      {
-        tracksForResolution[instID] = props.tracks[instID];
-      }
+      instrumentIsCompatible &= props.tracks[instID].compatible(resolutionForInstrument);
     }
-    else
+    for( const instID of instrumentIDs )
     {
-      let instrumentIsCompatible = true;
-      for( const instID of instrumentIDs )
-      {
-        instrumentIsCompatible &= props.tracks[instID].compatible(props.config.primaryResolution);
-      }
-      for( const instID of instrumentIDs )
-      {
-        tracksForResolution[instID] = instrumentIsCompatible ?
-          toResolution(props.tracks[instID], props.config.primaryResolution)
-          : props.tracks[instID];
-      }
+      // TODO: Support rendering an undefined symbol for incompatible resolutions
+      tracksForResolution[instID] = instrumentIsCompatible ?
+        toResolution(props.tracks[instID], resolutionForInstrument)
+        : props.tracks[instID];
     }
   }
 

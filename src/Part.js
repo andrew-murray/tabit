@@ -80,12 +80,12 @@ class Part extends React.Component
     }
     const patternArray = notation.formatPatternString(
       this.props.instrument,
-      this.props.tracks,
+      Object.fromEntries(Object.entries(this.props.tracks).filter(([key]) => key in this.props.instrument)),
       this.props.config.restMark
     );
     // don't support a multi-line pattern, that doesn't divide the beatResolution
     // because it's a nightmare!
-    const exampleTrackID = Object.keys(this.props.instrument)[0]
+    const exampleTrackID = Object.keys(this.props.instrument)[0];
     const patternResolution = this.props.tracks[exampleTrackID].resolution;
     if( (this.props.config.lineResolution % this.props.config.beatResolution) !== 0
         && ( patternArray.length * patternResolution > this.props.config.lineResolution ) )
