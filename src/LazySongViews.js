@@ -162,7 +162,8 @@ class SongStorageSongView extends React.Component
       this.setState(
         {
           error: "Failed to load song " + this.props.songID + " from database. " +
-          "This could represent a corrupted entry/a bug in our software. Please consider raising an issue in github!"
+          "This could represent a corrupted entry/a bug in our software. Please consider raising an issue in github!" +
+          "Reported Error:\n" + err
         }
       );
     };
@@ -198,7 +199,9 @@ class LocalStorageSongView extends React.Component
     const navigateHomeWithError = (err) => {
       this.setState(
         {
-          error: "Failed to load recently viewed song " + this.props.name + ". "
+          error: "Failed to load recently viewed song " + this.props.name + ". " +
+          "This could represent a corrupted entry/a bug in our software. Please consider raising an issue in github!" +
+          "Reported Error:\n" + err
         }
       );
     };
