@@ -40,6 +40,11 @@ const Pattern = React.memo((props)=>
     return s + ' '.repeat(maxShortNameLength - s.length);
   };
 
+  // todo: to support triplet whatnot, this stuff has to change
+  // we can't convert a track to a resolution in order to render it
+  // ... it has to be a facet of rendering it, inside the notation
+  // that ... or ... the part just has to accept a string to render and not worry about most of the stuff
+
   const toResolution = (track, resolutionS) => {
     if(!resolutionS) return track;
     const resolution = parseInt(resolutionS);
