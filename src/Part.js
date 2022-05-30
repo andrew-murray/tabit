@@ -98,8 +98,6 @@ class Part extends React.Component
     const beatChunkSize = this.props.config.beatResolution / patternResolution;
     const lineIndices = [...patternLines.keys()];
     const Typo = this.props.dense ? DensePreTypography : PreTypography;
-    // <Typo variant="subtitle1" component="span" key={"span-beat-" + (beat + startBeats[0]).toString()} className={makeClasses(beat)} style={{display: "inline-block"}}>{line[beat].map(c => <Button size="small" elementType="span" style={{display: "inline", marginBlock: 0, padding: 0, minWidth: 1, fontStretch: undefined}}>{c}</Button>)}</Typo>
-
     const interactiveStyles = {
       cursor: "pointer"
     };
