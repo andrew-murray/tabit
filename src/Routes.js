@@ -85,6 +85,15 @@ export default function TabitRoutes(props) {
       }),
     [prefersDarkMode]
   ) );
+  const info = process.env.REACT_APP_VERSION_INFO;
+  if (!info) {
+    console.info("Reporting App Version: No version information present at build time.");
+  }
+  else
+  {
+    console.info(`Reporting App Version: ${info}`);
+  }
+
   return (
     <Router basename={process.env.PUBLIC_URL}>
       <ThemeProvider theme={theme}>
