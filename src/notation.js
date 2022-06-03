@@ -1,4 +1,5 @@
-import track from "./track";
+import SparseTrack from "./SparseTrack";
+import Track from "./Track";
 
 class notation
 {
@@ -214,6 +215,22 @@ class notation
     };
   }
 
+  /*
+    We might need this signature
+  static formatPatternStringForRange(
+    instrument,
+    trackDict,
+    resolution,
+    start,
+    end,
+    restMark,
+    errorMark
+  )
+  {
+
+  }
+  */
+
   static formatPatternString(
     instrument,
     trackDict,
@@ -306,7 +323,7 @@ class notation
   {
     const tracks = Object.fromEntries( new Map(
       Array.from(trackKeys).map(
-        k => [k, track.fromPositions( [], totalLength, resolution)]
+        k => [k, new Track.fromPositions([], totalLength, resolution)]
       )
     ) );
     return {
@@ -328,13 +345,13 @@ class notation
       }
     } */
 
-    const resolution = track.optimalResolution( patternA.resolution, patternB.resolution );
+    const resolution = Track.optimalResolution( patternA.resolution, patternB.resolution );
     const totalSize = patternA.size + patternB.size;
     const instrumentKeys = new Set( [...Object.keys(patternA.instrumentTracks), ...Object.keys(patternA.instrumentTracks)] );
     let instrumentTracks = {};
     for(const k of instrumentKeys)
     {
-      instrumentTracks[k] = track.combine(
+      instrumentTracks[k] = Track.combine(
         patternA.instrumentTracks[k],
         patternB.instrumentTracks[k],
         totalSize,

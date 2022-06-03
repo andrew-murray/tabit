@@ -6,7 +6,8 @@ import {
   figureInstruments,
   guessShortName
 } from "./instrumentation";
-import track from "./track";
+import Track from "./Track";
+import SparseTrack from "./SparseTrack";
 import {DefaultSettings} from "./formatSettings";
 import notation from "./notation"
 import Audio from "./Audio"

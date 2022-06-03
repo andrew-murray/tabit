@@ -3,6 +3,8 @@
 import h2 from "../h2"
 import fs from "fs"
 
+const updateSerialisations = false;
+
 test('h2 parsing - too_much_garlic', async () => {
   const testXml = fs.readFileSync("./test_data/too_much_garlic.h2song");
   const testJSON = "./test_data/too_much_garlic.json";
@@ -12,7 +14,10 @@ test('h2 parsing - too_much_garlic', async () => {
     return JSON.stringify(result, null, 4);
   });
   const resultJSON = await resultJSONPromise;
-  // fs.writeFileSync(testJSON, resultJSON);
+  if(updateSerialisations)
+  {
+    fs.writeFileSync(testJSON, resultJSON);
+  }
   const expectedJSON = String(fs.readFileSync(testJSON));
   return expect(resultJSON).toEqual(expectedJSON);
 });
@@ -26,7 +31,10 @@ test('h2 parsing - kuva', async () => {
     return JSON.stringify(result, null, 4);
   });
   const resultJSON = await resultJSONPromise;
-  // fs.writeFileSync(testJSON, resultJSON);
+  if(updateSerialisations)
+  {
+    fs.writeFileSync(testJSON, resultJSON);
+  }
   const expectedJSON = String(fs.readFileSync(testJSON));
   return expect(resultJSON).toEqual(expectedJSON);
 });
@@ -40,7 +48,10 @@ test('h2 parsing - coconot', async () => {
     return JSON.stringify(result, null, 4);
   });
   const resultJSON = await resultJSONPromise;
-  // fs.writeFileSync(testJSON, resultJSON);
+  if(updateSerialisations)
+  {
+    fs.writeFileSync(testJSON, resultJSON);
+  }
   const expectedJSON = String(fs.readFileSync(testJSON));
   return expect(resultJSON).toEqual(expectedJSON);
 });
@@ -53,7 +64,10 @@ test('h2 parsing - that_guy', async() => {
     return JSON.stringify(result, null, 4);
   });
   const resultJSON = await resultJSONPromise;
-  // fs.writeFileSync(testJSON, resultJSON);
+  if(updateSerialisations)
+  {
+    fs.writeFileSync(testJSON, resultJSON);
+  }
   const expectedJSON = String(fs.readFileSync(testJSON));
   return expect(resultJSON).toEqual(expectedJSON);
 });
@@ -67,7 +81,10 @@ test('h2 parsing - cumulus', async () => {
     return JSON.stringify(result, null, 4);
   });
   const resultJSON = await resultJSONPromise;
-  // fs.writeFileSync(testJSON, resultJSON);
+  if(updateSerialisations)
+  {
+    fs.writeFileSync(testJSON, resultJSON);
+  }
   const expectedJSON = String(fs.readFileSync(testJSON));
   return expect(resultJSON).toEqual(expectedJSON);
 });
@@ -82,7 +99,10 @@ test('h2 parsing - virtual', async () => {
     return JSON.stringify(result, null, 4);
   });
   const resultJSON = await resultJSONPromise;
-  // fs.writeFileSync(testJSON, resultJSON);
+  if(updateSerialisations)
+  {
+    fs.writeFileSync(testJSON, resultJSON);
+  }
   const expectedJSON = String(fs.readFileSync(testJSON));
   return expect(resultJSON).toEqual(expectedJSON);
 });

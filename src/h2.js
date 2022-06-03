@@ -1,6 +1,7 @@
 // h2.js
 
-import track from "./track";
+import Track from "./Track";
+import SparseTrack from "./SparseTrack";
 import {XMLParser} from "fast-xml-parser";
 import { calculateResolution } from "./utilities";
 import AVAILABLE_SAMPLES from "./samples.json"
@@ -114,7 +115,7 @@ function parseHydrogen(dom)
           relevantNotes,
           note => note.position
         );
-        instrumentTracks[ instrument.id.toString() ] = track.fromPositions( relevantHits, pattern.size, resolution);
+        instrumentTracks[ instrument.id.toString() ] = Track.fromPositions( relevantHits, pattern.size, resolution );
       }
       pattern.resolution = resolution;
       pattern.instrumentTracks = instrumentTracks;

@@ -23,7 +23,8 @@ function findHCF(x, y) {
    return Math.min(x, y);
 }
 
-class track
+
+class Track
 {
 
   constructor(patternArray, resolution)
@@ -70,12 +71,15 @@ class track
 
   setPoint(h, value)
   {
-    if((h % this.resolution) !== 0)
+    if((h % this.resolution) === 0)
+    {
+      this.rep[ h / this.resolution ] = value;
+    }
+    else
     {
       // we don't support this yet, possibly unnecessary
       throw new Error("attempting to set point " + h.toString() + " but track has resolution " + this.resolution.toString());
     }
-    this.rep[ h / this.resolution ] = value;
   }
 
   static optimalResolution(a,b)
@@ -91,7 +95,7 @@ class track
     }
     else
     {
-      const hcf = track.optimalResolution(this.resolution, other.resolution);
+      const hcf = Track.optimalResolution(this.resolution, other.resolution);
       const a = this.formatResolution( hcf );
       const b = other.formatResolution( hcf );
       return this._sumOverlapsOfArrays( a.rep, b.rep );
@@ -111,11 +115,11 @@ class track
         pat[index] = ( ( index < this.rep.length ) ? this.rep[index] : 0 )
                   || ( ( index < other.rep.length ) ? other.rep[index] : 0 );
       }
-      return new track( pat, this.resolution );
+      return new Track( pat, this.resolution );
     }
     else
     {
-      const hcf = track.optimalResolution(this.resolution, other.resolution);
+      const hcf = Track.optimalResolution(this.resolution, other.resolution);
       const a = this.formatResolution( hcf );
       const b = other.formatResolution( hcf );
       return a.aggregate(b);
@@ -172,12 +176,12 @@ class track
 
     const totalLength = (this.resolution * this.rep.length);
     const points = this.toPoints();
-    const rep = track.representPoints(points, formatResolution, totalLength);
+    const rep = Track.representPoints(points, formatResolution, totalLength);
     if(!rep)
     {
       return null;
     }
-    return new track(
+    return new Track(
       rep,
       formatResolution
     );
@@ -200,8 +204,8 @@ class track
   static fromPositions(positions, size, resolution = null)
   {
     const resolutionToUse = resolution ?? calculateResolution( positions, size );
-    return new track(
-      track.representPoints(positions, resolutionToUse, size),
+    return new Track(
+      Track.representPoints(positions, resolutionToUse, size),
       resolutionToUse
     );
   }
@@ -220,13 +224,23 @@ class track
     const sizeA = a ? a.length() : size - b.length();
     const pointsB = b ? b.toPoints().map(ix => ix + sizeA) : [];
     const allPoints = [ ...pointsA, ...pointsB ];
-    return track.fromPositions(allPoints, size, resolution);
+    return Track.fromPositions(allPoints, size, resolution);
   }
 
   clone()
   {
-    return new track( [...this.rep], this.resolution );
+    return new Track( [...this.rep], this.resolution );
+  }
+
+  isSparse()
+  {
+    return false;
+  }
+
+  isDense()
+  {
+    return !this.isSparse();
   }
 }
 
-export default track;
+export default Track;
