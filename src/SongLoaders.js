@@ -61,7 +61,7 @@ function createPatternsFromData(patternData)
     // todo: find a more compact way of doing this
     for( const [id, trackData] of Object.entries(pattern.instrumentTracks) )
     {
-      replacedTracks[id] = new track( trackData.rep, trackData.resolution );
+      replacedTracks[id] = new Track( trackData.rep, trackData.resolution );
     }
     let patternWithTracks = Object.assign({}, pattern);
     patternWithTracks.instrumentTracks = replacedTracks;
