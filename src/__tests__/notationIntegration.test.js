@@ -3,20 +3,20 @@
 import fs from "fs"
 
 import notation from "../notation"
-import track from "../track"
+import Track from "../Track"
 
 function formatAsPage(state, instruments, config = {})
 {
   let page = "";
-  for( const track of state.patterns )
+  for( const pattern of state.patterns )
   {
-    const name = track.name;
+    const name = pattern.name;
     page += name + "\n\n";
     for( const [instrumentName, instrument] of instruments )
     {
       const notationString = notation.fromInstrumentAndTrack(
         instrument,
-        track.instrumentTracks,
+        pattern.instrumentTracks,
         false, // asHTML
         config
       );
@@ -37,7 +37,7 @@ function createObjects(state)
     // todo: find a more compact way of doing this
     for( const [id, trackData] of Object.entries(pattern.instrumentTracks) )
     {
-      replacedTracks[id] = new track( trackData.rep, trackData.resolution );
+      replacedTracks[id] = new Track( trackData.rep, trackData.resolution );
     }
     pattern.instrumentTracks = replacedTracks;
   }
