@@ -103,7 +103,7 @@
             "muted": false,
             "gain": 2.2,
             "drumkit": "TR808EmulationKit",
-            "filename": "808_Shaker.flac"
+            "filename": "808_Shaker.wav"
         },
         {
             "id": 21,
@@ -112,7 +112,7 @@
             "muted": false,
             "gain": 1.5,
             "drumkit": "TR808EmulationKit",
-            "filename": "808_Shaker.flac"
+            "filename": "808_Shaker.wav"
         }
     ],
     "patterns": [
