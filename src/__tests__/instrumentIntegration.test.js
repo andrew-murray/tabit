@@ -1,7 +1,7 @@
 // instrumentIntegration.test.js
 
 import fs from "fs"
-import track from "../track"
+import Track from "../Track"
 import { DEFAULT_INSTRUMENT_SYMBOLS, figureClickyInstruments, figureDjembes, figureInstruments, figureShakers, figureSnares } from "../instrumentation"
 
 
@@ -15,7 +15,7 @@ function createObjects(state)
     // todo: find a more compact way of doing this
     for( const [id, trackData] of Object.entries(pattern.instrumentTracks) )
     {
-      replacedTracks[id] = new track( trackData.rep, trackData.resolution );
+      replacedTracks[id] = new Track( trackData.rep, trackData.resolution );
     }
     pattern.instrumentTracks = replacedTracks;
   }
