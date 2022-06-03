@@ -12,7 +12,7 @@ function calculatePatternResolution(pattern, size)
   return calculateResolution(positions, size);
 }
 
-function parseHydrogen(dom)
+function parseHydrogen(dom, sparse)
 {
   // fixme:
   // this parsing often assumes there's >=2 elements
@@ -115,7 +115,14 @@ function parseHydrogen(dom)
           relevantNotes,
           note => note.position
         );
-        instrumentTracks[ instrument.id.toString() ] = Track.fromPositions( relevantHits, pattern.size, resolution );
+        if(sparse)
+        {
+          instrumentTracks[ instrument.id.toString() ] = new SparseTrack( relevantHits, pattern.size );
+        }
+        else
+        {
+          instrumentTracks[ instrument.id.toString() ] = Track.fromPositions( relevantHits, pattern.size, resolution );
+        }
       }
       pattern.resolution = resolution;
       pattern.instrumentTracks = instrumentTracks;
@@ -221,13 +228,16 @@ function parseHydrogen(dom)
           }
         }
         // reassess resolution and apply to all tracks
-        // this may not be necessary but it's probably nice
-        const resolution = calculatePatternResolution(rootPattern, rootPattern.size);
-        rootPattern.resolution = resolution;
-        for( const [id, track] of Object.entries(rootPattern.instrumentTracks) )
+        // this may not be necessary (even when doing dense tracks) but it's probably nice
+        if(!sparse)
         {
-          // ensure that
-          rootPattern[id] = track.format( resolution );
+          const resolution = calculatePatternResolution(rootPattern, rootPattern.size);
+          rootPattern.resolution = resolution;
+          for( const [id, track] of Object.entries(rootPattern.instrumentTracks) )
+          {
+            // ensure that
+            rootPattern[id] = track.format( resolution );
+          }
         }
       }
 

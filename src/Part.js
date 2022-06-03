@@ -78,15 +78,35 @@ class Part extends React.Component
     {
       return <React.Fragment />
     }
-    const patternArray = notation.formatPatternString(
-      this.props.instrument,
-      Object.fromEntries(Object.entries(this.props.tracks).filter(([key]) => key in this.props.instrument)),
-      this.props.config.restMark
-    );
+    const tracksAreSparse = tracks[0].isSparse();
+    if(!tracksAreSparse)
+    {
+      if(tracks[0].resolution !== this.props.resolution)
+      {
+        throw new Error("Expected tracks with the correct resolution, when rendering dense patterns");
+      }
+    }
+    const patternResolution = this.props.resolution;
+    let patternArray = null;
+    if(tracksAreSparse)
+    {
+      patternArray = notation.formatPatternStringSparse(
+        this.props.instrument,
+        Object.fromEntries(Object.entries(this.props.tracks).filter(([key]) => key in this.props.instrument)),
+        this.props.config.restMark,
+        this.props.resolution
+      );
+    }
+    else
+    {
+      patternArray = notation.formatPatternString(
+        this.props.instrument,
+        Object.fromEntries(Object.entries(this.props.tracks).filter(([key]) => key in this.props.instrument)),
+        this.props.config.restMark
+      );
+    }
     // don't support a multi-line pattern, that doesn't divide the beatResolution
     // because it's a nightmare!
-    const exampleTrackID = Object.keys(this.props.instrument)[0];
-    const patternResolution = this.props.tracks[exampleTrackID].resolution;
     if( (this.props.config.lineResolution % this.props.config.beatResolution) !== 0
         && ( patternArray.length * patternResolution > this.props.config.lineResolution ) )
     {

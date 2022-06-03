@@ -4,12 +4,12 @@ class SparseTrack
   constructor(points, length)
   {
     this.points = points;
-    this.length = length;
+    this.length_ = length;
   }
 
   length()
   {
-    return this.length;
+    return this.length_;
   }
 
   empty()
@@ -17,6 +17,11 @@ class SparseTrack
     return this.points.length === 0;
   }
 
+
+  toPoints()
+  {
+    return this.points;
+  }
 
   findInsertionPoint(h)
   {
@@ -50,6 +55,49 @@ class SparseTrack
       return this.points[i] === h;
     }
     // still need this case, if all points < h
+    return false;
+  }
+
+  countInRange(lo, hi)
+  {
+    let count = 0;
+    for(let i = 0; i < this.points.length; ++i)
+    {
+      // fast-cast, keep skippin'
+      if(this.points[i] < lo)
+      {
+        continue;
+      }
+      else if(/*lo <= this.points[i] &&*/ this.points[i] >= hi) // past the relevant range
+      {
+        return count;
+      }
+      else /*lo <= this.points[i] && this.points[i] < hi */
+      {
+        ++count;
+      }
+    }
+    return count;
+  }
+
+  queryRange(lo, hi)
+  {
+    for(let i = 0; i < this.points.length; ++i)
+    {
+      // fast-cast, keep skippin'
+      if(this.points[i] < lo)
+      {
+        continue;
+      }
+      else if(/*lo <= this.points[i] &&*/ this.points[i] >= hi) // skipp passed the relevant range
+      {
+        return false;
+      }
+      else
+      {
+        return true;
+      }
+    }
     return false;
   }
 

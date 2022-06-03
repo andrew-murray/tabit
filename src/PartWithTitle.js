@@ -25,6 +25,7 @@ class PartWithTitle extends React.Component
         <Part
           instrument={this.props.instrument}
           tracks={this.props.tracks}
+          resolution={this.props.resolution}
           config={this.props.config}
           dense={this.props.dense}
           modifyPatternLocation={this.props.modifyPatternLocation}

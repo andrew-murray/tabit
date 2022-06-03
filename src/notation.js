@@ -250,11 +250,61 @@ class notation
     let patternArray = Array(notationLength).fill(restMark);
     for( let charIndex = 0; charIndex < patternArray.length; ++charIndex)
     {
-      // todo: handle collisions
+      // todo: deal with collions/bad resolutions
       for( const [trackID, trackSymbol] of Object.entries(instrument) )
       {
         const trackInstance = trackDict[trackID];
         if( trackInstance != null && trackInstance.rep[charIndex] === 1 )
+        {
+          patternArray[charIndex] = trackSymbol;
+        }
+      }
+    }
+    return patternArray;
+  }
+
+
+  static formatPatternStringSparse(
+    instrument,
+    trackDict,
+    restMark,
+    resolution
+  )
+  {
+    let instrumentTracks = Object.values(trackDict);
+    if(instrumentTracks.length === 0)
+    {
+      return "";
+    }
+    const exampleTrack = Array.from(Object.values(trackDict))[0];
+    const patternSize = exampleTrack.length();
+    console.log({
+      instrument,
+      trackDict,
+      restMark,
+      resolution
+    })
+    // todo: here we are permissive, assume that resolution fits the patternSize
+    const notationLength = patternSize / resolution;
+    console.log({
+      notationLength: notationLength,
+      patternSize: patternSize,
+      resolution: resolution
+    })
+    // it may become necessary to write a somewhat complex specialised algorithm here,
+    // because it feels super slow not-to, but short-term, let's spew something out that works
+    // this function may not stick around
+    let patternArray = Array(notationLength).fill(restMark);
+    for( let charIndex = 0; charIndex < patternArray.length; ++charIndex)
+    {
+      const charLower = charIndex * resolution;
+      const charHigher = (charIndex+1) * resolution;
+
+      for( const [trackID, trackSymbol] of Object.entries(instrument) )
+      {
+        const trackInstance = trackDict[trackID];
+        // todo: countInRange? deal with collions/bad resolutions
+        if( trackInstance !== null && trackInstance.queryRange(charLower, charHigher) )
         {
           patternArray[charIndex] = trackSymbol;
         }
@@ -319,11 +369,13 @@ class notation
     };
   }
 
-  static createEmptyPattern(name, resolution, totalLength, trackKeys)
+  static createEmptyPattern(name, resolution, totalLength, trackKeys, sparse)
   {
+    const createTrack = sparse ? ()=>{ return new SparseTrack( [], totalLength )}
+                               : ()=>{ return Track.fromPositions( [], totalLength, resolution ); }
     const tracks = Object.fromEntries( new Map(
       Array.from(trackKeys).map(
-        k => [k, new Track.fromPositions([], totalLength, resolution)]
+        k => [k, createTrack()]
       )
     ) );
     return {

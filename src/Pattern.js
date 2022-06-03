@@ -45,34 +45,52 @@ const Pattern = React.memo((props)=>
   // ... it has to be a facet of rendering it, inside the notation
   // that ... or ... the part just has to accept a string to render and not worry about most of the stuff
 
-  const toResolution = (track, resolutionS) => {
-    if(!resolutionS) return track;
-    const resolution = parseInt(resolutionS);
-    if(track.resolution === resolution) return track;
-    const compatible = track.compatible(resolution);
-    return compatible ? track.format(resolution) : track;
-  };
+  const tracksAreDense = Object.values(props.tracks)[0].isDense();
   let tracksForResolution = new Map();
+  let resolutionForInstruments = [];
   for(const instIndex of [...Object.keys(props.instruments)])
   {
-    const inst = props.instruments[instIndex];
-    const instrumentIDs = Object.keys(inst[1]);
-    const resolutionForInstrument = props.config.useIndividualResolution ?
-      props.config.individualResolutions[instIndex].resolution
-      : props.config.primaryResolution;
+      const resolutionForInstrument = props.config.useIndividualResolution ?
+        props.config.individualResolutions[instIndex].resolution
+        : props.config.primaryResolution;
+      resolutionForInstruments.push(resolutionForInstrument);
+  }
 
-    let instrumentIsCompatible = true;
-    for( const instID of instrumentIDs )
+  console.log({
+    "resolutionForInstruments": resolutionForInstruments
+  });
+
+  if(tracksAreDense)
+  {
+    const toResolution = (track, resolutionS) => {
+      if(!resolutionS) return track;
+      const resolution = parseInt(resolutionS);
+      if(track.resolution === resolution) return track;
+      const compatible = track.compatible(resolution);
+      return compatible ? track.format(resolution) : track;
+    };
+    for(const instIndex of [...Object.keys(props.instruments)])
     {
-      instrumentIsCompatible &= props.tracks[instID].compatible(resolutionForInstrument);
+      const inst = props.instruments[instIndex];
+      const instrumentIDs = Object.keys(inst[1]);
+      const resolutionForInstrument = resolutionForInstruments[instIndex];
+      let instrumentIsCompatible = true;
+      for( const instID of instrumentIDs )
+      {
+        instrumentIsCompatible &= props.tracks[instID].compatible(resolutionForInstrument);
+      }
+      for( const instID of instrumentIDs )
+      {
+        // TODO: Support rendering an undefined symbol for incompatible resolutions
+        tracksForResolution[instID] = instrumentIsCompatible ?
+          toResolution(props.tracks[instID], resolutionForInstrument)
+          : props.tracks[instID];
+      }
     }
-    for( const instID of instrumentIDs )
-    {
-      // TODO: Support rendering an undefined symbol for incompatible resolutions
-      tracksForResolution[instID] = instrumentIsCompatible ?
-        toResolution(props.tracks[instID], resolutionForInstrument)
-        : props.tracks[instID];
-    }
+  }
+  else
+  {
+    tracksForResolution = props.tracks;
   }
 
   if(props.config.compactDisplay)
@@ -84,6 +102,7 @@ const Pattern = React.memo((props)=>
               key={"part-" + instrumentIndex.toString()}
               instrument={props.instruments[instrumentIndex][1]}
               tracks={tracksForResolution}
+              resolution={resolutionForInstruments[instrumentIndex]}
               config={makeCompactConfig(props.config, instrumentIndex)}
               modifyPatternLocation={props.modifyPatternLocation}
               prefix={formatShortTitle(props.instruments[instrumentIndex][2].shortName)}
@@ -104,6 +123,7 @@ const Pattern = React.memo((props)=>
               instrumentName={props.instruments[instrumentIndex][0]}
               instrument={props.instruments[instrumentIndex][1]}
               tracks={tracksForResolution}
+              resolution={resolutionForInstruments[instrumentIndex]}
               config={props.config}
               modifyPatternLocation={props.modifyPatternLocation}
               dense

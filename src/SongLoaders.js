@@ -13,6 +13,8 @@ import notation from "./notation"
 import Audio from "./Audio"
 import AVAILABLE_SAMPLES from "./samples.json"
 
+const TRACK_FORMAT_SPARSE = true;
+
 const figurePatternSettings = (patterns, instruments)=>{
   return Array.from(
     patterns,
@@ -57,11 +59,23 @@ function createPatternsFromData(patternData)
   let patterns = [];
   for( let pattern of patternData )
   {
+    // we use this default, in one case see below
+    const patternResolution = pattern.resolution;
     let replacedTracks = {};
     // todo: find a more compact way of doing this
     for( const [id, trackData] of Object.entries(pattern.instrumentTracks) )
     {
-      replacedTracks[id] = new Track( trackData.rep, trackData.resolution );
+      if( "resolution" in trackData )
+      {
+        const loadedTrack = new Track( trackData.rep, trackData.resolution );
+        replacedTracks[id] = TRACK_FORMAT_SPARSE ? new SparseTrack( loadedTrack.toPoints(), loadedTrack.length())
+                                                 : loadedTrack;
+      }
+      else
+      {
+        replacedTracks[id] = TRACK_FORMAT_SPARSE ? new SparseTrack( trackData.points, trackData.length_ )
+                                                 : Track.fromPositions( trackData.points, trackData.length_, patternResolution );
+      }
     }
     let patternWithTracks = Object.assign({}, pattern);
     patternWithTracks.instrumentTracks = replacedTracks;
@@ -197,7 +211,8 @@ function LoadExample()
 
 const moduleExports = {
   LoadExample,
-  LoadJSON
+  LoadJSON,
+  TRACK_FORMAT_SPARSE
 };
 
 export default moduleExports;

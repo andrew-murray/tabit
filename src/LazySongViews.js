@@ -103,17 +103,17 @@ class FileImportSongView extends React.Component
     if(this.props.filename.includes("h2song"))
     {
       // assume it's a() tabit file!
-        h2.parseHydrogenPromise(this.props.content)
-          .then(h => {
-            return SongLoaders.LoadJSON(
-              h,
-              SongNameFromFile(this.props.filename),
-              this.props.filename,
-              true // fromHydrogen
-            );
-          })
-          .then(setState)
-          .catch(navigateHomeWithError);
+      h2.parseHydrogenPromise(this.props.content, SongLoaders.TRACK_FORMAT_SPARSE)
+        .then(h => {
+          return SongLoaders.LoadJSON(
+            h,
+            SongNameFromFile(this.props.filename),
+            this.props.filename,
+            true // fromHydrogen
+          );
+        })
+        .then(setState)
+        .catch(navigateHomeWithError);
     }
     else
     {
