@@ -1,6 +1,7 @@
 import Audio from "./Audio"
 import * as Tone from "tone";
 import AVAILABLE_SAMPLES from "./samples.json";
+import Track from "./Track";
 
 // we schedule for a delay of 120ms to allow the audio context to catch up
 const DEFAULT_AUDIO_DELAY = 0.05;
@@ -51,6 +52,15 @@ const chooseAppropriateInstrument = (drumkitName, instrumentName) =>
 const createSequenceCallback = (pattern, sampleSource) =>
 {
   let samplesReady = sampleSource.samplesReady();
+  let denseTracks = {};
+  for(const [id,t] of Object.entries(pattern.tracks))
+  {
+    if(t.isDense()){ denseTracks[id] = t;}
+    else
+    {
+      denseTracks[id] = Track.fromPositions(t.toPoints(), t.length(), pattern.resolution );
+    }
+  }
   const sequenceCallback = (time, indexFromStart) =>
   {
     // if we don't know samples are ready,
@@ -66,8 +76,7 @@ const createSequenceCallback = (pattern, sampleSource) =>
     {
       window.trace("playing sequence callback at time " + String(time) + " index " + String(indexFromStart) );
     }
-    /*
-    for(const [id,t] of Object.entries(pattern.tracks))
+    for(const [id,t] of Object.entries(denseTracks))
     {
         if( t.rep[index] )
         {
@@ -79,7 +88,6 @@ const createSequenceCallback = (pattern, sampleSource) =>
           }
         }
     }
-    */
     if(sampleSource.onPatternTimeChange)
     {
       Tone.getDraw().schedule(

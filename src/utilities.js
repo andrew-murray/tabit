@@ -1,5 +1,7 @@
 // utilities.js
 
+// todo: I'm a little suspicious this is needed
+// it perhaps should be replaced by findHCF
 function calculateResolution(positions, size)
 {
   // hydrogen treats 48 as a beat
@@ -39,4 +41,28 @@ function calculateResolution(positions, size)
   throw new Error("Failed to predict base");
 }
 
-export { calculateResolution };
+
+// stolen from https://studymaths.co.uk/topics/findingHCFWithJavaScript.php
+function findHCF(x, y) {
+   // If the input numbers are less than 1 return an error message.
+   if (x < 1 || y < 1) {
+    throw new Error("x<1 || y<1");
+      // return "Please enter values greater than zero.";
+   }
+
+   // Now apply Euclid's algorithm to the two numbers.
+   while (Math.max(x, y) % Math.min(x, y) !== 0) {
+      if (x > y) {
+         x %= y;
+      }
+      else {
+         y %= x;
+      }
+   }
+
+   // When the while loop finishes the minimum of x and y is the HCF.
+   return Math.min(x, y);
+}
+
+
+export { calculateResolution, findHCF };

@@ -56,10 +56,6 @@ const Pattern = React.memo((props)=>
       resolutionForInstruments.push(resolutionForInstrument);
   }
 
-  console.log({
-    "resolutionForInstruments": resolutionForInstruments
-  });
-
   if(tracksAreDense)
   {
     const toResolution = (track, resolutionS) => {

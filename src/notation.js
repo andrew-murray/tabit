@@ -1,5 +1,6 @@
 import SparseTrack from "./SparseTrack";
 import Track from "./Track";
+import {findHCF} from "./utilities"
 
 class notation
 {
@@ -189,7 +190,7 @@ class notation
     let resolution = 48;
     for(const [,t] of Object.entries(instrumentTracks))
     {
-        resolution = Math.min( resolution, t.resolution );
+        resolution = findHCF( resolution, t.getResolution() );
     }
     return resolution;
 
@@ -278,19 +279,8 @@ class notation
     }
     const exampleTrack = Array.from(Object.values(trackDict))[0];
     const patternSize = exampleTrack.length();
-    console.log({
-      instrument,
-      trackDict,
-      restMark,
-      resolution
-    })
     // todo: here we are permissive, assume that resolution fits the patternSize
     const notationLength = patternSize / resolution;
-    console.log({
-      notationLength: notationLength,
-      patternSize: patternSize,
-      resolution: resolution
-    })
     // it may become necessary to write a somewhat complex specialised algorithm here,
     // because it feels super slow not-to, but short-term, let's spew something out that works
     // this function may not stick around

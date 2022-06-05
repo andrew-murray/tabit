@@ -1,28 +1,4 @@
-
-// stolen from https://studymaths.co.uk/topics/findingHCFWithJavaScript.php
-// duplicated in Track.js
-function findHCF(x, y) {
-   // If the input numbers are less than 1 return an error message.
-   if (x < 1 || y < 1) {
-    throw new Error("x<1 || y<1");
-      // return "Please enter values greater than zero.";
-   }
-
-   // Now apply Euclid's algorithm to the two numbers.
-   while (Math.max(x, y) % Math.min(x, y) !== 0) {
-      if (x > y) {
-         x %= y;
-      }
-      else {
-         y %= x;
-      }
-   }
-
-   // When the while loop finishes the minimum of x and y is the HCF.
-   return Math.min(x, y);
-}
-
-
+import { findHCF } from "./utilities"
 
 class SparseTrack
 {
@@ -123,8 +99,9 @@ class SparseTrack
       let problemPoints = relevantPoints.filter( p => p % candidate !== 0);
       while(problemPoints.length > 0)
       {
-        candidate = findHCF(candidate, problemPoints[0]);
-        problemPoints = relevantPoints.filter( p => p % candidate !== 0);
+        const latestCandidate = findHCF(candidate, problemPoints[0]);
+        problemPoints = relevantPoints.filter( p => p % latestCandidate !== 0);
+        candidate = latestCandidate;
       }
       return candidate;
     }

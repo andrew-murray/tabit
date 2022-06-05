@@ -1,3 +1,5 @@
+import {findHCF} from "./utilities";
+
 class Audio
 {
 
@@ -24,7 +26,7 @@ class Audio
         && !t.empty()
       )
       {
-        minResolution = Math.min( minResolution, t.getResolution() );
+        minResolution = findHCF( minResolution, t.getResolution() );
       }
     }
     return minResolution;
