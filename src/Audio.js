@@ -14,20 +14,20 @@ class Audio
     tracks
   )
   {
-      let minResolution = 48;
-      for(const [id,t] of Object.entries(tracks))
+    let minResolution = 48;
+    for(const [id,t] of Object.entries(tracks))
+    {
+      // the lookup and iteration shouldn't look like this
+      const selected =  instrumentIndex.filter(inst => inst.id.toString() === id);
+      if(
+        selected.length > 0
+        && !t.empty()
+      )
       {
-        // the lookup and iteration shouldn't look like this
-        const selected =  instrumentIndex.filter(inst => inst.id.toString() === id);
-        if(
-          selected.length > 0
-          && !t.empty()
-        )
-        {
-          minResolution = Math.min( minResolution, t.resolution );
-        }
+        minResolution = Math.min( minResolution, t.getResolution() );
       }
-      return minResolution;
+    }
+    return minResolution;
   }
 
   static determineTrackLength(

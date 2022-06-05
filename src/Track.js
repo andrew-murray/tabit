@@ -60,6 +60,11 @@ class Track
     return count;
   }
 
+  getResolution()
+  {
+    return this.resolution;
+  }
+
   queryPoint(h)
   {
     if((h % this.resolution) === 0)

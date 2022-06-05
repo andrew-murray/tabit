@@ -66,6 +66,7 @@ const createSequenceCallback = (pattern, sampleSource) =>
     {
       window.trace("playing sequence callback at time " + String(time) + " index " + String(indexFromStart) );
     }
+    /*
     for(const [id,t] of Object.entries(pattern.tracks))
     {
         if( t.rep[index] )
@@ -78,6 +79,7 @@ const createSequenceCallback = (pattern, sampleSource) =>
           }
         }
     }
+    */
     if(sampleSource.onPatternTimeChange)
     {
       Tone.getDraw().schedule(
@@ -325,9 +327,6 @@ class ToneController
 
   createSequenceForPattern(instrumentIndex, pattern)
   {
-    // TODO: We disable ... essentially pattern-playing and pattern-animation
-    // by turning off this function, this is very temporary
-    /*
     const patternResolution = this.patternDetails[pattern.name].resolution;
     const patternLength = this.patternDetails[pattern.name].length;
     const callback = createSequenceCallback(
@@ -344,8 +343,6 @@ class ToneController
     seq._part.mute = true;
     seq.start(0);
     return seq;
-    */
-    return new Tone.Sequence();
   }
 
   createSequences(instrumentIndex, patterns)
