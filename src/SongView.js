@@ -533,14 +533,6 @@ class SongView extends React.Component
       this.onStop();
   }
 
-  handleSettingsToggle = (e)=>{
-    this.setState({settingsOpen: !this.state.settingsOpen});
-  }
-
-  handlePatternsToggle = (e)=>{
-    this.setState({patternsOpen: !this.state.patternsOpen})
-  }
-
   closeSharingDialog = ()=>{
     this.setState({sharingDialogOpen:false});
   }
