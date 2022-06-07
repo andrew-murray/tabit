@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/andrew-murray/tabit.svg?branch=master)](https://travis-ci.org/andrew-murray/tabit)
+![Build status](https://github.com/andrew-murray/tabit/actions/workflows/build.yml/badge.svg)
 
 tabit provides functionality to turn songs created with http://hydrogen-music.org/ into a custom flavour of drum tab.
 
