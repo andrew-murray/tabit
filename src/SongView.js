@@ -11,15 +11,12 @@ import AlertTitle from '@material-ui/lab/AlertTitle';
 import Snackbar from '@material-ui/core/Snackbar';
 import TabitBar from "./TabitBar";
 import PatternDrawer from "./PatternDrawer"
-import ToneController from "./ToneController"
 import SettingsDrawer from "./SettingsDrawer"
 import RenameDialog from "./RenameDialog"
 import { isMobile } from "./Mobile";
 import SharingDialog from "./SharingDialog";
 import PatternCreateDialog from "./PatternCreateDialog";
 import Toolbar from '@material-ui/core/Toolbar';
-// todo: pass the needed .put function via a prop?
-import * as SongStorage from "./SongStorage";
 import memoizeOne from 'memoize-one';
 
 const makeResolvedSettings = memoizeOne( (globalSettings, patternSettings) => {
@@ -96,22 +93,25 @@ class SongView extends React.Component
 
   createController()
   {
-    let tempo = this.props.songData.audioState.tempo;
-    if(this.audio){
-      tempo = this.audio.getTempo();
-      this.audio.teardown();
+    if(this.props.audioController)
+    {
+      let tempo = this.props.songData.audioState.tempo;
+      if(this.audio){
+        tempo = this.audio.getTempo();
+        this.audio.teardown();
+      }
+      const latencyHint = isMobile ? "playback" : null;
+      const animateCallback = this.createAnimateCallback();
+      this.audio = new this.props.audioController(
+        this.state.songData.instrumentIndex,
+        this.state.songData.patterns,
+        tempo,
+        animateCallback,
+        latencyHint,
+        this.setError
+      );
+      this.audio.setActivePattern( this.state.songData.patterns[this.state.selectedPattern].name );
     }
-    const latencyHint = isMobile ? "playback" : null;
-    const animateCallback = this.createAnimateCallback();
-    this.audio = new ToneController(
-      this.state.songData.instrumentIndex,
-      this.state.songData.patterns,
-      tempo,
-      animateCallback,
-      latencyHint,
-      this.setError
-    );
-    this.audio.setActivePattern( this.state.songData.patterns[this.state.selectedPattern].name );
   }
 
   removePattern = (index) =>
@@ -147,9 +147,12 @@ class SongView extends React.Component
         selectedPattern: boundedPatternIndex
       },
       () => {
-        // we change away before removing the pattern, this is currently enforced by the ToneController
-        this.audio.setActivePattern( this.state.songData.patterns[this.state.selectedPattern].name );
-        this.audio.removePattern(oldActivePatternName);
+        // we change away before removing the pattern, this is currently enforced by the AudioController
+        if(this.audio)
+        {
+          this.audio.setActivePattern( this.state.songData.patterns[this.state.selectedPattern].name );
+          this.audio.removePattern(oldActivePatternName);
+        }
       }
     );
 
@@ -495,7 +498,7 @@ class SongView extends React.Component
   };
 
   onShare = () => {
-    SongStorage.put(this.getExportState())
+    this.props.songStorage.put(this.getExportState())
       .then(songID =>{
         const permanentUrl = window.origin + process.env.PUBLIC_URL + "/song/" + songID;
         this.setState({permanentUrl: permanentUrl, sharingDialogOpen: true});
@@ -504,7 +507,7 @@ class SongView extends React.Component
   };
 
   onDownload = () => {
-    SongStorage.download(this.getExportState())
+    this.props.songStorage.download(this.getExportState())
   }
 
   closePatternCreateDialog = () => {
@@ -516,7 +519,7 @@ class SongView extends React.Component
   }
 
   onSave = () => {
-    // SongStorage.saveToLocalHistory(this.getExportState());
+    // this.props.songStorage.saveToLocalHistory(this.getExportState());
   }
 
   optionalUnloadAutosave = () => {

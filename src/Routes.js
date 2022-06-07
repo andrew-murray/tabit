@@ -17,6 +17,8 @@ import {
   SongStorageSongView,
   LocalStorageSongView
 } from "./LazySongViews";
+import * as SongStorage from "./SongStorage";
+import ToneController from "./ToneController"
 
 
 const MakeTitleScreen = (props) => {
@@ -28,6 +30,7 @@ const MakeTitleScreen = (props) => {
       navigate={navigate}
       location={location}
       error={locationState.error}
+      songStorage={SongStorage}
     />
   );
 };
@@ -36,6 +39,8 @@ const MakeExample = (props) => {
   const location = useLocation();
   return <ExampleSongView
     location={location}
+    songStorage={SongStorage}
+    audioController={ToneController}
   />
 };
 
@@ -45,6 +50,8 @@ const MakeSongStorageSongView = (props) => {
   return <SongStorageSongView
     location={location}
     songID={songID}
+    songStorage={SongStorage}
+    audioController={ToneController}
   />
 };
 
@@ -54,6 +61,8 @@ const MakeFileImportSongView = (props) => {
     location={location}
     filename={location.state.filename}
     content={location.state.content}
+    songStorage={SongStorage}
+    audioController={ToneController}
   />
 };
 
@@ -65,6 +74,8 @@ const MakeLocalStorageSongView = (props) => {
       location={location}
       songID={songID}
       name={locationState.songName}
+      songStorage={SongStorage}
+      audioController={ToneController}
     />
 };
 

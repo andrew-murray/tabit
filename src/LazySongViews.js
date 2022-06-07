@@ -2,9 +2,7 @@ import React from 'react'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
 import SongLoaders from "./SongLoaders"
-import * as SongStorage from "./SongStorage";
 import SongView from "./SongView"
-import {decodeState} from "./SongStorage";
 import hash from "object-hash";
 import h2 from "./h2"
 import {
@@ -51,7 +49,7 @@ class ExampleSongView extends React.Component
   render()
   {
     return this.state.error ? <Navigate to="/" state={{error: this.state.error}} />
-         : this.state.songData ? <SongView songData={this.state.songData} key={this.state.songData}/>
+         : this.state.songData ? <SongView audioController={this.props.audioController} songStorage={this.props.songStorage} songData={this.state.songData} key={this.state.songData}/>
                                : <WaitingMessage />;
   }
 };
@@ -139,7 +137,7 @@ class FileImportSongView extends React.Component
   {
     return !this.props.filename ? <Navigate to="/"/>
           : this.state.error ? <Navigate to="/" state={{error: this.state.error}} />
-          : this.state.songData ? <SongView songData={this.state.songData} key={this.state.songData}/>
+          : this.state.songData ? <SongView audioController={this.props.audioController} songStorage={this.props.songStorage} songData={this.state.songData} key={this.state.songData}/>
                                : <WaitingMessage />;
   }
 };
@@ -167,7 +165,7 @@ class SongStorageSongView extends React.Component
         }
       );
     };
-    SongStorage.get(this.props.songID)
+    this.props.songStorage.get(this.props.songID)
       .then( data => {
         return SongLoaders.LoadJSON(
           data,
@@ -183,7 +181,7 @@ class SongStorageSongView extends React.Component
   render()
   {
     return this.state.error ? <Navigate to="/" state={{error: this.state.error}} />
-         : this.state.songData ? <SongView songData={this.state.songData} key={this.state.songData}/>
+         : this.state.songData ? <SongView audioController={this.props.audioController} songStorage={this.props.songStorage} songData={this.state.songData} key={this.state.songData}/>
                                : <WaitingMessage />;
   }
 };
@@ -211,7 +209,7 @@ class LocalStorageSongView extends React.Component
       );
     };
 
-    const history = SongStorage.getLocalHistory();
+    const history = this.props.songStorage.getLocalHistory();
     const matches = history.filter( song => ( song.id === this.props.songID ) );
     if(matches.length < 1)
     {
@@ -225,7 +223,7 @@ class LocalStorageSongView extends React.Component
         {
           throw new Error("Hash did not match");
         }
-        const decodedState = decodeState(song.content);
+        const decodedState = this.props.songStorage.decodeState(song.content);
         return decodedState;
       }).then( data => {
         return SongLoaders.LoadJSON(
@@ -241,7 +239,7 @@ class LocalStorageSongView extends React.Component
     render()
     {
       return this.state.error ? <Navigate to="/" state={{error: this.state.error}} />
-           : this.state.songData ? <SongView songData={this.state.songData} key={this.state.songData}/>
+           : this.state.songData ? <SongView audioController={this.props.audioController} songStorage={this.props.songStorage} songData={this.state.songData} key={this.state.songData}/>
                                  : <WaitingMessage />;
     }
 }

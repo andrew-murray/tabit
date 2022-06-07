@@ -4,7 +4,6 @@ import FileImport from "./FileImport";
 import Button from '@material-ui/core/Button';
 import History from "./History";
 import TitledDialog from "./TitledDialog"
-import * as SongStorage from "./SongStorage"
 import './App.css';
 
 const styles = (theme)=>{
@@ -40,7 +39,7 @@ class TitleScreen extends React.Component
 
   componentDidMount = () => {
     this.setState(
-      {songHistory: SongStorage.getLocalHistory()}
+      {songHistory: this.props.songStorage.getLocalHistory()}
     )
   }
 
