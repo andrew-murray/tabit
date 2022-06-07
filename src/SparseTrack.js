@@ -84,17 +84,17 @@ class SparseTrack
   getResolution()
   {
     const points = this.points;
-    if(points.length === 0)
+    const relevantPoints = points.length > 0 && points[0] == 0 ? points.slice(1) : points;
+    if(relevantPoints.length === 0)
     {
       return 48;
     }
-    else if(points.length === 1)
+    else if(relevantPoints.length === 1)
     {
-      return points[0] === 0 ? 48 : points[1];
+      return relevantPoints[0];
     }
     else
     {
-      const relevantPoints = points[0] === 0 ? points.slice(1) : points;
       let candidate = findHCF(relevantPoints[0], relevantPoints[1]);
       let problemPoints = relevantPoints.filter( p => p % candidate !== 0);
       while(problemPoints.length > 0)
