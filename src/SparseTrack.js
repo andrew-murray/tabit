@@ -84,7 +84,7 @@ class SparseTrack
   getResolution()
   {
     const points = this.points;
-    if(points.length == 0)
+    if(points.length === 0)
     {
       return 48;
     }
