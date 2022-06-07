@@ -12,7 +12,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 function SettingsDrawer(props)
 {
-  const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
+  const iOS = typeof navigator !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent);
 
   const patternDetails = props.pattern ? {
     name : props.pattern.name,

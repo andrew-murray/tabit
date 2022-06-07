@@ -100,7 +100,7 @@ const MemoizedDrawerContent = React.memo(DrawerContent);
 
 function PatternDrawer(props)
 {
-  const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
+  const iOS = typeof navigator !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent);
 
   return (
     <SwipeableDrawer
