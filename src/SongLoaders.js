@@ -150,7 +150,7 @@ function upgradeOldInstrumentIndex(instrumentIndex)
     {
       // if we support the drumkit, let's silently swap out flac for wav, nice 'n' early
       instrumentIndexCopy[instIndex] = Object.assign(
-        inst,
+        Object.assign( {}, inst ),
         {filename: inst.filename.toString().replace(".flac", ".wav")}
       );
     }

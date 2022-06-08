@@ -156,7 +156,7 @@ function activeInstrumentation(instrumentIndex, patterns)
   {
     if( active.has(inst.id) )
     {
-      nonTrivialInstruments.push( inst );
+      nonTrivialInstruments.push( Object.assign( {}, inst ) );
     }
   }
   return nonTrivialInstruments;
