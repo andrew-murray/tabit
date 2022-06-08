@@ -3,7 +3,7 @@ module.exports = {
   webpack: (config, env) => {
     const fallback = config.resolve.fallback || {};
     Object.assign(fallback, {
-      zlib: false
+      stream: require.resolve("stream-browserify")
       // etc.
     });
     config.resolve.fallback = fallback;
@@ -11,12 +11,3 @@ module.exports = {
     return config;
   },
 };
-/*
-
-      path: require.resolve("path-browserify"),
-      stream: require.resolve("stream-browserify"),
-      crypto: require.resolve("crypto-browserify"),
-      http: require.resolve("stream-http"),
-      https: require.resolve("https-browserify"),
-      os: require.resolve("os-browserify/browser"),
-*/

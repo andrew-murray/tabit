@@ -1,5 +1,6 @@
 import hash from "object-hash";
-import zlib from "zlib";
+import zlib from "browserify-zlib";
+import { Buffer } from "buffer";
 import { saveAs } from 'file-saver';
 
 const storageAvailable = (type) => {

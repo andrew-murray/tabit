@@ -10,6 +10,9 @@
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^14.2.0",
+    "assert": "^2.0.0",
+    "browserify-zlib": "^0.2.0",
+    "buffer": "^6.0.3",
     "compression": "^1.7.4",
     "copy-to-clipboard": "^3.3.1",
     "fast-xml-parser": "^4.0.8",
@@ -23,6 +26,7 @@
     "react-router-dom": "^6.3.0",
     "react-scripts": "^5.0.1",
     "react-test-renderer": "^18.1.0",
+    "stream-browserify": "^3.0.0",
     "tone": "^14.7.77"
   },
   "scripts": {
