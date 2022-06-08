@@ -102,15 +102,22 @@ function prepHydrogenVolumes(instrumentIndex)
   }
 
   const maxVolume = Audio.convertAudibleToNormal(maxGain);
-
+  let outputIndex = [];
   for( let instrument of instrumentIndex )
   {
     const volumeModel = Audio.convertAudibleToNormal(instrument.volume * instrument.gain);
-    instrument.volume = clamp(volumeModel / maxVolume, 0.0, 1.0);
     // remove the gain, in the hope that we can handle it with just the volume model
-    instrument.gain = undefined;
+    let outputInstrument = Object.assign(
+      Object.assign( {}, instrument ),
+      {volume: clamp(volumeModel / maxVolume, 0.0, 1.0)}
+    );
+    if(outputInstrument.hasOwnProperty("gain"))
+    {
+      delete outputInstrument["gain"];
+    }
+    outputIndex.push( outputInstrument );
   }
-  return instrumentIndex;
+  return outputIndex;
 }
 
 function upgradeOldInstruments(instruments)
