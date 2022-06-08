@@ -20,6 +20,8 @@ import {
 import * as SongStorage from "./SongStorage";
 import ToneController from "./ToneController"
 
+// expose storage, to enable client-side debugging/manipulation
+window.storage = SongStorage;
 
 const MakeTitleScreen = (props) => {
   const location = useLocation();
