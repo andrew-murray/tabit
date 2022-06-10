@@ -174,7 +174,10 @@ function LoadJSON(jsonData, title, filename, fromHydrogen)
                                  : prepHydrogenVolumes( activeInstrumentation(jsonData.instruments, patterns) )
       );
       const instrumentMask = createInstrumentMask(instrumentIndex, instruments);
-      const formatSettings = jsonData.formatSettings ? jsonData.formatSettings : Object.assign({}, DefaultSettings);
+      const formatSettings = Object.assign(
+        Object.assign({}, DefaultSettings),
+        jsonData.formatSettings ? jsonData.formatSettings : {}
+      );
       const expectedPatternSettings = figurePatternSettings(patterns, instruments);
       let patternSettings = null;
       if(jsonData.patternSettings !== undefined)
