@@ -94,6 +94,7 @@ class Part extends React.Component
         this.props.instrument,
         Object.fromEntries(Object.entries(this.props.tracks).filter(([key]) => key in this.props.instrument)),
         this.props.config.restMark,
+        this.props.config.undefinedMark,
         this.props.resolution
       );
     }
@@ -102,7 +103,8 @@ class Part extends React.Component
       patternArray = notation.formatPatternString(
         this.props.instrument,
         Object.fromEntries(Object.entries(this.props.tracks).filter(([key]) => key in this.props.instrument)),
-        this.props.config.restMark
+        this.props.config.restMark,
+        this.props.config.undefinedMark
       );
     }
     // don't support a multi-line pattern, that doesn't divide the beatResolution

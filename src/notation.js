@@ -8,7 +8,7 @@ class notation
   static DEFAULT_FORMAT_CONFIG = {
     "restMark" : "-",
     "beatMark" : "|",
-    "undefinedMark" : "□",
+    "undefinedMark" : "¢",
     "lineMark" : "|",
     "numberRestMark" : "-",
     "beatResolution" : 48,
@@ -23,7 +23,7 @@ class notation
   static FORMAT_CONFIG_STRINGS = [
     ["restMark",["-", ".", " "]],
     ["numberRestMark",["-", ".", " "]],
-    ["undefinedMark", ["□", "ø", "T", "Æ"]]
+    ["undefinedMark", ["¢", "ø", "T", "Æ", "¿", "%", "#", "+"]]
   ];
 
   static FORMAT_CONFIG_BOOLS = [
@@ -237,7 +237,8 @@ class notation
   static formatPatternString(
     instrument,
     trackDict,
-    restMark
+    restMark,
+    undefinedMark
   )
   {
     let instrumentTracks = Object.values(trackDict);
@@ -251,6 +252,7 @@ class notation
     const notationLength = patternSize / patternResolution;
 
     let patternArray = Array(notationLength).fill(restMark);
+    let hitArray = Array(notationLength).fill(false);
     for( let charIndex = 0; charIndex < patternArray.length; ++charIndex)
     {
       // todo: deal with collions/bad resolutions
@@ -259,7 +261,15 @@ class notation
         const trackInstance = trackDict[trackID];
         if( trackInstance != null && trackInstance.rep[charIndex] === 1 )
         {
-          patternArray[charIndex] = trackSymbol;
+          if(hitArray[charIndex] == false)
+          {
+            patternArray[charIndex] = trackSymbol;
+            hitArray[charIndex] = true;
+          }
+          else
+          {
+            patternArray[charIndex] =  undefinedSymbol;
+          }
         }
       }
     }
@@ -271,6 +281,7 @@ class notation
     instrument,
     trackDict,
     restMark,
+    undefinedMark,
     resolution
   )
   {
@@ -287,6 +298,7 @@ class notation
     // because it feels super slow not-to, but short-term, let's spew something out that works
     // this function may not stick around
     let patternArray = Array(notationLength).fill(restMark);
+    let hitArray = Array(notationLength).fill(false);
     for( let charIndex = 0; charIndex < patternArray.length; ++charIndex)
     {
       const charLower = charIndex * resolution;
@@ -296,9 +308,21 @@ class notation
       {
         const trackInstance = trackDict[trackID];
         // todo: countInRange? deal with collions/bad resolutions
-        if( trackInstance !== null && trackInstance.queryRange(charLower, charHigher) )
+        if( trackInstance !== null )
         {
-          patternArray[charIndex] = trackSymbol;
+          const count = trackInstance.countInRange(charLower, charHigher);
+          if(count !== 0)
+          {
+            if(hitArray[charIndex] || count > 1)
+            {
+              hitArray[charIndex] = true;
+              patternArray[charIndex] = undefinedMark;
+            }
+            else if(count === 1)
+            {
+              patternArray[charIndex] = trackSymbol;
+            }
+          }
         }
       }
     }
