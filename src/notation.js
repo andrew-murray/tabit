@@ -310,17 +310,18 @@ class notation
         // todo: countInRange? deal with collions/bad resolutions
         if( trackInstance !== null )
         {
-          const count = trackInstance.countInRange(charLower, charHigher);
-          if(count !== 0)
+          const notes = trackInstance.findAllInRange(charLower, charHigher);
+          if(notes.length !== 0)
           {
-            if(hitArray[charIndex] || count > 1)
+            if(hitArray[charIndex] === false && notes.length === 1 && notes[0] === charLower)
+            {
+              patternArray[charIndex] = trackSymbol;
+              hitArray[charIndex] = true;
+            }
+            else
             {
               hitArray[charIndex] = true;
               patternArray[charIndex] = undefinedMark;
-            }
-            else if(count === 1)
-            {
-              patternArray[charIndex] = trackSymbol;
             }
           }
         }

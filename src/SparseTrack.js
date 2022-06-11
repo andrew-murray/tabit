@@ -81,6 +81,28 @@ class SparseTrack
     return count;
   }
 
+  findAllInRange(lo, hi)
+  {
+    let found = [];
+    for(let i = 0; i < this.points.length; ++i)
+    {
+      // fast-cast, keep skippin'
+      if(this.points[i] < lo)
+      {
+        continue;
+      }
+      else if(/*lo <= this.points[i] &&*/ this.points[i] >= hi) // past the relevant range
+      {
+        return found;
+      }
+      else /*lo <= this.points[i] && this.points[i] < hi */
+      {
+        found.push(this.points[i]);
+      }
+    }
+    return found;
+  }
+
   getResolution()
   {
     const points = this.points;
