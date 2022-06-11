@@ -261,14 +261,14 @@ class notation
         const trackInstance = trackDict[trackID];
         if( trackInstance != null && trackInstance.rep[charIndex] === 1 )
         {
-          if(hitArray[charIndex] == false)
+          if(hitArray[charIndex] === false)
           {
             patternArray[charIndex] = trackSymbol;
             hitArray[charIndex] = true;
           }
           else
           {
-            patternArray[charIndex] =  undefinedSymbol;
+            patternArray[charIndex] = undefinedMark;
           }
         }
       }
@@ -345,7 +345,7 @@ class notation
     }
 
     // turn the tracks, into one char string
-    const patternArray = notation.formatPatternString( instrument, trackDict, config.restMark );
+    const patternArray = notation.formatPatternString( instrument, trackDict, config.restMark, config.undefinedMark );
     const patternString = patternArray.join("");
     const patternResolution = instrumentTracks[0].resolution;
     const patternSize = instrumentTracks[0].length();
