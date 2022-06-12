@@ -1,15 +1,15 @@
 // History.js
 
 import React from 'react'
-import { makeStyles } from '@mui/styles';;
-import List from '@mui/material/List';
-import Paper from '@mui/material/Paper';
-import Typography from '@mui/material/Typography';
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
-import Divider from '@mui/material/Divider';
+import { makeStyles } from '@mui/styles'
+import List from '@mui/material/List'
+import Paper from '@mui/material/Paper'
+import Typography from '@mui/material/Typography'
+import ListItem from '@mui/material/ListItem'
+import ListItemText from '@mui/material/ListItemText'
+import Divider from '@mui/material/Divider'
 
-const useStyles = makeStyles((theme) => {return {
+const useStyles = makeStyles(() => {return {
   root: {
     width: '100%',
     height: 400,

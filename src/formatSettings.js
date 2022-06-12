@@ -1,23 +1,15 @@
-import React from 'react';
-import { makeStyles } from '@mui/styles';;
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListSubheader from '@mui/material/ListSubheader';
-import Switch from '@mui/material/Switch';
-import Select from '@mui/material/Select';
-import notation from "./notation";
-
-const useStyles = makeStyles((theme) => ({
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 120,
-  }
-}));
+import React from 'react'
+import InputLabel from '@mui/material/InputLabel'
+import MenuItem from '@mui/material/MenuItem'
+import FormControl from '@mui/material/FormControl'
+import FormGroup from '@mui/material/FormGroup'
+import FormControlLabel from '@mui/material/FormControlLabel'
+import List from '@mui/material/List'
+import ListItem from '@mui/material/ListItem'
+import ListSubheader from '@mui/material/ListSubheader'
+import Switch from '@mui/material/Switch'
+import Select from '@mui/material/Select'
+import notation from "./notation"
 
 function camelToReadable(s)
 {
@@ -26,9 +18,6 @@ function camelToReadable(s)
 }
 
 function FormatSettings(props) {
-  const classes = useStyles(props);
-  // todo: change to multiple useState calls?
-
   function tokenStateToItem(value)
   {
     return value === " " ? "space" : value;
@@ -62,7 +51,7 @@ function FormatSettings(props) {
   {
     const idString = "form-control-" + name + "-id";
     return (
-      <ListItem variant="filled" className={classes.formControl} key={idString} id={idString} style={{width:"75%"}}>
+      <ListItem variant="filled" sx={{margin: 1}} styles={{minWidth:120}} key={idString} id={idString} style={{width:"75%"}}>
         <FormControl style={{width:"100%"}}>
           <InputLabel id="settings-option-{name}">{name}</InputLabel>
           <Select
@@ -158,7 +147,7 @@ function FormatSettings(props) {
       props.onChange( {key: "individualResolutions", value:changedResolutions, local: true} );
     }
     return (
-      <ListItem variant="filled" className={classes.formControl} key={idString} id={idString} style={{width:"75%"}}>
+      <ListItem variant="filled" sx={{margin: 1}} styles={{minWidth:120}} key={idString} id={idString} style={{width:"75%"}}>
         <FormControl style={{width:"100%"}}>
           <InputLabel id="settings-option-{name}">{name} resolution</InputLabel>
           <Select
@@ -176,7 +165,7 @@ function FormatSettings(props) {
     );
   };
   return (
-    <FormGroup className={classes.root}>
+    <FormGroup>
       <List>
         {notation.FORMAT_CONFIG_STRINGS.map( op => createOptionMenu( op[0], op[1] ) ).reduce((prev, curr) => [prev, curr])}
         {notation.FORMAT_CONFIG_BOOLS.map( op => createBoolControl( op, false )).reduce((prev, curr) => [prev, curr]) }

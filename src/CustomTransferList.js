@@ -15,6 +15,8 @@ import ReplayIcon from '@mui/icons-material/Replay';
   https://material-ui.com/components/transfer-list/
 */
 
+// FIXME: MUI (V5) doesn't support makeStyles with a theme, unless you provide it
+// and provides more convenient syntax for doing this anyhow - update this usage
 const useStyles = makeStyles((theme) => ({
   root: {
     margin: "auto"

@@ -1,7 +1,7 @@
 import React from 'react';
 import Toolbar from '@mui/material/Toolbar';
 import AppBar from '@mui/material/AppBar';
-import { makeStyles } from '@mui/styles';;
+import { makeStyles } from '@mui/styles';
 
 
 import Button from '@mui/material/Button';
@@ -18,6 +18,8 @@ import LockOpenIcon from '@mui/icons-material/LockOpen';
 import ViewListIcon from '@mui/icons-material/ViewList';
 import CalendarViewDayIcon from '@mui/icons-material/CalendarViewDay';
 
+// FIXME: MUI (V5) doesn't support makeStyles with a theme, unless you provide it
+// and provides more convenient syntax for doing this anyhow - update this usage
 const useStyles = makeStyles((theme) => ({
   root: {
     zIndex: theme.zIndex.drawer + 1,

@@ -1,7 +1,7 @@
 import React from 'react';
 import notation from "./notation"
 import Typography from '@mui/material/Typography';
-import { withStyles } from '@mui/styles';;
+import { withStyles } from '@mui/styles';
 import { isMobile } from "./Mobile";
 
 const styles = (theme)=>({

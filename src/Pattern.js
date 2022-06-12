@@ -1,7 +1,7 @@
 import React from 'react';
 import Part from "./Part";
 import PartWithTitle from "./PartWithTitle";
-import { withStyles } from '@mui/styles';;
+import { withStyles } from '@mui/styles';
 
 const useStyles = theme => ({
   root: {

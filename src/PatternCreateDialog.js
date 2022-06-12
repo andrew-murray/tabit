@@ -12,8 +12,10 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { createStyles, makeStyles } from '@mui/styles';;
+import { createStyles, makeStyles } from '@mui/styles';
 
+// FIXME: MUI (V5) doesn't support makeStyles with a theme, unless you provide it
+// and provides more convenient syntax for doing this anyhow - update this usage
 const useStyles = makeStyles((theme) => (
   createStyles({
     root: {

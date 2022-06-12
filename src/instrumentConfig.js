@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles } from '@mui/styles';;
+import { makeStyles } from '@mui/styles';
 import FormControl from '@mui/material/FormControl';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
@@ -32,9 +32,9 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import DispatchingDialog from "./DispatchingDialog"
 import RenameDialog from "./RenameDialog";
-import { withStyles } from '@mui/styles';;
+import { withStyles } from '@mui/styles';
 import Typography from '@mui/material/Typography';
-import { useTheme } from '@mui/styles';;
+import { useTheme } from '@mui/styles';
 import Grid from '@mui/material/Grid';
 import VolumeOffIcon from '@mui/icons-material/VolumeOff';
 import VolumeMuteIcon from '@mui/icons-material/VolumeMute';
@@ -46,7 +46,7 @@ import AVAILABLE_SAMPLES from "./samples.json";
 
 import {isMobile} from "./Mobile";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     display: 'flex',
   }
