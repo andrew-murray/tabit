@@ -50,6 +50,8 @@ function FormatSettings(props) {
   )
   {
     const idString = "form-control-" + name + "-id";
+
+    // awkwardly when using outlined, we need to specify label in two places, see https://mui.com/material-ui/react-select/
     return (
       <ListItem variant="filled" sx={{margin: 1}} styles={{minWidth:120}} key={idString} id={idString} style={{width:"75%"}}>
         <FormControl style={{width:"100%"}}>
@@ -61,6 +63,7 @@ function FormatSettings(props) {
             name={name}
             onChange={(e) => handleOptionChange( e.target.name, itemToState(e.target.value), localSetting)}
             style={{width:"75%", textAlign: "center"}}
+            label={name}
           >
             {options.map((op) => <MenuItem key={"settings-menu-item-" + name + "-" + op} value={stateToItem(op)} style={{textAlign: "center"}}>{stateToItem(op)}</MenuItem>)}
           </Select>
@@ -149,7 +152,7 @@ function FormatSettings(props) {
     return (
       <ListItem variant="filled" sx={{margin: 1}} styles={{minWidth:120}} key={idString} id={idString} style={{width:"75%"}}>
         <FormControl style={{width:"100%"}}>
-          <InputLabel id="settings-option-{name}">{name} resolution</InputLabel>
+          <InputLabel id={"settings-option-" + name}>{name} resolution</InputLabel>
           <Select
             labelId={"resolution-option-" + name + "-labelID"}
             id={"resolution-option-" + name + "-id"}
@@ -157,6 +160,7 @@ function FormatSettings(props) {
             name={name}
             onChange={updateInstrumentResolutions}
             style={{width:"75%", textAlign: "center"}}
+            label={name + " resolution"}
           >
             {options.map((op) => <MenuItem key={"settings-menu-item-" + name + "-" + op} value={op} style={{textAlign: "center"}}>{op}</MenuItem>)}
           </Select>
