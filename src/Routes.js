@@ -8,9 +8,9 @@ import {
   useNavigate
 } from "react-router-dom";
 import TitleScreen from "./TitleScreen";
-import CssBaseline from '@material-ui/core/CssBaseline';
-import { createTheme, ThemeProvider, responsiveFontSizes } from '@material-ui/core/styles';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
+import CssBaseline from '@mui/material/CssBaseline';
+import { createTheme, ThemeProvider, responsiveFontSizes } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import {
   ExampleSongView,
   FileImportSongView,

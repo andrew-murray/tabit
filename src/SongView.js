@@ -4,11 +4,11 @@ import PlaybackControls from "./PlaybackControls";
 import notation from "./notation";
 import InstrumentConfig from "./instrumentConfig";
 import { createInstrumentMask } from "./instrumentation";
-import Box from '@material-ui/core/Box';
-import Grid from '@material-ui/core/Grid';
-import Alert from '@material-ui/lab/Alert';
-import AlertTitle from '@material-ui/lab/AlertTitle';
-import Snackbar from '@material-ui/core/Snackbar';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import Alert from '@mui/lab/Alert';
+import AlertTitle from '@mui/lab/AlertTitle';
+import Snackbar from '@mui/material/Snackbar';
 import TabitBar from "./TabitBar";
 import PatternDrawer from "./PatternDrawer"
 import SettingsDrawer from "./SettingsDrawer"
@@ -16,7 +16,7 @@ import RenameDialog from "./RenameDialog"
 import { isMobile } from "./Mobile";
 import SharingDialog from "./SharingDialog";
 import PatternCreateDialog from "./PatternCreateDialog";
-import Toolbar from '@material-ui/core/Toolbar';
+import Toolbar from '@mui/material/Toolbar';
 import memoizeOne from 'memoize-one';
 
 const makeResolvedSettings = memoizeOne( (globalSettings, patternSettings) => {

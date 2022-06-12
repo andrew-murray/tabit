@@ -1,10 +1,10 @@
 import React from 'react';
-import IconButton from '@material-ui/core/IconButton';
-import PlayArrowIcon from '@material-ui/icons/PlayArrow';
-import StopIcon from '@material-ui/icons/Stop';
-import Slider from '@material-ui/core/Slider';
-import Grid from '@material-ui/core/Grid';
-import Tooltip from '@material-ui/core/Tooltip';
+import IconButton from '@mui/material/IconButton';
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import StopIcon from '@mui/icons-material/Stop';
+import Slider from '@mui/material/Slider';
+import Grid from '@mui/material/Grid';
+import Tooltip from '@mui/material/Tooltip';
 
 function PlaybackControls(props)
 {

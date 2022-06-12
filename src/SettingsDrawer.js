@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import notation from "./notation"
-import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
-import Button from '@material-ui/core/Button';
-import Divider from "@material-ui/core/Divider";
+import SwipeableDrawer from '@mui/material/SwipeableDrawer';
+import Button from '@mui/material/Button';
+import Divider from "@mui/material/Divider";
 import {FormatSettings} from "./formatSettings";
 import { isMobile } from "./Mobile";
 import TabitBar from "./TabitBar";
-import Switch from '@material-ui/core/Switch';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@mui/material/Switch';
+import FormControlLabel from '@mui/material/FormControlLabel';
 
 function SettingsDrawer(props)
 {

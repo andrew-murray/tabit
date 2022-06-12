@@ -1,7 +1,7 @@
 import React from 'react'
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@mui/styles';
 import FileImport from "./FileImport";
-import Button from '@material-ui/core/Button';
+import Button from '@mui/material/Button';
 import History from "./History";
 import TitledDialog from "./TitledDialog"
 import './App.css';

@@ -4,7 +4,7 @@
 // and https://stackoverflow.com/questions/55830414/how-to-read-text-file-in-react
 
 import React from 'react'
-import Button from '@material-ui/core/Button';
+import Button from '@mui/material/Button';
 
 class FileImport extends React.Component {
 
