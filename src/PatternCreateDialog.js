@@ -12,17 +12,6 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { createStyles, makeStyles } from '@mui/styles';
-
-// FIXME: MUI (V5) doesn't support makeStyles with a theme, unless you provide it
-// and provides more convenient syntax for doing this anyhow - update this usage
-const useStyles = makeStyles((theme) => (
-  createStyles({
-    root: {
-      backgroundColor: theme.palette.primary.main
-    }
-  })
-));
 
 function PatternCreateDialog(props)
 {
@@ -110,8 +99,6 @@ function PatternCreateDialog(props)
     }
   };
 
-  const classes = useStyles();
-
   return <Dialog
     open={props.open}
     onClose={props.onClose}
@@ -119,7 +106,6 @@ function PatternCreateDialog(props)
     aria-describedby="pattern-edit-dialog"
   >
     <DialogContent
-      className={classes.root}
     >
       <Accordion expanded={createExpanded} onChange={createExpandedToggle}>
       <AccordionSummary
@@ -170,15 +156,15 @@ function PatternCreateDialog(props)
         </Box>
       </AccordionDetails>
       </Accordion>
-      <DialogActions>
-        <Button onClick={()=>{closeAndCommit(true)}} disabled={!canCommit}>
-          Confirm
-        </Button>
-        <Button onClick={()=>{closeAndCommit(false)}}>
-          Close
-        </Button>
-      </DialogActions>
     </DialogContent>
+    <DialogActions>
+      <Button onClick={()=>{closeAndCommit(true)}} disabled={!canCommit}>
+        Confirm
+      </Button>
+      <Button onClick={()=>{closeAndCommit(false)}} disabled={false}>
+        Close
+      </Button>
+    </DialogActions>
   </Dialog>
 }
 

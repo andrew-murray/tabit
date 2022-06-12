@@ -1,5 +1,4 @@
 import React from "react";
-import { makeStyles } from "@mui/styles";
 import Grid from "@mui/material/Grid";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -15,24 +14,7 @@ import ReplayIcon from '@mui/icons-material/Replay';
   https://material-ui.com/components/transfer-list/
 */
 
-// FIXME: MUI (V5) doesn't support makeStyles with a theme, unless you provide it
-// and provides more convenient syntax for doing this anyhow - update this usage
-const useStyles = makeStyles((theme) => ({
-  root: {
-    margin: "auto"
-  },
-  paper: {
-    width: 200,
-    height: 230,
-    overflow: "auto"
-  },
-  button: {
-    margin: theme.spacing(0.5, 0)
-  }
-}));
-
 export default function TransferList({items, selectedItems, onChange}) {
-  const classes = useStyles();
 
   const [checked, setChecked] = React.useState(items.map(item => false));
 
@@ -53,7 +35,11 @@ export default function TransferList({items, selectedItems, onChange}) {
   };
 
   const customList = (items, checkable) => (
-    <Paper className={classes.paper}>
+    <Paper sx={{
+      width: "200px",
+      height: "230px",
+      overflow: "auto"
+    }}>
       <List dense component="div" role="list">
         {items.map((item) => {
           const labelId = `transfer-list-item-${item.value}-label`;
@@ -90,25 +76,25 @@ export default function TransferList({items, selectedItems, onChange}) {
       spacing={2}
       justify="center"
       alignItems="center"
-      className={classes.root}
+      sx={{margin: "auto"}}
     >
       <Grid item>{customList(items, true)}</Grid>
       <Grid item>
         <Grid container direction="column" alignItems="center">
           <IconButton
             size="small"
-            className={classes.button}
             onClick={handleCheckedRight}
             aria-label="move selected right"
+            sx={{mx:0.5, my:0}}
           >
             &gt;
           </IconButton>
           <IconButton
             variant="outlined"
             size="small"
-            className={classes.button}
             onClick={handleReset}
             aria-label="reset"
+            sx={{mx:0.5, my:0}}
           >
             <ReplayIcon />
           </IconButton>

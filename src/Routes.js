@@ -89,10 +89,10 @@ export default function TabitRoutes(props) {
         palette: {
           type: prefersDarkMode ? 'dark' : 'light',
           primary: {
-            main: '#d7ccc8'
+            main: prefersDarkMode ? '#006110' : '#00BF70'
           },
           secondary: {
-            main: '#00acc1'
+            main: prefersDarkMode ? '#940422' : '#00acc1'
           }
         },
       }),

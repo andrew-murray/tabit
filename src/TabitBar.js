@@ -1,9 +1,6 @@
 import React from 'react';
 import Toolbar from '@mui/material/Toolbar';
 import AppBar from '@mui/material/AppBar';
-import { makeStyles } from '@mui/styles';
-
-
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -17,18 +14,9 @@ import LockIcon from '@mui/icons-material/Lock';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
 import ViewListIcon from '@mui/icons-material/ViewList';
 import CalendarViewDayIcon from '@mui/icons-material/CalendarViewDay';
-
-// FIXME: MUI (V5) doesn't support makeStyles with a theme, unless you provide it
-// and provides more convenient syntax for doing this anyhow - update this usage
-const useStyles = makeStyles((theme) => ({
-  root: {
-    zIndex: theme.zIndex.drawer + 1,
-    backgroundColor: theme.palette.primary.main
-  }
-}));
+import {isMobile} from "./Mobile";
 
 function TabitBar(props) {
-  const classes = useStyles(props);
   // we need to render "null" appbars for spacing purposes
   // support them here, so that we can maintain layout parity in one place
   if(props.placeholder)
@@ -44,9 +32,10 @@ function TabitBar(props) {
     );
   }
 
+  // render app bar on top for desktop,
   return (
     <AppBar position="fixed"
-      className={classes.root}
+      sx={{backgroundColor: "primary.main", zIndex: (theme)=> theme.zIndex.drawer + (isMobile ? 0 : 20)}}
     >
 
       <Toolbar variant="dense">
