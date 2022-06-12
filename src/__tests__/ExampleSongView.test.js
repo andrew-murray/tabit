@@ -2,16 +2,20 @@ import React from 'react';
 import {render, waitFor} from '@testing-library/react';
 import {ExampleSongView} from '../LazySongViews';
 import { MemoryRouter } from 'react-router-dom'
+import CreateTheme from "../Theme"
+import { ThemeProvider } from '@mui/material/styles';
 
 function AppWithinRouter()
 {
   const location = "";
   return (
-    <MemoryRouter>
-      <ExampleSongView
-        location={location}
-      />
-    </MemoryRouter>
+    <ThemeProvider theme={CreateTheme()}>
+      <MemoryRouter>
+        <ExampleSongView
+          location={location}
+        />
+      </MemoryRouter>
+    </ThemeProvider>
   );
 };
 

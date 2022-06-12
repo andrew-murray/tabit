@@ -9,8 +9,8 @@ import {
 } from "react-router-dom";
 import TitleScreen from "./TitleScreen";
 import CssBaseline from '@mui/material/CssBaseline';
-import { createTheme, ThemeProvider, responsiveFontSizes } from '@mui/material/styles';
-import useMediaQuery from '@mui/material/useMediaQuery';
+import CreateTheme from "./Theme"
+import { ThemeProvider } from '@mui/material/styles';
 import {
   ExampleSongView,
   FileImportSongView,
@@ -82,22 +82,6 @@ const MakeLocalStorageSongView = (props) => {
 };
 
 export default function TabitRoutes(props) {
-  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
-  const theme = responsiveFontSizes( React.useMemo(
-    () =>
-      createTheme({
-        palette: {
-          type: prefersDarkMode ? 'dark' : 'light',
-          primary: {
-            main: prefersDarkMode ? '#006110' : '#00BF70'
-          },
-          secondary: {
-            main: prefersDarkMode ? '#940422' : '#00acc1'
-          }
-        },
-      }),
-    [prefersDarkMode]
-  ) );
   const info = process.env.REACT_APP_VERSION_INFO;
   if (!info) {
     console.info("Reporting App Version: No version information present at build time.");
@@ -106,6 +90,8 @@ export default function TabitRoutes(props) {
   {
     console.info(`Reporting App Version: ${info}`);
   }
+
+  const theme = CreateTheme();
 
   return (
     <Router basename={process.env.PUBLIC_URL}>
