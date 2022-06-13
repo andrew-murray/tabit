@@ -214,7 +214,7 @@ function LoadExample()
     kuva,
     "kuva",
     "kuva.example",
-    true // fromHydrogen
+    false // fromHydrogen
   );
 }
 
