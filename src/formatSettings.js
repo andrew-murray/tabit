@@ -112,7 +112,7 @@ function FormatSettings(props) {
     lineLengths.sort((a, b)=>{return a-b});
   }
 
-  const candidateBeatResolutions = [24, 36, 48, 72, 96];
+  const candidateBeatResolutions = [24, 48, 96];
   let beatResolutions = [];
   for( const c of candidateBeatResolutions )
   {
