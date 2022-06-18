@@ -2,6 +2,7 @@ import React from 'react';
 import Part from "./Part";
 import PartWithTitle from "./PartWithTitle";
 import { withStyles } from '@mui/styles';
+import TrackView from "./TrackView";
 
 const useStyles = theme => ({
   root: {
@@ -217,16 +218,33 @@ class ActivePattern extends React.Component
 
   render()
   {
-    return (
-      <div className={this.props.classes.root} ref={this.ref}>
-        <Pattern
-          instruments={this.props.instruments}
-          tracks={this.props.tracks}
-          config={this.props.config}
-          modifyPatternLocation={this.props.modifyPatternLocation}
-        />
-      </div>
-    );
+    const normalMode = false;
+    if(normalMode)
+    {
+      return (
+        <div className={this.props.classes.root} ref={this.ref}>
+          <Pattern
+            instruments={this.props.instruments}
+            tracks={this.props.tracks}
+            config={this.props.config}
+            modifyPatternLocation={this.props.modifyPatternLocation}
+          />
+        </div>
+      );
+    }
+    else
+    {
+      return (
+        <div className={this.props.classes.root} ref={this.ref}>
+          <TrackView
+            instruments={this.props.instruments}
+            tracks={this.props.tracks}
+            config={this.props.config}
+            modifyPatternLocation={this.props.modifyPatternLocation}
+          />
+        </div>
+      );
+    }
   }
 }
 
