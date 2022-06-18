@@ -138,7 +138,7 @@ class FileImportSongView extends React.Component
   {
     return !this.props.filename ? <Navigate to="/"/>
           : this.state.error ? <Navigate to="/" state={{error: this.state.error}} />
-          : this.state.songData ? <SongView audioController={this.props.audioController} songStorage={this.props.songStorage} songData={this.state.songData} key={this.state.songData}/>
+          : this.state.songData ? <SongView audioController={this.props.audioController} songStorage={this.props.songStorage} songData={this.state.songData} onSave={this.props.onSave} key={this.state.songData}/>
                                : <WaitingMessage />;
   }
 };
@@ -182,7 +182,7 @@ class SongStorageSongView extends React.Component
   render()
   {
     return this.state.error ? <Navigate to="/" state={{error: this.state.error}} />
-         : this.state.songData ? <SongView audioController={this.props.audioController} songStorage={this.props.songStorage} songData={this.state.songData} key={this.state.songData}/>
+         : this.state.songData ? <SongView audioController={this.props.audioController} songStorage={this.props.songStorage} songData={this.state.songData} onSave={this.props.onSave} key={this.state.songData}/>
                                : <WaitingMessage />;
   }
 };
@@ -240,7 +240,7 @@ class LocalStorageSongView extends React.Component
     render()
     {
       return this.state.error ? <Navigate to="/" state={{error: this.state.error}} />
-           : this.state.songData ? <SongView audioController={this.props.audioController} songStorage={this.props.songStorage} songData={this.state.songData} key={this.state.songData}/>
+           : this.state.songData ? <SongView audioController={this.props.audioController} songStorage={this.props.songStorage} songData={this.state.songData} onSave={this.props.onSave} key={this.state.songData}/>
                                  : <WaitingMessage />;
     }
 }

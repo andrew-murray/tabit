@@ -21,7 +21,15 @@ import * as SongStorage from "./SongStorage";
 import ToneController from "./ToneController"
 
 // expose storage, to enable client-side debugging/manipulation
+// set to null/undefined to disable save (this may be useless in a constantly-refreshing debugging environment)
 window.storage = SongStorage;
+
+const saveCallback = (songState)=>{
+  if(window.storage)
+  {
+    window.storage.saveToLocalHistory(songState);
+  }
+};
 
 const MakeTitleScreen = (props) => {
   const location = useLocation();
@@ -53,6 +61,7 @@ const MakeSongStorageSongView = (props) => {
     location={location}
     songID={songID}
     songStorage={SongStorage}
+    onSave={saveCallback}
     audioController={ToneController}
   />
 };
@@ -64,6 +73,7 @@ const MakeFileImportSongView = (props) => {
     filename={location.state.filename}
     content={location.state.content}
     songStorage={SongStorage}
+    onSave={saveCallback}
     audioController={ToneController}
   />
 };
@@ -77,6 +87,7 @@ const MakeLocalStorageSongView = (props) => {
       songID={songID}
       name={locationState.songName}
       songStorage={SongStorage}
+      onSave={saveCallback}
       audioController={ToneController}
     />
 };
