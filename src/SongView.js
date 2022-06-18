@@ -519,7 +519,7 @@ class SongView extends React.Component
   }
 
   onSave = () => {
-    // this.props.songStorage.saveToLocalHistory(this.getExportState());
+    this.props.songStorage.saveToLocalHistory(this.getExportState());
   }
 
   optionalUnloadAutosave = () => {
