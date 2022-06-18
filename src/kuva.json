@@ -1405,7 +1405,7 @@
     "formatSettings": {
         "restMark": "-",
         "beatMark": "|",
-        "undefinedMark": "T",
+        "undefinedMark": "3",
         "lineMark": "|",
         "numberRestMark": "-",
         "beatResolution": 48,

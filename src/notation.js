@@ -8,7 +8,7 @@ class notation
   static DEFAULT_FORMAT_CONFIG = {
     "restMark" : "-",
     "beatMark" : "|",
-    "undefinedMark" : "¢",
+    "undefinedMark" : "?",
     "lineMark" : "|",
     "numberRestMark" : "-",
     "beatResolution" : 48,
@@ -23,7 +23,7 @@ class notation
   static FORMAT_CONFIG_STRINGS = [
     ["restMark",["-", ".", " "]],
     ["numberRestMark",["-", ".", " "]],
-    ["undefinedMark", ["¢", "ø", "T", "Æ", "¿", "%", "#", "+"]]
+    ["undefinedMark", ["?", "ø", "3", "4", "#", "+"]]
   ];
 
   static FORMAT_CONFIG_BOOLS = [

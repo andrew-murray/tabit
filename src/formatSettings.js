@@ -132,11 +132,34 @@ function FormatSettings(props) {
     }
   }
 
+  const resolutionLookup = {
+    "4" : "1/32 triplet",
+    "6" : "1/32",
+    "8" : "1/16 triplet",
+    "12" : "1/16",
+    "16" : "1/8 triplet",
+    "24" : "1/8",
+    "36" : "1/4 triplet",
+    "48" : "1/4",
+    "72" : "1/2 triplet",
+    "96" : "1/2"
+  };
 
-  function instrumentResolutionMenu(
+  const resolutionInverseLookup = Object.fromEntries( Object.entries(resolutionLookup).map( ([k,v]) => [v,k] ) );
+  const resolutionToDisplayResolution = (num) =>
+  {
+    return resolutionLookup[num.toString()];
+  };
+
+  const displayResolutionToResolution = (s) =>
+  {
+    return parseInt(resolutionInverseLookup[s]);
+  };
+
+  const instrumentResolutionMenu = (
     instSetting,
     options
-  )
+  ) =>
   {
     const name = instSetting.name;
     const idString = "form-control-" + name + "-resolution-id";
@@ -162,12 +185,14 @@ function FormatSettings(props) {
             style={{width:"75%", textAlign: "center"}}
             label={name + " resolution"}
           >
-            {options.map((op) => <MenuItem key={"settings-menu-item-" + name + "-" + op} value={op} style={{textAlign: "center"}}>{op}</MenuItem>)}
+            {options.map((op) => <MenuItem key={"settings-menu-item-" + name + "-" + op} value={op} style={{textAlign: "center"}}>{resolutionToDisplayResolution(op)}</MenuItem>)}
           </Select>
         </FormControl>
       </ListItem>
     );
   };
+
+
   return (
     <FormGroup>
       <List>
@@ -178,8 +203,8 @@ function FormatSettings(props) {
             createOptionMenu(
               "beatResolution",
               beatResolutions,
-              (v) => v.toString(), // stateToItem
-              (v) => parseInt(v), // itemToState
+              displayResolutionToResolution, // itemToState
+              resolutionToDisplayResolution, // stateToItem
               true
             )
           }
@@ -197,8 +222,8 @@ function FormatSettings(props) {
             !props.settings["useIndividualResolution"] && createOptionMenu(
               "primaryResolution",
               primaryResolutions,
-              (v) => v.toString(), // stateToItem
-              (v) => parseInt(v), // itemToState
+              displayResolutionToResolution, // itemToState
+              resolutionToDisplayResolution, // stateToItem
               true
             )
           }
