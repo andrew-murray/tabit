@@ -5,6 +5,7 @@ import SongLoaders from "./SongLoaders"
 import SongView from "./SongView"
 import hash from "object-hash";
 import h2 from "./h2"
+import Box from '@mui/material/Box';
 import {
   Navigate
 } from "react-router-dom";
@@ -12,12 +13,12 @@ import {
 function WaitingMessage(props)
 {
   return (
-    <div className="App">
+    <Box className="App">
       <div>
         <CircularProgress color="secondary"/>
         <Typography> Loading song... </Typography>
       </div>
-    </div>
+    </Box>
   );
 }
 

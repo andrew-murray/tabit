@@ -4,6 +4,7 @@ import notation from "./notation"
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import Button from '@mui/material/Button';
 import Divider from "@mui/material/Divider";
+import Box from "@mui/material/Box";
 import {FormatSettings} from "./formatSettings";
 import { isMobile } from "./Mobile";
 import TabitBar from "./TabitBar";
@@ -52,33 +53,33 @@ function SettingsDrawer(props)
           />
       }
       {true &&
-        <div>
+        <Box>
         <FormControlLabel
           control={<Switch checked={props.animating} onChange={animateChange} name={"Display Beat"} />}
             label={"Display Beat"}
             key={"DisplayBeat"}
         />
-        </div>
+        </Box>
       }
       {true &&
-        <div>
+        <Box>
         <FormControlLabel
           control={<Switch checked={props.interactive} onChange={interactiveChange} name={"Enable Editing"} />}
             label={"Enable Editing"}
             key={"EnableEditing"}
         />
-        </div>
+        </Box>
       }
       {patternDetails && props.onSave &&
-        <React.Fragment>
-          <Button
+          <Button variant="contained"
             onClick={(e) => { props.onSave(); } }
           >Download</Button>
-          <Divider />
-        </React.Fragment>
+      }
+      {patternDetails && props.onSave && props.onShare &&
+        <Divider />
       }
       {patternDetails && props.onShare &&
-        <Button
+        <Button variant="contained"
           onClick={(e) => { props.onShare(); } }
         >Share</Button>
       }

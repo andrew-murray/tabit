@@ -3,6 +3,7 @@
 import React from 'react'
 import { makeStyles } from '@mui/styles'
 import List from '@mui/material/List'
+import Box from '@mui/material/Box'
 import Paper from '@mui/material/Paper'
 import Typography from '@mui/material/Typography'
 import ListItem from '@mui/material/ListItem'
@@ -11,11 +12,10 @@ import Divider from '@mui/material/Divider'
 
 const useStyles = makeStyles(() => {return {
   root: {
-    width: '100%',
     height: 400,
     minWidth: 200,
     maxWidth: 300,
-    maxHeight: 200,
+    maxHeight: 300,
     overflow: 'auto'
   }
 }});
@@ -33,7 +33,7 @@ function History(props)
   const classes = useStyles();
   const items = props.data;
   return (
-    <div className={classes.root}>
+    <Box className={classes.root}>
       <Paper>
         <Typography>Recently viewed</Typography>
         <Divider />
@@ -47,7 +47,7 @@ function History(props)
               }))}
         </List>
       </Paper>
-    </div>
+    </Box>
   );
 };
 

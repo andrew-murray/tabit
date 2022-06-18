@@ -8,12 +8,16 @@ const CreateTheme = () => {
     () =>
       createTheme({
         palette: {
-          type: prefersDarkMode ? 'dark' : 'light',
+          mode: prefersDarkMode ? 'dark' : 'light',
           primary: {
-            main: prefersDarkMode ? '#006110' : '#00BF70'
+            main: prefersDarkMode ? '#002d6b' : '#0d559a',
           },
           secondary: {
-            main: prefersDarkMode ? '#940422' : '#00acc1'
+            main: prefersDarkMode ? '#00c853' : '#5efc82',
+          },
+          background: {
+            default: prefersDarkMode ? '#303030' : "#ffffff",
+            paper: prefersDarkMode ? '#3b3b3b' : '#fefefe'
           }
         },
       }),

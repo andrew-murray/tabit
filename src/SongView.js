@@ -609,7 +609,7 @@ class SongView extends React.Component
     const instrumentConfigColumns = isMobile ? 12 : 8;
 
     return (
-      <div className="App">
+      <Box className="App">
         <Toolbar variant="dense"/>
         <TabitBar
           title={this.state.songData.title}
@@ -641,13 +641,15 @@ class SongView extends React.Component
         </Snackbar>
         }
         <div style={{display: "flex", flexGrow : 1}} />
-        <div style={{
+        <Grid container>
+        <Box sx={{
           display: "flex",
           overflowX: "auto",
           flexDirection: "column",
           justifyContent: "safe center",
           width: "100%",
-          maxWidth: "100%"
+          maxWidth: "100%",
+          pb: 1
         }}>
           <Pattern
             instruments={this.state.songData.instruments}
@@ -656,7 +658,8 @@ class SongView extends React.Component
             patternTime={this.state.patternTime}
             modifyPatternLocation={this.state.interactive ? this.cycleCellContent : undefined}
           />
-        </div>
+        </Box>
+        </Grid>
         <div style={{display: "flex", flexGrow : 1}} />
         <PlaybackControls
           onPlay={this.onPlay}
@@ -665,13 +668,14 @@ class SongView extends React.Component
           onTempoChange={this.onSetTempo}
           disabled={!this.state.locked}
         />
-        <div style={{
+        <Box sx={{
           display: "flex",
           overflowX: "auto",
           flexDirection: "column",
           justifyContent: "safe center",
           width: "100%",
-          maxWidth: "100%"
+          maxWidth: "100%",
+          py: 1
         }}>
         <Grid container>
         {instrumentConfigColumns < 12 ? <Grid item xs={(12 - instrumentConfigColumns) / 2} /> : null}
@@ -688,7 +692,7 @@ class SongView extends React.Component
         </Grid>
         {instrumentConfigColumns < 12 ? <Grid item xs={(12 - instrumentConfigColumns) / 2} /> : null}
         </Grid>
-        </div>
+        </Box>
         <PatternDrawer
           open={this.state.patternsOpen}
           onOpen={this.handlePatternsToggle}
@@ -721,7 +725,7 @@ class SongView extends React.Component
           onChange={this.handleCreate}
           patterns={[...this.state.songData.patterns.keys()].map(index=>this.state.songData.patterns[index].name)}
         />
-      </div>
+      </Box>
     );
   }
 };

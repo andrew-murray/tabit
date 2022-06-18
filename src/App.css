@@ -1,10 +1,8 @@
 .App {
   text-align: center;
-  background-color: #212121;
   min-height: 100vh;
   flex-direction: column;
   justify-content: safe center;
-  color: white;
   display: inline-flex;
   width: 100%;
   minWidth: 100%;

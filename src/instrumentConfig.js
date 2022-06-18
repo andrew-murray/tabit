@@ -13,6 +13,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
+import Box from '@mui/material/Box';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import AddBoxIcon from '@mui/icons-material/AddBox';
@@ -566,12 +567,10 @@ function InstrumentConfig(props) {
   };
 
   const containerStyle = {
-    "border": "2px solid rgba(255, 255, 255, 0.5)",
-    "outline": "none",
-    "borderRadius": "8px"
+    "overflowY": "hidden"
   };
   return (
-    <div style={{"paddingBottom" : theme.spacing(1)}}>
+    <React.Fragment>
       <RenameDialog
         open={renamingInstrument !== null}
         onCancel={()=>{setRenamingInstrument(null);}}
@@ -606,21 +605,23 @@ function InstrumentConfig(props) {
           Edit Sample
         </Button>
       </DispatchingDialog>
-      <TableContainer component={Paper} style={containerStyle}>
-        <InstrumentTable
-          instrumentIndex={props.instrumentIndex}
-          instrumentMask={props.instrumentMask}
-          instruments={props.instruments}
-          onEditColumn={(x)=>setEditingInstrument(x)}
-          onEditRow={(y)=>{setRenamingInstrument(y);}}
-          onAddRow={()=>{setRenamingInstrument(props.instruments.length)}}
-          onRemoveRow={(y)=>{removeInstrument(y);}}
-          onVolumeEvent={props.onVolumeEvent}
-          onChange={props.onChange}
-          showAdvanced={props.showAdvanced}
-        />
-      </TableContainer>
-    </div>
+      <Box style={{"paddingBottom" : theme.spacing(1)}}>
+        <TableContainer component={Paper} style={containerStyle}>
+          <InstrumentTable
+            instrumentIndex={props.instrumentIndex}
+            instrumentMask={props.instrumentMask}
+            instruments={props.instruments}
+            onEditColumn={(x)=>setEditingInstrument(x)}
+            onEditRow={(y)=>{setRenamingInstrument(y);}}
+            onAddRow={()=>{setRenamingInstrument(props.instruments.length)}}
+            onRemoveRow={(y)=>{removeInstrument(y);}}
+            onVolumeEvent={props.onVolumeEvent}
+            onChange={props.onChange}
+            showAdvanced={props.showAdvanced}
+          />
+        </TableContainer>
+      </Box>
+    </React.Fragment>
   );
 }
 
