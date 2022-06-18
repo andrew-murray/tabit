@@ -122,7 +122,7 @@ function FormatSettings(props) {
     }
   }
 
-  const candidatePrimaryResolutions = [4, 8, 12, 16, 24, 36, 48];
+  const candidatePrimaryResolutions = [4, 6, 8, 12, 16, 24, 36, 48];
   let primaryResolutions = [];
   for( const c of candidatePrimaryResolutions )
   {
