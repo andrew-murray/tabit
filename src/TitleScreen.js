@@ -133,7 +133,7 @@ class TitleScreen extends React.Component
             {this.state.error}
           </TitledDialog>
         }
-        <Box className={classes.licenseBanner} sx={{backgroundColor: 'primary.main'}}>
+        <Box className={classes.licenseBanner} sx={{backgroundColor: 'primary.main', py: 0.5}}>
           <Typography>tabit relies on publicly available sound libraries listed at <Link href="https://github.com/andrew-murray/tabit" color="secondary.main">https://github.com/andrew-murray/tabit</Link>
           </Typography>
         </Box>
