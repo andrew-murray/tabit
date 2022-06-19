@@ -159,7 +159,7 @@ class SongView extends React.Component
   }
 
   // cells will be at hydrogen-esque-resolution
-  cycleCellContent = (modificationCells, instrument) =>
+  cycleCellContent = (modificationCells, instrument, resolutionForInstrument) =>
   {
     // note: we'll be provided multiple cells in the case where a pattern is like AAAB
     // we only support the case where all the cells we're updating have identical content
@@ -179,13 +179,33 @@ class SongView extends React.Component
     // "notes" which contains everything, we should keep notes in sync
     // but at the moment we don't
 
+    let anyUndefined = false;
+    for(const cell of modificationCells)
+    {
+      // in theory, we should be able to just take the first cell, but let's be paranoid here
+      anyUndefined |= notation.isCellUndefinedSparse(
+        instrument,
+        currentPattern.instrumentTracks,
+        resolutionForInstrument,
+        cell
+      );
+    }
+    if(anyUndefined)
+    {
+      this.setState({
+        errorAlert: "Cannot modify cells that are currently rendering undefinedMark. Try changing resolution."
+      });
+      return;
+    }
+
+
     let currentActiveTrackIndex = null;
     for( let entryIndex = 0; entryIndex < entries.length; ++entryIndex)
     {
       const entry = entries[entryIndex];
       const trackID = entry[0];
       // first point should be representative, see note above
-      if(currentPattern.instrumentTracks[trackID].queryPoint(representativeCell) === 1)
+      if(currentPattern.instrumentTracks[trackID].queryPoint(representativeCell))
       {
         currentActiveTrackIndex = entryIndex;
         break;

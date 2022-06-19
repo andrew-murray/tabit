@@ -45,7 +45,7 @@ class Track
   {
     if((h % this.resolution) === 0)
     {
-      return this.rep[ h / this.resolution];
+      return this.rep[ h / this.resolution] !== 0;
     }
     return false;
   }

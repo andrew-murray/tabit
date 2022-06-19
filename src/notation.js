@@ -218,21 +218,8 @@ class notation
     };
   }
 
-  /*
-    We might need this signature
-  static formatPatternStringForRange(
-    instrument,
-    trackDict,
-    resolution,
-    start,
-    end,
-    restMark,
-    errorMark
-  )
-  {
-
-  }
-  */
+  // it's not clear we can implement this function properly
+  // static isCellUndefinedDense
 
   static formatPatternString(
     instrument,
@@ -276,6 +263,46 @@ class notation
     return patternArray;
   }
 
+
+  static isCellUndefinedSparse(
+    instrument,
+    trackDict,
+    resolution,
+    cell
+  )
+  {
+    let instrumentTracks = Object.values(trackDict);
+    if(instrumentTracks.length === 0)
+    {
+      return false;
+    }
+    const charLower = cell;
+    const charHigher = cell + resolution;
+
+    let previousHit = false;
+
+    for( const [trackID, trackSymbol] of Object.entries(instrument) )
+    {
+      const trackInstance = trackDict[trackID];
+      // todo: countInRange? deal with collions/bad resolutions
+      if( trackInstance !== null )
+      {
+        const notes = trackInstance.findAllInRange(charLower, charHigher);
+        if(notes.length !== 0)
+        {
+          if(previousHit === false && notes.length === 1 && notes[0] === charLower)
+          {
+            previousHit = true;
+          }
+          else
+          {
+            return true;
+          }
+        }
+      }
+    }
+    return false;
+  }
 
   static formatPatternStringSparse(
     instrument,

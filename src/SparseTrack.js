@@ -18,6 +18,13 @@ class SparseTrack
     return this.points.length === 0;
   }
 
+  clone()
+  {
+    return new SparseTrack(
+      this.points.slice(),
+      this.length_
+    );
+  }
 
   toPoints()
   {
@@ -155,13 +162,29 @@ class SparseTrack
     const ix = this.findInsertionPoint(h);
     if(ix < this.points.length && this.points[ix] === h)
     {
-      // already set
-      return;
+      // point is currently set
+      if(value)
+      {
+        return;
+      }
+      else // setPoint to zero
+      {
+        // remove 1 element at position ix
+        this.points.splice(ix, 1);
+      }
     }
     else
     {
-      // note that this works, even if we're inserting at the end
-      this.points.splice(ix, 0, h);
+      // point not present
+      if(value)
+      {
+        // note that this works, even if we're inserting at the end
+        this.points.splice(ix, 0, h);
+      }
+      else
+      {
+        return; // no need to modify array, setting not-present point to not-present
+      }
     }
   }
 

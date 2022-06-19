@@ -139,7 +139,8 @@ class Part extends React.Component
                   const placesToEdit = startBeats.map( sb => ( (sb + beat) * this.props.config.beatResolution + i * patternResolution));
                   this.props.modifyPatternLocation(
                     placesToEdit,
-                    this.props.instrument
+                    this.props.instrument,
+                    this.props.resolution
                   );
                 }}>
                   {line[beat][i]}
