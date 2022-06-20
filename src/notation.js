@@ -281,7 +281,7 @@ class notation
 
     let previousHit = false;
 
-    for( const [trackID, trackSymbol] of Object.entries(instrument) )
+    for( const trackID of Object.keys(instrument) )
     {
       const trackInstance = trackDict[trackID];
       // todo: countInRange? deal with collions/bad resolutions
