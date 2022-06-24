@@ -272,6 +272,9 @@ class ToneController
 
   populateSamples(instrumentIndex, tracks, failures)
   {
+    console.log("=======================");
+    console.log(" Selecting Instruments ");
+    console.log("=======================");
     for(const [id,] of Object.entries(tracks))
     {
       const selected = instrumentIndex.filter(inst => inst.id.toString() === id);
@@ -284,7 +287,8 @@ class ToneController
         if(
           "drumkit" in selectedInstrument &&
           "filename" in selectedInstrument &&
-          DRUMKITS.includes(selectedInstrument.drumkit) )
+          DRUMKITS.includes(selectedInstrument.drumkit) &&
+          AVAILABLE_SAMPLES[selectedInstrument.drumkit].includes(selectedInstrument.filename) )
         {
           urlForSample = process.env.PUBLIC_URL + "/wav/" + selectedInstrument.drumkit + "/" + selectedInstrument.filename;
         }
@@ -292,6 +296,10 @@ class ToneController
         {
           const instrumentObject = chooseAppropriateInstrument( selectedInstrument.drumkit, selectedInstrument.name );
           urlForSample = process.env.PUBLIC_URL + "/wav/" + instrumentObject.drumkit + "/" + instrumentObject.filename;
+          console.log({
+            inputInstrument: selectedInstrument,
+            outputInstrument: instrumentObject
+          });
         }
         else
         {
