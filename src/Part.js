@@ -74,7 +74,7 @@ class Part extends React.Component
 
   render() {
     const tracks = Object.values(this.props.tracks);
-    if(tracks.length === 0 )
+    if(tracks.length === 0 || Object.keys(this.props.instrument).length === 0 )
     {
       return <React.Fragment />
     }
