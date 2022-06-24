@@ -358,12 +358,17 @@ function InstrumentTable(props)
     }
     const oldInstrument = props.instruments[oldInstrumentIndex];
     let replacedSrcInstrument = [
-      "",
-      {}
+      "", // name
+      {}, // symbol to trackID mapping
+      {} // metadata
     ];
     if( oldInstrument != null )
     {
+      // create new instrument, preserving old mappings
+      // that aren't tied to the track we're moving away
       replacedSrcInstrument[0] = oldInstrument[0];
+      // shortname/metadata copy over
+      replacedSrcInstrument[2] = oldInstrument[2];
       for( const key of Object.keys(oldInstrument[1]) )
       {
         if( key !== instrumentID.toString() )
@@ -374,7 +379,8 @@ function InstrumentTable(props)
     }
     let dstInstrument = [
       props.instruments[dstInstrumentIndex][0],
-      Object.assign({}, props.instruments[dstInstrumentIndex][1] )
+      Object.assign({}, props.instruments[dstInstrumentIndex][1] ),
+      props.instruments[dstInstrumentIndex][2]
     ];
     if(oldInstrument != null )
     {
@@ -384,7 +390,6 @@ function InstrumentTable(props)
     {
       dstInstrument[1][instrumentID.toString()] = "X";
     }
-
     let replacedInstruments = [];
 
     for(let instrumentIndex = 0; instrumentIndex < props.instruments.length; ++instrumentIndex)
