@@ -1,4 +1,4 @@
-import { findHCF, calculateResolution } from "./utilities"
+import { findHCF } from "./utilities"
 
 class SparseTrack
 {
