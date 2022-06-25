@@ -112,7 +112,11 @@ function FormatSettings(props) {
     lineLengths.sort((a, b)=>{return a-b});
   }
 
-  const candidateBeatResolutions = [24, 48, 96];
+  // beatResolution is *tremendously* limited for now
+  // it technically has to look through all the active resolutions for each part
+  // to make sure it can display a sensible candidate
+  // TODO: Is it really worth having like this?
+  const candidateBeatResolutions = [48, 96];
   let beatResolutions = [];
   for( const c of candidateBeatResolutions )
   {
@@ -191,7 +195,6 @@ function FormatSettings(props) {
       </ListItem>
     );
   };
-
 
   return (
     <FormGroup>
