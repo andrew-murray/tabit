@@ -194,7 +194,7 @@ class notation
     let resolution = 48;
     for(const [,t] of Object.entries(instrumentTracks))
     {
-        resolution = findHCF( resolution, t.getResolution() );
+      resolution = findHCF( resolution, t.getResolution() );
     }
     return resolution;
 
@@ -443,18 +443,33 @@ class notation
       }
     } */
 
-    const resolution = Track.optimalResolution( patternA.resolution, patternB.resolution );
+    const resolution = findHCF( patternA.resolution, patternB.resolution );
     const totalSize = patternA.size + patternB.size;
     const instrumentKeys = new Set( [...Object.keys(patternA.instrumentTracks), ...Object.keys(patternA.instrumentTracks)] );
     let instrumentTracks = {};
     for(const k of instrumentKeys)
     {
-      instrumentTracks[k] = Track.combine(
-        patternA.instrumentTracks[k],
-        patternB.instrumentTracks[k],
-        totalSize,
-        resolution
-      );
+      if(patternA.instrumentTracks[k].isSparse() && patternB.instrumentTracks[k].isSparse())
+      {
+        instrumentTracks[k] = SparseTrack.combine(
+          patternA.instrumentTracks[k],
+          patternB.instrumentTracks[k]
+        );
+      }
+      else if(patternA.instrumentTracks[k].isDense() && patternB.instrumentTracks[k].isDense())
+      {
+        instrumentTracks[k] = Track.combine(
+          patternA.instrumentTracks[k],
+          patternB.instrumentTracks[k],
+          totalSize,
+          resolution
+        );
+      }
+      else
+      {
+        // mixed?! What the hell?
+        throw Error("Can't combine mixed sparse/dense");
+      }
     }
 
     return {

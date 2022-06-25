@@ -1,4 +1,4 @@
-import { findHCF } from "./utilities"
+import { findHCF, calculateResolution } from "./utilities"
 
 class SparseTrack
 {
@@ -155,6 +155,21 @@ class SparseTrack
       }
     }
     return false;
+  }
+
+  static combine(a, b)
+  {
+    // todo: Track.combine supports one-null track
+    // at time-of-writing this function in SparseTrack it's unclear why
+    // this only supports valid tracks else we'd have to complicate the interface
+    if(!a || !b)
+    {
+      throw new Error("Can't combine null tracks");
+    }
+    const aLength = a.length();
+    const points = a.toPoints().concat( b.toPoints().map(p => p + aLength));
+    const totalLength = aLength + b.length();
+    return new SparseTrack(points, totalLength);
   }
 
   setPoint(h, value)

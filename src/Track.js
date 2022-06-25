@@ -63,11 +63,6 @@ class Track
     }
   }
 
-  static optimalResolution(a,b)
-  {
-    return findHCF(a,b);
-  }
-
   countOverlaps(other)
   {
     if( this.resolution === other.resolution )
@@ -76,7 +71,7 @@ class Track
     }
     else
     {
-      const hcf = Track.optimalResolution(this.resolution, other.resolution);
+      const hcf = findHCF(this.resolution, other.resolution);
       const a = this.formatResolution( hcf );
       const b = other.formatResolution( hcf );
       return this._sumOverlapsOfArrays( a.rep, b.rep );
@@ -100,7 +95,7 @@ class Track
     }
     else
     {
-      const hcf = Track.optimalResolution(this.resolution, other.resolution);
+      const hcf = findHCF(this.resolution, other.resolution);
       const a = this.formatResolution( hcf );
       const b = other.formatResolution( hcf );
       return a.aggregate(b);
@@ -191,6 +186,8 @@ class Track
     );
   }
 
+  // todo: this is almost the same code as in sparseTrack ... except for resolutions
+  // combine these, and make them a duck-typed non-static inheritance function
   static combine(a, b, size, resolution)
   {
     if(!a && !b)

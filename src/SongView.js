@@ -716,7 +716,7 @@ class SongView extends React.Component
           patterns={this.state.songData.patterns}
           selectPattern={this.selectPattern}
           onRemove={!this.state.locked ? this.removePattern : undefined}
-          onAdd={false && !this.state.locked ? this.openPatternCreateDialog : undefined} // creating patterns, temporarily disabled
+          onAdd={!this.state.locked ? this.openPatternCreateDialog : undefined}
         />
         <SettingsDrawer
           open={this.state.settingsOpen}
