@@ -31,8 +31,18 @@ const makeCompactConfig = (config, index) => {
   }
 };
 
+const now = ()=>{
+  let date = new Date();
+  return ((date.getHours() < 10)?"0":"") + date.getHours() +":"+ ((date.getMinutes() < 10)?"0":"") + date.getMinutes() +":"+ ((date.getSeconds() < 10)?"0":"") + date.getSeconds();
+};
+
 const Pattern = React.memo((props)=>
 {
+  if(window.trace)
+  {
+    window.trace(now() + " rendering pattern");
+  }
+
   const instrumentIndices = [...props.instruments.keys()];
   const shortNameLengths = props.instruments.map( inst => inst[2].shortName.length );
   const maxShortNameLength = Math.max( ...shortNameLengths );
@@ -186,7 +196,7 @@ class ActivePattern extends React.Component
 
   changePatternTime(prevBeat, beat, force)
   {
-    if(beat !== prevBeat || force)
+    if((beat !== prevBeat) || force)
     {
       if(prevBeat !== null)
       {
@@ -209,11 +219,20 @@ class ActivePattern extends React.Component
 
   componentDidUpdate(prevProps, prevState, snapshot)
   {
+    if(window.trace)
+    {
+      window.trace(now() + " componentDidUpdate");
+    }
     if(prevProps.instruments !== this.props.instruments
       || prevProps.tracks !== this.props.tracks
       || prevProps.config !== this.props.config
       || prevProps.classes !== this.props.classes)
     {
+      if(window.trace)
+      {
+        window.trace(now() + " componentDidUpdate changesPatternTime");
+        window.trace("changing patternTime from " + prevProps.patternTime + " to " + this.props.patternTime);
+      }
       this.changePatternTime(
         // I don't quite understand why this removal is necessary
         // it seems that react smartly preserves the previous element,
@@ -228,6 +247,10 @@ class ActivePattern extends React.Component
 
   shouldComponentUpdate(nextProps, nextState)
   {
+    if(window.trace)
+    {
+      window.trace(now() + " componentShouldUpdate");
+    }
     // we don't trigger a react-rerender on patternTime changes
     // we handle that in-browser for performance reasons
     if(nextProps.instruments !== this.props.instruments
@@ -235,19 +258,36 @@ class ActivePattern extends React.Component
       || nextProps.config !== this.props.config
       || nextProps.classes !== this.props.classes)
     {
+      if(window.trace)
+      {
+        window.trace(now() + " componentShouldUpdate returns true");
+      }
       return true;
     }
     else if( nextProps.patternTime !== this.props.patternTime)
     {
+      if(window.trace)
+      {
+        window.trace(now() + " componentShouldUpdate changesPatternTime");
+        window.trace("changing patternTime from " + this.props.patternTime + " to " + nextProps.patternTime);
+      }
       this.changePatternTime(
         this.calculateBeat( this.props.config, this.props.patternTime),
         this.calculateBeat( nextProps.config, nextProps.patternTime),
         true
       );
+      if(window.trace)
+      {
+        window.trace(now() + " componentShouldUpdate returns false");
+      }
       return false;
     }
     else
     {
+      if(window.trace)
+      {
+        window.trace(now() + " componentShouldUpdate returns false");
+      }
       return false;
     }
   }
