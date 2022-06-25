@@ -45,15 +45,44 @@ const Pattern = React.memo((props)=>
   // ... it has to be a facet of rendering it, inside the notation
   // that ... or ... the part just has to accept a string to render and not worry about most of the stuff
 
+
+  let instrumentShouldBeHidden = Array(props.instruments.length).fill(false);
+  if(props.config.hideEmptyParts)
+  {
+    for(const instIndex of [...Object.keys(props.instruments)])
+    {
+      const inst = props.instruments[instIndex];
+      const instrumentIDs = Object.keys(inst[1]);
+      let partIsEmpty = true;
+      for( const instID of instrumentIDs )
+      {
+        if(!props.tracks[instID].empty())
+        {
+          partIsEmpty = false;
+          break;
+        }
+      }
+      instrumentShouldBeHidden[instIndex] = partIsEmpty;
+    }
+  }
+
   const tracksAreDense = Object.values(props.tracks)[0].isDense();
   let tracksForResolution = new Map();
   let resolutionForInstruments = [];
   for(const instIndex of [...Object.keys(props.instruments)])
   {
+    if(instrumentShouldBeHidden[instIndex])
+    {
+      // skip work, insert dummy number that shouldn't be used
+      resolutionForInstruments.push(1);
+    }
+    else
+    {
       const resolutionForInstrument = props.config.useIndividualResolution ?
         props.config.individualResolutions[instIndex].resolution
         : props.config.primaryResolution;
       resolutionForInstruments.push(resolutionForInstrument);
+    }
   }
 
   if(tracksAreDense)
@@ -67,6 +96,14 @@ const Pattern = React.memo((props)=>
     };
     for(const instIndex of [...Object.keys(props.instruments)])
     {
+      if(instrumentShouldBeHidden[instIndex])
+      {
+        // skip work, because the instrument won't get shown
+        // note that, tracksForResolution is a dictionary by each-track
+        // but the tracks can only be assigned to one instrument, so it's fine to skip here
+        continue;
+      }
+
       const inst = props.instruments[instIndex];
       const instrumentIDs = Object.keys(inst[1]);
       const resolutionForInstrument = resolutionForInstruments[instIndex];
@@ -93,7 +130,7 @@ const Pattern = React.memo((props)=>
   {
     return (
       <div style={{"margin": "auto"}}>
-        { instrumentIndices.map(
+        { instrumentIndices.filter(ix => !instrumentShouldBeHidden[ix]).map(
             (instrumentIndex) => ( <Part
               key={"part-" + instrumentIndex.toString()}
               instrument={props.instruments[instrumentIndex][1]}
@@ -113,7 +150,7 @@ const Pattern = React.memo((props)=>
   {
     return (
       <div style={{"margin": "auto"}}>
-        { instrumentIndices.map(
+        { instrumentIndices.filter(ix => !instrumentShouldBeHidden[ix]).map(
             (instrumentIndex) => ( <PartWithTitle
               key={"part-" + instrumentIndex.toString()}
               instrumentName={props.instruments[instrumentIndex][0]}

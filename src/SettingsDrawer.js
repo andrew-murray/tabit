@@ -5,7 +5,7 @@ import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import Button from '@mui/material/Button';
 import Divider from "@mui/material/Divider";
 import Box from "@mui/material/Box";
-import {FormatSettings} from "./formatSettings";
+import {FormatSettings} from "./FormatSettings";
 import { isMobile } from "./Mobile";
 import TabitBar from "./TabitBar";
 import Switch from '@mui/material/Switch';

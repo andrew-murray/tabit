@@ -8,7 +8,7 @@ import {
 } from "./instrumentation";
 import Track from "./Track";
 import SparseTrack from "./SparseTrack";
-import {DefaultSettings} from "./formatSettings";
+import {DefaultSettings} from "./FormatSettings";
 import notation from "./notation"
 import Audio from "./Audio"
 import AVAILABLE_SAMPLES from "./samples.json"
