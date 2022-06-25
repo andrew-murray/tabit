@@ -9,6 +9,9 @@ import AVAILABLE_SAMPLES from "./samples.json"
 function calculatePatternResolution(pattern, size)
 {
   const positions = Array.from(pattern.notes, note => note.position)
+  // fixme: should we just create a SparseTrack, and getResolution
+  // it has a more robust algorithm for this, I think
+  // however, I will mildly delay making this change jus' in case
   return calculateResolution(positions, size);
 }
 
