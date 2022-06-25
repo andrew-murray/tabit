@@ -7,10 +7,11 @@ import Paper from '@mui/material/Paper';
 import Slider from '@mui/material/Slider';
 import Grid from '@mui/material/Grid';
 import Tooltip from '@mui/material/Tooltip';
+import { isMobile } from "./Mobile";
 
 function PlaybackControls(props)
 {
-  const tempoControlColumns = 4;
+  const tempoControlColumns = isMobile ? 10 : 4;
 
   const onPlay = ()=>{ if(props.onPlay){ props.onPlay(); }; };
   const onStop = ()=>{ if(props.onStop){ props.onStop(); }; };
