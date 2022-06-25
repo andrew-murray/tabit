@@ -2,6 +2,7 @@ const DEFAULT_INSTRUMENT_SYMBOLS = {
   "Djembe Slap" : "S",
   "Djembe Tone" : "t",
   "Djembe Bass" : "O",
+  "Djembe Ghost" : "-",
   "Snare Ghost" : "x",
   "Snare Accent" : "X",
   "Shaker Ghost" : "x",
@@ -34,15 +35,16 @@ function figureDjembes(instrumentsRaw, symbolConfig)
   {
     return [];
   }
-  else if(djembeTracks.length <= 3)
+  else if(djembeTracks.length <= 4)
   {
     // let's lazily assume we have a slap, tone, bass
     const slapArray = Array.from( djembeTracks, (inst) => inst.name.includes("slap") );
     const toneArray = Array.from( djembeTracks, (inst) => inst.name.includes("tone") );
     const bassArray = Array.from( djembeTracks, (inst) => inst.name.includes("bass") );
+    const ghostArray = Array.from(djembeTracks, (inst) => inst.name.includes("ghost"));
     for( let i = 0; i < djembeTracks.length; ++i )
     {
-      let parityCheck = slapArray[i] + toneArray[i] + bassArray[i];
+      let parityCheck = slapArray[i] + toneArray[i] + bassArray[i] + ghostArray[i];
       // failed to figure out how djembes work return empty array
       if(parityCheck !== 1)
       {
@@ -64,6 +66,11 @@ function figureDjembes(instrumentsRaw, symbolConfig)
       {
         djembeMapping[ djembeTracks[i].id.toString() ] = symbolConfig["Djembe Bass"];
       }
+      else if(ghostArray[i])
+      {
+        djembeMapping[ djembeTracks[i].id.toString() ] = symbolConfig["Djembe Ghost"];
+      }
+
     }
     return [ [ "Djembe", djembeMapping ] ];
   }
