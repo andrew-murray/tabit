@@ -45,22 +45,22 @@ function SettingsDrawer(props)
       style={{overflow: "hidden"}}
     >
       {!isMobile ? <TabitBar placeholder /> : null }
-      <Box sx={{overflowY: "scroll", "py": 1}}>
+      <Box sx={{overflowY: "scroll", "py": 1, display: "flex", flexDirection: "column", alignItems: "center"}}>
         {true &&
           <Box>
           <FormControlLabel
-            control={<Switch checked={props.animating} onChange={animateChange} name={"Display Beat"} />}
-              label={"Display Beat"}
-              key={"DisplayBeat"}
+            control={<Switch checked={props.animating} onChange={animateChange} name={"Highlight Beat"} />}
+              label={"Highlight Beat"}
+              key={"HighlightBeat"}
           />
           </Box>
         }
         {true &&
           <Box>
           <FormControlLabel
-            control={<Switch checked={props.interactive} onChange={interactiveChange} name={"Enable Editing"} />}
-              label={"Enable Editing"}
-              key={"EnableEditing"}
+            control={<Switch checked={props.interactive} onChange={interactiveChange} name={"Enable Note Editing"} />}
+              label={"Enable Note Editing"}
+              key={"EnableNoteEditing"}
           />
           </Box>
         }

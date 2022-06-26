@@ -6,16 +6,11 @@ import FormGroup from '@mui/material/FormGroup'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
-import ListSubheader from '@mui/material/ListSubheader'
 import Switch from '@mui/material/Switch'
 import Select from '@mui/material/Select'
 import notation from "./notation"
-import Accordion from '@mui/material/Accordion';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import Typography from '@mui/material/Typography';
-import Paper from '@mui/material/Paper';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
 
 function camelToReadable(s)
 {
@@ -202,47 +197,25 @@ function FormatSettings(props) {
     );
   };
 
-  const [songSettingsOpen, setSongSettingsOpen] = React.useState(false);
-  const [patternSettingsOpen, setPatternSettingsOpen] = React.useState(false);
+  const [settingsTabIndex, setSettingsTabIndex] = React.useState(0);
+
+  const handleTabChange = (event, newIndex) => {
+    setSettingsTabIndex(newIndex);
+  };
 
   return (
     <FormGroup>
-      <Accordion
-        expanded={songSettingsOpen}
-        onChange={()=>setSongSettingsOpen(!songSettingsOpen)}
-        square
-      >
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="song-settings-content"
-          id="song-settings-header"
-        >
-          <Typography>
-            Song Settings
-          </Typography>
-        </AccordionSummary>
-        <AccordionDetails>
+      <Tabs value={settingsTabIndex} onChange={handleTabChange} aria-label="Settings Tabs" variant="fullWidth">
+        <Tab label="Song"/>
+        <Tab label="Pattern"/>
+      </Tabs>
+      {settingsTabIndex === 0 &&
         <List>
           {notation.FORMAT_CONFIG_STRINGS.map( op => createOptionMenu( op[0], op[1] ) ).reduce((prev, curr) => [prev, curr])}
           {notation.FORMAT_CONFIG_BOOLS.map( op => createBoolControl( op, false )).reduce((prev, curr) => [prev, curr]) }
         </List>
-        </AccordionDetails>
-      </Accordion>
-      <Accordion
-        expanded={patternSettingsOpen}
-        onChange={()=>setSongSettingsOpen(!patternSettingsOpen)}
-        square
-      >
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="pattern-settings-content"
-          id="pattern-settings-header"
-        >
-          <Typography>
-            Pattern Settings
-          </Typography>
-        </AccordionSummary>
-        <AccordionDetails>
+      }
+      {settingsTabIndex === 1 &&
         <List>
           {
             createOptionMenu(
@@ -279,8 +252,7 @@ function FormatSettings(props) {
             ) ).reduce((prev, curr) => [prev, curr])
           }
         </List>
-        </AccordionDetails>
-      </Accordion>
+      }
       </FormGroup>
   );
 }
