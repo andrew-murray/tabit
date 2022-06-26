@@ -15,6 +15,7 @@ class notation
     "showBeatMark" : true,
     "showBeatNumbers" : true,
     "hideEmptyParts": true,
+    "expandRepeatedLines": false,
     "compactDisplay" : false,
     // lineResolution is typically determined on a per-pattern basis
     // however it used to be in here, and some tests still rely on this
@@ -30,7 +31,8 @@ class notation
   static FORMAT_CONFIG_BOOLS = [
     "showBeatMark",
     "showBeatNumbers",
-    "hideEmptyParts"
+    "hideEmptyParts",
+    "expandRepeatedLines"
   ];
 
   static validateConfig(config, patternResolution) {

@@ -177,7 +177,8 @@ class Part extends React.Component
       this.props.config.beatResolution / patternResolution
     );
     const prefixIndent = this.props.prefix ? ' '.repeat(this.props.prefix.length) : null;
-    const repeatMatrix = countRepeats(patternLines);
+    // todo: this is a very dumb way to implement this feature, probably slower than it need be
+    const repeatMatrix = this.props.config.expandRepeatedLines ? new Array(patternLines.length).fill(1) : countRepeats(patternLines);
 
     const lineElements = [];
     let lineIndex = 0;
