@@ -632,6 +632,7 @@ class SongView extends React.Component
           settingsToggle={this.handleSettingsToggle}
           patternsToggle={this.handlePatternsToggle}
           onShare={this.onShare}
+          onDownload={this.onDownload}
           locked={this.state.locked}
           onLockUnlock={this.onToggleLocked}
           compact={this.state.formatSettings.compactDisplay}
@@ -726,7 +727,6 @@ class SongView extends React.Component
           pattern={pattern}
           settings={resolvedSettings}
           onChange={this.handleSettingsChange}
-          onSave={this.onDownload}
           animating={this.state.animating}
           interactive={this.state.interactive}
          />

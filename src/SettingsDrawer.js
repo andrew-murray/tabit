@@ -45,44 +45,46 @@ function SettingsDrawer(props)
       style={{overflow: "hidden"}}
     >
       {!isMobile ? <TabitBar placeholder /> : null }
-      {patternDetails &&
-        <FormatSettings
-          onChange={props.onChange ??  noop}
-          settings={props.settings}
-          pattern={patternDetails}
+      <Box sx={{overflowY: "scroll", "py": 1}}>
+        {true &&
+          <Box>
+          <FormControlLabel
+            control={<Switch checked={props.animating} onChange={animateChange} name={"Display Beat"} />}
+              label={"Display Beat"}
+              key={"DisplayBeat"}
           />
-      }
-      {true &&
-        <Box>
-        <FormControlLabel
-          control={<Switch checked={props.animating} onChange={animateChange} name={"Display Beat"} />}
-            label={"Display Beat"}
-            key={"DisplayBeat"}
-        />
-        </Box>
-      }
-      {true &&
-        <Box>
-        <FormControlLabel
-          control={<Switch checked={props.interactive} onChange={interactiveChange} name={"Enable Editing"} />}
-            label={"Enable Editing"}
-            key={"EnableEditing"}
-        />
-        </Box>
-      }
-      {patternDetails && props.onSave &&
+          </Box>
+        }
+        {true &&
+          <Box>
+          <FormControlLabel
+            control={<Switch checked={props.interactive} onChange={interactiveChange} name={"Enable Editing"} />}
+              label={"Enable Editing"}
+              key={"EnableEditing"}
+          />
+          </Box>
+        }
+        {patternDetails && props.onSave &&
+            <Button variant="contained"
+              onClick={(e) => { props.onSave(); } }
+            >Download</Button>
+        }
+        {patternDetails && props.onSave && props.onShare &&
+          <Divider />
+        }
+        {patternDetails && props.onShare &&
           <Button variant="contained"
-            onClick={(e) => { props.onSave(); } }
-          >Download</Button>
-      }
-      {patternDetails && props.onSave && props.onShare &&
-        <Divider />
-      }
-      {patternDetails && props.onShare &&
-        <Button variant="contained"
-          onClick={(e) => { props.onShare(); } }
-        >Share</Button>
-      }
+            onClick={(e) => { props.onShare(); } }
+          >Share</Button>
+        }
+        {patternDetails &&
+          <FormatSettings
+            onChange={props.onChange ??  noop}
+            settings={props.settings}
+            pattern={patternDetails}
+            />
+        }
+      </Box>
     </SwipeableDrawer>
   );
 }
