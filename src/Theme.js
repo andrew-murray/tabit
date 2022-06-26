@@ -13,7 +13,7 @@ const CreateTheme = () => {
             main: prefersDarkMode ? '#002d6b' : '#0d559a',
           },
           secondary: {
-            main: prefersDarkMode ? '#00c853' : '#5efc82',
+            main: '#00c853',
           },
           background: {
             default: prefersDarkMode ? '#303030' : "#ffffff",
