@@ -45,7 +45,7 @@ function SettingsDrawer(props)
       style={{overflow: "hidden"}}
     >
       {!isMobile ? <TabitBar placeholder /> : null }
-      <Box sx={{overflowY: "scroll", "py": 1, display: "flex", flexDirection: "column", alignItems: "center"}}>
+      <Box sx={{overflowY: "auto", "py": 1, display: "flex", flexDirection: "column", alignItems: "center"}}>
         {true &&
           <Box>
           <FormControlLabel
