@@ -308,6 +308,119 @@ class notation
     return false;
   }
 
+  static getCharacterForRange(
+    instrument,
+    tracksInRange,
+    restMark,
+    undefinedMark,
+    charLower,
+    charHigher
+  )
+  {
+    let noteIsHit = false;
+    let outputCharacter = restMark;
+    for( const [trackID, trackSymbol] of Object.entries(instrument) )
+    {
+      const trackInstance = tracksInRange[trackID];
+      if( trackInstance !== null )
+      {
+        // filter to resolution (we expect to have already filtered to beat)
+        const notes = trackInstance.findAllInRange(charLower, charHigher);
+        if(notes.length !== 0)
+        {
+          if(noteIsHit  === false && notes.length === 1 && notes[0] === charLower)
+          {
+            outputCharacter = trackSymbol;
+            noteIsHit = true;
+          }
+          else
+          {
+            noteIsHit = true;
+            outputCharacter = undefinedMark;
+          }
+        }
+      }
+    }
+    return outputCharacter;
+  }
+
+  static formatBeatSparse(
+    instrument,
+    trackDict,
+    restMark,
+    undefinedMark,
+    resolution,
+    alternativeResolution,
+    beatLow,
+    beatHigh
+  )
+  {
+    const tracksInRange = Object.fromEntries( Object.keys(instrument).map( instID => [instID, new SparseTrack(
+      trackDict[instID].findAllInRange(beatLow, beatHigh),
+      // don't bother to change the trackSize, this may be a mistake (perhaps if beatSize doesn't divide resolution)
+      trackDict[instID].length()
+    )]));
+
+
+    const allPointsInRange = [].concat.apply([], Object.values(tracksInRange).map( t => t.toPoints()));
+    const allPointsWorkInNativeResolution = allPointsInRange.every( p =>  (p % resolution) === 0 );
+    // skip computation and just mark false, if we're not going to need this
+    const allPointsWorkInAlternativeResolution = ( allPointsWorkInNativeResolution || alternativeResolution === null) ? false
+                            : allPointsInRange.every( p =>  (p % alternativeResolution) === 0 );
+
+    const outputSize = (beatHigh - beatLow) / resolution;
+    // alternativeResolution has to be either (beatHigh - beatLow)/2 [if tripletty]
+    // or (beatHigh - beatLow)/3 if straight
+    if(!allPointsWorkInNativeResolution && allPointsWorkInAlternativeResolution)
+    {
+      // triplet (in straight time) or duplet (in compound time)
+      // todo, create a separate function for this?
+      let beatArray = new Array(outputSize);
+      // note different limits for this loop
+      for( let charIndex = 0; charIndex < (outputSize - 1); ++charIndex)
+      {
+        const charLower = beatLow + (charIndex * alternativeResolution);
+        const charHigher = beatLow + ((charIndex+1) * alternativeResolution);
+        beatArray[charIndex] = notation.getCharacterForRange(
+          instrument,
+          tracksInRange,
+          restMark,
+          undefinedMark,
+          charLower,
+          charHigher
+        );
+      }
+      // always make this "space", because restMark would often be misleading
+      beatArray[outputSize - 1] = " ";
+      return {
+        content: beatArray,
+        alternative: true
+      }
+    }
+    else
+    {
+      // normal stuff & fallback to normal, naturally
+      let beatArray = new Array(outputSize);
+      for( let charIndex = 0; charIndex < outputSize; ++charIndex)
+      {
+        const charLower = beatLow + (charIndex * resolution);
+        const charHigher = beatLow + ((charIndex+1) * resolution);
+        beatArray[charIndex] = notation.getCharacterForRange(
+          instrument,
+          tracksInRange,
+          restMark,
+          undefinedMark,
+          charLower,
+          charHigher
+        );
+      }
+      return {
+        content: beatArray,
+        alternative: false
+      }
+    }
+  }
+
   static formatPatternStringSparse(
     instrument,
     trackDict,
@@ -316,12 +429,12 @@ class notation
     resolution
   )
   {
-    let instrumentTracks = Object.values(trackDict);
+    const instrumentTracks = Object.values(trackDict);
     if(instrumentTracks.length === 0)
     {
       return "";
     }
-    const exampleTrack = Array.from(Object.values(trackDict))[0];
+    const exampleTrack = Array.from(instrumentTracks)[0];
     const patternSize = exampleTrack.length();
     // todo: here we are permissive, assume that resolution fits the patternSize
     const notationLength = patternSize / resolution;

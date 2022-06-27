@@ -1,4 +1,4 @@
-import { calculateResolution, findHCF } from "./utilities"
+import { calculateResolution, compareArray, findHCF } from "./utilities"
 
 class Track
 {
@@ -175,6 +175,12 @@ class Track
       }
     }
     return points;
+  }
+
+  equals(other)
+  {
+    return this.length() === other.length()
+      && compareArray(this.points, other.toPoints());
   }
 
   static fromPositions(positions, size, resolution = null)

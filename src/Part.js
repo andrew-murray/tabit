@@ -3,6 +3,7 @@ import notation from "./notation"
 import Typography from '@mui/material/Typography';
 import { withStyles } from '@mui/styles';
 import { isMobile } from "./Mobile";
+import SparseTrack from "./SparseTrack";
 
 const styles = (theme)=>({
   root: {
@@ -27,21 +28,198 @@ const denseStyles = (theme)=>({
 const PreTypography = withStyles(styles)(Typography);
 const DensePreTypography = withStyles(denseStyles)(Typography);
 
-const compareArray = (a,b) => {
-  if(a.length !== b.length)
+
+const splitTracksIntoLines = (instrument, trackDict, lineResolution) =>
+{
+  const exampleTrack = Object.values(trackDict)[0];
+  const totalLines = Math.ceil( exampleTrack.length() / lineResolution );
+  let tracksByLine = [];
+  for(let lineIndex = 0; lineIndex < totalLines; ++lineIndex)
   {
-    return false;
+    const lineStart = lineResolution * lineIndex;
+    const lineEnd = Math.min( lineStart + lineResolution, exampleTrack.length());
+    const lineSize = lineEnd - lineStart;
+    const tracksInRange = Object.fromEntries( Object.keys(instrument).map( instID => [instID, new SparseTrack(
+      trackDict[instID].findAllInRange(lineStart, lineEnd).map((val)=>val - lineStart),
+      lineSize
+    )]));
+    tracksByLine.push( tracksInRange );
   }
-  for(let i = 0; i < a.length; ++i)
-  {
-    if(a[i] !== b[i])
-    {
-      return false;
-    }
-  }
-  return true;
+  return tracksByLine;
 }
 
+const countTrackRepeats = (tracksByLine) => {
+  let repeatMatrix = {};
+  let lineIndex = 0;
+  while(lineIndex < tracksByLine.length)
+  {
+    // we always include the line itself
+    let totalRepeats = 1;
+    const baseTracks = tracksByLine[lineIndex];
+    for(let compareIndex = lineIndex + 1; compareIndex < tracksByLine.length; ++compareIndex)
+    {
+      const compareTracks = tracksByLine[compareIndex];
+      let allTracksEqual = true;
+      for(const trackID of Object.keys(baseTracks))
+      {
+        // these tracks are all generated from the same set, so we need not worry about missing keys
+        allTracksEqual &= baseTracks[trackID].equals( compareTracks[trackID] );
+        if(!allTracksEqual)
+        {
+          break;
+        }
+      }
+      if(allTracksEqual)
+      {
+        totalRepeats++;
+      }
+    }
+    repeatMatrix[ lineIndex ] = totalRepeats;
+    lineIndex += totalRepeats;
+  }
+  return repeatMatrix;
+}
+
+class PartByBeat extends React.Component
+{
+  constructor(props) {
+    super(props);
+    this.state = {
+    };
+  }
+
+  render() {
+    const tracks = Object.values(this.props.tracks);
+    if(tracks.length === 0 || Object.keys(this.props.instrument).length === 0 )
+    {
+      return <React.Fragment />
+    }
+    const tracksAreSparse = tracks[0].isSparse();
+    if(!tracksAreSparse)
+    {
+      if(tracks[0].resolution !== this.props.resolution)
+      {
+        throw new Error("Expected tracks with the correct resolution, when rendering dense patterns");
+      }
+    }
+    // don't support a multi-line pattern, that doesn't divide the beatResolution
+    // because it's a nightmare!
+    if( (this.props.config.lineResolution % this.props.config.beatResolution) !== 0
+        && ( tracks[0].length() > this.props.config.lineResolution ) )
+    {
+      throw new Error("This code only supports a beatResolution that divides the lineResolution");
+    }
+
+    const patternLength = tracks[0].length();
+    const Typo = this.props.dense ? DensePreTypography : PreTypography;
+    const tracksForEachLine = splitTracksIntoLines(this.props.instrument, this.props.tracks, this.props.config.lineResolution);
+    const lineRepeatMatrix = countTrackRepeats(tracksForEachLine);
+    const interactiveStyles = {
+      cursor: "pointer"
+    };
+
+    const formatLine = (lineIndex, lineRepeats, prefix, showRepeatCount, interactive, numberMarker) =>
+    {
+      const lineStart = this.props.config.lineResolution * lineIndex;
+      const lineEnd = Math.min( lineStart + this.props.config.lineResolution, patternLength);
+      const lineSize = lineEnd - lineStart;
+      const beatsOnMostLines = this.props.config.lineResolution / this.props.config.beatResolution;
+      const beatsOnLine = lineSize / this.props.config.beatResolution;
+      // since we're calculating the start of each line, we care about the lineResolution in general (rather than the remainder line)
+      const startBeats = [...Array(lineRepeats).keys()].map( repeatIndex => (lineIndex + repeatIndex) * beatsOnMostLines);
+      const makeClasses = beat => startBeats.map(sb => "partNote"+ (beat + sb).toString()).join(" ");
+      const notesInBeat = this.props.config.beatResolution / this.props.resolution;
+      const numberIndicator = numberMarker ? "-number" : "";
+      const createBeatFragment = (beat) => {
+        const editable = interactive && this.props.modifyPatternLocation;
+        let renderedBeat = null;
+        if(numberMarker)
+        {
+          renderedBeat = { content: [(beat+1).toString()].concat(Array(notesInBeat-1).fill(this.props.config.numberRestMark)) };
+        }
+        else
+        {
+          renderedBeat = notation.formatBeatSparse(
+            this.props.instrument,
+            tracksForEachLine[lineIndex],
+            this.props.config.restMark,
+            this.props.config.undefinedMark,
+            this.props.resolution,
+            null, // alternativeResolution
+            // note we disregard lineResolution offsets, as we're passing tracks that have done the same
+            beat * this.props.config.beatResolution,
+            (beat+1) * this.props.config.beatResolution
+          );
+        }
+
+        return <React.Fragment key={"fragment-beat-"+ (beat + startBeats[0]).toString() + numberIndicator}>
+          <Typo
+            variant="subtitle1"
+            component="span"
+            key={"span-beat-" + (beat + startBeats[0]).toString() + numberIndicator}
+            className={makeClasses(beat)}
+            style={{display: "inline-block"}}
+          >
+            {[...Array(notesInBeat).keys()].map( noteIndex => {
+            return <Typo
+                  key={"beat-part-" + noteIndex.toString() + numberIndicator}
+                  component="span"
+                  style={editable ? interactiveStyles : undefined}
+                  className={editable && !isMobile ? "hoverableNote" : undefined}
+                  onClick={!editable? undefined : ()=>{
+                    const placesToEdit = startBeats.map( sb => ( (sb + beat) * this.props.config.beatResolution + noteIndex * this.props.resolution));
+                    this.props.modifyPatternLocation(
+                      placesToEdit,
+                      this.props.instrument,
+                      this.props.resolution
+                    );
+                  }}
+            >
+              {renderedBeat.content[noteIndex]}
+            </Typo>
+            })}
+          </Typo>
+          <Typo variant="subtitle1" component="span" key={"span-beat-marker-" + (beat + startBeats[0]).toString() + numberIndicator} style={{display: "inline-block"}}>
+            {(this.props.config.showBeatMark && (beat !== beatsOnLine - 1)) ? this.props.config.beatMark : ""}
+          </Typo>
+        </React.Fragment>
+      };
+      return (
+        <Typo key={"pattern-line-" + lineIndex} component="div">
+          {prefix && <Typo variant="subtitle1" component="span" key={"line-prefix-" + lineIndex} style={{display: "inline-block"}}>{prefix}</Typo>}
+          <Typo variant="subtitle1" component="span" key={"line-start-" + lineIndex} style={{display: "inline-block"}}>{this.props.config.lineMark}</Typo>
+          {
+            [...Array(beatsOnLine).keys()].map( beatIndex => createBeatFragment(beatIndex) )
+          }
+          <Typo variant="subtitle1" component="span" key={"line-end-" + lineIndex}>{this.props.config.lineMark}</Typo>
+          {showRepeatCount && <Typo variant="subtitle1" component="span" key={"rep-marker"}>{startBeats.length.toString()}</Typo>}
+        </Typo>
+      );
+    };
+
+    const prefixIndent = this.props.prefix ? ' '.repeat(this.props.prefix.length) : null;
+    const showRepeatCount = Object.values(lineRepeatMatrix).some( (x) => (x > 1) );
+    return (<div>
+        {this.props.config.showBeatNumbers && formatLine(
+          0,
+          tracksForEachLine.length,
+          prefixIndent,
+          false, // showRepeatCount,
+          false, // interactive todo: is this right?
+          true // numberMarker
+        )}
+        {Object.entries(lineRepeatMatrix).map(([lineIndex, lineRepeats], keyIndex) => formatLine(
+          parseInt(lineIndex),
+          lineRepeats,
+          lineIndex === "0" ? this.props.prefix : prefixIndent,
+          showRepeatCount,
+          true, // interactive
+          false // numberMarker
+        ))}
+    </div>);
+  }
+};
+/*
 const countRepeats = (patternLines) => {
   let repeatMatrix = [];
   for(let lineIndex = 0; lineIndex < patternLines.length; ++lineIndex)
@@ -63,7 +241,6 @@ const countRepeats = (patternLines) => {
   }
   return repeatMatrix;
 };
-
 class Part extends React.Component
 {
   constructor(props) {
@@ -124,6 +301,9 @@ class Part extends React.Component
       cursor: "pointer"
     };
 
+    // todo: this needs to be re-architected into "do something for each-beat"
+    // rather than this pre-generate the string and split it up
+
     const formatLine = (key, line, startBeats, prefix, showRepeatCount, interactive)=>{
       const createBeatFragment = (beat) => {
         const editable = interactive && this.props.modifyPatternLocation;
@@ -136,11 +316,12 @@ class Part extends React.Component
                 style={editable ? interactiveStyles : undefined}
                 className={editable && !isMobile ? "hoverableNote" : undefined}
                 onClick={!editable? undefined : ()=>{
+                  // FIXME: this has to adapt for alternativeResolution
                   const placesToEdit = startBeats.map( sb => ( (sb + beat) * this.props.config.beatResolution + i * patternResolution));
                   this.props.modifyPatternLocation(
                     placesToEdit,
                     this.props.instrument,
-                    this.props.resolution
+                    patternResolution
                   );
                 }}>
                   {line[beat][i]}
@@ -208,5 +389,6 @@ class Part extends React.Component
     );
   }
 }
-
-export default withStyles(styles)(Part);
+*/
+// export default withStyles(styles)(Part);
+export default withStyles(styles)(PartByBeat);

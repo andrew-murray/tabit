@@ -1,4 +1,5 @@
-import { findHCF } from "./utilities"
+import { compareArray, findHCF } from "./utilities"
+
 
 class SparseTrack
 {
@@ -29,6 +30,12 @@ class SparseTrack
   toPoints()
   {
     return this.points;
+  }
+
+  equals(other)
+  {
+    return this.length() === other.length()
+      && compareArray(this.points, other.toPoints());
   }
 
   findInsertionPoint(h)
