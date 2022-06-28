@@ -355,7 +355,6 @@ class notation
     beatHigh
   )
   {
-    console.log({alternativeResolution})
     const tracksInRange = Object.fromEntries( Object.keys(instrument).map( instID => [instID, new SparseTrack(
       trackDict[instID].findAllInRange(beatLow, beatHigh),
       // don't bother to change the trackSize, this may be a mistake (perhaps if beatSize doesn't divide resolution)
