@@ -73,6 +73,10 @@ const countTrackRepeats = (tracksByLine) => {
       {
         totalRepeats++;
       }
+      else
+      {
+        break;
+      }
     }
     repeatMatrix[ lineIndex ] = totalRepeats;
     lineIndex += totalRepeats;
