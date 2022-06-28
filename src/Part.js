@@ -122,6 +122,16 @@ class PartByBeat extends React.Component
       cursor: "pointer"
     };
 
+    // need a config override for this
+    const notesInBeat = this.props.config.beatResolution / this.props.resolution;
+    // todo: I think we should have "enableTriplet" and "enableDuplet"
+    const candidateResolution = notesInBeat === 3 ? this.props.config.beatResolution / 2
+                              : notesInBeat === 4 ? this.props.config.beatResolution / 3
+                                                    : null;
+    const useAlternativeResolution = candidateResolution !== null
+                                  && Number.isInteger(candidateResolution)
+                                  && ( candidateResolution % this.props.resolution ) !== 0;
+    const tripletDupletMarker = notesInBeat === 4 ? "3 " : notesInBeat === 3 ? "2 " : "";
     const formatLine = (lineIndex, lineRepeats, prefix, showRepeatCount, interactive, numberMarker) =>
     {
       const lineStart = this.props.config.lineResolution * lineIndex;
@@ -132,7 +142,6 @@ class PartByBeat extends React.Component
       // since we're calculating the start of each line, we care about the lineResolution in general (rather than the remainder line)
       const startBeats = [...Array(lineRepeats).keys()].map( repeatIndex => (lineIndex + repeatIndex) * beatsOnMostLines);
       const makeClasses = beat => startBeats.map(sb => "partNote"+ (beat + sb).toString()).join(" ");
-      const notesInBeat = this.props.config.beatResolution / this.props.resolution;
       const numberIndicator = numberMarker ? "-number" : "";
       const createBeatFragment = (beat) => {
         const editable = interactive && this.props.modifyPatternLocation;
@@ -149,13 +158,13 @@ class PartByBeat extends React.Component
             this.props.config.restMark,
             this.props.config.undefinedMark,
             this.props.resolution,
-            null, // alternativeResolution
+            useAlternativeResolution ? candidateResolution : null,
             // note we disregard lineResolution offsets, as we're passing tracks that have done the same
             beat * this.props.config.beatResolution,
             (beat+1) * this.props.config.beatResolution
           );
         }
-
+        const lastNote = notesInBeat - 1;
         return <React.Fragment key={"fragment-beat-"+ (beat + startBeats[0]).toString() + numberIndicator}>
           <Typo
             variant="subtitle1"
@@ -164,24 +173,38 @@ class PartByBeat extends React.Component
             className={makeClasses(beat)}
             style={{display: "inline-block"}}
           >
-            {[...Array(notesInBeat).keys()].map( noteIndex => {
+            {[...Array(renderedBeat.content.length).keys()].map( noteIndex => {
             return <Typo
                   key={"beat-part-" + noteIndex.toString() + numberIndicator}
                   component="span"
-                  style={editable ? interactiveStyles : undefined}
+                  style={Object.assign( renderedBeat.alternative ? {textDecoration: "underline"} : {}, editable ? interactiveStyles : {})}
                   className={editable && !isMobile ? "hoverableNote" : undefined}
                   onClick={!editable? undefined : ()=>{
-                    const placesToEdit = startBeats.map( sb => ( (sb + beat) * this.props.config.beatResolution + noteIndex * this.props.resolution));
+                    const resolution = renderedBeat.alternative ? candidateResolution : this.props.resolution;
+                    const placesToEdit = startBeats.map( sb => ( (sb + beat) * this.props.config.beatResolution + noteIndex * resolution));
                     this.props.modifyPatternLocation(
                       placesToEdit,
                       this.props.instrument,
-                      this.props.resolution
+                      // this resolution is only used to check if we're attempting to modify an undefined cell
+                      // so it's correct to pass alternative, if we're rendering alternative and normal, if we're rendering normal
+                      resolution
                     );
                   }}
             >
               {renderedBeat.content[noteIndex]}
             </Typo>
             })}
+            { (useAlternativeResolution && renderedBeat.alternative) && <Typo
+                  key={"beat-part-" + lastNote.toString() + numberIndicator}
+                  component="span"
+                  // while the gap is meaningless and can't be editable, we leave the cursor style on
+                  style={editable ? interactiveStyles : undefined}
+                  // but disable the highlight
+                  // className={editable && !isMobile ? "hoverableNote" : undefined}
+            >
+            <sub style={{display: "inline", verticalAlign: "bottom", fontSize: "50%"}}>{tripletDupletMarker}</sub>
+            </Typo>
+            }
           </Typo>
           <Typo variant="subtitle1" component="span" key={"span-beat-marker-" + (beat + startBeats[0]).toString() + numberIndicator} style={{display: "inline-block"}}>
             {(this.props.config.showBeatMark && (beat !== beatsOnLine - 1)) ? this.props.config.beatMark : ""}
@@ -196,7 +219,7 @@ class PartByBeat extends React.Component
             [...Array(beatsOnLine).keys()].map( beatIndex => createBeatFragment(beatIndex) )
           }
           <Typo variant="subtitle1" component="span" key={"line-end-" + lineIndex}>{this.props.config.lineMark}</Typo>
-          {showRepeatCount && <Typo variant="subtitle1" component="span" key={"rep-marker"}>{startBeats.length.toString()}</Typo>}
+          {showRepeatCount && <Typo variant="subtitle1" component="span" key={"rep-marker"}>x{startBeats.length.toString()}</Typo>}
         </Typo>
       );
     };

@@ -355,6 +355,7 @@ class notation
     beatHigh
   )
   {
+    console.log({alternativeResolution})
     const tracksInRange = Object.fromEntries( Object.keys(instrument).map( instID => [instID, new SparseTrack(
       trackDict[instID].findAllInRange(beatLow, beatHigh),
       // don't bother to change the trackSize, this may be a mistake (perhaps if beatSize doesn't divide resolution)
@@ -374,8 +375,8 @@ class notation
     if(!allPointsWorkInNativeResolution && allPointsWorkInAlternativeResolution)
     {
       // triplet (in straight time) or duplet (in compound time)
-      // todo, create a separate function for this?
-      let beatArray = new Array(outputSize);
+      // todo, create a separate function for this? todo: assert this?
+      let beatArray = new Array(outputSize-1);
       // note different limits for this loop
       for( let charIndex = 0; charIndex < (outputSize - 1); ++charIndex)
       {
@@ -391,7 +392,6 @@ class notation
         );
       }
       // always make this "space", because restMark would often be misleading
-      beatArray[outputSize - 1] = " ";
       return {
         content: beatArray,
         alternative: true
