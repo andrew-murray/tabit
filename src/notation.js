@@ -16,6 +16,7 @@ class notation
     "showBeatNumbers" : true,
     "hideEmptyParts": true,
     "expandRepeatedLines": false,
+    "smartTupletFormatting": true,
     "compactDisplay" : false,
     // lineResolution is typically determined on a per-pattern basis
     // however it used to be in here, and some tests still rely on this
@@ -32,7 +33,8 @@ class notation
     "showBeatMark",
     "showBeatNumbers",
     "hideEmptyParts",
-    "expandRepeatedLines"
+    "expandRepeatedLines",
+    "smartTupletFormatting"
   ];
 
   static validateConfig(config, patternResolution) {

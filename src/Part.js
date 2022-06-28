@@ -128,7 +128,8 @@ class PartByBeat extends React.Component
     const candidateResolution = notesInBeat === 3 ? this.props.config.beatResolution / 2
                               : notesInBeat === 4 ? this.props.config.beatResolution / 3
                                                     : null;
-    const useAlternativeResolution = candidateResolution !== null
+    const useAlternativeResolution = this.props.config.smartTupletFormatting
+                                  && candidateResolution !== null
                                   && Number.isInteger(candidateResolution)
                                   && ( candidateResolution % this.props.resolution ) !== 0;
     const tripletDupletMarker = notesInBeat === 4 ? "3 " : notesInBeat === 3 ? "2 " : "";
