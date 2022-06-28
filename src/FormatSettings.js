@@ -131,7 +131,7 @@ function FormatSettings(props) {
   let primaryResolutions = [];
   for( const c of candidatePrimaryResolutions )
   {
-    if( ( (c % props.pattern.resolution) === 0 || (props.pattern.resolution % c) === 0 ) && ( props.settings.lineResolution % c ) === 0)
+    if((props.settings.lineResolution % c ) === 0 && (props.settings.beatResolution % c) === 0)
     {
       primaryResolutions.push( c );
     }
