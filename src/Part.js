@@ -149,7 +149,7 @@ class PartByBeat extends React.Component
         let renderedBeat = null;
         if(numberMarker)
         {
-          renderedBeat = { content: [(beat+1).toString()].concat(Array(notesInBeat-1).fill(this.props.config.numberRestMark)) };
+          renderedBeat = { content: [((beat+1) % 10).toString()].concat(Array(notesInBeat-1).fill(this.props.config.numberRestMark)) };
         }
         else
         {
