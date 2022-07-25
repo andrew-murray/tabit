@@ -46,9 +46,10 @@ const decodeState = (state) =>
   return JSON.parse(decompressedString);
 };
 
-const JSON_BIN_API = "https://api.jsonbin.io";
+const JSON_BIN_API = "https://api.jsonbin.io/v3";
 const JSON_BIN_API_BINS = JSON_BIN_API + "/b";
-const JSON_BIN_API_SECRET = "$2b$10$Z2eAUT2PfRKn5RB55/Y30ujW8aUB1CCgRuUua3Jo9JX2WTetZRfIG";
+const JSON_BIN_API_MASTER = "$2b$10$Z2eAUT2PfRKn5RB55/Y30ujW8aUB1CCgRuUua3Jo9JX2WTetZRfIG";
+const JSON_BIN_API_ACCESS = "$2b$10$mN.aEiIuRtbrFbVsMmrqausaqa9yuZ15zo/TubmocT6.J5TEKjm7u";
 const TABIT_SONG_COLLECTION_ID = "60218fa606934b65f53046ad";
 
 const put = (exportState, name) =>
@@ -61,10 +62,10 @@ const put = (exportState, name) =>
     method: "POST",
     headers: {
       'Content-Type': 'application/json',
-      "secret-key": JSON_BIN_API_SECRET,
-      "collection-id": TABIT_SONG_COLLECTION_ID,
-      private: false,
-      name: binShort
+      'X-Master-Key': JSON_BIN_API_MASTER,
+      "X-Collection-Id": TABIT_SONG_COLLECTION_ID,
+      'X-Bin-Private': false,
+      'X-Bin-Name': binShort
     },
     body: JSON.stringify(stateToShare)
   };
@@ -79,16 +80,23 @@ const put = (exportState, name) =>
         return response.json();
       }
     }).then(data => {
-      return data.id;
+      console.log("Got response from remote DB")
+      console.log("===========================")
+      console.log(data);
+      return data.metadata.id;
     });
 }
 
 const get = (binID) =>
 {
   const metadata = {
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json',
+      'X-Master-Key': JSON_BIN_API_MASTER,
+      'X-Access-Key': JSON_BIN_API_ACCESS
+    }
   };
-  return fetch( JSON_BIN_API_BINS + "/" + binID, metadata )
+  return fetch( JSON_BIN_API_BINS + "/" + binID + "/latest", metadata )
     .then( response => {
       if(!response.ok)
       {
@@ -100,7 +108,10 @@ const get = (binID) =>
       }
     } )
     .then( js => {
-      return decodeState(js);
+      console.log("Fetched remote DB record")
+      console.log("========================")
+      console.log(js);
+      return decodeState(js.record);
     });
 };
 
