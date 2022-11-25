@@ -87,6 +87,11 @@ const put = (exportState, name) =>
     });
 }
 
+const formatURL = (binID) =>
+{
+  return JSON_BIN_API_BINS + "/" + binID + "/latest";
+};
+
 const get = (binID) =>
 {
   const metadata = {
@@ -96,7 +101,7 @@ const get = (binID) =>
       'X-Access-Key': JSON_BIN_API_ACCESS
     }
   };
-  return fetch( JSON_BIN_API_BINS + "/" + binID + "/latest", metadata )
+  return fetch( formatURL(binID), metadata )
     .then( response => {
       if(!response.ok)
       {
@@ -164,6 +169,7 @@ export {
   decodeState,
   get,
   put,
+  formatURL,
   download,
   getLocalHistory,
   saveToLocalHistory

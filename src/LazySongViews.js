@@ -22,6 +22,14 @@ function WaitingMessage(props)
   );
 }
 
+function recordAnalyticsEvent(eventType, eventData)
+{
+  if(window.umami !== undefined)
+  {
+    window.umami.trackEvent(eventType, eventData);
+  }
+}
+
 class ExampleSongView extends React.Component
 {
   state = {
@@ -37,14 +45,20 @@ class ExampleSongView extends React.Component
           "This likely represents a bug - please raise an issue in github!"
         }
       );
+      recordAnalyticsEvent("Song Load Error [Example]", {
+        error: err === undefined ? undefined : err.toString()
+      });
     };
     SongLoaders.LoadExample().then(
       (songData) => {
         this.setState(
           { songData : songData }
         );
+        return songData;
       }
-    ).catch(navigateHomeWithError);
+    )
+    .then((songData) => recordAnalyticsEvent("Song Load [Example]", {}))
+    .catch(navigateHomeWithError);
   }
 
   render()
@@ -84,6 +98,11 @@ class FileImportSongView extends React.Component
       this.setState(
         { songData : songData }
       );
+      recordAnalyticsEvent("Song Load [File]", {
+        title: songData.title,
+        filename: this.props.filename
+      });
+      return songData;
     };
     const navigateHomeWithError = (err) => {
       this.setState(
@@ -92,6 +111,10 @@ class FileImportSongView extends React.Component
           "If you're sure this is a Hydrogen file, please consider raising an issue in github!"
         }
       );
+      recordAnalyticsEvent("Song Load Error [File]", {
+        filename: this.props.filename,
+        error: err === undefined ? undefined : err.toString()
+      });
     };
     // if we haven't been provided a filename, early out and
     // redirect home in the render pass
@@ -99,6 +122,7 @@ class FileImportSongView extends React.Component
     {
       return;
     }
+
     if(this.props.filename.includes("h2song"))
     {
       // assume it's a() tabit file!
@@ -156,6 +180,11 @@ class SongStorageSongView extends React.Component
       this.setState(
         { songData : songData }
       );
+      recordAnalyticsEvent("Song Load [SongStorage]", {
+        title: songData.title,
+        songID: this.props.songID,
+        url: this.props.songStorage.formatURL(this.props.songID)
+      });
     };
     const navigateHomeWithError = (err) => {
       this.setState(
@@ -165,6 +194,11 @@ class SongStorageSongView extends React.Component
           "Reported Error:\n" + err
         }
       );
+      recordAnalyticsEvent("Song Load Error [SongStorage]", {
+        songID: this.props.songID,
+        error: err === undefined ? undefined : err.toString(),
+        url: this.props.songStorage.formatURL(this.props.songID)
+      });
     };
     this.props.songStorage.get(this.props.songID)
       .then( data => {
@@ -203,11 +237,16 @@ class LocalStorageSongView extends React.Component
           "Reported Error:\n" + err
         }
       );
+      recordAnalyticsEvent("Song Load Error [LocalStorage]", {
+        songID: this.props.songID,
+        error: err === undefined ? undefined : err.toString()
+      });
     };
     const setState = (songData) => {
       this.setState(
         { songData : songData }
       );
+      recordAnalyticsEvent("Song Load [LocalStorage]", {title: songData.title, songID: this.props.songID});
     };
 
     const history = this.props.songStorage.getLocalHistory();
