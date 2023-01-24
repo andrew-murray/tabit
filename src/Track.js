@@ -1,5 +1,7 @@
 import { calculateResolution, compareArray, findHCF } from "./utilities"
 
+const zip = (a, b) => a.map((k, i) => [k, b[i]]);
+
 class Track
 {
 
@@ -102,7 +104,7 @@ class Track
     }
   }
 
-  static representPoints(points, resolution, size)
+  static representPoints(points, resolution, size, values = null)
   {
     if( size <= 0 )
     {
@@ -113,7 +115,7 @@ class Track
       throw new Error("resolution must be less than size and divide it evenly");
     }
     let s = new Array(size / resolution).fill(0);
-    for( const p of points )
+    for( const [p,index] of points.map((p, i)=>[p,i]))
     {
       if( (p % resolution) !== 0)
       {
@@ -124,7 +126,14 @@ class Track
         throw new Error("Failed to represent point " + p.toString() + " for invalid specified size " + size.toString());
       }
       const arrayIndex = p / resolution;
-      s[arrayIndex] = 1;
+      if(values)
+      {
+        s[arrayIndex] = values[index];
+      }
+      else
+      {
+        s[arrayIndex] = 1;
+      }
     }
     return s;
   }
@@ -190,6 +199,12 @@ class Track
       Track.representPoints(positions, resolutionToUse, size),
       resolutionToUse
     );
+  }
+
+  static fromPositionsAndValues(positions, values, size, resolution = null)
+  {
+    const resolutionToUse = resolution ?? calculateResolution( positions, size );
+
   }
 
   // todo: this is almost the same code as in sparseTrack ... except for resolutions

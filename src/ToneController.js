@@ -3,7 +3,7 @@ import * as Tone from "tone";
 import AVAILABLE_SAMPLES from "./samples.json";
 import Track from "./Track";
 
-// we schedule for a delay of 120ms to allow the audio context to catch up
+// we schedule for a delay of 50ms to allow the audio context to catch up
 const DEFAULT_AUDIO_DELAY = 0.05;
 let AUDIO_DELAY = DEFAULT_AUDIO_DELAY;
 
@@ -53,12 +53,14 @@ const createSequenceCallback = (pattern, sampleSource) =>
 {
   let samplesReady = sampleSource.samplesReady();
   let denseTracks = {};
+  let velocityTracks = {};
   for(const [id,t] of Object.entries(pattern.tracks))
   {
     if(t.isDense()){ denseTracks[id] = t;}
     else
     {
       denseTracks[id] = Track.fromPositions(t.toPoints(), t.length(), pattern.resolution );
+      velocityTracks[id] = Track.fromPositionsAndValues(t.toPoints(), t.getVelocities(), t.length(), pattern.resolution);
     }
   }
   const sequenceCallback = (time, indexFromStart) =>
@@ -70,20 +72,22 @@ const createSequenceCallback = (pattern, sampleSource) =>
       samplesReady = sampleSource.samplesReady();
       if(!samplesReady){ return; }
     }
-    const trackLengthRes = ( pattern.length / pattern.resolution );
-    const index = indexFromStart % trackLengthRes;
     if(window.trace)
     {
       window.trace("playing sequence callback at time " + String(time) + " index " + String(indexFromStart) );
     }
     for(const [id,t] of Object.entries(denseTracks))
     {
-        if( t.rep[index] )
+        if( t.rep[indexFromStart] )
         {
           const sampleData = sampleSource.samples[id];
           if( sampleData !== undefined )
           {
-            sampleData.player.stop(time + AUDIO_DELAY);
+            // we ensure the sample stops '10ms' before the beat as presumably
+            // that'll make tonejs happier (hopefully this should be small enough, never to clash with earlier notes?)
+            sampleData.player.stop(time + AUDIO_DELAY - 0.01);
+            // what can we do with velocityTracks[id]
+            // if we modify a gain node ... it'll be out of sync
             sampleData.player.start(time + AUDIO_DELAY);
           }
         }
@@ -94,7 +98,7 @@ const createSequenceCallback = (pattern, sampleSource) =>
         ()=>{
           if(Tone.getTransport().state === "started")
           {
-            const notePosition = (index * pattern.resolution) % pattern.length;
+            const notePosition = (indexFromStart * pattern.resolution) % pattern.length;
             if(sampleSource.onPatternTimeChange)
             {
               sampleSource.onPatternTimeChange(notePosition);
@@ -327,11 +331,13 @@ class ToneController
         player.mute = selectedInstrument.muted;
         player.name = selectedInstrument.name;
         const gain = new Tone.Gain(clampedVolume, "normalRange");
+        // const velocityGain = new Tone.Gain(1.0, "normalRange");
         player.connect(gain)
         gain.connect(this.gain);
         this.samples[selectedInstrument.id] = {
           player : player,
           gain : gain,
+          // velocityGain: velocityGain,
           drumkit: selectedInstrument.drumkit,
           filename: selectedInstrument.filename,
           url: urlForSample
@@ -443,7 +449,7 @@ class ToneController
       const playing = Tone.getTransport().state === "started";
       return playing;
   }
-  
+
   play()
   {
     // Tone.start is needed to be triggered from a user interaction
@@ -489,7 +495,6 @@ class ToneController
   setGainForInstrument(instrumentID, gainValue)
   {
     this.samples[instrumentID].gain.set( {gain : gainValue } );
-
   }
 
   setVolumeForInstrument(instrumentID, volume)

@@ -84,7 +84,11 @@ function parseHydrogen(dom, sparse)
         notes = Array.from(
           noteElements,
           function(noteElement){
-            return {"position" : parseInt(noteElement.position), "instrument" : parseInt(noteElement.instrument)};
+            return {
+              "position" : parseInt(noteElement.position),
+              "instrument" : parseInt(noteElement.instrument),
+              "velocity": parseInt(noteElement.velocity)
+            };
           }
         );
 
@@ -118,9 +122,13 @@ function parseHydrogen(dom, sparse)
           relevantNotes,
           note => note.position
         );
+        const relevantVelocities = Array.from(
+          relevantNotes,
+          note => note.velocity
+        );
         if(sparse)
         {
-          instrumentTracks[ instrument.id.toString() ] = new SparseTrack( relevantHits, pattern.size );
+          instrumentTracks[ instrument.id.toString() ] = new SparseTrack( relevantHits, pattern.size, relevantVelocities );
         }
         else
         {

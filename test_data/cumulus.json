@@ -152,183 +152,228 @@
             "notes": [
                 {
                     "position": 0,
-                    "instrument": 0
+                    "instrument": 0,
+                    "velocity": 0
                 },
                 {
                     "position": 0,
-                    "instrument": 5
+                    "instrument": 5,
+                    "velocity": 0
                 },
                 {
                     "position": 12,
-                    "instrument": 0
+                    "instrument": 0,
+                    "velocity": 0
                 },
                 {
                     "position": 24,
-                    "instrument": 5
+                    "instrument": 5,
+                    "velocity": 0
                 },
                 {
                     "position": 36,
-                    "instrument": 0
+                    "instrument": 0,
+                    "velocity": 0
                 },
                 {
                     "position": 48,
-                    "instrument": 2
+                    "instrument": 2,
+                    "velocity": 0
                 },
                 {
                     "position": 48,
-                    "instrument": 4
+                    "instrument": 4,
+                    "velocity": 0
                 },
                 {
                     "position": 72,
-                    "instrument": 5
+                    "instrument": 5,
+                    "velocity": 0
                 },
                 {
                     "position": 84,
-                    "instrument": 5
+                    "instrument": 5,
+                    "velocity": 0
                 },
                 {
                     "position": 120,
-                    "instrument": 5
+                    "instrument": 5,
+                    "velocity": 0
                 },
                 {
                     "position": 132,
-                    "instrument": 0
+                    "instrument": 0,
+                    "velocity": 0
                 },
                 {
                     "position": 144,
-                    "instrument": 1
+                    "instrument": 1,
+                    "velocity": 0
                 },
                 {
                     "position": 144,
-                    "instrument": 5
+                    "instrument": 5,
+                    "velocity": 0
                 },
                 {
                     "position": 144,
-                    "instrument": 2
+                    "instrument": 2,
+                    "velocity": 0
                 },
                 {
                     "position": 144,
-                    "instrument": 4
+                    "instrument": 4,
+                    "velocity": 0
                 },
                 {
                     "position": 156,
-                    "instrument": 5
+                    "instrument": 5,
+                    "velocity": 0
                 },
                 {
                     "position": 168,
-                    "instrument": 0
+                    "instrument": 0,
+                    "velocity": 0
                 },
                 {
                     "position": 168,
-                    "instrument": 5
+                    "instrument": 5,
+                    "velocity": 0
                 },
                 {
                     "position": 180,
-                    "instrument": 2
+                    "instrument": 2,
+                    "velocity": 0
                 },
                 {
                     "position": 180,
-                    "instrument": 4
+                    "instrument": 4,
+                    "velocity": 0
                 },
                 {
                     "position": 192,
-                    "instrument": 0
+                    "instrument": 0,
+                    "velocity": 0
                 },
                 {
                     "position": 192,
-                    "instrument": 5
+                    "instrument": 5,
+                    "velocity": 0
                 },
                 {
                     "position": 204,
-                    "instrument": 0
+                    "instrument": 0,
+                    "velocity": 0
                 },
                 {
                     "position": 216,
-                    "instrument": 5
+                    "instrument": 5,
+                    "velocity": 0
                 },
                 {
                     "position": 228,
-                    "instrument": 0
+                    "instrument": 0,
+                    "velocity": 0
                 },
                 {
                     "position": 240,
-                    "instrument": 2
+                    "instrument": 2,
+                    "velocity": 0
                 },
                 {
                     "position": 240,
-                    "instrument": 4
+                    "instrument": 4,
+                    "velocity": 0
                 },
                 {
                     "position": 264,
-                    "instrument": 5
+                    "instrument": 5,
+                    "velocity": 0
                 },
                 {
                     "position": 276,
-                    "instrument": 0
+                    "instrument": 0,
+                    "velocity": 0
                 },
                 {
                     "position": 288,
-                    "instrument": 1
+                    "instrument": 1,
+                    "velocity": 0
                 },
                 {
                     "position": 288,
-                    "instrument": 4
+                    "instrument": 4,
+                    "velocity": 0
                 },
                 {
                     "position": 288,
-                    "instrument": 3
+                    "instrument": 3,
+                    "velocity": 0
                 },
                 {
                     "position": 300,
-                    "instrument": 2
+                    "instrument": 2,
+                    "velocity": 0
                 },
                 {
                     "position": 312,
-                    "instrument": 0
+                    "instrument": 0,
+                    "velocity": 0
                 },
                 {
                     "position": 312,
-                    "instrument": 5
+                    "instrument": 5,
+                    "velocity": 0
                 },
                 {
                     "position": 324,
-                    "instrument": 1
+                    "instrument": 1,
+                    "velocity": 0
                 },
                 {
                     "position": 324,
-                    "instrument": 4
+                    "instrument": 4,
+                    "velocity": 0
                 },
                 {
                     "position": 324,
-                    "instrument": 3
+                    "instrument": 3,
+                    "velocity": 0
                 },
                 {
                     "position": 336,
-                    "instrument": 2
+                    "instrument": 2,
+                    "velocity": 0
                 },
                 {
                     "position": 348,
-                    "instrument": 0
+                    "instrument": 0,
+                    "velocity": 0
                 },
                 {
                     "position": 348,
-                    "instrument": 5
+                    "instrument": 5,
+                    "velocity": 0
                 },
                 {
                     "position": 360,
-                    "instrument": 1
+                    "instrument": 1,
+                    "velocity": 0
                 },
                 {
                     "position": 360,
-                    "instrument": 4
+                    "instrument": 4,
+                    "velocity": 0
                 },
                 {
                     "position": 360,
-                    "instrument": 3
+                    "instrument": 3,
+                    "velocity": 0
                 },
                 {
                     "position": 372,
-                    "instrument": 2
+                    "instrument": 2,
+                    "velocity": 0
                 }
             ],
             "resolution": 12,
@@ -933,199 +978,248 @@
             "notes": [
                 {
                     "position": 0,
-                    "instrument": 5
+                    "instrument": 5,
+                    "velocity": 0
                 },
                 {
                     "position": 0,
-                    "instrument": 1
+                    "instrument": 1,
+                    "velocity": 0
                 },
                 {
                     "position": 0,
-                    "instrument": 2
+                    "instrument": 2,
+                    "velocity": 0
                 },
                 {
                     "position": 12,
-                    "instrument": 5
+                    "instrument": 5,
+                    "velocity": 0
                 },
                 {
                     "position": 12,
-                    "instrument": 2
+                    "instrument": 2,
+                    "velocity": 0
                 },
                 {
                     "position": 24,
-                    "instrument": 5
+                    "instrument": 5,
+                    "velocity": 0
                 },
                 {
                     "position": 36,
-                    "instrument": 5
+                    "instrument": 5,
+                    "velocity": 0
                 },
                 {
                     "position": 36,
-                    "instrument": 2
+                    "instrument": 2,
+                    "velocity": 0
                 },
                 {
                     "position": 48,
-                    "instrument": 0
+                    "instrument": 0,
+                    "velocity": 0
                 },
                 {
                     "position": 60,
-                    "instrument": 2
+                    "instrument": 2,
+                    "velocity": 0
                 },
                 {
                     "position": 72,
-                    "instrument": 0
+                    "instrument": 0,
+                    "velocity": 0
                 },
                 {
                     "position": 84,
-                    "instrument": 0
+                    "instrument": 0,
+                    "velocity": 0
                 },
                 {
                     "position": 96,
-                    "instrument": 0
+                    "instrument": 0,
+                    "velocity": 0
                 },
                 {
                     "position": 96,
-                    "instrument": 5
+                    "instrument": 5,
+                    "velocity": 0
                 },
                 {
                     "position": 96,
-                    "instrument": 4
+                    "instrument": 4,
+                    "velocity": 0
                 },
                 {
                     "position": 108,
-                    "instrument": 4
+                    "instrument": 4,
+                    "velocity": 0
                 },
                 {
                     "position": 120,
-                    "instrument": 2
+                    "instrument": 2,
+                    "velocity": 0
                 },
                 {
                     "position": 132,
-                    "instrument": 2
+                    "instrument": 2,
+                    "velocity": 0
                 },
                 {
                     "position": 144,
-                    "instrument": 5
+                    "instrument": 5,
+                    "velocity": 0
                 },
                 {
                     "position": 144,
-                    "instrument": 1
+                    "instrument": 1,
+                    "velocity": 0
                 },
                 {
                     "position": 144,
-                    "instrument": 2
+                    "instrument": 2,
+                    "velocity": 0
                 },
                 {
                     "position": 156,
-                    "instrument": 2
+                    "instrument": 2,
+                    "velocity": 0
                 },
                 {
                     "position": 168,
-                    "instrument": 5
+                    "instrument": 5,
+                    "velocity": 0
                 },
                 {
                     "position": 180,
-                    "instrument": 5
+                    "instrument": 5,
+                    "velocity": 0
                 },
                 {
                     "position": 180,
-                    "instrument": 2
+                    "instrument": 2,
+                    "velocity": 0
                 },
                 {
                     "position": 192,
-                    "instrument": 0
+                    "instrument": 0,
+                    "velocity": 0
                 },
                 {
                     "position": 192,
-                    "instrument": 5
+                    "instrument": 5,
+                    "velocity": 0
                 },
                 {
                     "position": 204,
-                    "instrument": 2
+                    "instrument": 2,
+                    "velocity": 0
                 },
                 {
                     "position": 216,
-                    "instrument": 0
+                    "instrument": 0,
+                    "velocity": 0
                 },
                 {
                     "position": 228,
-                    "instrument": 0
+                    "instrument": 0,
+                    "velocity": 0
                 },
                 {
                     "position": 240,
-                    "instrument": 0
+                    "instrument": 0,
+                    "velocity": 0
                 },
                 {
                     "position": 240,
-                    "instrument": 4
+                    "instrument": 4,
+                    "velocity": 0
                 },
                 {
                     "position": 252,
-                    "instrument": 4
+                    "instrument": 4,
+                    "velocity": 0
                 },
                 {
                     "position": 264,
-                    "instrument": 2
+                    "instrument": 2,
+                    "velocity": 0
                 },
                 {
                     "position": 276,
-                    "instrument": 2
+                    "instrument": 2,
+                    "velocity": 0
                 },
                 {
                     "position": 288,
-                    "instrument": 5
+                    "instrument": 5,
+                    "velocity": 0
                 },
                 {
                     "position": 288,
-                    "instrument": 1
+                    "instrument": 1,
+                    "velocity": 0
                 },
                 {
                     "position": 288,
-                    "instrument": 2
+                    "instrument": 2,
+                    "velocity": 0
                 },
                 {
                     "position": 288,
-                    "instrument": 4
+                    "instrument": 4,
+                    "velocity": 0
                 },
                 {
                     "position": 300,
-                    "instrument": 5
+                    "instrument": 5,
+                    "velocity": 0
                 },
                 {
                     "position": 312,
-                    "instrument": 5
+                    "instrument": 5,
+                    "velocity": 0
                 },
                 {
                     "position": 312,
-                    "instrument": 0
+                    "instrument": 0,
+                    "velocity": 0
                 },
                 {
                     "position": 324,
-                    "instrument": 2
+                    "instrument": 2,
+                    "velocity": 0
                 },
                 {
                     "position": 324,
-                    "instrument": 4
+                    "instrument": 4,
+                    "velocity": 0
                 },
                 {
                     "position": 336,
-                    "instrument": 5
+                    "instrument": 5,
+                    "velocity": 0
                 },
                 {
                     "position": 336,
-                    "instrument": 1
+                    "instrument": 1,
+                    "velocity": 0
                 },
                 {
                     "position": 348,
-                    "instrument": 0
+                    "instrument": 0,
+                    "velocity": 0
                 },
                 {
                     "position": 360,
-                    "instrument": 2
+                    "instrument": 2,
+                    "velocity": 0
                 },
                 {
                     "position": 360,
-                    "instrument": 4
+                    "instrument": 4,
+                    "velocity": 0
                 }
             ],
             "resolution": 12,
@@ -1730,375 +1824,468 @@
             "notes": [
                 {
                     "position": 0,
-                    "instrument": 0
+                    "instrument": 0,
+                    "velocity": 0
                 },
                 {
                     "position": 0,
-                    "instrument": 5
+                    "instrument": 5,
+                    "velocity": 0
                 },
                 {
                     "position": 12,
-                    "instrument": 5
+                    "instrument": 5,
+                    "velocity": 0
                 },
                 {
                     "position": 24,
-                    "instrument": 5
+                    "instrument": 5,
+                    "velocity": 0
                 },
                 {
                     "position": 36,
-                    "instrument": 3
+                    "instrument": 3,
+                    "velocity": 0
                 },
                 {
                     "position": 36,
-                    "instrument": 4
+                    "instrument": 4,
+                    "velocity": 0
                 },
                 {
                     "position": 36,
-                    "instrument": 1
+                    "instrument": 1,
+                    "velocity": 0
                 },
                 {
                     "position": 36,
-                    "instrument": 2
+                    "instrument": 2,
+                    "velocity": 0
                 },
                 {
                     "position": 72,
-                    "instrument": 0
+                    "instrument": 0,
+                    "velocity": 0
                 },
                 {
                     "position": 72,
-                    "instrument": 5
+                    "instrument": 5,
+                    "velocity": 0
                 },
                 {
                     "position": 84,
-                    "instrument": 5
+                    "instrument": 5,
+                    "velocity": 0
                 },
                 {
                     "position": 96,
-                    "instrument": 5
+                    "instrument": 5,
+                    "velocity": 0
                 },
                 {
                     "position": 108,
-                    "instrument": 3
+                    "instrument": 3,
+                    "velocity": 0
                 },
                 {
                     "position": 108,
-                    "instrument": 4
+                    "instrument": 4,
+                    "velocity": 0
                 },
                 {
                     "position": 108,
-                    "instrument": 1
+                    "instrument": 1,
+                    "velocity": 0
                 },
                 {
                     "position": 108,
-                    "instrument": 2
+                    "instrument": 2,
+                    "velocity": 0
                 },
                 {
                     "position": 144,
-                    "instrument": 0
+                    "instrument": 0,
+                    "velocity": 0
                 },
                 {
                     "position": 144,
-                    "instrument": 5
+                    "instrument": 5,
+                    "velocity": 0
                 },
                 {
                     "position": 168,
-                    "instrument": 5
+                    "instrument": 5,
+                    "velocity": 0
                 },
                 {
                     "position": 180,
-                    "instrument": 0
+                    "instrument": 0,
+                    "velocity": 0
                 },
                 {
                     "position": 180,
-                    "instrument": 5
+                    "instrument": 5,
+                    "velocity": 0
                 },
                 {
                     "position": 204,
-                    "instrument": 5
+                    "instrument": 5,
+                    "velocity": 0
                 },
                 {
                     "position": 216,
-                    "instrument": 3
+                    "instrument": 3,
+                    "velocity": 0
                 },
                 {
                     "position": 216,
-                    "instrument": 4
+                    "instrument": 4,
+                    "velocity": 0
                 },
                 {
                     "position": 216,
-                    "instrument": 1
+                    "instrument": 1,
+                    "velocity": 0
                 },
                 {
                     "position": 216,
-                    "instrument": 2
+                    "instrument": 2,
+                    "velocity": 0
                 },
                 {
                     "position": 240,
-                    "instrument": 5
+                    "instrument": 5,
+                    "velocity": 0
                 },
                 {
                     "position": 252,
-                    "instrument": 0
+                    "instrument": 0,
+                    "velocity": 0
                 },
                 {
                     "position": 252,
-                    "instrument": 5
+                    "instrument": 5,
+                    "velocity": 0
                 },
                 {
                     "position": 276,
-                    "instrument": 5
+                    "instrument": 5,
+                    "velocity": 0
                 },
                 {
                     "position": 288,
-                    "instrument": 0
+                    "instrument": 0,
+                    "velocity": 0
                 },
                 {
                     "position": 288,
-                    "instrument": 5
+                    "instrument": 5,
+                    "velocity": 0
                 },
                 {
                     "position": 312,
-                    "instrument": 5
+                    "instrument": 5,
+                    "velocity": 0
                 },
                 {
                     "position": 312,
-                    "instrument": 0
+                    "instrument": 0,
+                    "velocity": 0
                 },
                 {
                     "position": 324,
-                    "instrument": 1
+                    "instrument": 1,
+                    "velocity": 0
                 },
                 {
                     "position": 324,
-                    "instrument": 3
+                    "instrument": 3,
+                    "velocity": 0
                 },
                 {
                     "position": 324,
-                    "instrument": 2
+                    "instrument": 2,
+                    "velocity": 0
                 },
                 {
                     "position": 336,
-                    "instrument": 4
+                    "instrument": 4,
+                    "velocity": 0
                 },
                 {
                     "position": 348,
-                    "instrument": 0
+                    "instrument": 0,
+                    "velocity": 0
                 },
                 {
                     "position": 348,
-                    "instrument": 5
+                    "instrument": 5,
+                    "velocity": 0
                 },
                 {
                     "position": 360,
-                    "instrument": 0
+                    "instrument": 0,
+                    "velocity": 0
                 },
                 {
                     "position": 360,
-                    "instrument": 5
+                    "instrument": 5,
+                    "velocity": 0
                 },
                 {
                     "position": 384,
-                    "instrument": 0
+                    "instrument": 0,
+                    "velocity": 0
                 },
                 {
                     "position": 384,
-                    "instrument": 5
+                    "instrument": 5,
+                    "velocity": 0
                 },
                 {
                     "position": 396,
-                    "instrument": 5
+                    "instrument": 5,
+                    "velocity": 0
                 },
                 {
                     "position": 408,
-                    "instrument": 5
+                    "instrument": 5,
+                    "velocity": 0
                 },
                 {
                     "position": 408,
-                    "instrument": 2
+                    "instrument": 2,
+                    "velocity": 0
                 },
                 {
                     "position": 420,
-                    "instrument": 3
+                    "instrument": 3,
+                    "velocity": 0
                 },
                 {
                     "position": 420,
-                    "instrument": 4
+                    "instrument": 4,
+                    "velocity": 0
                 },
                 {
                     "position": 420,
-                    "instrument": 1
+                    "instrument": 1,
+                    "velocity": 0
                 },
                 {
                     "position": 456,
-                    "instrument": 0
+                    "instrument": 0,
+                    "velocity": 0
                 },
                 {
                     "position": 456,
-                    "instrument": 5
+                    "instrument": 5,
+                    "velocity": 0
                 },
                 {
                     "position": 468,
-                    "instrument": 5
+                    "instrument": 5,
+                    "velocity": 0
                 },
                 {
                     "position": 480,
-                    "instrument": 5
+                    "instrument": 5,
+                    "velocity": 0
                 },
                 {
                     "position": 480,
-                    "instrument": 2
+                    "instrument": 2,
+                    "velocity": 0
                 },
                 {
                     "position": 492,
-                    "instrument": 3
+                    "instrument": 3,
+                    "velocity": 0
                 },
                 {
                     "position": 492,
-                    "instrument": 4
+                    "instrument": 4,
+                    "velocity": 0
                 },
                 {
                     "position": 492,
-                    "instrument": 1
+                    "instrument": 1,
+                    "velocity": 0
                 },
                 {
                     "position": 528,
-                    "instrument": 0
+                    "instrument": 0,
+                    "velocity": 0
                 },
                 {
                     "position": 528,
-                    "instrument": 5
+                    "instrument": 5,
+                    "velocity": 0
                 },
                 {
                     "position": 552,
-                    "instrument": 0
+                    "instrument": 0,
+                    "velocity": 0
                 },
                 {
                     "position": 552,
-                    "instrument": 5
+                    "instrument": 5,
+                    "velocity": 0
                 },
                 {
                     "position": 564,
-                    "instrument": 3
+                    "instrument": 3,
+                    "velocity": 0
                 },
                 {
                     "position": 564,
-                    "instrument": 4
+                    "instrument": 4,
+                    "velocity": 0
                 },
                 {
                     "position": 564,
-                    "instrument": 1
+                    "instrument": 1,
+                    "velocity": 0
                 },
                 {
                     "position": 564,
-                    "instrument": 2
+                    "instrument": 2,
+                    "velocity": 0
                 },
                 {
                     "position": 588,
-                    "instrument": 3
+                    "instrument": 3,
+                    "velocity": 0
                 },
                 {
                     "position": 588,
-                    "instrument": 4
+                    "instrument": 4,
+                    "velocity": 0
                 },
                 {
                     "position": 588,
-                    "instrument": 1
+                    "instrument": 1,
+                    "velocity": 0
                 },
                 {
                     "position": 588,
-                    "instrument": 2
+                    "instrument": 2,
+                    "velocity": 0
                 },
                 {
                     "position": 624,
-                    "instrument": 0
+                    "instrument": 0,
+                    "velocity": 0
                 },
                 {
                     "position": 624,
-                    "instrument": 5
+                    "instrument": 5,
+                    "velocity": 0
                 },
                 {
                     "position": 636,
-                    "instrument": 5
+                    "instrument": 5,
+                    "velocity": 0
                 },
                 {
                     "position": 648,
-                    "instrument": 0
+                    "instrument": 0,
+                    "velocity": 0
                 },
                 {
                     "position": 648,
-                    "instrument": 5
+                    "instrument": 5,
+                    "velocity": 0
                 },
                 {
                     "position": 660,
-                    "instrument": 3
+                    "instrument": 3,
+                    "velocity": 0
                 },
                 {
                     "position": 660,
-                    "instrument": 4
+                    "instrument": 4,
+                    "velocity": 0
                 },
                 {
                     "position": 660,
-                    "instrument": 1
+                    "instrument": 1,
+                    "velocity": 0
                 },
                 {
                     "position": 660,
-                    "instrument": 2
+                    "instrument": 2,
+                    "velocity": 0
                 },
                 {
                     "position": 684,
-                    "instrument": 3
+                    "instrument": 3,
+                    "velocity": 0
                 },
                 {
                     "position": 684,
-                    "instrument": 4
+                    "instrument": 4,
+                    "velocity": 0
                 },
                 {
                     "position": 684,
-                    "instrument": 1
+                    "instrument": 1,
+                    "velocity": 0
                 },
                 {
                     "position": 684,
-                    "instrument": 2
+                    "instrument": 2,
+                    "velocity": 0
                 },
                 {
                     "position": 708,
-                    "instrument": 0
+                    "instrument": 0,
+                    "velocity": 0
                 },
                 {
                     "position": 708,
-                    "instrument": 5
+                    "instrument": 5,
+                    "velocity": 0
                 },
                 {
                     "position": 720,
-                    "instrument": 4
+                    "instrument": 4,
+                    "velocity": 0
                 },
                 {
                     "position": 720,
-                    "instrument": 3
+                    "instrument": 3,
+                    "velocity": 0
                 },
                 {
                     "position": 720,
-                    "instrument": 1
+                    "instrument": 1,
+                    "velocity": 0
                 },
                 {
                     "position": 720,
-                    "instrument": 2
+                    "instrument": 2,
+                    "velocity": 0
                 },
                 {
                     "position": 732,
-                    "instrument": 4
+                    "instrument": 4,
+                    "velocity": 0
                 },
                 {
                     "position": 732,
-                    "instrument": 2
+                    "instrument": 2,
+                    "velocity": 0
                 },
                 {
                     "position": 744,
-                    "instrument": 4
+                    "instrument": 4,
+                    "velocity": 0
                 },
                 {
                     "position": 744,
-                    "instrument": 2
+                    "instrument": 2,
+                    "velocity": 0
                 }
             ],
             "resolution": 12,
@@ -3215,163 +3402,203 @@
             "notes": [
                 {
                     "position": 0,
-                    "instrument": 0
+                    "instrument": 0,
+                    "velocity": 0
                 },
                 {
                     "position": 0,
-                    "instrument": 5
+                    "instrument": 5,
+                    "velocity": 0
                 },
                 {
                     "position": 12,
-                    "instrument": 5
+                    "instrument": 5,
+                    "velocity": 0
                 },
                 {
                     "position": 12,
-                    "instrument": 0
+                    "instrument": 0,
+                    "velocity": 0
                 },
                 {
                     "position": 24,
-                    "instrument": 5
+                    "instrument": 5,
+                    "velocity": 0
                 },
                 {
                     "position": 24,
-                    "instrument": 0
+                    "instrument": 0,
+                    "velocity": 0
                 },
                 {
                     "position": 36,
-                    "instrument": 2
+                    "instrument": 2,
+                    "velocity": 0
                 },
                 {
                     "position": 36,
-                    "instrument": 3
+                    "instrument": 3,
+                    "velocity": 0
                 },
                 {
                     "position": 36,
-                    "instrument": 1
+                    "instrument": 1,
+                    "velocity": 0
                 },
                 {
                     "position": 36,
-                    "instrument": 4
+                    "instrument": 4,
+                    "velocity": 0
                 },
                 {
                     "position": 72,
-                    "instrument": 0
+                    "instrument": 0,
+                    "velocity": 0
                 },
                 {
                     "position": 72,
-                    "instrument": 5
+                    "instrument": 5,
+                    "velocity": 0
                 },
                 {
                     "position": 84,
-                    "instrument": 5
+                    "instrument": 5,
+                    "velocity": 0
                 },
                 {
                     "position": 84,
-                    "instrument": 0
+                    "instrument": 0,
+                    "velocity": 0
                 },
                 {
                     "position": 96,
-                    "instrument": 5
+                    "instrument": 5,
+                    "velocity": 0
                 },
                 {
                     "position": 96,
-                    "instrument": 0
+                    "instrument": 0,
+                    "velocity": 0
                 },
                 {
                     "position": 108,
-                    "instrument": 2
+                    "instrument": 2,
+                    "velocity": 0
                 },
                 {
                     "position": 108,
-                    "instrument": 3
+                    "instrument": 3,
+                    "velocity": 0
                 },
                 {
                     "position": 108,
-                    "instrument": 4
+                    "instrument": 4,
+                    "velocity": 0
                 },
                 {
                     "position": 108,
-                    "instrument": 1
+                    "instrument": 1,
+                    "velocity": 0
                 },
                 {
                     "position": 144,
-                    "instrument": 0
+                    "instrument": 0,
+                    "velocity": 0
                 },
                 {
                     "position": 144,
-                    "instrument": 5
+                    "instrument": 5,
+                    "velocity": 0
                 },
                 {
                     "position": 156,
-                    "instrument": 0
+                    "instrument": 0,
+                    "velocity": 0
                 },
                 {
                     "position": 156,
-                    "instrument": 5
+                    "instrument": 5,
+                    "velocity": 0
                 },
                 {
                     "position": 168,
-                    "instrument": 0
+                    "instrument": 0,
+                    "velocity": 0
                 },
                 {
                     "position": 168,
-                    "instrument": 5
+                    "instrument": 5,
+                    "velocity": 0
                 },
                 {
                     "position": 180,
-                    "instrument": 2
+                    "instrument": 2,
+                    "velocity": 0
                 },
                 {
                     "position": 180,
-                    "instrument": 3
+                    "instrument": 3,
+                    "velocity": 0
                 },
                 {
                     "position": 180,
-                    "instrument": 4
+                    "instrument": 4,
+                    "velocity": 0
                 },
                 {
                     "position": 180,
-                    "instrument": 1
+                    "instrument": 1,
+                    "velocity": 0
                 },
                 {
                     "position": 216,
-                    "instrument": 0
+                    "instrument": 0,
+                    "velocity": 0
                 },
                 {
                     "position": 216,
-                    "instrument": 5
+                    "instrument": 5,
+                    "velocity": 0
                 },
                 {
                     "position": 228,
-                    "instrument": 0
+                    "instrument": 0,
+                    "velocity": 0
                 },
                 {
                     "position": 228,
-                    "instrument": 5
+                    "instrument": 5,
+                    "velocity": 0
                 },
                 {
                     "position": 240,
-                    "instrument": 0
+                    "instrument": 0,
+                    "velocity": 0
                 },
                 {
                     "position": 240,
-                    "instrument": 5
+                    "instrument": 5,
+                    "velocity": 0
                 },
                 {
                     "position": 252,
-                    "instrument": 1
+                    "instrument": 1,
+                    "velocity": 0
                 },
                 {
                     "position": 252,
-                    "instrument": 2
+                    "instrument": 2,
+                    "velocity": 0
                 },
                 {
                     "position": 252,
-                    "instrument": 4
+                    "instrument": 4,
+                    "velocity": 0
                 },
                 {
                     "position": 252,
-                    "instrument": 3
+                    "instrument": 3,
+                    "velocity": 0
                 }
             ],
             "resolution": 12,
@@ -3848,111 +4075,138 @@
             "notes": [
                 {
                     "position": 0,
-                    "instrument": 0
+                    "instrument": 0,
+                    "velocity": 0
                 },
                 {
                     "position": 8,
-                    "instrument": 0
+                    "instrument": 0,
+                    "velocity": 0
                 },
                 {
                     "position": 16,
-                    "instrument": 0
+                    "instrument": 0,
+                    "velocity": 0
                 },
                 {
                     "position": 24,
-                    "instrument": 0
+                    "instrument": 0,
+                    "velocity": 0
                 },
                 {
                     "position": 32,
-                    "instrument": 0
+                    "instrument": 0,
+                    "velocity": 0
                 },
                 {
                     "position": 40,
-                    "instrument": 0
+                    "instrument": 0,
+                    "velocity": 0
                 },
                 {
                     "position": 48,
-                    "instrument": 1
+                    "instrument": 1,
+                    "velocity": 0
                 },
                 {
                     "position": 72,
-                    "instrument": 0
+                    "instrument": 0,
+                    "velocity": 0
                 },
                 {
                     "position": 80,
-                    "instrument": 0
+                    "instrument": 0,
+                    "velocity": 0
                 },
                 {
                     "position": 88,
-                    "instrument": 0
+                    "instrument": 0,
+                    "velocity": 0
                 },
                 {
                     "position": 96,
-                    "instrument": 0
+                    "instrument": 0,
+                    "velocity": 0
                 },
                 {
                     "position": 104,
-                    "instrument": 0
+                    "instrument": 0,
+                    "velocity": 0
                 },
                 {
                     "position": 112,
-                    "instrument": 0
+                    "instrument": 0,
+                    "velocity": 0
                 },
                 {
                     "position": 120,
-                    "instrument": 1
+                    "instrument": 1,
+                    "velocity": 0
                 },
                 {
                     "position": 144,
-                    "instrument": 0
+                    "instrument": 0,
+                    "velocity": 0
                 },
                 {
                     "position": 152,
-                    "instrument": 0
+                    "instrument": 0,
+                    "velocity": 0
                 },
                 {
                     "position": 160,
-                    "instrument": 0
+                    "instrument": 0,
+                    "velocity": 0
                 },
                 {
                     "position": 168,
-                    "instrument": 0
+                    "instrument": 0,
+                    "velocity": 0
                 },
                 {
                     "position": 176,
-                    "instrument": 0
+                    "instrument": 0,
+                    "velocity": 0
                 },
                 {
                     "position": 184,
-                    "instrument": 0
+                    "instrument": 0,
+                    "velocity": 0
                 },
                 {
                     "position": 192,
-                    "instrument": 1
+                    "instrument": 1,
+                    "velocity": 0
                 },
                 {
                     "position": 216,
-                    "instrument": 0
+                    "instrument": 0,
+                    "velocity": 0
                 },
                 {
                     "position": 224,
-                    "instrument": 0
+                    "instrument": 0,
+                    "velocity": 0
                 },
                 {
                     "position": 232,
-                    "instrument": 0
+                    "instrument": 0,
+                    "velocity": 0
                 },
                 {
                     "position": 240,
-                    "instrument": 1
+                    "instrument": 1,
+                    "velocity": 0
                 },
                 {
                     "position": 256,
-                    "instrument": 1
+                    "instrument": 1,
+                    "velocity": 0
                 },
                 {
                     "position": 272,
-                    "instrument": 1
+                    "instrument": 1,
+                    "velocity": 0
                 }
             ],
             "resolution": 8,
