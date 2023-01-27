@@ -67,13 +67,15 @@ function createPatternsFromData(patternData)
     {
       if( "resolution" in trackData )
       {
+        // todo: ditch the non-sparse format entirely
         const loadedTrack = new Track( trackData.rep, trackData.resolution );
-        replacedTracks[id] = TRACK_FORMAT_SPARSE ? new SparseTrack( loadedTrack.toPoints(), loadedTrack.length())
+        replacedTracks[id] = TRACK_FORMAT_SPARSE ? new SparseTrack( loadedTrack.toPoints(), loadedTrack.length(), loadedTrack.getVelocities())
                                                  : loadedTrack;
       }
       else
       {
-        replacedTracks[id] = TRACK_FORMAT_SPARSE ? new SparseTrack( trackData.points, trackData.length_ )
+        // todo: ditch the non-sparse format entirely
+        replacedTracks[id] = TRACK_FORMAT_SPARSE ? new SparseTrack( trackData.points, trackData.length_, trackData.getVelocities() )
                                                  : Track.fromPositions( trackData.points, trackData.length_, patternResolution );
       }
     }

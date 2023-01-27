@@ -265,7 +265,7 @@ async function parseHydrogenPromise(xmlString)
 {
   const promise = new Promise((resolve, reject) => {
     const dom = new XMLParser().parse(xmlString)
-    return resolve(parseHydrogen(dom));
+    return resolve(parseHydrogen(dom, true));
   });
   return promise;
 }
