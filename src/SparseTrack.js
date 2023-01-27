@@ -160,7 +160,7 @@ class SparseTrack
       {
         continue;
       }
-      else if(/*lo <= this.points[i] &&*/ this.points[i] >= hi) // skipp passed the relevant range
+      else if(/*lo <= this.points[i] &&*/ this.points[i] >= hi) // skip passed the relevant range
       {
         return false;
       }
@@ -170,6 +170,44 @@ class SparseTrack
       }
     }
     return false;
+  }
+
+  clearRange(lo, hi)
+  {
+    let loIndex = this.points.length;
+    let hiIndex = this.points.length;
+    for(let i = 0; i < this.points.length; ++i)
+    {
+      // fast-cast, keep skippin'
+      if(this.points[i] < lo)
+      {
+        continue;
+      }
+      else if(/*lo <= this.points[i] &&*/ this.points[i] >= hi) // skip passed the relevant range
+      {
+        hiIndex = i;
+        break;
+      }
+      else
+      {
+        loIndex = Math.min(i, loIndex);
+      }
+    }
+    // three cases,
+    // [i] nothing to remove ... lo & hi == points.length
+    //       - we splice the array, and delete "0"
+    // [ii] something to remove, and there's a thing above the range too
+    //       - we get a valid count here so splice and delete the appropriate number
+    // [iii] something to remove ... and there's nothing above the range (so we remove until the end)
+    //       - we need to remove everything after loIndex ... and the array will add up
+
+    // need this check ... as we can "skip the relevant range"
+    // and set hi but not lo
+    if(loIndex < this.points.length)
+    {
+      this.points.splice(loIndex, hiIndex - loIndex);
+      this.velocity.splice(loIndex, hiIndex - loIndex);
+    }
   }
 
   static combine(a, b)
