@@ -192,43 +192,63 @@ class SongView extends React.Component
     }
     if(anyUndefined)
     {
-      this.setState({
-        errorAlert: "Cannot modify cells that are currently rendering undefinedMark. Try changing resolution."
-      });
-      return;
+      // undefined means that (i) some track has "multiple notes in the"
+      // range as represented ... for example if we're rendering quarter-notes
+      // but at eight-note-resolution we would see "-X--" this is undefined
+      // we can't cycle that
+      // or (ii) we have multiple tracks hitting on the beat
+      // we can't cycle that,
+
+      // in both cases we clear
+      for(const cell of modificationCells)
+      {
+        for( let entryIndex = 0; entryIndex < entries.length; ++entryIndex)
+        {
+          const entry = entries[entryIndex];
+          const trackID = entry[0];
+          const lower = cell * resolutionForInstrument;
+          const higher = (cell+1) * resolutionForInstrument;
+          // first point should be representative, see note above
+          currentPattern.instrumentTracks[trackID].clearRange(lower, higher);
+        }
+      }
     }
-
-
-    let currentActiveTrackIndex = null;
-    for( let entryIndex = 0; entryIndex < entries.length; ++entryIndex)
+    else
     {
-      const entry = entries[entryIndex];
-      const trackID = entry[0];
-      // first point should be representative, see note above
-      if(currentPattern.instrumentTracks[trackID].queryPoint(representativeCell))
+      // no undefined, so we cycle the remaining tracks
+      let currentActiveTrackIndex = null;
+      for( let entryIndex = 0; entryIndex < entries.length; ++entryIndex)
       {
-        currentActiveTrackIndex = entryIndex;
-        break;
+        const entry = entries[entryIndex];
+        const trackID = entry[0];
+        // first point should be representative, see note above
+        if(currentPattern.instrumentTracks[trackID].queryPoint(representativeCell))
+        {
+          currentActiveTrackIndex = entryIndex;
+          break;
+        }
       }
-    }
-    // increment (allowing for "null")
-    const targetTrackIndex = currentActiveTrackIndex === null ? 0
-                          : currentActiveTrackIndex === entries.length - 1 ? null
-                          : currentActiveTrackIndex + 1;
+      // increment (allowing for "null")
+      const targetTrackIndex = currentActiveTrackIndex === null ? 0
+                            : currentActiveTrackIndex === entries.length - 1 ? null
+                            : currentActiveTrackIndex + 1;
 
-    const currentTrack = currentActiveTrackIndex === null ? null : currentPattern.instrumentTracks[ entries[currentActiveTrackIndex][0] ];
-    const targetTrack = targetTrackIndex === null ? null : currentPattern.instrumentTracks[ entries[targetTrackIndex][0] ];
-    for( const cell of modificationCells )
-    {
-      if( currentTrack )
+      const currentTrack = currentActiveTrackIndex === null ? null : currentPattern.instrumentTracks[ entries[currentActiveTrackIndex][0] ];
+      const targetTrack = targetTrackIndex === null ? null : currentPattern.instrumentTracks[ entries[targetTrackIndex][0] ];
+
+      for( const cell of modificationCells )
       {
-        currentTrack.setPoint( cell, 0 );
-      }
-      if(targetTrack)
-      {
-        targetTrack.setPoint( cell, 1 );
+        if( currentTrack )
+        {
+          currentTrack.setPoint( cell, 0, 1.0 );
+        }
+        if(targetTrack)
+        {
+          targetTrack.setPoint( cell, 1, 1.0 );
+        }
       }
     }
+
     const modifiedPatterns =
       this.state.songData.patterns.slice(0, this.state.selectedPattern).concat(
       [currentPattern]
