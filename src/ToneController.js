@@ -60,7 +60,7 @@ const createSequenceCallback = (pattern, sampleSource) =>
     else
     {
       denseTracks[id] = Track.fromPositions(t.toPoints(), t.length(), pattern.resolution );
-      velocityTracks[id] = Track.fromPositionsAndValues(t.toPoints(), t.getVelocities(), t.length(), pattern.resolution);
+      // velocityTracks[id] = Track.fromPositionsAndValues(t.toPoints(), t.getVelocities(), t.length(), pattern.resolution);
     }
   }
   const sequenceCallback = (time, indexFromStart) =>

@@ -3,6 +3,7 @@
 import fs from "fs"
 
 import notation from "../notation"
+import SparseTrack from "../SparseTrack"
 import Track from "../Track"
 
 function formatAsPage(state, instruments, config = {})
@@ -37,7 +38,14 @@ function createObjects(state)
     // todo: find a more compact way of doing this
     for( const [id, trackData] of Object.entries(pattern.instrumentTracks) )
     {
-      replacedTracks[id] = new Track( trackData.rep, trackData.resolution );
+      if("rep" in trackData)
+      {
+        replacedTracks[id] = new Track( trackData.rep, trackData.resolution );
+      }
+      else
+      {
+        replacedTracks[id] = new SparseTrack( trackData.points, trackData.length_, trackData.velocity );
+      }
     }
     pattern.instrumentTracks = replacedTracks;
   }

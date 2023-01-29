@@ -1,7 +1,5 @@
 import { calculateResolution, compareArray, findHCF } from "./utilities"
 
-const zip = (a, b) => a.map((k, i) => [k, b[i]]);
-
 class Track
 {
 
@@ -80,13 +78,13 @@ class Track
     }
   }
 
-  aggregate(other)
+  aggregate(other, expand)
   {
 
     if( this.resolution === other.resolution )
     {
       // when we aggregate, we specifically
-      const length = Math.max( this.rep.length, other.rep.length );
+      const length = expand ? Math.max( this.rep.length, other.rep.length ) : this.rep.length;
       const pat = new Array(length).fill(0);
       for(let index = 0; index < pat.length; ++index)
       {
@@ -100,7 +98,7 @@ class Track
       const hcf = findHCF(this.resolution, other.resolution);
       const a = this.formatResolution( hcf );
       const b = other.formatResolution( hcf );
-      return a.aggregate(b);
+      return a.aggregate(b, expand);
     }
   }
 
@@ -205,6 +203,7 @@ class Track
   // combine these, and make them a duck-typed non-static inheritance function
   static combine(a, b, size, resolution)
   {
+    // This appends b to a
     if(!a && !b)
     {
       throw new Error("Can't combine two null tracks");

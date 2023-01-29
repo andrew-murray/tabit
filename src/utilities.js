@@ -78,5 +78,7 @@ const compareArray = (a,b) => {
   return true;
 }
 
+const zip = (a, b) => a.map((k, i) => [k, b[i]]);
 
-export { calculateResolution, compareArray, findHCF };
+
+export { calculateResolution, compareArray, findHCF, zip};

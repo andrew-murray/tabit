@@ -65,18 +65,24 @@ function createPatternsFromData(patternData)
     // todo: find a more compact way of doing this
     for( const [id, trackData] of Object.entries(pattern.instrumentTracks) )
     {
-      if( "resolution" in trackData )
+      if( "points" in trackData )
       {
         // todo: ditch the non-sparse format entirely
-        const loadedTrack = new Track( trackData.rep, trackData.resolution );
-        replacedTracks[id] = TRACK_FORMAT_SPARSE ? new SparseTrack( loadedTrack.toPoints(), loadedTrack.length(), loadedTrack.getVelocities())
-                                                 : loadedTrack;
+        const velocity = "velocity" in trackData ? trackData.velocity :
+          new Array(trackData.points.length).fill(0.8);
+        replacedTracks[id] = TRACK_FORMAT_SPARSE ? new SparseTrack( trackData.points, trackData.length_, velocity )
+                                                 : Track.fromPositions( trackData.points, trackData.length_, patternResolution );
+
       }
       else
       {
         // todo: ditch the non-sparse format entirely
-        replacedTracks[id] = TRACK_FORMAT_SPARSE ? new SparseTrack( trackData.points, trackData.length_, trackData.getVelocities() )
-                                                 : Track.fromPositions( trackData.points, trackData.length_, patternResolution );
+        const loadedTrack = new Track( trackData.rep, trackData.resolution );
+        const points = loadedTrack.toPoints();
+        const velocity = "velocity" in trackData ? trackData.velocity :
+          new Array(points.length).fill(0.8);
+        replacedTracks[id] = TRACK_FORMAT_SPARSE ? new SparseTrack( loadedTrack.toPoints(), loadedTrack.length(), velocity)
+                                                 : loadedTrack;
       }
     }
     let patternWithTracks = Object.assign({}, pattern);

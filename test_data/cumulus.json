@@ -153,822 +153,412 @@
                 {
                     "position": 0,
                     "instrument": 0,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 0,
                     "instrument": 5,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 12,
                     "instrument": 0,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 24,
                     "instrument": 5,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 36,
                     "instrument": 0,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 48,
                     "instrument": 2,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 48,
                     "instrument": 4,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 72,
                     "instrument": 5,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 84,
                     "instrument": 5,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 120,
                     "instrument": 5,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 132,
                     "instrument": 0,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 144,
                     "instrument": 1,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 144,
                     "instrument": 5,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 144,
                     "instrument": 2,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 144,
                     "instrument": 4,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 156,
                     "instrument": 5,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 168,
                     "instrument": 0,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 168,
                     "instrument": 5,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 180,
                     "instrument": 2,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 180,
                     "instrument": 4,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 192,
                     "instrument": 0,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 192,
                     "instrument": 5,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 204,
                     "instrument": 0,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 216,
                     "instrument": 5,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 228,
                     "instrument": 0,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 240,
                     "instrument": 2,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 240,
                     "instrument": 4,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 264,
                     "instrument": 5,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 276,
                     "instrument": 0,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 288,
                     "instrument": 1,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 288,
                     "instrument": 4,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 288,
                     "instrument": 3,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 300,
                     "instrument": 2,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 312,
                     "instrument": 0,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 312,
                     "instrument": 5,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 324,
                     "instrument": 1,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 324,
                     "instrument": 4,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 324,
                     "instrument": 3,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 336,
                     "instrument": 2,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 348,
                     "instrument": 0,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 348,
                     "instrument": 5,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 360,
                     "instrument": 1,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 360,
                     "instrument": 4,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 360,
                     "instrument": 3,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 372,
                     "instrument": 2,
-                    "velocity": 0
+                    "velocity": 0.8
                 }
             ],
             "resolution": 12,
             "instrumentTracks": {
                 "0": {
-                    "rep": [
-                        1,
-                        1,
+                    "points": [
                         0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        1,
-                        0,
-                        1,
-                        1,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0
+                        12,
+                        36,
+                        132,
+                        168,
+                        192,
+                        204,
+                        228,
+                        276,
+                        312,
+                        348
                     ],
-                    "resolution": 12
+                    "length_": 384,
+                    "velocity": [
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8
+                    ]
                 },
                 "1": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        1,
-                        0
+                    "points": [
+                        144,
+                        288,
+                        324,
+                        360
                     ],
-                    "resolution": 12
+                    "length_": 384,
+                    "velocity": [
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8
+                    ]
                 },
                 "2": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        1
+                    "points": [
+                        48,
+                        144,
+                        180,
+                        240,
+                        300,
+                        336,
+                        372
                     ],
-                    "resolution": 12
+                    "length_": 384,
+                    "velocity": [
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8
+                    ]
                 },
                 "3": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        1,
-                        0
+                    "points": [
+                        288,
+                        324,
+                        360
                     ],
-                    "resolution": 12
+                    "length_": 384,
+                    "velocity": [
+                        0.8,
+                        0.8,
+                        0.8
+                    ]
                 },
                 "4": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        1,
-                        0
+                    "points": [
+                        48,
+                        144,
+                        180,
+                        240,
+                        288,
+                        324,
+                        360
                     ],
-                    "resolution": 12
+                    "length_": 384,
+                    "velocity": [
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8
+                    ]
                 },
                 "5": {
-                    "rep": [
-                        1,
+                    "points": [
                         0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        1,
-                        1,
-                        0,
-                        0,
-                        1,
-                        0,
-                        1,
-                        1,
-                        1,
-                        0,
-                        1,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0
+                        24,
+                        72,
+                        84,
+                        120,
+                        144,
+                        156,
+                        168,
+                        192,
+                        216,
+                        264,
+                        312,
+                        348
                     ],
-                    "resolution": 12
+                    "length_": 384,
+                    "velocity": [
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8
+                    ]
                 },
                 "6": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 12
+                    "points": [],
+                    "length_": 384,
+                    "velocity": []
                 },
                 "7": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 12
+                    "points": [],
+                    "length_": 384,
+                    "velocity": []
                 },
                 "8": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 12
+                    "points": [],
+                    "length_": 384,
+                    "velocity": []
                 },
                 "9": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 12
+                    "points": [],
+                    "length_": 384,
+                    "velocity": []
                 },
                 "10": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 12
+                    "points": [],
+                    "length_": 384,
+                    "velocity": []
                 },
                 "11": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 12
+                    "points": [],
+                    "length_": 384,
+                    "velocity": []
                 },
                 "12": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 12
+                    "points": [],
+                    "length_": 384,
+                    "velocity": []
                 },
                 "13": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 12
+                    "points": [],
+                    "length_": 384,
+                    "velocity": []
                 },
                 "14": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 12
+                    "points": [],
+                    "length_": 384,
+                    "velocity": []
                 },
                 "15": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 12
+                    "points": [],
+                    "length_": 384,
+                    "velocity": []
                 }
             }
         },
@@ -979,842 +569,438 @@
                 {
                     "position": 0,
                     "instrument": 5,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 0,
                     "instrument": 1,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 0,
                     "instrument": 2,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 12,
                     "instrument": 5,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 12,
                     "instrument": 2,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 24,
                     "instrument": 5,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 36,
                     "instrument": 5,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 36,
                     "instrument": 2,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 48,
                     "instrument": 0,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 60,
                     "instrument": 2,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 72,
                     "instrument": 0,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 84,
                     "instrument": 0,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 96,
                     "instrument": 0,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 96,
                     "instrument": 5,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 96,
                     "instrument": 4,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 108,
                     "instrument": 4,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 120,
                     "instrument": 2,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 132,
                     "instrument": 2,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 144,
                     "instrument": 5,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 144,
                     "instrument": 1,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 144,
                     "instrument": 2,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 156,
                     "instrument": 2,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 168,
                     "instrument": 5,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 180,
                     "instrument": 5,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 180,
                     "instrument": 2,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 192,
                     "instrument": 0,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 192,
                     "instrument": 5,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 204,
                     "instrument": 2,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 216,
                     "instrument": 0,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 228,
                     "instrument": 0,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 240,
                     "instrument": 0,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 240,
                     "instrument": 4,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 252,
                     "instrument": 4,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 264,
                     "instrument": 2,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 276,
                     "instrument": 2,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 288,
                     "instrument": 5,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 288,
                     "instrument": 1,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 288,
                     "instrument": 2,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 288,
                     "instrument": 4,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 300,
                     "instrument": 5,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 312,
                     "instrument": 5,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 312,
                     "instrument": 0,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 324,
                     "instrument": 2,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 324,
                     "instrument": 4,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 336,
                     "instrument": 5,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 336,
                     "instrument": 1,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 348,
                     "instrument": 0,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 360,
                     "instrument": 2,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 360,
                     "instrument": 4,
-                    "velocity": 0
+                    "velocity": 0.8
                 }
             ],
             "resolution": 12,
             "instrumentTracks": {
                 "0": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        1,
-                        1,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        1,
-                        1,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0
+                    "points": [
+                        48,
+                        72,
+                        84,
+                        96,
+                        192,
+                        216,
+                        228,
+                        240,
+                        312,
+                        348
                     ],
-                    "resolution": 12
+                    "length_": 384,
+                    "velocity": [
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8
+                    ]
                 },
                 "1": {
-                    "rep": [
-                        1,
+                    "points": [
                         0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0
+                        144,
+                        288,
+                        336
                     ],
-                    "resolution": 12
+                    "length_": 384,
+                    "velocity": [
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8
+                    ]
                 },
                 "2": {
-                    "rep": [
-                        1,
-                        1,
+                    "points": [
                         0,
-                        1,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        1,
-                        1,
-                        1,
-                        0,
-                        1,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        1,
-                        1,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        1,
-                        0
+                        12,
+                        36,
+                        60,
+                        120,
+                        132,
+                        144,
+                        156,
+                        180,
+                        204,
+                        264,
+                        276,
+                        288,
+                        324,
+                        360
                     ],
-                    "resolution": 12
+                    "length_": 384,
+                    "velocity": [
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8
+                    ]
                 },
                 "3": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 12
+                    "points": [],
+                    "length_": 384,
+                    "velocity": []
                 },
                 "4": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        1,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        1,
-                        0
+                    "points": [
+                        96,
+                        108,
+                        240,
+                        252,
+                        288,
+                        324,
+                        360
                     ],
-                    "resolution": 12
+                    "length_": 384,
+                    "velocity": [
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8
+                    ]
                 },
                 "5": {
-                    "rep": [
-                        1,
-                        1,
-                        1,
-                        1,
+                    "points": [
                         0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        1,
-                        1,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        1,
-                        1,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0
+                        12,
+                        24,
+                        36,
+                        96,
+                        144,
+                        168,
+                        180,
+                        192,
+                        288,
+                        300,
+                        312,
+                        336
                     ],
-                    "resolution": 12
+                    "length_": 384,
+                    "velocity": [
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8
+                    ]
                 },
                 "6": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 12
+                    "points": [],
+                    "length_": 384,
+                    "velocity": []
                 },
                 "7": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 12
+                    "points": [],
+                    "length_": 384,
+                    "velocity": []
                 },
                 "8": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 12
+                    "points": [],
+                    "length_": 384,
+                    "velocity": []
                 },
                 "9": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 12
+                    "points": [],
+                    "length_": 384,
+                    "velocity": []
                 },
                 "10": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 12
+                    "points": [],
+                    "length_": 384,
+                    "velocity": []
                 },
                 "11": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 12
+                    "points": [],
+                    "length_": 384,
+                    "velocity": []
                 },
                 "12": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 12
+                    "points": [],
+                    "length_": 384,
+                    "velocity": []
                 },
                 "13": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 12
+                    "points": [],
+                    "length_": 384,
+                    "velocity": []
                 },
                 "14": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 12
+                    "points": [],
+                    "length_": 384,
+                    "velocity": []
                 },
                 "15": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 12
+                    "points": [],
+                    "length_": 384,
+                    "velocity": []
                 }
             }
         },
@@ -1825,1574 +1011,748 @@
                 {
                     "position": 0,
                     "instrument": 0,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 0,
                     "instrument": 5,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 12,
                     "instrument": 5,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 24,
                     "instrument": 5,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 36,
                     "instrument": 3,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 36,
                     "instrument": 4,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 36,
                     "instrument": 1,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 36,
                     "instrument": 2,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 72,
                     "instrument": 0,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 72,
                     "instrument": 5,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 84,
                     "instrument": 5,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 96,
                     "instrument": 5,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 108,
                     "instrument": 3,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 108,
                     "instrument": 4,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 108,
                     "instrument": 1,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 108,
                     "instrument": 2,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 144,
                     "instrument": 0,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 144,
                     "instrument": 5,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 168,
                     "instrument": 5,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 180,
                     "instrument": 0,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 180,
                     "instrument": 5,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 204,
                     "instrument": 5,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 216,
                     "instrument": 3,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 216,
                     "instrument": 4,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 216,
                     "instrument": 1,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 216,
                     "instrument": 2,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 240,
                     "instrument": 5,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 252,
                     "instrument": 0,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 252,
                     "instrument": 5,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 276,
                     "instrument": 5,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 288,
                     "instrument": 0,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 288,
                     "instrument": 5,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 312,
                     "instrument": 5,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 312,
                     "instrument": 0,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 324,
                     "instrument": 1,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 324,
                     "instrument": 3,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 324,
                     "instrument": 2,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 336,
                     "instrument": 4,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 348,
                     "instrument": 0,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 348,
                     "instrument": 5,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 360,
                     "instrument": 0,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 360,
                     "instrument": 5,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 384,
                     "instrument": 0,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 384,
                     "instrument": 5,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 396,
                     "instrument": 5,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 408,
                     "instrument": 5,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 408,
                     "instrument": 2,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 420,
                     "instrument": 3,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 420,
                     "instrument": 4,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 420,
                     "instrument": 1,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 456,
                     "instrument": 0,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 456,
                     "instrument": 5,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 468,
                     "instrument": 5,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 480,
                     "instrument": 5,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 480,
                     "instrument": 2,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 492,
                     "instrument": 3,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 492,
                     "instrument": 4,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 492,
                     "instrument": 1,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 528,
                     "instrument": 0,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 528,
                     "instrument": 5,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 552,
                     "instrument": 0,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 552,
                     "instrument": 5,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 564,
                     "instrument": 3,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 564,
                     "instrument": 4,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 564,
                     "instrument": 1,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 564,
                     "instrument": 2,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 588,
                     "instrument": 3,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 588,
                     "instrument": 4,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 588,
                     "instrument": 1,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 588,
                     "instrument": 2,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 624,
                     "instrument": 0,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 624,
                     "instrument": 5,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 636,
                     "instrument": 5,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 648,
                     "instrument": 0,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 648,
                     "instrument": 5,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 660,
                     "instrument": 3,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 660,
                     "instrument": 4,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 660,
                     "instrument": 1,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 660,
                     "instrument": 2,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 684,
                     "instrument": 3,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 684,
                     "instrument": 4,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 684,
                     "instrument": 1,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 684,
                     "instrument": 2,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 708,
                     "instrument": 0,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 708,
                     "instrument": 5,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 720,
                     "instrument": 4,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 720,
                     "instrument": 3,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 720,
                     "instrument": 1,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 720,
                     "instrument": 2,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 732,
                     "instrument": 4,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 732,
                     "instrument": 2,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 744,
                     "instrument": 4,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 744,
                     "instrument": 2,
-                    "velocity": 0
+                    "velocity": 0.8
                 }
             ],
             "resolution": 12,
             "instrumentTracks": {
                 "0": {
-                    "rep": [
-                        1,
+                    "points": [
                         0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        1,
-                        0,
-                        1,
-                        0,
-                        0,
-                        1,
-                        1,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0
+                        72,
+                        144,
+                        180,
+                        252,
+                        288,
+                        312,
+                        348,
+                        360,
+                        384,
+                        456,
+                        528,
+                        552,
+                        624,
+                        648,
+                        708
                     ],
-                    "resolution": 12
+                    "length_": 768,
+                    "velocity": [
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8
+                    ]
                 },
                 "1": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        1,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0
+                    "points": [
+                        36,
+                        108,
+                        216,
+                        324,
+                        420,
+                        492,
+                        564,
+                        588,
+                        660,
+                        684,
+                        720
                     ],
-                    "resolution": 12
+                    "length_": 768,
+                    "velocity": [
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8
+                    ]
                 },
                 "2": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        1,
-                        0,
-                        0,
-                        1,
-                        1,
-                        1,
-                        0
+                    "points": [
+                        36,
+                        108,
+                        216,
+                        324,
+                        408,
+                        480,
+                        564,
+                        588,
+                        660,
+                        684,
+                        720,
+                        732,
+                        744
                     ],
-                    "resolution": 12
+                    "length_": 768,
+                    "velocity": [
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8
+                    ]
                 },
                 "3": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        1,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0
+                    "points": [
+                        36,
+                        108,
+                        216,
+                        324,
+                        420,
+                        492,
+                        564,
+                        588,
+                        660,
+                        684,
+                        720
                     ],
-                    "resolution": 12
+                    "length_": 768,
+                    "velocity": [
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8
+                    ]
                 },
                 "4": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        1,
-                        0,
-                        0,
-                        1,
-                        1,
-                        1,
-                        0
+                    "points": [
+                        36,
+                        108,
+                        216,
+                        336,
+                        420,
+                        492,
+                        564,
+                        588,
+                        660,
+                        684,
+                        720,
+                        732,
+                        744
                     ],
-                    "resolution": 12
+                    "length_": 768,
+                    "velocity": [
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8
+                    ]
                 },
                 "5": {
-                    "rep": [
-                        1,
-                        1,
-                        1,
+                    "points": [
                         0,
-                        0,
-                        0,
-                        1,
-                        1,
-                        1,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        1,
-                        1,
-                        0,
-                        1,
-                        0,
-                        0,
-                        1,
-                        1,
-                        0,
-                        1,
-                        1,
-                        0,
-                        1,
-                        0,
-                        0,
-                        1,
-                        1,
-                        0,
-                        1,
-                        1,
-                        1,
-                        0,
-                        0,
-                        0,
-                        1,
-                        1,
-                        1,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        1,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0
+                        12,
+                        24,
+                        72,
+                        84,
+                        96,
+                        144,
+                        168,
+                        180,
+                        204,
+                        240,
+                        252,
+                        276,
+                        288,
+                        312,
+                        348,
+                        360,
+                        384,
+                        396,
+                        408,
+                        456,
+                        468,
+                        480,
+                        528,
+                        552,
+                        624,
+                        636,
+                        648,
+                        708
                     ],
-                    "resolution": 12
+                    "length_": 768,
+                    "velocity": [
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8
+                    ]
                 },
                 "6": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 12
+                    "points": [],
+                    "length_": 768,
+                    "velocity": []
                 },
                 "7": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 12
+                    "points": [],
+                    "length_": 768,
+                    "velocity": []
                 },
                 "8": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 12
+                    "points": [],
+                    "length_": 768,
+                    "velocity": []
                 },
                 "9": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 12
+                    "points": [],
+                    "length_": 768,
+                    "velocity": []
                 },
                 "10": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 12
+                    "points": [],
+                    "length_": 768,
+                    "velocity": []
                 },
                 "11": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 12
+                    "points": [],
+                    "length_": 768,
+                    "velocity": []
                 },
                 "12": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 12
+                    "points": [],
+                    "length_": 768,
+                    "velocity": []
                 },
                 "13": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 12
+                    "points": [],
+                    "length_": 768,
+                    "velocity": []
                 },
                 "14": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 12
+                    "points": [],
+                    "length_": 768,
+                    "velocity": []
                 },
                 "15": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 12
+                    "points": [],
+                    "length_": 768,
+                    "velocity": []
                 }
             }
         },
@@ -3403,669 +1763,377 @@
                 {
                     "position": 0,
                     "instrument": 0,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 0,
                     "instrument": 5,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 12,
                     "instrument": 5,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 12,
                     "instrument": 0,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 24,
                     "instrument": 5,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 24,
                     "instrument": 0,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 36,
                     "instrument": 2,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 36,
                     "instrument": 3,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 36,
                     "instrument": 1,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 36,
                     "instrument": 4,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 72,
                     "instrument": 0,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 72,
                     "instrument": 5,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 84,
                     "instrument": 5,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 84,
                     "instrument": 0,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 96,
                     "instrument": 5,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 96,
                     "instrument": 0,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 108,
                     "instrument": 2,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 108,
                     "instrument": 3,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 108,
                     "instrument": 4,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 108,
                     "instrument": 1,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 144,
                     "instrument": 0,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 144,
                     "instrument": 5,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 156,
                     "instrument": 0,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 156,
                     "instrument": 5,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 168,
                     "instrument": 0,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 168,
                     "instrument": 5,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 180,
                     "instrument": 2,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 180,
                     "instrument": 3,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 180,
                     "instrument": 4,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 180,
                     "instrument": 1,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 216,
                     "instrument": 0,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 216,
                     "instrument": 5,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 228,
                     "instrument": 0,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 228,
                     "instrument": 5,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 240,
                     "instrument": 0,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 240,
                     "instrument": 5,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 252,
                     "instrument": 1,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 252,
                     "instrument": 2,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 252,
                     "instrument": 4,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 252,
                     "instrument": 3,
-                    "velocity": 0
+                    "velocity": 0.8
                 }
             ],
             "resolution": 12,
             "instrumentTracks": {
                 "0": {
-                    "rep": [
-                        1,
-                        1,
-                        1,
+                    "points": [
                         0,
-                        0,
-                        0,
-                        1,
-                        1,
-                        1,
-                        0,
-                        0,
-                        0,
-                        1,
-                        1,
-                        1,
-                        0,
-                        0,
-                        0,
-                        1,
-                        1,
-                        1,
-                        0,
-                        0,
-                        0
+                        12,
+                        24,
+                        72,
+                        84,
+                        96,
+                        144,
+                        156,
+                        168,
+                        216,
+                        228,
+                        240
                     ],
-                    "resolution": 12
+                    "length_": 288,
+                    "velocity": [
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8
+                    ]
                 },
                 "1": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0
+                    "points": [
+                        36,
+                        108,
+                        180,
+                        252
                     ],
-                    "resolution": 12
+                    "length_": 288,
+                    "velocity": [
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8
+                    ]
                 },
                 "2": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0
+                    "points": [
+                        36,
+                        108,
+                        180,
+                        252
                     ],
-                    "resolution": 12
+                    "length_": 288,
+                    "velocity": [
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8
+                    ]
                 },
                 "3": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0
+                    "points": [
+                        36,
+                        108,
+                        180,
+                        252
                     ],
-                    "resolution": 12
+                    "length_": 288,
+                    "velocity": [
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8
+                    ]
                 },
                 "4": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0
+                    "points": [
+                        36,
+                        108,
+                        180,
+                        252
                     ],
-                    "resolution": 12
+                    "length_": 288,
+                    "velocity": [
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8
+                    ]
                 },
                 "5": {
-                    "rep": [
-                        1,
-                        1,
-                        1,
+                    "points": [
                         0,
-                        0,
-                        0,
-                        1,
-                        1,
-                        1,
-                        0,
-                        0,
-                        0,
-                        1,
-                        1,
-                        1,
-                        0,
-                        0,
-                        0,
-                        1,
-                        1,
-                        1,
-                        0,
-                        0,
-                        0
+                        12,
+                        24,
+                        72,
+                        84,
+                        96,
+                        144,
+                        156,
+                        168,
+                        216,
+                        228,
+                        240
                     ],
-                    "resolution": 12
+                    "length_": 288,
+                    "velocity": [
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8
+                    ]
                 },
                 "6": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 12
+                    "points": [],
+                    "length_": 288,
+                    "velocity": []
                 },
                 "7": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 12
+                    "points": [],
+                    "length_": 288,
+                    "velocity": []
                 },
                 "8": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 12
+                    "points": [],
+                    "length_": 288,
+                    "velocity": []
                 },
                 "9": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 12
+                    "points": [],
+                    "length_": 288,
+                    "velocity": []
                 },
                 "10": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 12
+                    "points": [],
+                    "length_": 288,
+                    "velocity": []
                 },
                 "11": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 12
+                    "points": [],
+                    "length_": 288,
+                    "velocity": []
                 },
                 "12": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 12
+                    "points": [],
+                    "length_": 288,
+                    "velocity": []
                 },
                 "13": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 12
+                    "points": [],
+                    "length_": 288,
+                    "velocity": []
                 },
                 "14": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 12
+                    "points": [],
+                    "length_": 288,
+                    "velocity": []
                 },
                 "15": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 12
+                    "points": [],
+                    "length_": 288,
+                    "velocity": []
                 }
             }
         },
@@ -4076,796 +2144,278 @@
                 {
                     "position": 0,
                     "instrument": 0,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 8,
                     "instrument": 0,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 16,
                     "instrument": 0,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 24,
                     "instrument": 0,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 32,
                     "instrument": 0,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 40,
                     "instrument": 0,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 48,
                     "instrument": 1,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 72,
                     "instrument": 0,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 80,
                     "instrument": 0,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 88,
                     "instrument": 0,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 96,
                     "instrument": 0,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 104,
                     "instrument": 0,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 112,
                     "instrument": 0,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 120,
                     "instrument": 1,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 144,
                     "instrument": 0,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 152,
                     "instrument": 0,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 160,
                     "instrument": 0,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 168,
                     "instrument": 0,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 176,
                     "instrument": 0,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 184,
                     "instrument": 0,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 192,
                     "instrument": 1,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 216,
                     "instrument": 0,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 224,
                     "instrument": 0,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 232,
                     "instrument": 0,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 240,
                     "instrument": 1,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 256,
                     "instrument": 1,
-                    "velocity": 0
+                    "velocity": 0.8
                 },
                 {
                     "position": 272,
                     "instrument": 1,
-                    "velocity": 0
+                    "velocity": 0.8
                 }
             ],
             "resolution": 8,
             "instrumentTracks": {
                 "0": {
-                    "rep": [
-                        1,
-                        1,
-                        1,
-                        1,
-                        1,
-                        1,
+                    "points": [
                         0,
-                        0,
-                        0,
-                        1,
-                        1,
-                        1,
-                        1,
-                        1,
-                        1,
-                        0,
-                        0,
-                        0,
-                        1,
-                        1,
-                        1,
-                        1,
-                        1,
-                        1,
-                        0,
-                        0,
-                        0,
-                        1,
-                        1,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0
+                        8,
+                        16,
+                        24,
+                        32,
+                        40,
+                        72,
+                        80,
+                        88,
+                        96,
+                        104,
+                        112,
+                        144,
+                        152,
+                        160,
+                        168,
+                        176,
+                        184,
+                        216,
+                        224,
+                        232
                     ],
-                    "resolution": 8
+                    "length_": 288,
+                    "velocity": [
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8
+                    ]
                 },
                 "1": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        1,
-                        0,
-                        1,
-                        0
+                    "points": [
+                        48,
+                        120,
+                        192,
+                        240,
+                        256,
+                        272
                     ],
-                    "resolution": 8
+                    "length_": 288,
+                    "velocity": [
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8
+                    ]
                 },
                 "2": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 8
+                    "points": [],
+                    "length_": 288,
+                    "velocity": []
                 },
                 "3": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 8
+                    "points": [],
+                    "length_": 288,
+                    "velocity": []
                 },
                 "4": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 8
+                    "points": [],
+                    "length_": 288,
+                    "velocity": []
                 },
                 "5": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 8
+                    "points": [],
+                    "length_": 288,
+                    "velocity": []
                 },
                 "6": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 8
+                    "points": [],
+                    "length_": 288,
+                    "velocity": []
                 },
                 "7": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 8
+                    "points": [],
+                    "length_": 288,
+                    "velocity": []
                 },
                 "8": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 8
+                    "points": [],
+                    "length_": 288,
+                    "velocity": []
                 },
                 "9": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 8
+                    "points": [],
+                    "length_": 288,
+                    "velocity": []
                 },
                 "10": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 8
+                    "points": [],
+                    "length_": 288,
+                    "velocity": []
                 },
                 "11": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 8
+                    "points": [],
+                    "length_": 288,
+                    "velocity": []
                 },
                 "12": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 8
+                    "points": [],
+                    "length_": 288,
+                    "velocity": []
                 },
                 "13": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 8
+                    "points": [],
+                    "length_": 288,
+                    "velocity": []
                 },
                 "14": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 8
+                    "points": [],
+                    "length_": 288,
+                    "velocity": []
                 },
                 "15": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 8
+                    "points": [],
+                    "length_": 288,
+                    "velocity": []
                 }
             }
         },
@@ -4876,148 +2426,84 @@
             "resolution": 48,
             "instrumentTracks": {
                 "0": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 48
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
                 },
                 "1": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 48
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
                 },
                 "2": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 48
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
                 },
                 "3": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 48
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
                 },
                 "4": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 48
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
                 },
                 "5": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 48
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
                 },
                 "6": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 48
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
                 },
                 "7": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 48
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
                 },
                 "8": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 48
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
                 },
                 "9": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 48
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
                 },
                 "10": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 48
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
                 },
                 "11": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 48
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
                 },
                 "12": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 48
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
                 },
                 "13": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 48
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
                 },
                 "14": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 48
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
                 },
                 "15": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 48
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
                 }
             }
         },
@@ -5028,148 +2514,84 @@
             "resolution": 48,
             "instrumentTracks": {
                 "0": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 48
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
                 },
                 "1": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 48
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
                 },
                 "2": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 48
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
                 },
                 "3": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 48
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
                 },
                 "4": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 48
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
                 },
                 "5": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 48
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
                 },
                 "6": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 48
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
                 },
                 "7": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 48
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
                 },
                 "8": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 48
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
                 },
                 "9": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 48
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
                 },
                 "10": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 48
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
                 },
                 "11": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 48
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
                 },
                 "12": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 48
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
                 },
                 "13": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 48
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
                 },
                 "14": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 48
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
                 },
                 "15": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 48
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
                 }
             }
         },
@@ -5180,148 +2602,84 @@
             "resolution": 48,
             "instrumentTracks": {
                 "0": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 48
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
                 },
                 "1": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 48
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
                 },
                 "2": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 48
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
                 },
                 "3": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 48
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
                 },
                 "4": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 48
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
                 },
                 "5": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 48
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
                 },
                 "6": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 48
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
                 },
                 "7": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 48
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
                 },
                 "8": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 48
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
                 },
                 "9": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 48
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
                 },
                 "10": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 48
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
                 },
                 "11": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 48
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
                 },
                 "12": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 48
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
                 },
                 "13": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 48
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
                 },
                 "14": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 48
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
                 },
                 "15": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 48
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
                 }
             }
         },
@@ -5332,148 +2690,84 @@
             "resolution": 48,
             "instrumentTracks": {
                 "0": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 48
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
                 },
                 "1": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 48
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
                 },
                 "2": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 48
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
                 },
                 "3": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 48
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
                 },
                 "4": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 48
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
                 },
                 "5": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 48
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
                 },
                 "6": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 48
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
                 },
                 "7": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 48
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
                 },
                 "8": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 48
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
                 },
                 "9": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 48
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
                 },
                 "10": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 48
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
                 },
                 "11": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 48
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
                 },
                 "12": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 48
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
                 },
                 "13": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 48
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
                 },
                 "14": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 48
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
                 },
                 "15": {
-                    "rep": [
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
-                    "resolution": 48
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
                 }
             }
         }

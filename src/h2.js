@@ -87,7 +87,7 @@ function parseHydrogen(dom, sparse)
             return {
               "position" : parseInt(noteElement.position),
               "instrument" : parseInt(noteElement.instrument),
-              "velocity": parseInt(noteElement.velocity)
+              "velocity": parseFloat(noteElement.velocity)
             };
           }
         );
@@ -224,17 +224,24 @@ function parseHydrogen(dom, sparse)
           {
             if( id in rootPattern.instrumentTracks )
             {
-              const merged = rootPattern.instrumentTracks[ id ].aggregate( t );
               // we match hydrogen's implementation here and discard values past the length of the original track
-              merged.rep.length = rootPattern.size  / merged.resolution;
+              const expand = false;
+              const merged = rootPattern.instrumentTracks[ id ].aggregate( t, expand);
               rootPattern.instrumentTracks[ id ] = merged;
             }
             else
             {
-              // ensure track is the appropriate length & res
-              let copiedTrack = t.format(rootPattern.resolution);
-              copiedTrack.length = rootPattern.size  / rootPattern.resolution;
-              rootPattern.instrumentTracks[id] = copiedTrack;
+              if(sparse)
+              {
+                rootPattern.instrumentTracks[id] = t.shrinkTo(rootPattern.size);
+              }
+              else
+              {
+                // ensure track is the appropriate length & res
+                let copiedTrack = t.format(rootPattern.resolution);
+                copiedTrack.length = rootPattern.size  / rootPattern.resolution;
+                rootPattern.instrumentTracks[id] = copiedTrack;
+              }
             }
           }
         }

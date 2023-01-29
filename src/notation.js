@@ -291,7 +291,7 @@ class notation
     {
       const trackInstance = trackDict[trackID];
       // todo: countInRange? deal with collions/bad resolutions
-      if( trackInstance !== null )
+      if( trackInstance !== null && trackInstance !== undefined )
       {
         const notes = trackInstance.findAllInRange(charLower, charHigher);
         if(notes.length !== 0)
@@ -324,7 +324,7 @@ class notation
     for( const [trackID, trackSymbol] of Object.entries(instrument) )
     {
       const trackInstance = tracksInRange[trackID];
-      if( trackInstance !== null )
+      if( trackInstance !== null && trackInstance !== undefined )
       {
         // filter to resolution (we expect to have already filtered to beat)
         const notes = trackInstance.findAllInRange(charLower, charHigher);
@@ -453,7 +453,7 @@ class notation
       {
         const trackInstance = trackDict[trackID];
         // todo: countInRange? deal with collions/bad resolutions
-        if( trackInstance !== null )
+        if( trackInstance !== null && trackInstance !== undefined )
         {
           const notes = trackInstance.findAllInRange(charLower, charHigher);
           if(notes.length !== 0)
@@ -491,10 +491,38 @@ class notation
     }
 
     // turn the tracks, into one char string
-    const patternArray = notation.formatPatternString( instrument, trackDict, config.restMark, config.undefinedMark );
+    const repTrack = instrumentTracks[0];
+    let patternArray = null;
+    let patternResolution = null;
+    let patternSize = null;
+    if(repTrack.isSparse())
+    {
+      // collapse all the tracks into something absurd,
+      // in order to calculate resolution globally
+      const expand = true;
+      const megaTrack = instrumentTracks.reduce( (a,b)=>a.aggregate(b, expand) );
+      patternResolution = megaTrack.getResolution();
+      patternSize = megaTrack.length();
+      patternArray = notation.formatPatternStringSparse(
+        instrument,
+        trackDict,
+        config.restMark,
+        config.undefinedMark,
+        patternResolution
+      );
+    }
+    else
+    {
+      patternResolution = repTrack.resolution;
+      patternSize = repTrack.length();
+      patternArray = notation.formatPatternString(
+        instrument,
+        trackDict,
+        config.restMark,
+        config.undefinedMark
+      );
+    }
     const patternString = patternArray.join("");
-    const patternResolution = instrumentTracks[0].resolution;
-    const patternSize = instrumentTracks[0].length();
 
     // handle lines and beatMarkers
     let lineArray = notation.chunkString( patternString, config.lineResolution / patternResolution );

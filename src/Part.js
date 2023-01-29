@@ -39,10 +39,13 @@ const splitTracksIntoLines = (instrument, trackDict, lineResolution) =>
     const lineStart = lineResolution * lineIndex;
     const lineEnd = Math.min( lineStart + lineResolution, exampleTrack.length());
     const lineSize = lineEnd - lineStart;
-    const tracksInRange = Object.fromEntries( Object.keys(instrument).map( instID => [instID, new SparseTrack(
-      trackDict[instID].findAllInRange(lineStart, lineEnd).map((val)=>val - lineStart),
-      lineSize
-    )]));
+    const tracksInRange = Object.fromEntries( Object.keys(instrument).map( instID => {
+      const pv = trackDict[instID].findPVInRange(lineStart, lineEnd);
+      const p = pv.map(x=>x[0] - lineStart);
+      const v = pv.map(x=>x[1]);
+      const track = new SparseTrack( p, lineSize, v );
+      return [instID, track];
+    }));
     tracksByLine.push( tracksInRange );
   }
   return tracksByLine;
@@ -60,10 +63,14 @@ const countTrackRepeats = (tracksByLine) => {
     {
       const compareTracks = tracksByLine[compareIndex];
       let allTracksEqual = true;
+      // these tracks are all generated from the same set, so we need not worry about missing keys
       for(const trackID of Object.keys(baseTracks))
       {
-        // these tracks are all generated from the same set, so we need not worry about missing keys
-        allTracksEqual &= baseTracks[trackID].equals( compareTracks[trackID] );
+        // velocity doesn't affect appearance (currently) so I think it's better
+        // to ignore it here (though scenarios where you would get the same line)
+        // but different dynamics? weird.
+        const checkVel = false;
+        allTracksEqual &= baseTracks[trackID].equals( compareTracks[trackID], checkVel );
         if(!allTracksEqual)
         {
           break;
@@ -94,6 +101,7 @@ class PartByBeat extends React.Component
 
   render() {
     const tracks = Object.values(this.props.tracks);
+    console.log(this.props.tracks);
     if(tracks.length === 0 || Object.keys(this.props.instrument).length === 0 )
     {
       return <React.Fragment />

@@ -1,4 +1,4 @@
-import { compareArray, findHCF } from "./utilities"
+import { compareArray, findHCF, zip } from "./utilities"
 
 
 class SparseTrack
@@ -25,7 +25,7 @@ class SparseTrack
     return new SparseTrack(
       this.points.slice(),
       this.length_,
-      this.velocity
+      this.velocity.slice()
     );
   }
 
@@ -39,11 +39,11 @@ class SparseTrack
     return this.velocity;
   }
 
-  equals(other)
+  equals(other, checkVel)
   {
     return this.length() === other.length()
       && compareArray(this.points, other.points)
-      && compareArray(this.velocity, other.velocity);
+      && (!checkVel || compareArray(this.velocity, other.velocity));
   }
 
   findInsertionPoint(h)
@@ -123,6 +123,29 @@ class SparseTrack
       }
     }
     return found;
+  }
+
+  findPVInRange(lo,hi)
+  {
+
+      let found = [];
+      for(let i = 0; i < this.points.length; ++i)
+      {
+        // fast-cast, keep skippin'
+        if(this.points[i] < lo)
+        {
+          continue;
+        }
+        else if(/*lo <= this.points[i] &&*/ this.points[i] >= hi) // past the relevant range
+        {
+          return found;
+        }
+        else /*lo <= this.points[i] && this.points[i] < hi */
+        {
+          found.push([this.points[i], this.velocity[i]]);
+        }
+      }
+      return found;
   }
 
   getResolution()
@@ -212,6 +235,8 @@ class SparseTrack
 
   static combine(a, b)
   {
+    // This appends b to a
+
     // todo: Track.combine supports one-null track it's unclear why
     // at time-of-writing this function in SparseTrack
     // this only supports valid tracks else we'd have to complicate the interface
@@ -268,6 +293,46 @@ class SparseTrack
   isDense()
   {
     return !this.isSparse();
+  }
+
+  shrinkTo(length)
+  {
+    const locationOfLengthPoint = this.findInsertionPoint(length);
+    return new SparseTrack(
+      this.points.slice(0, locationOfLengthPoint),
+      length,
+      this.velocity.slice(0, locationOfLengthPoint)
+    )
+  }
+
+  aggregate(other, expand)
+  {
+    // This treats a & b, as if they occur at the same time
+
+    const length = expand ? Math.max( this.length_, other.length_ ) : this.length_;
+    const output = new SparseTrack(
+      this.points.slice(),
+      length,
+      this.velocity.slice()
+    );
+    for( const [p,v] of zip(other.points, other.velocity))
+    {
+      if(p >= length){ continue; }
+      const existingIndex = output.points.indexOf(p);
+      if(existingIndex === -1)
+      {
+        // todo: could implement something more direct, doesn't seem worthwhile
+        output.setPoint( p, 1, v);
+      }
+      else
+      {
+        // make sure that if there are multiple points, we don't end up essentially
+        // muting a part, for some reason
+        const vel = Math.max(output.velocity[existingIndex], v);
+        output.velocity[existingIndex] = vel;
+      }
+    }
+    return output;
   }
 
 }
