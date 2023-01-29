@@ -201,12 +201,6 @@ class Track
     );
   }
 
-  static fromPositionsAndValues(positions, values, size, resolution = null)
-  {
-    const resolutionToUse = resolution ?? calculateResolution( positions, size );
-
-  }
-
   // todo: this is almost the same code as in sparseTrack ... except for resolutions
   // combine these, and make them a duck-typed non-static inheritance function
   static combine(a, b, size, resolution)
