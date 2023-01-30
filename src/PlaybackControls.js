@@ -6,7 +6,7 @@ import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Slider from '@mui/material/Slider';
 import Grid from '@mui/material/Grid';
-import Tooltip from '@mui/material/Tooltip';
+import Tooltip from './TabitTooltip';
 import { isMobile } from "./Mobile";
 
 function PlaybackControls(props)
@@ -25,7 +25,7 @@ function PlaybackControls(props)
         <Grid item xs={tempoControlColumns}>
           <Paper sx={{px: 5}}>
             <Box>
-              <Tooltip title={playTooltip} aria-label={playTooltip}>
+              <Tooltip title={playTooltip}>
                 <IconButton
                   onClick={props.disabled ? undefined : onPlay}
                   disableRipple={props.disabled}
@@ -34,7 +34,7 @@ function PlaybackControls(props)
                   <PlayArrowIcon style={{color: props.disabled ? "#cccccc": "#4cbb17"}}/>
                 </IconButton>
               </Tooltip>
-              <Tooltip title={stopTooltip} aria-label={stopTooltip}>
+              <Tooltip title={stopTooltip}>
                 <IconButton
                   onClick={props.disabled ? undefined : onStop}
                   disableRipple={props.disabled}
