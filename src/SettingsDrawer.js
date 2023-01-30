@@ -10,6 +10,7 @@ import { isMobile } from "./Mobile";
 import TabitBar from "./TabitBar";
 import Switch from '@mui/material/Switch';
 import FormControlLabel from '@mui/material/FormControlLabel';
+import Tooltip from "./TabitTooltip";
 
 function SettingsDrawer(props)
 {
@@ -57,11 +58,13 @@ function SettingsDrawer(props)
         }
         {true &&
           <Box>
-          <FormControlLabel
-            control={<Switch checked={props.interactive} onChange={interactiveChange} name={"Enable Note Editing"} />}
-              label={"Enable Note Editing"}
-              key={"EnableNoteEditing"}
-          />
+          <Tooltip title="Enable note editing when unlocked">
+            <FormControlLabel
+              control={<Switch checked={props.interactive} onChange={interactiveChange} name={"Enable Note Editing"} />}
+                label={"Enable Note Editing"}
+                key={"EnableNoteEditing"}
+            />
+          </Tooltip>
           </Box>
         }
         {patternDetails && props.onSave &&

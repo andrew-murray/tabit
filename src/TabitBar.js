@@ -15,6 +15,7 @@ import LockOpenIcon from '@mui/icons-material/LockOpen';
 import ViewListIcon from '@mui/icons-material/ViewList';
 import CalendarViewDayIcon from '@mui/icons-material/CalendarViewDay';
 import {isMobile} from "./Mobile";
+import Tooltip from "./TabitTooltip";
 
 function TabitBar(props) {
   // we need to render "null" appbars for spacing purposes
@@ -37,16 +38,17 @@ function TabitBar(props) {
     <AppBar position="fixed"
       sx={{backgroundColor: "primary.main", zIndex: (theme)=> theme.zIndex.drawer + (isMobile ? 0 : 20)}}
     >
-
       <Toolbar variant="dense">
-        {props.patternsToggle && <IconButton
-          color="inherit"
-          aria-label="open pattern list"
-          edge="start"
-          onClick={props.patternsToggle}
-          >
-          <MenuIcon />
-        </IconButton>
+        {props.patternsToggle &&
+          <Tooltip title="Patterns" >
+            <IconButton
+              color="inherit"
+              edge="start"
+              onClick={props.patternsToggle}
+            >
+              <MenuIcon />
+            </IconButton>
+          </Tooltip>
         }
         <IconButton
           color="inherit"
@@ -58,56 +60,69 @@ function TabitBar(props) {
           <HomeIcon />
         </IconButton>
         <div style={{"flexGrow": 1, "overflow": "hidden"}}>
-        <Button onClick={props.onTitleClick} color="inherit" style={{"textOverflow": "ellipsis"}}>
-          <Typography variant="h6" color="inherit" noWrap>
-          {props.title}
-          </Typography>
-        </Button>
+        <Tooltip title="Edit Title">
+          <Button onClick={props.onTitleClick} color="inherit" style={{"textOverflow": "ellipsis"}}>
+            <Typography variant="h6" color="inherit" noWrap>
+            {props.title}
+            </Typography>
+          </Button>
+        </Tooltip>
         </div>
-        {props.onLockUnlock && <IconButton
-          color="inherit"
-          aria-label={props.locked ? "unlock" : "lock"}
-          edge="start"
-          onClick={props.onLockUnlock}
-          >
-          {props.locked ? <LockIcon /> : <LockOpenIcon />}
-        </IconButton>
+        {props.onLockUnlock &&
+        <Tooltip title={props.locked ? "Unlock editing" : "Lock editing"}>
+          <IconButton
+            color="inherit"
+            edge="start"
+            onClick={props.onLockUnlock}
+            >
+            {props.locked ? <LockIcon /> : <LockOpenIcon />}
+          </IconButton>
+        </Tooltip>
         }
-        {props.onToggleCompact && <IconButton
-          color="inherit"
-          aria-label={props.compact ? "toggle-to-dense-view" : "toggle-to-compact-view"}
-          edge="start"
-          onClick={props.onToggleCompact}
+        {props.onToggleCompact &&
+        <Tooltip title={props.compact ? "Show expanded layout" : "Show compact layout"}>
+          <IconButton
+            color="inherit"
+            edge="start"
+            onClick={props.onToggleCompact}
           >
-          {props.compact ? <ViewListIcon /> : <CalendarViewDayIcon />}
-        </IconButton>
+            {props.compact ? <ViewListIcon /> : <CalendarViewDayIcon />}
+          </IconButton>
+        </Tooltip>
         }
-        {props.onShare && <IconButton
-          color="inherit"
-          aria-label="share"
-          edge="start"
-          onClick={props.onShare}
-          >
-          <ShareIcon />
-        </IconButton>
+        {props.onShare &&
+        <Tooltip title="Share">
+            <IconButton
+            color="inherit"
+            aria-label="share"
+            edge="start"
+            onClick={props.onShare}
+            >
+            <ShareIcon />
+          </IconButton>
+        </Tooltip>
         }
-        {props.onDownload && <IconButton
+        {props.onDownload &&
+        <Tooltip title="Download">
+          <IconButton
           color="inherit"
-          aria-label="download"
           edge="start"
           onClick={props.onDownload}
           >
-          <SaveAltIcon />
-        </IconButton>
+            <SaveAltIcon />
+          </IconButton>
+        </Tooltip>
         }
-        {props.settingsToggle && <IconButton
-          color="inherit"
-          aria-label="open settings"
-          edge="end"
-          onClick={props.settingsToggle}
-        >
-          <SettingsIcon />
-        </IconButton>
+        {props.settingsToggle &&
+        <Tooltip title="Notation Settings">
+          <IconButton
+            color="inherit"
+            edge="end"
+            onClick={props.settingsToggle}
+          >
+            <SettingsIcon />
+          </IconButton>
+        </Tooltip>
         }
       </Toolbar>
     </AppBar>

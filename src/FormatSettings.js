@@ -11,6 +11,7 @@ import Select from '@mui/material/Select'
 import notation from "./notation"
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
+import Tooltip from './TabitTooltip';
 
 function camelToReadable(s)
 {
@@ -206,8 +207,16 @@ function FormatSettings(props) {
   return (
     <FormGroup>
       <Tabs value={settingsTabIndex} onChange={handleTabChange} aria-label="Settings Tabs" variant="fullWidth">
-        <Tab label="Song"/>
-        <Tab label="Pattern"/>
+        <Tab label={
+          <Tooltip title="Settings for all patterns">
+            <span>Song</span>
+          </Tooltip>
+        }/>
+        <Tab label={
+          <Tooltip title="Settings for this pattern">
+            <span>Pattern</span>
+          </Tooltip>
+        }/>
       </Tabs>
       {settingsTabIndex === 0 &&
         <List>

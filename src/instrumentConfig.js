@@ -43,6 +43,7 @@ import VolumeDownIcon from '@mui/icons-material/VolumeDown';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import ClickNHold from 'react-click-n-hold';
 import Slider from '@mui/material/Slider';
+import Tooltip from "./TabitTooltip";
 import AVAILABLE_SAMPLES from "./samples.json";
 
 import {isMobile} from "./Mobile";
@@ -432,8 +433,12 @@ function InstrumentTable(props)
       <TableRow key={"instrumentPanel-row-" + y.toString()}>
           <TableCell component="th" scope="row" key={"instrumentPanel-row-" + y.toString() + "-name"}>
             <Typography>{props.instruments[y][0]}</Typography>
-            <InlinableIconButton onClick={(e)=>{editRow(y);}}><EditIcon fontSize="small"/></InlinableIconButton>
-            <InlinableIconButton onClick={(e)=>{removeRow(y);}}><ClearIcon fontSize="small"/></InlinableIconButton>
+            <Tooltip title="Edit Instrument">
+              <InlinableIconButton onClick={(e)=>{editRow(y);}}><EditIcon fontSize="small"/></InlinableIconButton>
+            </Tooltip>
+            <Tooltip title="Delete Instrument">
+              <InlinableIconButton onClick={(e)=>{removeRow(y);}}><ClearIcon fontSize="small"/></InlinableIconButton>
+            </Tooltip>
           </TableCell>
           {[...Array(props.instrumentMask.length).keys()].map(x=>createCell(x,y))}
       </TableRow>
@@ -445,9 +450,11 @@ function InstrumentTable(props)
     return (
       <TableRow key={"instrumentPanel-row-edit"}>
         <TableCell component="th" scope="row" key={"instrumentPanel-row-edit-cell"}>
-          <IconButton onClick={(e)=>{addRow();}} aria-label="add">
-            <AddBoxIcon/>
-          </IconButton>
+          <Tooltip title="Add Instrument">
+            <IconButton onClick={(e)=>{addRow();}} aria-label="add">
+              <AddBoxIcon/>
+            </IconButton>
+          </Tooltip>
         </TableCell>
       </TableRow>
     );
@@ -475,9 +482,11 @@ function InstrumentTable(props)
               <CenterTableCell key={"instrumentPanel-row-controls-cell-" + x.toString()}>
                 <Grid container>
                 <Grid item xs={6}>
-                <InlinableIconButton onClick={(e)=>{editColumn(x);}}>
-                  <EditIcon fontSize="small"/>
-                </InlinableIconButton>
+                <Tooltip title="Edit Track">
+                  <InlinableIconButton onClick={(e)=>{editColumn(x);}}>
+                    <EditIcon fontSize="small"/>
+                  </InlinableIconButton>
+                </Tooltip>
                 </Grid>
                 <Grid item xs={6}>
                   <VolumeWidget

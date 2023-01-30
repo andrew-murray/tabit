@@ -9,6 +9,7 @@ import TabitBar from "./TabitBar";
 import ClearIcon from '@mui/icons-material/Clear';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { isMobile } from "./Mobile";
+import Tooltip from "./TabitTooltip";
 
 const PatternListItem = (props) =>
 {
@@ -40,13 +41,15 @@ const PatternListItem = (props) =>
     <ListItemText primary={pattern.name} />
     {onRemove &&
       <ListItemSecondaryAction>
-        <IconButton
-          edge="end"
-          size="small"
-          onClick={removeCallback}
-        >
-          <ClearIcon fontSize="small"/>
-        </IconButton>
+        <Tooltip title="Delete">
+          <IconButton
+            edge="end"
+            size="small"
+            onClick={removeCallback}
+          >
+            <ClearIcon fontSize="small"/>
+          </IconButton>
+        </Tooltip>
       </ListItemSecondaryAction>
     }
   </ListItem>
@@ -76,17 +79,19 @@ function DrawerContent(props)
           >
             <ListItemText />
             <ListItemSecondaryAction>
-              <IconButton
-                size="small"
-                edge="end"
-                onClick={()=>{props.onAdd();}}
-                aria-label="add"
-              >
-                <AddCircleIcon
+              <Tooltip title="Add new pattern">
+                <IconButton
                   size="small"
                   edge="end"
-                  />
-              </IconButton>
+                  onClick={()=>{props.onAdd();}}
+                  aria-label="add"
+                >
+                  <AddCircleIcon
+                    size="small"
+                    edge="end"
+                    />
+                </IconButton>
+              </Tooltip>
             </ListItemSecondaryAction>
           </ListItem>
         }

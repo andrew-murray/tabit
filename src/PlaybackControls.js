@@ -52,6 +52,7 @@ function PlaybackControls(props)
               max={180}
               onChange={onSetTempo}
               valueLabelDisplay="auto"
+              valueLabelFormat={(x)=>x.toString() + " bpm"}
             />
           </Paper>
         </Grid>
