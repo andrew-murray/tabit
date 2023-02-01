@@ -53,7 +53,7 @@ function SettingsDrawer(props)
     >
       {!isMobile ? <TabitBar placeholder /> : null }
       <Box sx={{overflowY: "auto", "py": 1, display: "flex", flexDirection: "column", alignItems: "center"}}>
-        {true &&
+        {false &&
           <Box>
           <FormControlLabel
             control={<Switch checked={props.animating} onChange={animateChange} name={"Highlight Beat"} />}
@@ -71,7 +71,7 @@ function SettingsDrawer(props)
           />
           </Box>
         }
-        {true &&
+        {false &&
           <Box>
           <Tooltip title="Enable note editing when unlocked">
             <FormControlLabel

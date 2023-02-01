@@ -50,7 +50,7 @@ class SongView extends React.Component
     errorAlert: null,
     locked: true,
     animating: true,
-    interactive: false,
+    interactive: true,
     showHelp: true,
     autosave: true
   }
