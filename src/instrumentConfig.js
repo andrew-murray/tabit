@@ -433,10 +433,16 @@ function InstrumentTable(props)
       <TableRow key={"instrumentPanel-row-" + y.toString()}>
           <TableCell component="th" scope="row" key={"instrumentPanel-row-" + y.toString() + "-name"}>
             <Typography>{props.instruments[y][0]}</Typography>
-            <Tooltip title="Edit Instrument">
+            <Tooltip
+              title="Edit Instrument"
+              show={props.showHelp}
+            >
               <InlinableIconButton onClick={(e)=>{editRow(y);}}><EditIcon fontSize="small"/></InlinableIconButton>
             </Tooltip>
-            <Tooltip title="Delete Instrument">
+            <Tooltip
+              title="Delete Instrument"
+              show={props.showHelp}
+            >
               <InlinableIconButton onClick={(e)=>{removeRow(y);}}><ClearIcon fontSize="small"/></InlinableIconButton>
             </Tooltip>
           </TableCell>
@@ -450,7 +456,10 @@ function InstrumentTable(props)
     return (
       <TableRow key={"instrumentPanel-row-edit"}>
         <TableCell component="th" scope="row" key={"instrumentPanel-row-edit-cell"}>
-          <Tooltip title="Add Instrument">
+          <Tooltip
+            title="Add Instrument"
+            show={props.showHelp}
+          >
             <IconButton onClick={(e)=>{addRow();}} aria-label="add">
               <AddBoxIcon/>
             </IconButton>
