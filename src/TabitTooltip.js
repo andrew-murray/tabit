@@ -13,7 +13,7 @@ export default function TabitTooltip(props)
   const resolvedProps = Object.assign(defaultProps, props);
   if(props.show)
   {
-    return <Tooltip open={true} {...resolvedProps} />;
+    return <Tooltip {...resolvedProps} />;
   }
   else
   {
