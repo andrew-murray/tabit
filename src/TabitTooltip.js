@@ -1,4 +1,7 @@
 import Tooltip from '@mui/material/Tooltip';
+import React from "react";
+
+
 
 export default function TabitTooltip(props)
 {
@@ -8,7 +11,15 @@ export default function TabitTooltip(props)
     describeChild: true
   };
   const resolvedProps = Object.assign(defaultProps, props);
-  return <Tooltip  {...resolvedProps} />;
+  const showTooltip = true;
+  if(showTooltip)
+  {
+    return <Tooltip  {...resolvedProps} />;
+  }
+  else
+  {
+    return <React.Fragment>{resolvedProps.children}</React.Fragment>
+  }
 };
 
 TabitTooltip.muiName = Tooltip.muiName;
