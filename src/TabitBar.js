@@ -40,7 +40,10 @@ function TabitBar(props) {
     >
       <Toolbar variant="dense">
         {props.patternsToggle &&
-          <Tooltip title="Patterns" >
+          <Tooltip
+            title="Patterns"
+            show={props.showHelp}
+          >
             <IconButton
               color="inherit"
               edge="start"
@@ -60,7 +63,10 @@ function TabitBar(props) {
           <HomeIcon />
         </IconButton>
         <div style={{"flexGrow": 1, "overflow": "hidden"}}>
-        <Tooltip title="Edit Title">
+        <Tooltip
+          title="Edit Title"
+          show={props.showHelp}
+        >
           <Button onClick={props.onTitleClick} color="inherit" style={{"textOverflow": "ellipsis"}}>
             <Typography variant="h6" color="inherit" noWrap>
             {props.title}
@@ -69,7 +75,10 @@ function TabitBar(props) {
         </Tooltip>
         </div>
         {props.onLockUnlock &&
-        <Tooltip title={props.locked ? "Unlock editing" : "Lock editing"}>
+        <Tooltip
+          title={props.locked ? "Unlock editing" : "Lock editing"}
+          show={props.showHelp}
+        >
           <IconButton
             color="inherit"
             edge="start"
@@ -80,7 +89,10 @@ function TabitBar(props) {
         </Tooltip>
         }
         {props.onToggleCompact &&
-        <Tooltip title={props.compact ? "Show expanded layout" : "Show compact layout"}>
+        <Tooltip
+          title={props.compact ? "Show expanded layout" : "Show compact layout"}
+          show={props.showHelp}
+        >
           <IconButton
             color="inherit"
             edge="start"
@@ -91,7 +103,10 @@ function TabitBar(props) {
         </Tooltip>
         }
         {props.onShare &&
-        <Tooltip title="Share">
+        <Tooltip
+          title="Share"
+          show={props.showHelp}
+        >
             <IconButton
             color="inherit"
             aria-label="share"
@@ -103,7 +118,10 @@ function TabitBar(props) {
         </Tooltip>
         }
         {props.onDownload &&
-        <Tooltip title="Download">
+        <Tooltip
+          title="Download"
+          show={props.showHelp}
+        >
           <IconButton
           color="inherit"
           edge="start"
@@ -114,7 +132,10 @@ function TabitBar(props) {
         </Tooltip>
         }
         {props.settingsToggle &&
-        <Tooltip title="Notation Settings">
+        <Tooltip
+          title="Notation Settings"
+          show={props.showHelp}
+        >
           <IconButton
             color="inherit"
             edge="end"

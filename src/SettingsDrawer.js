@@ -22,6 +22,7 @@ function SettingsDrawer(props)
     length: notation.getPatternLength(props.pattern)
   } : null;
 
+
   const noop = () => {};
   const animateChange = (event) => {
     if(props.onChange)
@@ -73,7 +74,10 @@ function SettingsDrawer(props)
         }
         {false &&
           <Box>
-          <Tooltip title="Enable note editing when unlocked">
+          <Tooltip
+            title="Enable note editing when unlocked"
+            show={props.showHelp}
+          >
             <FormControlLabel
               control={<Switch checked={props.interactive} onChange={interactiveChange} name={"Enable Note Editing"} />}
                 label={"Enable Note Editing"}
@@ -100,6 +104,7 @@ function SettingsDrawer(props)
             onChange={props.onChange ??  noop}
             settings={props.settings}
             pattern={patternDetails}
+            showHelp={props.showHelp}
             />
         }
       </Box>

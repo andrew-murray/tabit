@@ -482,7 +482,10 @@ function InstrumentTable(props)
               <CenterTableCell key={"instrumentPanel-row-controls-cell-" + x.toString()}>
                 <Grid container>
                 <Grid item xs={6}>
-                <Tooltip title="Edit Track">
+                <Tooltip
+                  title="Edit Track"
+                  show={props.showHelp}
+                >
                   <InlinableIconButton onClick={(e)=>{editColumn(x);}}>
                     <EditIcon fontSize="small"/>
                   </InlinableIconButton>
@@ -632,6 +635,7 @@ function InstrumentConfig(props) {
             onVolumeEvent={props.onVolumeEvent}
             onChange={props.onChange}
             showAdvanced={props.showAdvanced}
+            showHelp={props.showHelp}
           />
         </TableContainer>
       </Box>

@@ -663,6 +663,7 @@ class SongView extends React.Component
           compact={this.state.formatSettings.compactDisplay}
           onToggleCompact={this.onToggleCompact}
           onTitleClick={this.onEnableRenameDialog}
+          showHelp={this.state.showHelp}
         />
         <RenameDialog
           open={this.state.renameDialogOpen}
@@ -730,6 +731,7 @@ class SongView extends React.Component
               onInstrumentIndexChange={this.updateInstrumentIndex}
               onVolumeEvent={this.sendVolumeEvent}
               showAdvanced={!this.state.locked}
+              showHelp={this.state.showHelp}
             />
         </Grid>
         {instrumentConfigColumns < 12 ? <Grid item xs={(12 - instrumentConfigColumns) / 2} /> : null}
@@ -743,6 +745,7 @@ class SongView extends React.Component
           selectPattern={this.selectPattern}
           onRemove={!this.state.locked ? this.removePattern : undefined}
           onAdd={!this.state.locked ? this.openPatternCreateDialog : undefined}
+          showHelp={this.state.showHelp}
         />
         <SettingsDrawer
           open={this.state.settingsOpen}

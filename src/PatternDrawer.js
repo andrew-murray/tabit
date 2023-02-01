@@ -41,7 +41,10 @@ const PatternListItem = (props) =>
     <ListItemText primary={pattern.name} />
     {onRemove &&
       <ListItemSecondaryAction>
-        <Tooltip title="Delete">
+        <Tooltip
+          title="Delete"
+          show={props.showHelp}
+        >
           <IconButton
             edge="end"
             size="small"
@@ -71,6 +74,7 @@ function DrawerContent(props)
             index={index}
             onRemove={props.onRemove}
             selectPattern={props.selectPattern}
+            showHelp={props.showHelp}
           />
         )}
         {props.onAdd &&
@@ -79,7 +83,10 @@ function DrawerContent(props)
           >
             <ListItemText />
             <ListItemSecondaryAction>
-              <Tooltip title="Add new pattern">
+              <Tooltip
+                title="Add new pattern"
+                show={props.showHelp}
+              >
                 <IconButton
                   size="small"
                   edge="end"
@@ -125,6 +132,7 @@ function PatternDrawer(props)
         onRemove={props.onRemove}
         selectPattern={props.selectPattern}
         onAdd={props.onAdd}
+        showHelp={props.showHelp}
       />
     </SwipeableDrawer>
   );

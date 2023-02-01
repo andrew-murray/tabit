@@ -204,16 +204,24 @@ function FormatSettings(props) {
     setSettingsTabIndex(newIndex);
   };
 
+  const showHelp = props.showHelp;
+  console.log("rendering FormatSettings with props.showHelp " + props.showHelp.toString());
   return (
     <FormGroup>
       <Tabs value={settingsTabIndex} onChange={handleTabChange} aria-label="Settings Tabs" variant="fullWidth">
         <Tab label={
-          <Tooltip title="Settings for all patterns">
+          <Tooltip
+            title="Settings for all patterns"
+            show={props.showHelp}
+          >
             <span>Song</span>
           </Tooltip>
         }/>
         <Tab label={
-          <Tooltip title="Settings for this pattern">
+          <Tooltip
+            show={props.showHelp}
+            title="Settings for this pattern"
+          >
             <span>Pattern</span>
           </Tooltip>
         }/>
