@@ -11,8 +11,8 @@ export default function TabitTooltip(props)
     describeChild: true
   };
   const resolvedProps = Object.assign(defaultProps, props);
-  const showTooltip = true;
-  if(showTooltip)
+  const show = true;
+  if(show)
   {
     return <Tooltip  {...resolvedProps} />;
   }

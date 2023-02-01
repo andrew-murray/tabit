@@ -29,6 +29,12 @@ function SettingsDrawer(props)
       props.onChange({key: "animate", value: event.target.checked, local: false});
     }
   };
+  const helpChange = (event) => {
+    if(props.onChange)
+    {
+      props.onChange({key: "showHelp", value: event.target.checked, local: false});
+    }
+  }
   const interactiveChange = (event) => {
     if(props.onChange)
     {
@@ -53,6 +59,15 @@ function SettingsDrawer(props)
             control={<Switch checked={props.animating} onChange={animateChange} name={"Highlight Beat"} />}
               label={"Highlight Beat"}
               key={"HighlightBeat"}
+          />
+          </Box>
+        }
+        {true &&
+          <Box>
+          <FormControlLabel
+            control={<Switch checked={props.showHelp} onChange={helpChange} name={"Show Help"} />}
+              label={"Show Help"}
+              key={"ShowHelp"}
           />
           </Box>
         }

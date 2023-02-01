@@ -51,6 +51,7 @@ class SongView extends React.Component
     locked: true,
     animating: true,
     interactive: false,
+    showHelp: true,
     autosave: true
   }
 
@@ -479,6 +480,10 @@ class SongView extends React.Component
       }
       return;
     }
+    else if(change.key === "showHelp")
+    {
+      this.setState({showHelp: change.value});
+    }
     else if(change.key === "interactive")
     {
       this.setState( {interactive: change.value} );
@@ -748,6 +753,7 @@ class SongView extends React.Component
           settings={resolvedSettings}
           onChange={this.handleSettingsChange}
           animating={this.state.animating}
+          showHelp={this.state.showHelp}
           interactive={this.state.interactive}
          />
         <SharingDialog
