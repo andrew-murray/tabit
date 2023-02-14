@@ -371,7 +371,7 @@ class ToneController
   {
     const patternResolution = this.patternDetails[pattern.name].resolution;
     const patternLength = this.patternDetails[pattern.name].length;
-
+    const tracks = this.patternDetails[pattern.name].tracks;
     let samplesReady = sampleSource.samplesReady();
     if(!samplesReady)
     {
@@ -379,29 +379,42 @@ class ToneController
     }
     const toneResolution = Tone.Time("4n") * ( patternResolution / 48.0 );
     let parts = [];
-    for(const [id,t] of Object.entries(pattern.tracks))
+    for(const [id,t] of Object.entries(tracks))
     {
+      if(t.empty())
+      {
+        continue;
+      }
+      const sample = sampleSource.samples[id];
       const sampler = new Tone.Sampler(
         {
-          "C3": this.samples[id].url
+          "C3": sample.url
         }
       );
-      const toneTimesAndVelocites = t.getPointsAndVelocities().map(
-        (hTime,v)=> ((Tone.Time("4n") * (hTime / 48.0)) + AUDIO_DELAY, v)
+      const toneTimesAndVelocities = t.getPointsAndVelocities().map(
+        (hTimeAndVel) => {
+          const [hTime, v] = hTimeAndVel;
+          return [Tone.Time("4n") * (hTime / 48.0), v];
+        }
       );
       const volumeForInstrument = 1.0;
-      let part = new Tone.Part((time, velo) => {
+      let part = new Tone.Part(((time, velo) => {
+        // todo: some of the samples sound a little cut short
+        // todo: my volume curve really doesn't match hydrogen anymore
         sampler.triggerAttackRelease(
           "C3", // note
           toneResolution, // duration
           time, // time
           velo * volumeForInstrument
         );
-      }, toneTimesAndVelocites);
+      }), toneTimesAndVelocities);
       part.mute = true;
-      part.connect(this.gain);
+      // fixme: I don't think there's a good reason to use this gain
+      // since the sampler has a velocity but it works
+      sampler.connect(sample.gain);
+      // sampler.connect(this.gain);
       part.start(0);
-      parts.append(part);
+      parts.push(part);
     }
     return parts;
   }
@@ -418,8 +431,8 @@ class ToneController
 
   createToneStateForPattern(instrumentIndex, pattern)
   {
-    return this.createSequenceForPattern(instrumentIndex, pattern);
-    // return this.createPartsForPattern(instrumentIndex, pattern, this);
+    // return this.createSequenceForPattern(instrumentIndex, pattern);
+    return this.createPartsForPattern(instrumentIndex, pattern, this);
   }
 
   createToneState(instrumentIndex, patterns)
@@ -435,9 +448,10 @@ class ToneController
   setToneStateMuted(toneState, muted)
   {
     // single sequence passed
-    if(toneState._part !== undefined)
+    if(false && toneState instanceof Tone.Sequence)
     {
       // note: setting mute on the sequence directly seems to have no effect
+
       toneState._part.mute = muted;
     }
     else
@@ -478,6 +492,10 @@ class ToneController
 
     // create this before starting the "transaction"
     const nextSequence = this.createToneStateForPattern(this.instrumentIndex, this.patternDetails[patternName].pattern);
+    if(nextSequence === null)
+    {
+      return;
+    }
 
     const enableNewTrack = (time) => {
       if(oldPatternName !== null)
@@ -486,7 +504,6 @@ class ToneController
       }
       if(oldPatternName === null || oldLength !== length )
       {
-
         Tone.getTransport().setLoopPoints(0, Tone.Time("4n") * (length / 48.0));
       }
       this.sequence = nextSequence;
@@ -561,7 +578,9 @@ class ToneController
 
   setMutedForInstrument(instrumentID, muted)
   {
-    this.samples[instrumentID].player.mute = muted;
+    // this.samples[instrumentID].player.mute = muted;
+    this.samples[instrumentID].gain.mute = muted;
+    this.sequence()
   }
 
   setGainForInstrument(instrumentID, gainValue)
