@@ -39,6 +39,11 @@ class SparseTrack
     return this.velocity;
   }
 
+  getPointsAndVelocities()
+  {
+    return zip(this.points, this.velocity);
+  }
+
   equals(other, checkVel)
   {
     return this.length() === other.length()

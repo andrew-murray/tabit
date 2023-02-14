@@ -256,10 +256,10 @@ class ToneController
 
     if( p.name === this.currentPatternName)
     {
-      const updatedSequence = this.createSequenceForPattern(this.instrumentIndex, this.patternDetails[p.name].pattern);
-      this.sequence._part.mute = true;
-      this.sequence = updatedSequence;
-      updatedSequence._part.mute = false;
+      const updatedToneState = this.createToneStateForPattern(this.instrumentIndex, this.patternDetails[p.name].pattern);
+      this.setToneStateMuted( this.sequence, true );
+      this.sequence = updatedToneState;
+      this.setToneStateMuted( this.sequence, false );
     }
   }
 
@@ -367,6 +367,45 @@ class ToneController
     return seq;
   }
 
+  createPartsForPattern(instrumentIndex, pattern, sampleSource)
+  {
+    const patternResolution = this.patternDetails[pattern.name].resolution;
+    const patternLength = this.patternDetails[pattern.name].length;
+
+    let samplesReady = sampleSource.samplesReady();
+    if(!samplesReady)
+    {
+      return null;
+    }
+    const toneResolution = Tone.Time("4n") * ( patternResolution / 48.0 );
+    let parts = [];
+    for(const [id,t] of Object.entries(pattern.tracks))
+    {
+      const sampler = new Tone.Sampler(
+        {
+          "C3": this.samples[id].url
+        }
+      );
+      const toneTimesAndVelocites = t.getPointsAndVelocities().map(
+        (hTime,v)=> ((Tone.Time("4n") * (hTime / 48.0)) + AUDIO_DELAY, v)
+      );
+      const volumeForInstrument = 1.0;
+      let part = new Tone.Part((time, velo) => {
+        sampler.triggerAttackRelease(
+          "C3", // note
+          toneResolution, // duration
+          time, // time
+          velo * volumeForInstrument
+        );
+      }, toneTimesAndVelocites);
+      part.mute = true;
+      part.connect(this.gain);
+      part.start(0);
+      parts.append(part);
+    }
+    return parts;
+  }
+
   createSequences(instrumentIndex, patterns)
   {
     let sequences = {};
@@ -375,6 +414,40 @@ class ToneController
       sequences[p.name] = this.createSequenceForPattern(instrumentIndex, p);
     }
     return sequences;
+  }
+
+  createToneStateForPattern(instrumentIndex, pattern)
+  {
+    return this.createSequenceForPattern(instrumentIndex, pattern);
+    // return this.createPartsForPattern(instrumentIndex, pattern, this);
+  }
+
+  createToneState(instrumentIndex, patterns)
+  {
+    let state = {};
+    for( let p of patterns )
+    {
+      state[p.name] = this.createToneStateForPattern(instrumentIndex, p);
+    }
+    return state;
+  }
+
+  setToneStateMuted(toneState, muted)
+  {
+    // single sequence passed
+    if(toneState._part !== undefined)
+    {
+      // note: setting mute on the sequence directly seems to have no effect
+      toneState._part.mute = muted;
+    }
+    else
+    {
+        // collection of parts
+        for(let part of toneState)
+        {
+          part.mute = muted;
+        }
+    }
   }
 
   setActivePattern( patternName )
@@ -404,13 +477,12 @@ class ToneController
       && ( timeFromBarEnd > 0 && timeFromBarEnd < Tone.getTransport().toSeconds(Tone.Time("8n")));
 
     // create this before starting the "transaction"
-    const nextSequence = this.createSequenceForPattern(this.instrumentIndex, this.patternDetails[patternName].pattern);
+    const nextSequence = this.createToneStateForPattern(this.instrumentIndex, this.patternDetails[patternName].pattern);
 
     const enableNewTrack = (time) => {
       if(oldPatternName !== null)
       {
-        // note: setting mute on the sequence directly seems to have no effect
-        this.sequence._part.mute = true;
+        this.setToneStateMuted(this.sequence, true);
       }
       if(oldPatternName === null || oldLength !== length )
       {
@@ -418,7 +490,7 @@ class ToneController
         Tone.getTransport().setLoopPoints(0, Tone.Time("4n") * (length / 48.0));
       }
       this.sequence = nextSequence;
-      this.sequence._part.mute = false;
+      this.setToneStateMuted(this.sequence, false);
       this.currentPatternName = patternName;
     };
 
