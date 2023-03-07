@@ -11,9 +11,10 @@ export default function TabitTooltip(props)
     describeChild: true
   };
   const resolvedProps = Object.assign(defaultProps, props);
-  if(props.show)
+  const {show, ...propsToPass} = resolvedProps;
+  if(show)
   {
-    return <Tooltip {...resolvedProps} />;
+    return <Tooltip {...propsToPass} />;
   }
   else
   {
