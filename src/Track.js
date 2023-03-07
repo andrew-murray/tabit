@@ -201,7 +201,7 @@ class Track
 
   // todo: this is almost the same code as in sparseTrack ... except for resolutions
   // combine these, and make them a duck-typed non-static inheritance function
-  static combine(a, b, size, resolution)
+  static combineConsecutive(a, b, size, resolution)
   {
     // This appends b to a
     if(!a && !b)

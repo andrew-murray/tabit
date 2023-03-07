@@ -233,7 +233,7 @@ class SparseTrack
     }
   }
 
-  static combine(a, b)
+  static combineConsecutive(a, b)
   {
     // This appends b to a
 
@@ -250,6 +250,13 @@ class SparseTrack
     const totalLength = aLength + b.length();
     return new SparseTrack(points, totalLength, vel);
   }
+
+  static combineSynchronous(a,b)
+  {
+    
+  }
+
+
 
   setPoint(h, value, velocity)
   {

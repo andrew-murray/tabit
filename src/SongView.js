@@ -276,7 +276,7 @@ class SongView extends React.Component
     let pattern = notation.clonePattern(name, this.state.songData.patterns[recipe[0].value]);
     for(let recipeIndex = 1; recipeIndex < recipe.length; ++recipeIndex)
     {
-      pattern = notation.combinePatterns(name, pattern, this.state.songData.patterns[recipe[recipeIndex].value])
+      pattern = notation.combinePatternsConsecutive(name, pattern, this.state.songData.patterns[recipe[recipeIndex].value])
     }
 
     const patternSettings = notation.guessPerPatternSettings(

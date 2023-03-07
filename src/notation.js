@@ -576,7 +576,32 @@ class notation
     };
   }
 
-  static combinePatterns(name, patternA, patternB)
+  static combinePatternsSynchronous(name, patternA, patternB)
+  {
+
+      const resolution = findHCF( patternA.resolution, patternB.resolution );
+      const instrumentKeys = new Set( [...Object.keys(patternA.instrumentTracks), ...Object.keys(patternA.instrumentTracks)] );
+      const expandPattern = true;
+      const totalSize = Math.max(patternA.size, patternB.size);
+      let instrumentTracks = {};
+      for(const k of instrumentKeys)
+      {
+        // this is unlikely to work if we mix/match sparse/dense track
+        instrumentTracks[k] = patternA.instrumentTracks[k].aggregate(
+          patternB.instrumentTracks[k],
+          expandPattern
+        );
+      }
+
+      return {
+        resolution: resolution,
+        size: totalSize,
+        name: name,
+        instrumentTracks: instrumentTracks
+      };
+  }
+
+  static combinePatternsConsecutive(name, patternA, patternB)
   {
     /* pattern = {
       size: int,
@@ -595,14 +620,14 @@ class notation
     {
       if(patternA.instrumentTracks[k].isSparse() && patternB.instrumentTracks[k].isSparse())
       {
-        instrumentTracks[k] = SparseTrack.combine(
+        instrumentTracks[k] = SparseTrack.combineConsecutive(
           patternA.instrumentTracks[k],
           patternB.instrumentTracks[k]
         );
       }
       else if(patternA.instrumentTracks[k].isDense() && patternB.instrumentTracks[k].isDense())
       {
-        instrumentTracks[k] = Track.combine(
+        instrumentTracks[k] = Track.combineConsecutive(
           patternA.instrumentTracks[k],
           patternB.instrumentTracks[k],
           totalSize,
