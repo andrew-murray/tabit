@@ -10,44 +10,6 @@ let AUDIO_DELAY = DEFAULT_AUDIO_DELAY;
 const setAudioDelay = (value) => {
   AUDIO_DELAY = value;
 };
-// these are the hydrogen drumkits available by GPL/CC
-
-const DRUMKITS = Object.keys( AVAILABLE_SAMPLES );
-
-const chooseAppropriateInstrument = (drumkitName, instrumentName) =>
-{
-  const name = instrumentName.toLowerCase();
-  // this is currently very basic
-  if(name.includes("kick"))
-  {
-      return {drumkit: "The Black Pearl 1.0", filename: "PearlKick-Hard.wav"};
-  }
-  else if(name.includes("stick"))
-  {
-      return {drumkit: "DeathMetal", filename: "16297_ltibbits_sticks_low_pitch.wav"};
-  }
-  else if(name.includes("tom"))
-  {
-      return {drumkit: "Millo_MultiLayered3", filename: "ft_01.wav"};
-  }
-  else if(name.includes("clap"))
-  {
-      return {drumkit: "TR808EmulationKit", filename: "808_Clap.wav"};
-  }
-  else if(name.includes("snare"))
-  {
-    return {drumkit: "GMRockKit", filename: "Snare-Soft.wav"};
-  }
-  else if(name.includes("cowbell"))
-  {
-    return {drumkit: "GMRockKit", filename: "Cowbell-Softest.wav"};
-  }
-  else
-  {
-    // todo: cymbals
-    return null;
-  }
-}
 
 const createSequenceCallback = (pattern, sampleSource) =>
 {
@@ -191,10 +153,10 @@ class ToneController
     Tone.getTransport().bpm.value = tempo;
     Tone.getTransport().loop = true;
 
-    this.sampleCount = 0;
-    this.expectedSampleCount = 0;
     this.patternDetails = {};
     let failures = []
+    // we stick integers in here
+    let instrumentIDsToLoad = new Set();
     for( let p of patterns )
     {
       this.patternDetails[p.name] = {
@@ -204,11 +166,10 @@ class ToneController
         tracks: p.instrumentTracks,
         pattern: p
       };
-      this.populateSamples(instrumentIndex, p.instrumentTracks, failures);
     }
     this.currentPatternName = null;
     this.instrumentIndex = instrumentIndex;
-
+    /*
     if(failures.length > 0 && onLoadError)
     {
       const sortedFailures = createSortedUnique(failures);
@@ -228,6 +189,7 @@ class ToneController
 
       onLoadError(message);
     }
+    */
   }
 
   teardown()
@@ -272,79 +234,6 @@ class ToneController
       throw new Error("Can't delete the current pattern!");
     }
     this.patternDetails[patternName] = undefined;
-  }
-
-  populateSamples(instrumentIndex, tracks, failures)
-  {
-    console.log("=======================");
-    console.log(" Selecting Instruments ");
-    console.log("=======================");
-    for(const [id,] of Object.entries(tracks))
-    {
-      const selected = instrumentIndex.filter(inst => inst.id.toString() === id);
-      if(selected.length > 0)
-      {
-        const selectedInstrument = selected[0];
-        const clampedVolume = Audio.convertNormalToAudible( Math.min( Math.max( 0.0 , selectedInstrument.volume ), 1.0 ) );
-
-        let urlForSample = null;
-        if(
-          "drumkit" in selectedInstrument &&
-          "filename" in selectedInstrument &&
-          DRUMKITS.includes(selectedInstrument.drumkit) &&
-          AVAILABLE_SAMPLES[selectedInstrument.drumkit].includes(selectedInstrument.filename) )
-        {
-          urlForSample = process.env.PUBLIC_URL + "/wav/" + selectedInstrument.drumkit + "/" + selectedInstrument.filename;
-        }
-        else if("drumkit" in selectedInstrument )
-        {
-          const instrumentObject = chooseAppropriateInstrument( selectedInstrument.drumkit, selectedInstrument.name );
-          urlForSample = process.env.PUBLIC_URL + "/wav/" + instrumentObject.drumkit + "/" + instrumentObject.filename;
-          console.log({
-            inputInstrument: selectedInstrument,
-            outputInstrument: instrumentObject
-          });
-        }
-        else
-        {
-          failures.push( [selectedInstrument.drumkit, selectedInstrument.name] );
-          continue;
-        }
-
-        if( selectedInstrument.id in this.samples && this.samples[selectedInstrument.id].url === urlForSample )
-        {
-          // no need to reload
-          continue;
-        }
-
-        if(selectedInstrument.id in this.samples)
-        {
-          this.samples[selectedInstrument.id].gain.disconnect();
-          this.samples[selectedInstrument.id].player.disconnect();
-          this.samples[selectedInstrument.id].gain.dispose();
-          this.samples[selectedInstrument.id].player.dispose();
-        }
-        let player = new Tone.Player(
-          urlForSample,
-          () => { this.sampleCount++; }
-        );
-        player.mute = selectedInstrument.muted;
-        player.name = selectedInstrument.name;
-        const gain = new Tone.Gain(clampedVolume, "normalRange");
-        // const velocityGain = new Tone.Gain(1.0, "normalRange");
-        player.connect(gain)
-        gain.connect(this.gain);
-        this.samples[selectedInstrument.id] = {
-          player : player,
-          gain : gain,
-          // velocityGain: velocityGain,
-          drumkit: selectedInstrument.drumkit,
-          filename: selectedInstrument.filename,
-          url: urlForSample
-        };
-        this.expectedSampleCount++;
-      }
-    }
   }
 
   createSequenceForPattern(instrumentIndex, pattern)
