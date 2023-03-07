@@ -12,6 +12,9 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
 
 function PatternCreateDialog(props)
 {
@@ -20,6 +23,7 @@ function PatternCreateDialog(props)
   let [patternRecipe, setPatternRecipe] = React.useState([]);
   let [createExpanded, setCreateExpanded] = React.useState(true);
   let [combineExpanded, setCombineExpanded] = React.useState(false);
+  let [combineSynchronous, setCombineSynchronous] = React.useState(false);
 
   const resetState = () => {
     setPatternNameCombine(null);
@@ -28,6 +32,7 @@ function PatternCreateDialog(props)
     // todo: assume this to be exclusive and change to a "mode" rather than many bool flags
     setCreateExpanded(true);
     setCombineExpanded(false);
+    setCombineSynchronous(false);
   };
 
   const closeAndCommit = (commit)=>{
@@ -99,6 +104,14 @@ function PatternCreateDialog(props)
     }
   };
 
+  const consecutiveString = "Consecutive";
+  const synchronousString = "Synchronous";
+  const handleCombineSyncChange = (e) =>
+  {
+    const sync = e.target.value === synchronousString;
+    setCombineSynchronous(sync);
+  };
+
   return <Dialog
     open={props.open}
     onClose={props.onClose}
@@ -143,16 +156,30 @@ function PatternCreateDialog(props)
           selectedItems={patternRecipe}
           onChange={setPatternRecipe}
         />
-        <Box style={{display: "flex", flexDirection: "column"}}>
-          <TextField
-            error={patternNameCombine && !patternNameIsValid(patternNameCombine)}
-            label="Pattern Name"
-            helperText={patternNameCombine && !patternNameIsValid(patternNameCombine) ? "Pattern names must be unique." : undefined}
-            variant="outlined"
-            onChange={(event)=>{setPatternNameCombine(event.target.value);}}
-            style={{alignSelf: "flex-end"}}
-            onKeyDown={handleEnter}
-          />
+        <Box style={{display: "flex", flexDirection: "row"}}>
+          <Box style={{flexGrow: 1}} />
+          <Box style={{display: "flex", flexDirection: "column", justifyContent: "center"}}>
+            <RadioGroup
+              aria-labelledby="radio-combine-mode"
+              name="radio-combine-mode"
+              value={combineSynchronous ? synchronousString : consecutiveString}
+              onChange={handleCombineSyncChange}
+            >
+              <FormControlLabel value={synchronousString} control={<Radio />} label={synchronousString} />
+              <FormControlLabel value={consecutiveString} control={<Radio />} label={consecutiveString} />
+            </RadioGroup>
+          </Box>
+          <Box style={{display: "flex", flexDirection: "column", justifyContent: "center"}}>
+            <TextField
+              error={patternNameCombine && !patternNameIsValid(patternNameCombine)}
+              label="Pattern Name"
+              helperText={patternNameCombine && !patternNameIsValid(patternNameCombine) ? "Pattern names must be unique." : undefined}
+              variant="outlined"
+              onChange={(event)=>{setPatternNameCombine(event.target.value);}}
+              style={{alignSelf: "flex-end"}}
+              onKeyDown={handleEnter}
+            />
+          </Box>
         </Box>
       </AccordionDetails>
       </Accordion>
