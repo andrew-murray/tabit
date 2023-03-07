@@ -271,12 +271,27 @@ class SongView extends React.Component
     );
   }
 
-  addCombinedPattern = (name, recipe) =>
+  addCombinedPattern = (name, recipe, synchronous) =>
   {
     let pattern = notation.clonePattern(name, this.state.songData.patterns[recipe[0].value]);
     for(let recipeIndex = 1; recipeIndex < recipe.length; ++recipeIndex)
     {
-      pattern = notation.combinePatternsConsecutive(name, pattern, this.state.songData.patterns[recipe[recipeIndex].value])
+      if(synchronous)
+      {
+        pattern = notation.combinePatternsSynchronous(
+          name,
+          pattern,
+          this.state.songData.patterns[recipe[recipeIndex].value]
+        );
+      }
+      else
+      {
+        pattern = notation.combinePatternsConsecutive(
+          name,
+          pattern,
+          this.state.songData.patterns[recipe[recipeIndex].value]
+        );
+      }
     }
 
     const patternSettings = notation.guessPerPatternSettings(
@@ -346,7 +361,7 @@ class SongView extends React.Component
   {
     if(change.recipe)
     {
-      this.addCombinedPattern(change.name, change.recipe)
+      this.addCombinedPattern(change.name, change.recipe, change.synchronous)
     }
     else
     {

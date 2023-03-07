@@ -53,7 +53,7 @@ function PatternCreateDialog(props)
       // validate all fields and generate errors
       if(patternRecipe && patternNameCombine)
       {
-        props.onChange({name: patternNameCombine, recipe: patternRecipe});
+        props.onChange({name: patternNameCombine, recipe: patternRecipe, synchronous: combineSynchronous});
         resetState();
       }
     }
