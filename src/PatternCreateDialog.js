@@ -29,10 +29,12 @@ function PatternCreateDialog(props)
     setPatternNameCombine(null);
     setPatternNameCreate(null);
     setPatternRecipe([]);
-    // todo: assume this to be exclusive and change to a "mode" rather than many bool flags
-    setCreateExpanded(true);
-    setCombineExpanded(false);
-    setCombineSynchronous(false);
+
+    // we could change these to a default, but this and combineSynchronous
+    // are more helpful as persistent modes.
+    // setCreateExpanded(true);
+    // setCombineExpanded(false);
+    // setCombineSynchronous(false);
   };
 
   const closeAndCommit = (commit)=>{
