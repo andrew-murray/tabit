@@ -53,7 +53,7 @@ const createSequenceCallback = (pattern, sampleSource) =>
 {
   let samplesReady = sampleSource.samplesReady();
   let denseTracks = {};
-  let velocityTracks = {};
+  // let velocityTracks = {};
   for(const [id,t] of Object.entries(pattern.tracks))
   {
     if(t.isDense()){ denseTracks[id] = t;}

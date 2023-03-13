@@ -204,7 +204,6 @@ function FormatSettings(props) {
     setSettingsTabIndex(newIndex);
   };
 
-  const showHelp = props.showHelp;
   return (
     <FormGroup>
       <Tabs value={settingsTabIndex} onChange={handleTabChange} aria-label="Settings Tabs" variant="fullWidth">
