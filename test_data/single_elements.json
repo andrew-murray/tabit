@@ -1,0 +1,94 @@
+{
+    "instruments": [
+        {
+            "id": 0,
+            "name": "Bass",
+            "volume": 1,
+            "muted": false,
+            "gain": 1,
+            "drumkit": "BFS drumming",
+            "filename": "bass hit 1.wav"
+        }
+    ],
+    "patterns": [
+        {
+            "size": 336,
+            "name": "Pattern 2",
+            "notes": [
+                {
+                    "position": 0,
+                    "instrument": 0,
+                    "velocity": 0.8
+                },
+                {
+                    "position": 48,
+                    "instrument": 0,
+                    "velocity": 0.8
+                },
+                {
+                    "position": 72,
+                    "instrument": 0,
+                    "velocity": 0.8
+                },
+                {
+                    "position": 120,
+                    "instrument": 0,
+                    "velocity": 0.8
+                },
+                {
+                    "position": 144,
+                    "instrument": 0,
+                    "velocity": 0.8
+                },
+                {
+                    "position": 192,
+                    "instrument": 0,
+                    "velocity": 0.8
+                },
+                {
+                    "position": 216,
+                    "instrument": 0,
+                    "velocity": 0.8
+                },
+                {
+                    "position": 264,
+                    "instrument": 0,
+                    "velocity": 0.8
+                },
+                {
+                    "position": 288,
+                    "instrument": 0,
+                    "velocity": 0.8
+                }
+            ],
+            "resolution": 24,
+            "instrumentTracks": {
+                "0": {
+                    "points": [
+                        0,
+                        48,
+                        72,
+                        120,
+                        144,
+                        192,
+                        216,
+                        264,
+                        288
+                    ],
+                    "length_": 336,
+                    "velocity": [
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8
+                    ]
+                }
+            }
+        }
+    ]
+}

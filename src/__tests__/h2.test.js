@@ -106,3 +106,21 @@ test('h2 parsing - virtual', async () => {
   const expectedJSON = String(fs.readFileSync(testJSON));
   return expect(resultJSON).toEqual(expectedJSON);
 });
+
+// "a single pattern" or "a single instrument" will often require special
+// treatment in our parsing code, here's a test for those two cases
+test('h2 parsing - single_elements', async () => {
+  const testXml = fs.readFileSync("./test_data/single_elements.h2song");
+  const testJSON = "./test_data/single_elements.json";
+  const resultJSONPromise = h2.parseHydrogenPromise(testXml.toString()).then(result =>
+  {
+    return JSON.stringify(result, null, 4);
+  });
+  const resultJSON = await resultJSONPromise;
+  if(updateSerialisations)
+  {
+    fs.writeFileSync(testJSON, resultJSON);
+  }
+  const expectedJSON = String(fs.readFileSync(testJSON));
+  return expect(resultJSON).toEqual(expectedJSON);
+});
