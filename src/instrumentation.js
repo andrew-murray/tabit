@@ -127,7 +127,7 @@ function figureShakers(instrumentsRaw, symbolConfig)
     "shaker back": "X",
     "shaker back (ghosts)": "x"
   };
-  if(shakerTracks.length <= 4 && trackNames.every( (name)=> name in bfsMapping) )
+  if(shakerTracks.length >= 1 && shakerTracks.length <= 4 && trackNames.every( (name)=> name in bfsMapping) )
   {
       let mapping = {};
       for(const track of shakerTracks )
@@ -164,7 +164,7 @@ function figureSnares(instrumentsRaw, symbolConfig)
     "snare rim": "R",
     "snare (ghosts)": "x"
   };
-  if(snareTracks.length <= 3 && trackNames.every( (name)=> name in bfsMapping) )
+  if(snareTracks.length >= 1 && snareTracks.length <= 3 && trackNames.every( (name)=> name in bfsMapping) )
   {
       let mapping = {};
       for(const track of snareTracks )
