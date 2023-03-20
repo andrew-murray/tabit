@@ -126,9 +126,9 @@ test('h2 parsing - single_elements', async () => {
 });
 
 
-// bfs drumkit - this should probably have counterpart tests in the
-// instrumentationIntegration tests, but for now, only here
-test('h2 parsing - bfs_drumkit', async () => {
+// bfs drumkit - this is primarily included so we can
+// test it in instrumentationIntegration
+test('h2 parsing - bfs_drumkit example', async () => {
   const testXml = fs.readFileSync("./test_data/bfs_drumkit_rbw4.h2song");
   const testJSON = "./test_data/bfs_drumkit_rbw4.json";
   const resultJSONPromise = h2.parseHydrogenPromise(testXml.toString()).then(result =>
@@ -136,7 +136,7 @@ test('h2 parsing - bfs_drumkit', async () => {
     return JSON.stringify(result, null, 4);
   });
   const resultJSON = await resultJSONPromise;
-  if(true || updateSerialisations)
+  if(updateSerialisations)
   {
     fs.writeFileSync(testJSON, resultJSON);
   }
