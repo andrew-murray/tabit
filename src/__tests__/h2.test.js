@@ -124,3 +124,22 @@ test('h2 parsing - single_elements', async () => {
   const expectedJSON = String(fs.readFileSync(testJSON));
   return expect(resultJSON).toEqual(expectedJSON);
 });
+
+
+// bfs drumkit - this should probably have counterpart tests in the
+// instrumentationIntegration tests, but for now, only here
+test('h2 parsing - bfs_drumkit', async () => {
+  const testXml = fs.readFileSync("./test_data/bfs_drumkit_rbw4.h2song");
+  const testJSON = "./test_data/bfs_drumkit_rbw4.json";
+  const resultJSONPromise = h2.parseHydrogenPromise(testXml.toString()).then(result =>
+  {
+    return JSON.stringify(result, null, 4);
+  });
+  const resultJSON = await resultJSONPromise;
+  if(true || updateSerialisations)
+  {
+    fs.writeFileSync(testJSON, resultJSON);
+  }
+  const expectedJSON = String(fs.readFileSync(testJSON));
+  return expect(resultJSON).toEqual(expectedJSON);
+});

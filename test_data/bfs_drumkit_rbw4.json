@@ -1,0 +1,497 @@
+{
+    "instruments": [
+        {
+            "id": 0,
+            "name": "Bass",
+            "volume": 1,
+            "muted": false,
+            "gain": 1,
+            "drumkit": "BFS drumming",
+            "filename": "bass hit 1.wav"
+        },
+        {
+            "id": 1,
+            "name": "Bass stick",
+            "volume": 1,
+            "muted": false,
+            "gain": 0.5,
+            "drumkit": "BFS drumming",
+            "filename": "bass click.wav"
+        },
+        {
+            "id": 2,
+            "name": "Mid bass",
+            "volume": 1,
+            "muted": false,
+            "gain": 1,
+            "drumkit": "BFS drumming",
+            "filename": "bass hit 1.wav"
+        },
+        {
+            "id": 3,
+            "name": "Mid bass stick",
+            "volume": 1,
+            "muted": false,
+            "gain": 1,
+            "drumkit": "BFS drumming",
+            "filename": "bass click.wav"
+        },
+        {
+            "id": 4,
+            "name": "Tom",
+            "volume": 1,
+            "muted": false,
+            "gain": 1,
+            "drumkit": "BFS drumming",
+            "filename": "tom hit.wav"
+        },
+        {
+            "id": 5,
+            "name": "Tom rim",
+            "volume": 1,
+            "muted": false,
+            "gain": 1,
+            "drumkit": "BFS drumming",
+            "filename": "tom click.wav"
+        },
+        {
+            "id": 6,
+            "name": "Small tom",
+            "volume": 1,
+            "muted": false,
+            "gain": 1,
+            "drumkit": "BFS drumming",
+            "filename": "small tom hit 1.wav"
+        },
+        {
+            "id": 7,
+            "name": "Small tom rim",
+            "volume": 1,
+            "muted": false,
+            "gain": 1,
+            "drumkit": "BFS drumming",
+            "filename": "small tom click.wav"
+        },
+        {
+            "id": 8,
+            "name": "Snare",
+            "volume": 1,
+            "muted": false,
+            "gain": 1.35,
+            "drumkit": "BFS drumming",
+            "filename": "snare hit (not real).wav"
+        },
+        {
+            "id": 9,
+            "name": "Snare (ghosts)",
+            "volume": 1,
+            "muted": false,
+            "gain": 1,
+            "drumkit": "BFS drumming",
+            "filename": "snare ghost 2 (not real).wav"
+        },
+        {
+            "id": 10,
+            "name": "Snare rim",
+            "volume": 1,
+            "muted": false,
+            "gain": 1,
+            "drumkit": "BFS drumming",
+            "filename": "snare click (not real).wav"
+        },
+        {
+            "id": 11,
+            "name": "Shaker fwd",
+            "volume": 1,
+            "muted": false,
+            "gain": 0.7,
+            "drumkit": "BFS drumming",
+            "filename": "forward7.wav"
+        },
+        {
+            "id": 12,
+            "name": "Shaker fwd (ghosts)",
+            "volume": 1,
+            "muted": false,
+            "gain": 0.85,
+            "drumkit": "BFS drumming",
+            "filename": "forward3.wav"
+        },
+        {
+            "id": 13,
+            "name": "Shaker back",
+            "volume": 1,
+            "muted": false,
+            "gain": 1.35,
+            "drumkit": "BFS drumming",
+            "filename": "back6.wav"
+        },
+        {
+            "id": 14,
+            "name": "Shaker back (ghosts)",
+            "volume": 1,
+            "muted": false,
+            "gain": 0.9,
+            "drumkit": "BFS drumming",
+            "filename": "back1.wav"
+        },
+        {
+            "id": 15,
+            "name": "Djembe bass",
+            "volume": 1,
+            "muted": false,
+            "gain": 1,
+            "drumkit": "BFS drumming",
+            "filename": "djembe bass 1.wav"
+        },
+        {
+            "id": 16,
+            "name": "Djembe tone",
+            "volume": 1,
+            "muted": false,
+            "gain": 1,
+            "drumkit": "BFS drumming",
+            "filename": "djembe tone fat.wav"
+        },
+        {
+            "id": 17,
+            "name": "Djembe slap",
+            "volume": 1,
+            "muted": false,
+            "gain": 1,
+            "drumkit": "BFS drumming",
+            "filename": "djembe slap 1.wav"
+        },
+        {
+            "id": 18,
+            "name": "Djembe (ghosts)",
+            "volume": 1,
+            "muted": false,
+            "gain": 1,
+            "drumkit": "BFS drumming",
+            "filename": "djembe ghost 1.wav"
+        }
+    ],
+    "patterns": [
+        {
+            "size": 192,
+            "name": "Pattern 2",
+            "notes": [
+                {
+                    "position": 0,
+                    "instrument": 0,
+                    "velocity": 0.8
+                },
+                {
+                    "position": 0,
+                    "instrument": 11,
+                    "velocity": 0.8
+                },
+                {
+                    "position": 0,
+                    "instrument": 9,
+                    "velocity": 0.8
+                },
+                {
+                    "position": 0,
+                    "instrument": 15,
+                    "velocity": 0.8
+                },
+                {
+                    "position": 24,
+                    "instrument": 14,
+                    "velocity": 0.8
+                },
+                {
+                    "position": 24,
+                    "instrument": 9,
+                    "velocity": 0.8
+                },
+                {
+                    "position": 24,
+                    "instrument": 16,
+                    "velocity": 0.8
+                },
+                {
+                    "position": 48,
+                    "instrument": 0,
+                    "velocity": 0.8
+                },
+                {
+                    "position": 48,
+                    "instrument": 12,
+                    "velocity": 0.8
+                },
+                {
+                    "position": 48,
+                    "instrument": 9,
+                    "velocity": 0.8
+                },
+                {
+                    "position": 48,
+                    "instrument": 16,
+                    "velocity": 0.8
+                },
+                {
+                    "position": 72,
+                    "instrument": 0,
+                    "velocity": 0.8
+                },
+                {
+                    "position": 72,
+                    "instrument": 13,
+                    "velocity": 0.8
+                },
+                {
+                    "position": 72,
+                    "instrument": 8,
+                    "velocity": 0.8
+                },
+                {
+                    "position": 72,
+                    "instrument": 17,
+                    "velocity": 0.8
+                },
+                {
+                    "position": 96,
+                    "instrument": 12,
+                    "velocity": 0.8
+                },
+                {
+                    "position": 96,
+                    "instrument": 9,
+                    "velocity": 0.8
+                },
+                {
+                    "position": 120,
+                    "instrument": 0,
+                    "velocity": 0.8
+                },
+                {
+                    "position": 120,
+                    "instrument": 14,
+                    "velocity": 0.8
+                },
+                {
+                    "position": 120,
+                    "instrument": 9,
+                    "velocity": 0.8
+                },
+                {
+                    "position": 120,
+                    "instrument": 16,
+                    "velocity": 0.8
+                },
+                {
+                    "position": 144,
+                    "instrument": 0,
+                    "velocity": 0.8
+                },
+                {
+                    "position": 144,
+                    "instrument": 11,
+                    "velocity": 0.8
+                },
+                {
+                    "position": 144,
+                    "instrument": 9,
+                    "velocity": 0.8
+                },
+                {
+                    "position": 144,
+                    "instrument": 15,
+                    "velocity": 0.8
+                },
+                {
+                    "position": 168,
+                    "instrument": 14,
+                    "velocity": 0.8
+                },
+                {
+                    "position": 168,
+                    "instrument": 9,
+                    "velocity": 0.8
+                },
+                {
+                    "position": 168,
+                    "instrument": 16,
+                    "velocity": 0.8
+                }
+            ],
+            "resolution": 24,
+            "instrumentTracks": {
+                "0": {
+                    "points": [
+                        0,
+                        48,
+                        72,
+                        120,
+                        144
+                    ],
+                    "length_": 192,
+                    "velocity": [
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8
+                    ]
+                },
+                "1": {
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
+                },
+                "2": {
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
+                },
+                "3": {
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
+                },
+                "4": {
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
+                },
+                "5": {
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
+                },
+                "6": {
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
+                },
+                "7": {
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
+                },
+                "8": {
+                    "points": [
+                        72
+                    ],
+                    "length_": 192,
+                    "velocity": [
+                        0.8
+                    ]
+                },
+                "9": {
+                    "points": [
+                        0,
+                        24,
+                        48,
+                        96,
+                        120,
+                        144,
+                        168
+                    ],
+                    "length_": 192,
+                    "velocity": [
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8
+                    ]
+                },
+                "10": {
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
+                },
+                "11": {
+                    "points": [
+                        0,
+                        144
+                    ],
+                    "length_": 192,
+                    "velocity": [
+                        0.8,
+                        0.8
+                    ]
+                },
+                "12": {
+                    "points": [
+                        48,
+                        96
+                    ],
+                    "length_": 192,
+                    "velocity": [
+                        0.8,
+                        0.8
+                    ]
+                },
+                "13": {
+                    "points": [
+                        72
+                    ],
+                    "length_": 192,
+                    "velocity": [
+                        0.8
+                    ]
+                },
+                "14": {
+                    "points": [
+                        24,
+                        120,
+                        168
+                    ],
+                    "length_": 192,
+                    "velocity": [
+                        0.8,
+                        0.8,
+                        0.8
+                    ]
+                },
+                "15": {
+                    "points": [
+                        0,
+                        144
+                    ],
+                    "length_": 192,
+                    "velocity": [
+                        0.8,
+                        0.8
+                    ]
+                },
+                "16": {
+                    "points": [
+                        24,
+                        48,
+                        120,
+                        168
+                    ],
+                    "length_": 192,
+                    "velocity": [
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8
+                    ]
+                },
+                "17": {
+                    "points": [
+                        72
+                    ],
+                    "length_": 192,
+                    "velocity": [
+                        0.8
+                    ]
+                },
+                "18": {
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
+                }
+            }
+        }
+    ]
+}
