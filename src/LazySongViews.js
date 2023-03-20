@@ -105,6 +105,8 @@ class FileImportSongView extends React.Component
       return songData;
     };
     const navigateHomeWithError = (err) => {
+      window.loadError = err;
+      window.error = err;
       this.setState(
         {
           error: "Failed to load " + this.props.filename + ". " +
