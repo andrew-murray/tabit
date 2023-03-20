@@ -90,11 +90,13 @@ function manageAccentOrGhost(instrumentTracks, instrumentName, accentSymbol, gho
     const t0 = instrumentTracks[0];
     const t1 = instrumentTracks[1];
     // attempt to determine ghost/accent
-    const zeroLouder = t0.volume > t1.volume || (t0.volume === t1.volume && t0.gain > t1.gain);
+    const zeroLouder = t0.volume > t1.volume
+      || (t0.volume === t1.volume && t0.gain > t1.gain)
+      || (t0.volume === t1.volume && t0.gain > t1.gain && (!t0.muted && t1.muted));
     let mapping = {};
     mapping[ t0.id.toString() ] = zeroLouder ? accentSymbol : ghostSymbol;
     mapping[ t1.id.toString() ] = zeroLouder ? ghostSymbol : accentSymbol;
-    outputInstruments.push([instrumentName, mapping] );
+    outputInstruments.push([instrumentName, mapping]);
   }
   else // if 1 it must be an accent, if >= 3 ... I don't want to try and assign ghosts/accents
   {
@@ -115,6 +117,28 @@ function figureShakers(instrumentsRaw, symbolConfig)
   const instruments = normalizeInstrumentsForFiguring(instrumentsRaw);
   // todo: support common alternative shakers? Tambourine?
   const shakerTracks = instruments.filter( (inst) => ( inst.name.includes("shaker") ) );
+  // todo: this temporary bodge supports the BFS drumkit specifically
+  // I'd quite like to write a better solution to appropriately
+  // group snare/shaker for "ghost/accent" or "multiple snares" - soon
+  const trackNames = shakerTracks.map( (inst) => inst.name );
+  const bfsMapping = {
+    "shaker fwd": "X",
+    "shaker fwd (ghosts)": "x",
+    "shaker back": "X",
+    "shaker back (ghosts)": "x"
+  };
+  if(shakerTracks.length <= 4 && trackNames.every( (name)=> name in bfsMapping) )
+  {
+      let mapping = {};
+      for(const track of shakerTracks )
+      {
+        mapping[ track.id.toString() ] = bfsMapping[track.name];
+      }
+      return [
+        ["Shaker", mapping]
+      ];
+  }
+
   return manageAccentOrGhost(
     shakerTracks,
     "Shaker",
@@ -130,6 +154,27 @@ function figureSnares(instrumentsRaw, symbolConfig)
   // todo: we currently assume 2 snares is accent/ghost ... but I think it's relatively
   // common to be 2 snare parts too, I think the algorithm here is check patterns to
   // see if they overlap ... if the "ghosts" overlap the "hits" sometimes, assume 2 parts
+
+  // todo: this temporary bodge supports the BFS drumkit specifically
+  // I'd quite like to write a better solution to appropriately
+  // group snare/shaker for "ghost/accent" or "multiple snares" - soon
+  const trackNames = snareTracks.map( (inst) => inst.name );
+  const bfsMapping = {
+    "snare": "X",
+    "snare rim": "R",
+    "snare (ghosts)": "x"
+  };
+  if(snareTracks.length <= 3 && trackNames.every( (name)=> name in bfsMapping) )
+  {
+      let mapping = {};
+      for(const track of snareTracks )
+      {
+        mapping[ track.id.toString() ] = bfsMapping[track.name];
+      }
+      return [
+        ["Snare", mapping]
+      ];
+  }
   return manageAccentOrGhost(
     snareTracks,
     "Snare",
@@ -175,6 +220,7 @@ function figureClickyInstruments(instrumentsRaw, symbolConfig, patterns)
   const worthwhileInstruments = activeInstruments(patterns);
   const relevantTracks = instruments.filter( (inst) => ( worthwhileInstruments.has(inst.id) &&
     !inst.name.includes("djembe") &&
+    !inst.name.includes("snare") && // BFS drumkit includes snare rims unexpectedly, we figure those out separately
     ( inst.name.includes("click") ||
     inst.name.includes("stick") ||
     inst.name.includes("rim") ||
@@ -274,7 +320,7 @@ function defaultSymbolForSingleInstrument(symbolConfig, name)
   }
   else if( lowerName.includes("shaker") )
   {
-    return symbolConfig["Shaker"];
+    return symbolConfig["Shaker Accent"];
   }
   else if( lowerName.includes("tom") )
   {
