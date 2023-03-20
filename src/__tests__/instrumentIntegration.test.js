@@ -274,3 +274,36 @@ test("instrumentation coconot", () => {
   const instruments = figureInstruments( state.instruments, DEFAULT_INSTRUMENT_SYMBOLS, state.patterns );
   expect(instruments).toEqual(coconotInstruments);
 });
+
+
+// coconotInstruments are a bit of a mess, some of the patterns are mid-bass
+// and some are tom, and grouping sticks/drums gets abandoned
+// and just inserted as separate tracks
+// but this is an acceptable failure mode
+const singleElementInstruments = [
+  [ 'Bass', { '0': 'O' } ]
+];
+
+test("instrumentation single_elements", () => {
+  const state = createObjects(JSON.parse(fs.readFileSync("./test_data/single_elements.json")));
+  const instruments = figureInstruments( state.instruments, DEFAULT_INSTRUMENT_SYMBOLS, state.patterns );
+  expect(instruments).toEqual(singleElementInstruments);
+});
+
+// coconotInstruments are a bit of a mess, some of the patterns are mid-bass
+// and some are tom, and grouping sticks/drums gets abandoned
+// and just inserted as separate tracks
+// but this is an acceptable failure mode
+const rbwInstruments = [
+  // bass part has no clicks!
+  [ 'Bass', { '0': 'O'} ],
+  [ 'Djembe', { '15': 'O', '16': 't', '17': 'S', '18': '-' } ],
+  [ 'Snare', { '10': 'R', '8': 'X', '9': 'x' } ],
+  [ 'Shaker', { '11': 'X', '12': 'x', '13': 'X', '14': 'x' } ]
+];
+
+test("instrumentation BFS RBW", () => {
+  const state = createObjects(JSON.parse(fs.readFileSync("./test_data/bfs_drumkit_rbw4.json")));
+  const instruments = figureInstruments( state.instruments, DEFAULT_INSTRUMENT_SYMBOLS, state.patterns );
+  expect(instruments).toEqual(rbwInstruments);
+});
