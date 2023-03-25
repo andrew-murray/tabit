@@ -451,7 +451,6 @@ class SongView extends React.Component
     {
       if(this.audio){ this.audio.setVolumeForInstrument( instrumentID, event.volume ); }
       instrumentToUpdate.volume = event.volume;
-
     }
     else if("muted" in event)
     {
