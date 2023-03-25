@@ -130,42 +130,50 @@ const getLocalHistory = () => {
   return songHistory;
 };
 
-const findLocal = (songID) => {
+const translateLocalSongID = (songID) => {
   const history = getLocalHistory();
-  const matches = history.filter( song => ( song.id === songID ) );
+  const matches = history.filter( song => ( song.songID === songID ) );
   if(matches.length < 1)
   {
-    return false;
+    return null;
   }
-  return true;
+  else
+  {
+    return matches[0].id;
+  }
 };
 
-const saveToLocalHistory = (exportState) => {
-    const stateToShare = encodeState(exportState);
-    const stateHash = hash(stateToShare);
-    let history = getLocalHistory();
-    const relevantHistory = history.filter( song => ( song.id === stateHash && song.name === exportState.songName ) );
-    if( relevantHistory.length !== 0 )
-    {
-      // found at least one history entry identical to this one ...
-      // update one, so it's the most recent entry
-      relevantHistory[0].date = Date.now();
-    }
-    else
-    {
-      // add history entry
-      const historyEntry = {
-        name: exportState.songName,
-        id: stateHash,
-        date: Date.now(),
-        content: stateToShare
-      };
-      history.push(historyEntry);
-    }
+const saveToLocalHistory = (exportState, songID) => {
+  const stateToShare = encodeState(exportState);
+  const stateHash = hash(stateToShare);
+  const primaryID = (songID === null || songID === undefined) ? stateHash : songID;
+  let history = getLocalHistory();
+  const relevantHistory = history.filter( song => ( song.id === stateHash && song.name === exportState.songName ) );
+  if( relevantHistory.length !== 0 )
+  {
+    // found at least one history entry identical to this one ...
+    // update one, so it's the most recent entry
+    relevantHistory[0].date = Date.now();
+    // and if we've got a songID that matches
+    relevantHistory[0].songID = songID;
+  }
+  else
+  {
+    // add history entry
+    const historyEntry = {
+      name: exportState.songName,
+      id: stateHash,
+      hash: stateHash,
+      songID: songID,
+      date: Date.now(),
+      content: stateToShare
+    };
+    history.push(historyEntry);
+  }
 
-    // resort & cap how many files we remember
-    const restrictedHistory = history.sort( (a,b) =>(b.date - a.date)  ).slice(0, 30);
-    localStorage.setItem("tabit-history", JSON.stringify(restrictedHistory));
+  // resort & cap how many files we remember
+  const restrictedHistory = history.sort( (a,b) =>(b.date - a.date)  ).slice(0, 30);
+  localStorage.setItem("tabit-history", JSON.stringify(restrictedHistory));
 };
 
 const download = (exportState) => {
@@ -182,6 +190,6 @@ export {
   formatURL,
   download,
   getLocalHistory,
-  findLocal,
+  translateLocalSongID,
   saveToLocalHistory
 };

@@ -219,10 +219,17 @@ class SongStorageSongView extends React.Component
       .catch(navigateHomeWithError);
   }
 
+
+  onSave = (exportState) => {
+    if(this.props.onSave)
+    {
+      this.props.onSave(exportState, this.props.songID);
+    }
+  }
   render()
   {
     return this.state.error ? <Navigate to="/" state={{error: this.state.error}} />
-         : this.state.songData ? <SongView audioController={this.props.audioController} songStorage={this.props.songStorage} songData={this.state.songData} onSave={this.props.onSave} key={this.state.songData}/>
+         : this.state.songData ? <SongView audioController={this.props.audioController} songStorage={this.props.songStorage} songData={this.state.songData} onSave={this.onSave} key={this.state.songData}/>
                                : <WaitingMessage />;
   }
 };

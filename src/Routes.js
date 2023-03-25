@@ -24,10 +24,10 @@ import ToneController from "./ToneController"
 // set to null/undefined to disable save (this may be useless in a constantly-refreshing debugging environment)
 window.storage = SongStorage;
 
-const saveCallback = (songState)=>{
+const saveCallback = (songState, songID)=>{
   if(window.storage)
   {
-    window.storage.saveToLocalHistory(songState);
+    window.storage.saveToLocalHistory(songState, songID);
   }
 };
 
@@ -57,15 +57,16 @@ const MakeExample = (props) => {
 const MakeSongOrLocalStorageSongView = (props) => {
   const {songID} = useParams();
   const location = useLocation();
-  if(SongStorage.findLocal(songID))
+  const localID = SongStorage.translateLocalSongID(songID);
+  if(localID)
   {
     const locationState = location.state || {};
     return <LocalStorageSongView
       location={location}
-      songID={songID}
+      songID={localID}
       name={locationState.songName}
       songStorage={SongStorage}
-      onSave={saveCallback}
+      onSave={(exportState)=>saveCallback(exportState, songID)}
       audioController={ToneController}
     />
   }
