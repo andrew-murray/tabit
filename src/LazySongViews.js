@@ -39,6 +39,8 @@ class ExampleSongView extends React.Component
   componentDidMount()
   {
     const navigateHomeWithError = (err) => {
+      window.loadError = err;
+      window.error = err;
       this.setState(
         {
           error: "Failed to load example data. " +
@@ -189,6 +191,8 @@ class SongStorageSongView extends React.Component
       });
     };
     const navigateHomeWithError = (err) => {
+      window.loadError = err;
+      window.error = err;
       this.setState(
         {
           error: "Failed to load song " + this.props.songID + " from database. " +
@@ -232,6 +236,8 @@ class LocalStorageSongView extends React.Component
   componentDidMount()
   {
     const navigateHomeWithError = (err) => {
+      window.loadError = err;
+      window.error = err;
       this.setState(
         {
           error: "Failed to load recently viewed song " + this.props.name + ". " +
