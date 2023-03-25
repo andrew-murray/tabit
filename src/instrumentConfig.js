@@ -187,7 +187,7 @@ class EditInstrumentSymbolDialog extends React.Component
     const confirm = (e) => {
       if(this.state.currentSymbol !== null && this.state.currentSymbol.length === 1)
       {
-        if(this.props.onChange){
+        if(this.props.currentSymbol !== this.state.currentSymbol && this.props.onChange){
           this.props.onChange(this.state.currentSymbol);
           this.setState({currentSymbol: null});
         }
@@ -195,8 +195,11 @@ class EditInstrumentSymbolDialog extends React.Component
       else
       {
         // todo: prettier error communication?
+        // note: techincally we've handled the null case already,
+        // but belt and braces
+        const currentSymbolMsg = this.state.currentSymbol === null ? "" : this.state.currentSymbol;
         alert(
-          "You selected an invalid symbol \"" + this.state.currentSymbol + "\".\n" +
+          "You selected an invalid symbol \"" + currentSymbolMsg + "\".\n" +
           "Symbols must be precisely 1 character."
         );
       }
@@ -232,7 +235,7 @@ class EditInstrumentSymbolDialog extends React.Component
           <Button onClick={cancel} color="primary">
             Cancel
           </Button>
-          <Button onClick={confirm} color="primary">
+          <Button onClick={confirm} disabled={this.state.currentSymbol === null} color="primary">
             Confirm
           </Button>
         </DialogActions>
