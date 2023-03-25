@@ -138,6 +138,23 @@ function figureShakers(instrumentsRaw, symbolConfig)
         ["Shaker", mapping]
       ];
   }
+  const lowerTrackNames = shakerTracks.map((inst) => inst.name.toLowerCase());
+  const andyMapping = {
+    "shaker": "X",
+    "shaker (g)": ".",
+    "shaker (gr)": "x"
+  };
+  if(shakerTracks.length >= 2 && shakerTracks.length <= 3 && lowerTrackNames.every( (name)=> name in andyMapping) )
+  {
+      let mapping = {};
+      for(const track of shakerTracks )
+      {
+        mapping[ track.id.toString() ] = andyMapping[track.name.toLowerCase()];
+      }
+      return [
+        ["Shaker", mapping]
+      ];
+  }
 
   return manageAccentOrGhost(
     shakerTracks,
@@ -170,6 +187,23 @@ function figureSnares(instrumentsRaw, symbolConfig)
       for(const track of snareTracks )
       {
         mapping[ track.id.toString() ] = bfsMapping[track.name];
+      }
+      return [
+        ["Snare", mapping]
+      ];
+  }
+  const lowerTrackNames = snareTracks.map((inst) => inst.name.toLowerCase());
+  const andyMapping = {
+    "snare": "X",
+    "snare (g)": ".",
+    "snare (gr)": "x"
+  };
+  if(snareTracks.length >= 2 && snareTracks.length <= 3 && lowerTrackNames.every( (name)=> name in andyMapping) )
+  {
+      let mapping = {};
+      for(const track of snareTracks )
+      {
+        mapping[ track.id.toString() ] = andyMapping[track.name.toLowerCase()];
       }
       return [
         ["Snare", mapping]
