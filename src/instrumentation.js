@@ -120,14 +120,14 @@ function figureShakers(instrumentsRaw, symbolConfig)
   // todo: this temporary bodge supports the BFS drumkit specifically
   // I'd quite like to write a better solution to appropriately
   // group snare/shaker for "ghost/accent" or "multiple snares" - soon
-  const trackNames = shakerTracks.map( (inst) => inst.name );
+  const trackNames = new Set( shakerTracks.map( (inst) => inst.name ) );
   const bfsMapping = {
     "shaker fwd": "X",
     "shaker fwd (ghosts)": "x",
     "shaker back": "X",
     "shaker back (ghosts)": "x"
   };
-  if(shakerTracks.length >= 1 && shakerTracks.length <= 4 && trackNames.every( (name)=> name in bfsMapping) )
+  if(trackNames.size >= 2 && shakerTracks.length <= 4 && Array.from(trackNames).every( (name)=> name in bfsMapping) )
   {
       let mapping = {};
       for(const track of shakerTracks )
@@ -138,13 +138,13 @@ function figureShakers(instrumentsRaw, symbolConfig)
         ["Shaker", mapping]
       ];
   }
-  const lowerTrackNames = shakerTracks.map((inst) => inst.name.toLowerCase());
+  const lowerTrackNames = new Set( shakerTracks.map((inst) => inst.name.toLowerCase()) );
   const andyMapping = {
     "shaker": "X",
     "shaker (g)": ".",
     "shaker (gr)": "x"
   };
-  if(shakerTracks.length >= 2 && shakerTracks.length <= 3 && lowerTrackNames.every( (name)=> name in andyMapping) )
+  if(lowerTrackNames.size >= 2 && shakerTracks.length <= 3 && Array.from(lowerTrackNames).every( (name)=> name in andyMapping) )
   {
       let mapping = {};
       for(const track of shakerTracks )
@@ -175,13 +175,13 @@ function figureSnares(instrumentsRaw, symbolConfig)
   // todo: this temporary bodge supports the BFS drumkit specifically
   // I'd quite like to write a better solution to appropriately
   // group snare/shaker for "ghost/accent" or "multiple snares" - soon
-  const trackNames = snareTracks.map( (inst) => inst.name );
+  const trackNames = new Set( snareTracks.map( (inst) => inst.name ) );
   const bfsMapping = {
     "snare": "X",
     "snare rim": "R",
     "snare (ghosts)": "x"
   };
-  if(snareTracks.length >= 1 && snareTracks.length <= 3 && trackNames.every( (name)=> name in bfsMapping) )
+  if(trackNames.size >= 2 && snareTracks.length <= 3 && Array.from(trackNames).every( (name)=> name in bfsMapping) )
   {
       let mapping = {};
       for(const track of snareTracks )
@@ -192,13 +192,13 @@ function figureSnares(instrumentsRaw, symbolConfig)
         ["Snare", mapping]
       ];
   }
-  const lowerTrackNames = snareTracks.map((inst) => inst.name.toLowerCase());
+  const lowerTrackNames = new Set( snareTracks.map((inst) => inst.name.toLowerCase()) );
   const andyMapping = {
     "snare": "X",
     "snare (g)": ".",
     "snare (gr)": "x"
   };
-  if(snareTracks.length >= 2 && snareTracks.length <= 3 && lowerTrackNames.every( (name)=> name in andyMapping) )
+  if(lowerTrackNames.size >= 2 && snareTracks.length <= 3 && Array.from(lowerTrackNames).every( (name)=> name in andyMapping) )
   {
       let mapping = {};
       for(const track of snareTracks )
