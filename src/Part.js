@@ -101,7 +101,7 @@ class PartByBeat extends React.Component
 
   render() {
     const tracks = Object.values(this.props.tracks);
-    if(tracks.length === 0 || Object.keys(this.props.instrument).length === 0 )
+    if(tracks.length === 0)
     {
       return <React.Fragment />
     }
@@ -124,7 +124,7 @@ class PartByBeat extends React.Component
     const patternLength = tracks[0].length();
     const Typo = this.props.dense ? DensePreTypography : PreTypography;
     const tracksForEachLine = splitTracksIntoLines(this.props.instrument, this.props.tracks, this.props.config.lineResolution);
-    const lineRepeatMatrix = countTrackRepeats(tracksForEachLine);
+    const lineRepeatMatrix = this.props.config.expandRepeatedLines ? new Array(tracksForEachLine.length).fill(1) : countTrackRepeats(tracksForEachLine);
     const interactiveStyles = {
       cursor: "pointer"
     };
