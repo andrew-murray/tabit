@@ -26,7 +26,7 @@ class notation
   static FORMAT_CONFIG_STRINGS = [
     ["restMark",["-", ".", " "]],
     ["numberRestMark",["-", ".", " "]],
-    ["undefinedMark", ["?", "ø", "3", "4", "#", "+"]]
+    ["undefinedMark", ["?", "ø", "3", "4", "#", "+", "v", "V"]]
   ];
 
   static FORMAT_CONFIG_BOOLS = [
