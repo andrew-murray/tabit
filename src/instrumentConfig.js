@@ -47,6 +47,7 @@ import Tooltip from "./TabitTooltip";
 import AVAILABLE_SAMPLES from "./samples.json";
 
 import {isMobile} from "./Mobile";
+import {guessShortName} from "./instrumentation";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -578,7 +579,7 @@ function InstrumentConfig(props) {
     // this function also deals with the addition of new instruments
     if( renamingInstrument === props.instruments.length )
     {
-      const extraInstrument = [ instrumentName, {} ];
+      const extraInstrument = [ instrumentName, {}, {shortName: guessShortName(instrumentName)} ];
       let replacedInstruments = Array.from( props.instruments );
       replacedInstruments.push(extraInstrument);
       props.onChange(replacedInstruments);
