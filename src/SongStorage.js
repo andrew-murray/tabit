@@ -135,9 +135,9 @@ const findLocal = (songID) => {
   const matches = history.filter( song => ( song.id === songID ) );
   if(matches.length < 1)
   {
-    return true;
+    return false;
   }
-  return false;
+  return true;
 };
 
 const saveToLocalHistory = (exportState) => {

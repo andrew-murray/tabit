@@ -54,16 +54,31 @@ const MakeExample = (props) => {
   />
 };
 
-const MakeSongStorageSongView = (props) => {
+const MakeSongOrLocalStorageSongView = (props) => {
   const {songID} = useParams();
   const location = useLocation();
-  return <SongStorageSongView
-    location={location}
-    songID={songID}
-    songStorage={SongStorage}
-    onSave={saveCallback}
-    audioController={ToneController}
-  />
+  if(SongStorage.findLocal(songID))
+  {
+    const locationState = location.state || {};
+    return <LocalStorageSongView
+      location={location}
+      songID={songID}
+      name={locationState.songName}
+      songStorage={SongStorage}
+      onSave={saveCallback}
+      audioController={ToneController}
+    />
+  }
+  else
+  {
+    return <SongStorageSongView
+      location={location}
+      songID={songID}
+      songStorage={SongStorage}
+      onSave={saveCallback}
+      audioController={ToneController}
+    />
+  }
 };
 
 const MakeFileImportSongView = (props) => {
@@ -121,7 +136,7 @@ export default function TabitRoutes(props) {
           />
           <Route
             path="/song/:songID"
-            element={<MakeSongStorageSongView />}
+            element={<MakeSongOrLocalStorageSongView />}
           />
           <Route
             path="/import"
