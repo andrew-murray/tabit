@@ -130,6 +130,16 @@ const getLocalHistory = () => {
   return songHistory;
 };
 
+const findLocal = (songID) => {
+  const history = getLocalHistory();
+  const matches = history.filter( song => ( song.id === songID ) );
+  if(matches.length < 1)
+  {
+    return true;
+  }
+  return false;
+};
+
 const saveToLocalHistory = (exportState) => {
     const stateToShare = encodeState(exportState);
     const stateHash = hash(stateToShare);
@@ -172,5 +182,6 @@ export {
   formatURL,
   download,
   getLocalHistory,
+  findLocal,
   saveToLocalHistory
 };
