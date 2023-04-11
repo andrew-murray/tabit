@@ -37,8 +37,7 @@ class SongData {
     patterns,
     formatSettings,
     patternSettings,
-    audioState,
-    timestamp
+    audioState
   )
   {
     this.title = title;
@@ -50,7 +49,6 @@ class SongData {
     this.formatSettings = formatSettings;
     this.patternSettings = patternSettings;
     this.audioState = audioState;
-    this.timestamp = timestamp;
   }
 };
 
@@ -211,8 +209,9 @@ function LoadJSON(jsonData, title, filename, fromHydrogen)
         patterns,
         formatSettings,
         patternSettings,
-        audioState,
-        jsonData.timestamp !== undefined ? new Date(jsonData.timestamp) : Date.now()
+        audioState
+        // timestamps will mean continuous generation of new saves ... TODO
+        // , jsonData.timestamp !== undefined ? new Date(jsonData.timestamp) : Date.now()
       ) );
     }
   );

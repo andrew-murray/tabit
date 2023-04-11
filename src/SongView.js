@@ -397,8 +397,9 @@ class SongView extends React.Component
       formatSettings: this.state.formatSettings,
       patternSettings : this.state.patternSettings,
       audioState: this.audio !== null ? this.audio.getExportState() : undefined,
-      version: "1.3.0",
-      timestamp: Date.now()
+      version: "1.2.0"
+      // version: "1.3.0"
+      // , timestamp: Date.now(), timestamps will mean we continuously regenerate new autosaves at new hashes... think this through
     };
   }
 
