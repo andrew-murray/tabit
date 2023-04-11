@@ -44,6 +44,9 @@ const styles = (theme)=>{
   };
 };
 
+/*
+  This will become relevant if we actually have to go fetch state. Currently it's baked in.
+
 function recordAnalyticsEvent(eventType, eventData)
 {
   if(window.umami !== undefined)
@@ -51,6 +54,8 @@ function recordAnalyticsEvent(eventType, eventData)
     window.umami.trackEvent(eventType, eventData);
   }
 }
+
+*/
 
 const ExampleCollection = {
   id: "xxx",
@@ -92,6 +97,9 @@ class CollectionScreen extends React.Component
 
   render()
   {
+    /*
+      This will become relevant if we actually have to go fetch state. Currently it's baked in.
+
     const navigateHomeWithError = (err) => {
       window.loadError = err;
       window.error = err;
@@ -107,6 +115,7 @@ class CollectionScreen extends React.Component
         error: err === undefined ? undefined : err.toString()
       });
     };
+    */
     if(this.state.error)
     {
       return <Navigate to="/" state={{error: this.state.error}} />;
