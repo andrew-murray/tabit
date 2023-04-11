@@ -97,38 +97,11 @@ class CollectionScreen extends React.Component
           "Reported Error:\n" + err
         }
       );
-      /*
-      recordAnalyticsEvent("Collection Load Error [LocalStorage]", {
-        songID: this.props.songID,
+      recordAnalyticsEvent("Collection Load Error", {
+        songbookID: this.props.songbookID,
         error: err === undefined ? undefined : err.toString()
       });
-      */
     };
-    /*
-
-                  <img
-                    src={`${item.img}?w=248&fit=crop&auto=format`}
-                    srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-                    alt={item.name}
-                    loading="lazy"
-                  />s
-    */
-    /*
-
-             <ImageList>
-              {ExampleCollection.songs.map((item) => (
-                <ImageListItem key={item.id}>
-                  <IconButton onClick={(e)=>this.props.navigate(`/song/${item.id}`)}>
-                    <AudioFileIcon fontSize="small"/>
-                  </IconButton>
-                  <ImageListItemBar
-                    title={item.name}
-                    position="below"
-                  />
-                </ImageListItem>
-              ))}
-            </ImageList>
-    */
     if(this.state.error)
     {
       return <Navigate to="/" state={{error: this.state.error}} />;
