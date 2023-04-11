@@ -37,7 +37,8 @@ class SongData {
     patterns,
     formatSettings,
     patternSettings,
-    audioState
+    audioState,
+    timestamp
   )
   {
     this.title = title;
@@ -49,6 +50,7 @@ class SongData {
     this.formatSettings = formatSettings;
     this.patternSettings = patternSettings;
     this.audioState = audioState;
+    this.timestamp = timestamp;
   }
 };
 
@@ -209,7 +211,8 @@ function LoadJSON(jsonData, title, filename, fromHydrogen)
         patterns,
         formatSettings,
         patternSettings,
-        audioState
+        audioState,
+        jsonData.timestamp !== undefined ? new Date(jsonData.timestamp) : Date.now()
       ) );
     }
   );
