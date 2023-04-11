@@ -7,6 +7,7 @@ import {
   useLocation,
   useNavigate
 } from "react-router-dom";
+import CollectionScreen from "./CollectionScreen";
 import TitleScreen from "./TitleScreen";
 import CssBaseline from '@mui/material/CssBaseline';
 import CreateTheme from "./Theme"
@@ -41,6 +42,20 @@ const MakeTitleScreen = (props) => {
       location={location}
       error={locationState.error}
       songStorage={SongStorage}
+    />
+  );
+};
+
+const MakeCollectionScreen = (props) => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const locationState = location.state || {}
+  const {songbookID} = useParams();
+  return (
+    <CollectionScreen
+      navigate={navigate}
+      location={location}
+      songbookID={songbookID}
     />
   );
 };
@@ -138,6 +153,10 @@ export default function TabitRoutes(props) {
           <Route
             path="/song/:songID"
             element={<MakeSongOrLocalStorageSongView />}
+          />
+          <Route
+            path="/songbook/:collectionID"
+            element={<MakeCollectionScreen />}
           />
           <Route
             path="/import"
