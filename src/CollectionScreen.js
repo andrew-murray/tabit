@@ -6,14 +6,19 @@ import Grid from "@mui/material/Grid";
 import Typography from '@mui/material/Typography';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
+import Button from '@mui/material/Button';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import AudioFileIcon from '@mui/icons-material/AudioFile';
+import HomeIcon from '@mui/icons-material/Home';
 import Paper from "@mui/material/Paper";
 import {
   Navigate
 } from "react-router-dom";
+import Toolbar from '@mui/material/Toolbar';
+import AppBar from '@mui/material/AppBar';
+import {isMobile} from "./Mobile";
 import './App.css';
 
 const styles = (theme)=>{
@@ -108,6 +113,23 @@ class CollectionScreen extends React.Component
     }
     return (
       <Box className="App">
+        <AppBar position="fixed"
+          sx={{backgroundColor: "primary.main", zIndex: (theme)=> theme.zIndex.drawer + (isMobile ? 0 : 20)}}
+        >
+          <Toolbar variant="dense">
+            <IconButton
+              color="inherit"
+              aria-label="home"
+              edge="start"
+              onClick={(e)=>this.props.navigate('/')}
+              >
+              <HomeIcon />
+            </IconButton>
+            <Typography variant="h6" color="inherit" style={{"textOverflow": "ellipsis"}} noWrap>
+              tabit
+            </Typography>
+          </Toolbar>
+        </AppBar>
         <Grid
           container
           direction="column"
@@ -115,13 +137,16 @@ class CollectionScreen extends React.Component
           justifyContent="center"
           sx={{ minHeight: '100vh', backgroundColor: 'primary.main' }}
         >
-          <Box>
+          <Button onClick={(e)=>this.props.navigate("/")}>
             <Typography variant="h2">tabit</Typography>
+          </Button>
+          <Box>
+            <Typography variant="h2">{ExampleCollection.name}</Typography>
           </Box>
           <Paper>
             <List>
               {ExampleCollection.songs.map((item)=><ListItem key={item.id} disablePadding>
-                <ListItemButton onClick={(e)=>this.props.navigate(`/song/${item.id}`)}>
+                <ListItemButton onClick={(e)=>this.props.navigate(`song/${item.id}`)}>
                   <ListItemIcon>
                     <AudioFileIcon />
                   </ListItemIcon>

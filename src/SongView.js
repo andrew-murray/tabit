@@ -18,6 +18,8 @@ import SharingDialog from "./SharingDialog";
 import PatternCreateDialog from "./PatternCreateDialog";
 import Toolbar from '@mui/material/Toolbar';
 import memoizeOne from 'memoize-one';
+import HomeIcon from '@mui/icons-material/Home';
+import BackIcon from '@mui/icons-material/ArrowBackIosNew';
 
 const makeResolvedSettings = memoizeOne( (globalSettings, patternSettings) => {
   let resolvedSettings = Object.assign({}, globalSettings);
@@ -670,6 +672,8 @@ class SongView extends React.Component
         <Toolbar variant="dense"/>
         <TabitBar
           title={this.state.songData.title}
+          OutLink={this.props.songbookID ? `/songbook/${this.props.songbookID}` : '/' }
+          OutIcon={this.props.songbookID ? <BackIcon/> : <HomeIcon />}
           settingsToggle={this.handleSettingsToggle}
           patternsToggle={this.handlePatternsToggle}
           onShare={this.onShare}

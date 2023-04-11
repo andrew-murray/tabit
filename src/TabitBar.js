@@ -4,7 +4,6 @@ import AppBar from '@mui/material/AppBar';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import HomeIcon from '@mui/icons-material/Home';
 import { Link } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
 import SettingsIcon from "@mui/icons-material/Settings";
@@ -39,6 +38,14 @@ function TabitBar(props) {
       sx={{backgroundColor: "primary.main", zIndex: (theme)=> theme.zIndex.drawer + (isMobile ? 0 : 20)}}
     >
       <Toolbar variant="dense">
+        <IconButton
+          color="inherit"
+          edge="start"
+          component={Link}
+          to={props.OutLink}
+          >
+          {props.OutIcon}
+        </IconButton>
         {props.patternsToggle &&
           <Tooltip
             title="Patterns"
@@ -53,15 +60,6 @@ function TabitBar(props) {
             </IconButton>
           </Tooltip>
         }
-        <IconButton
-          color="inherit"
-          aria-label="home"
-          edge="start"
-          component={Link}
-          to='/'
-          >
-          <HomeIcon />
-        </IconButton>
         <div style={{"flexGrow": 1, "overflow": "hidden"}}>
         <Tooltip
           title="Edit Title"

@@ -46,10 +46,9 @@ const MakeTitleScreen = (props) => {
   );
 };
 
-const MakeCollectionScreen = (props) => {
+const MakeSongbookScreen = (props) => {
   const location = useLocation();
   const navigate = useNavigate();
-  const locationState = location.state || {}
   const {songbookID} = useParams();
   return (
     <CollectionScreen
@@ -70,7 +69,8 @@ const MakeExample = (props) => {
 };
 
 const MakeSongOrLocalStorageSongView = (props) => {
-  const {songID} = useParams();
+  const {songID, songbookID} = useParams();
+  console.log({songID, songbookID});
   const location = useLocation();
   const localID = SongStorage.translateLocalSongID(songID);
   if(localID)
@@ -79,6 +79,7 @@ const MakeSongOrLocalStorageSongView = (props) => {
     return <LocalStorageSongView
       location={location}
       songID={localID}
+      songbookID={songbookID}
       name={locationState.songName}
       songStorage={SongStorage}
       onSave={(exportState)=>saveCallback(exportState, songID)}
@@ -90,6 +91,7 @@ const MakeSongOrLocalStorageSongView = (props) => {
     return <SongStorageSongView
       location={location}
       songID={songID}
+      songbookID={songbookID}
       songStorage={SongStorage}
       onSave={saveCallback}
       audioController={ToneController}
@@ -110,17 +112,17 @@ const MakeFileImportSongView = (props) => {
 };
 
 const MakeLocalStorageSongView = (props) => {
-    const {songID} = useParams();
-    const location = useLocation();
-    const locationState = location.state || {};
-    return <LocalStorageSongView
-      location={location}
-      songID={songID}
-      name={locationState.songName}
-      songStorage={SongStorage}
-      onSave={saveCallback}
-      audioController={ToneController}
-    />
+  const {songID} = useParams();
+  const location = useLocation();
+  const locationState = location.state || {};
+  return <LocalStorageSongView
+    location={location}
+    songID={songID}
+    name={locationState.songName}
+    songStorage={SongStorage}
+    onSave={saveCallback}
+    audioController={ToneController}
+  />
 };
 
 export default function TabitRoutes(props) {
@@ -155,8 +157,12 @@ export default function TabitRoutes(props) {
             element={<MakeSongOrLocalStorageSongView />}
           />
           <Route
-            path="/songbook/:collectionID"
-            element={<MakeCollectionScreen />}
+            path="/songbook/:songbookID"
+            element={<MakeSongbookScreen />}
+          />
+          <Route
+            path="/songbook/:songbookID/song/:songID"
+            element={<MakeSongOrLocalStorageSongView />}
           />
           <Route
             path="/import"
