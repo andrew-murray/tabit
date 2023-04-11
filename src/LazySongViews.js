@@ -242,6 +242,7 @@ class LocalStorageSongView extends React.Component
 
   componentDidMount()
   {
+    console.log("Fetching local record")
     const navigateHomeWithError = (err) => {
       window.loadError = err;
       window.error = err;
