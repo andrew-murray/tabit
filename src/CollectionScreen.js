@@ -24,7 +24,7 @@ import {
   Navigate
 } from "react-router-dom";
 import Toolbar from '@mui/material/Toolbar';
-import AppBar from '@mui/material/AppBar';
+import TabitBar from './TabitBar';
 import {isMobile} from "./Mobile";
 
 import './App.css';
@@ -137,39 +137,17 @@ class CollectionScreen extends React.Component
 
     return (
       <Box className="App">
-        <AppBar position="fixed"
-          sx={{backgroundColor: "primary.main", zIndex: (theme)=> theme.zIndex.drawer + (isMobile ? 0 : 20)}}
-        >
-          <Toolbar variant="dense">
-            <IconButton
-              color="inherit"
-              aria-label="home"
-              edge="start"
-              onClick={(e)=>this.props.navigate('/')}
-              >
-              <HomeIcon />
-            </IconButton>
-            <Typography variant="h6" color="inherit" style={{"textOverflow": "ellipsis"}} noWrap>
-              tabit
-            </Typography>
-
-            <div style={{"flexGrow": 1, "overflow": "hidden"}} />
-            {handleLockUnlock &&
-            <Tooltip
-              title={!this.state.editing ? "Unlock editing" : "Lock editing"}
-              show={this.props.showHelp}
-            >
-              <IconButton
-                color="inherit"
-                edge="start"
-                onClick={handleLockUnlock}
-                >
-                {!this.state.editing ? <LockIcon /> : <LockOpenIcon />}
-              </IconButton>
-            </Tooltip>
-            }
-          </Toolbar>
-        </AppBar>
+        <Toolbar variant="dense"/>
+        <TabitBar
+          title="tabit"
+          OutLink={'/'}
+          OutIcon={<HomeIcon />}
+          onShare={undefined} // to be implemented
+          onDownload={undefined} // this could be implemented
+          locked={!this.state.editing}
+          onLockUnlock={handleLockUnlock}
+          showHelp={true}
+        />
         <AddSongDialog
           open={this.state.addSongDialogOpen}
           onClose={()=>(this.setState({addSongDialogOpen: false}))}

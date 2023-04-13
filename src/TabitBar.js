@@ -61,16 +61,24 @@ function TabitBar(props) {
           </Tooltip>
         }
         <div style={{"flexGrow": 1, "overflow": "hidden"}}>
-        <Tooltip
-          title="Edit Title"
-          show={props.showHelp}
-        >
-          <Button onClick={props.onTitleClick} color="inherit" style={{"textOverflow": "ellipsis"}}>
+        {props.onTitleClick &&
+          <Tooltip
+            title="Edit Title"
+            show={props.showHelp}
+          >
+            <Button onClick={props.onTitleClick} color="inherit" style={{"textOverflow": "ellipsis"}}>
+              <Typography variant="h6" color="inherit" noWrap>
+              {props.title}
+              </Typography>
+            </Button>
+          </Tooltip>
+        }
+        {
+          !props.onTitleClick &&
             <Typography variant="h6" color="inherit" noWrap>
             {props.title}
             </Typography>
-          </Button>
-        </Tooltip>
+        }
         </div>
         {props.onLockUnlock &&
         <Tooltip
