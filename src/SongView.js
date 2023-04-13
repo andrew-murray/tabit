@@ -680,8 +680,6 @@ class SongView extends React.Component
           onDownload={this.onDownload}
           locked={this.state.locked}
           onLockUnlock={this.onToggleLocked}
-          compact={this.state.formatSettings.compactDisplay}
-          onToggleCompact={this.onToggleCompact}
           onTitleClick={this.onEnableRenameDialog}
           showHelp={this.state.showHelp}
         />
