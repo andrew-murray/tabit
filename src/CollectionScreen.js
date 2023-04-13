@@ -10,15 +10,23 @@ import Button from '@mui/material/Button';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
+import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction';
 import AudioFileIcon from '@mui/icons-material/AudioFile';
 import HomeIcon from '@mui/icons-material/Home';
 import Paper from "@mui/material/Paper";
+import Tooltip from "./TabitTooltip";
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import LockIcon from '@mui/icons-material/Lock';
+import LockOpenIcon from '@mui/icons-material/LockOpen';
+import Divider from '@mui/material/Divider'
+import AddSongDialog from "./AddSongDialog";
 import {
   Navigate
 } from "react-router-dom";
 import Toolbar from '@mui/material/Toolbar';
 import AppBar from '@mui/material/AppBar';
 import {isMobile} from "./Mobile";
+
 import './App.css';
 
 const styles = (theme)=>{
@@ -92,7 +100,9 @@ const ExampleCollection = {
 class CollectionScreen extends React.Component
 {
   state = {
-    error: this.props.error
+    error: this.props.error,
+    editing: false,
+    addSongDialogOpen: false
   }
 
   render()
@@ -120,6 +130,11 @@ class CollectionScreen extends React.Component
     {
       return <Navigate to="/" state={{error: this.state.error}} />;
     }
+
+    const handleLockUnlock = ()=>{
+      this.setState( { editing: !this.state.editing } );
+    };
+
     return (
       <Box className="App">
         <AppBar position="fixed"
@@ -137,8 +152,29 @@ class CollectionScreen extends React.Component
             <Typography variant="h6" color="inherit" style={{"textOverflow": "ellipsis"}} noWrap>
               tabit
             </Typography>
+
+            <div style={{"flexGrow": 1, "overflow": "hidden"}} />
+            {handleLockUnlock &&
+            <Tooltip
+              title={!this.state.editing ? "Unlock editing" : "Lock editing"}
+              show={this.props.showHelp}
+            >
+              <IconButton
+                color="inherit"
+                edge="start"
+                onClick={handleLockUnlock}
+                >
+                {!this.state.editing ? <LockIcon /> : <LockOpenIcon />}
+              </IconButton>
+            </Tooltip>
+            }
           </Toolbar>
         </AppBar>
+        <AddSongDialog
+          open={this.state.addSongDialogOpen}
+          onClose={()=>(this.setState({addSongDialogOpen: false}))}
+          onAddSong={(song)=>{console.log(song)}}
+        />
         <Grid
           container
           direction="column"
@@ -162,6 +198,30 @@ class CollectionScreen extends React.Component
                   <ListItemText primary={item.name} />
                 </ListItemButton>
               </ListItem>)}
+              {this.state.editing && <Divider />}
+              {this.state.editing &&
+                <ListItem
+                  key={"add-button"}
+                >
+                  <ListItemSecondaryAction>
+                    <Tooltip
+                      title="Add new song"
+                      show={this.props.showHelp}
+                    >
+                      <IconButton
+                        size="small"
+                        edge="end"
+                        onClick={()=>{this.setState({addSongDialogOpen: true})}}
+                        aria-label="add"
+                      >
+                        <AddCircleIcon
+                          size="small"
+                          edge="end"
+                          />
+                      </IconButton>
+                    </Tooltip>
+                  </ListItemSecondaryAction>
+                </ListItem>}
             </List>
           </Paper>
         </Grid>
