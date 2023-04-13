@@ -160,10 +160,7 @@ class CollectionScreen extends React.Component
           justifyContent="center"
           sx={{ minHeight: '100vh', backgroundColor: 'primary.main' }}
         >
-          <Button onClick={(e)=>this.props.navigate("/")}>
-            <Typography variant="h2">tabit</Typography>
-          </Button>
-          <Box>
+          <Box sx={{paddingBottom: "1.5em"}} >
             <Typography variant="h2">{ExampleCollection.name}</Typography>
           </Box>
           <Paper>
@@ -176,12 +173,14 @@ class CollectionScreen extends React.Component
                   <ListItemText primary={item.name} />
                 </ListItemButton>
               </ListItem>)}
-              {this.state.editing && <Divider />}
+              {this.state.editing && <Divider/>}
               {this.state.editing &&
                 <ListItem
                   key={"add-button"}
                 >
-                  <ListItemSecondaryAction>
+                  <ListItemSecondaryAction
+                    style={{paddingTop: "0.5em"}}
+                  >
                     <Tooltip
                       title="Add new song"
                       show={this.props.showHelp}
