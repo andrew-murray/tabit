@@ -26,6 +26,10 @@ const Beastie2023Collection = {
     {
       id: "641f0ad7ace6f33a22fb29c4",
       name: "HellaSwolla"
+    },
+    {
+      id: "6439c48ec0e7653a05a498f8",
+      name: "Hot Potato"
     }
   ]
 };
