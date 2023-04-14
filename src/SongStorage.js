@@ -146,7 +146,6 @@ const translateLocalSongID = (songID) => {
 const saveToLocalHistory = (exportState, songID) => {
   const stateToShare = encodeState(exportState);
   const stateHash = hash(stateToShare);
-  const primaryID = (songID === null || songID === undefined) ? stateHash : songID;
   let history = getLocalHistory();
   const relevantHistory = history.filter( song => ( song.id === stateHash && song.name === exportState.songName ) );
   if( relevantHistory.length !== 0 )
