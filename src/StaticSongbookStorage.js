@@ -46,12 +46,11 @@ const get = (songbookID) => {
   }
   else
   {
-    const err = new Error(`Couldn't find songbook with id \'${songbookID}\'`);
+    const err = new Error(`Couldn't find songbook with id '${songbookID}'`);
     return Promise.reject(err);
   }
 };
 
+const storage = { get };
 
-export default {
-  get
-};
+export default storage;

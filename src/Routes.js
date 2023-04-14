@@ -50,7 +50,7 @@ const MakeSongbookScreen = (props) => {
   const location = useLocation();
   const navigate = useNavigate();
   const {songbookStorage, songbookID} = useParams();
-  if(songbookStorage == 'static')
+  if(songbookStorage === 'static')
   {
     return <SongbookLoadingScreen
       navigate={navigate}

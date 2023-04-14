@@ -26,7 +26,7 @@ export default class SongbookLoadingScreen extends React.Component
       window.error = err;
       this.setState(
         {
-          error: "Failed to load songbook with id \'" + this.props.songbookID + "\'. " +
+          error: "Failed to load songbook with id '" + this.props.songbookID + "'. " +
           "This could represent a corrupted entry/a bug in our software. Please consider raising an issue in github!" +
           "Reported Error:\n" + err
         }
