@@ -6,21 +6,10 @@ import SongView from "./SongView"
 import hash from "object-hash";
 import h2 from "./h2"
 import Box from '@mui/material/Box';
+import WaitingMessage from "./WaitingMessage";
 import {
   Navigate
 } from "react-router-dom";
-
-function WaitingMessage(props)
-{
-  return (
-    <Box className="App">
-      <div>
-        <CircularProgress color="secondary"/>
-        <Typography> Loading song... </Typography>
-      </div>
-    </Box>
-  );
-}
 
 function recordAnalyticsEvent(eventType, eventData)
 {
@@ -67,7 +56,7 @@ class ExampleSongView extends React.Component
   {
     return this.state.error ? <Navigate to="/" state={{error: this.state.error}} />
          : this.state.songData ? <SongView audioController={this.props.audioController} songStorage={this.props.songStorage} returnURL={this.props.returnURL} songData={this.state.songData} key={this.state.songData}/>
-                               : <WaitingMessage />;
+                               : <WaitingMessage message="Loading song..."/>;
   }
 };
 
@@ -167,7 +156,7 @@ class FileImportSongView extends React.Component
     return !this.props.filename ? <Navigate to="/"/>
           : this.state.error ? <Navigate to="/" state={{error: this.state.error}} />
           : this.state.songData ? <SongView audioController={this.props.audioController} songStorage={this.props.songStorage} returnURL={this.props.returnURL} songData={this.state.songData} onSave={this.props.onSave} key={this.state.songData}/>
-                               : <WaitingMessage />;
+                               : <WaitingMessage  message="Loading song..."/>;
   }
 };
 
@@ -230,7 +219,7 @@ class SongStorageSongView extends React.Component
   {
     return this.state.error ? <Navigate to="/" state={{error: this.state.error}} />
          : this.state.songData ? <SongView audioController={this.props.audioController} songStorage={this.props.songStorage} returnURL={this.props.returnURL} songData={this.state.songData} onSave={this.onSave} key={this.state.songData}/>
-                               : <WaitingMessage />;
+                               : <WaitingMessage message="Loading song..."/>;
   }
 };
 
@@ -296,7 +285,7 @@ class LocalStorageSongView extends React.Component
     {
       return this.state.error ? <Navigate to="/" state={{error: this.state.error}} />
            : this.state.songData ? <SongView audioController={this.props.audioController} songStorage={this.props.songStorage} returnURL={this.props.returnURL} songData={this.state.songData} onSave={this.props.onSave} key={this.state.songData}/>
-                                 : <WaitingMessage />;
+                                 : <WaitingMessage message="Loading song..."/>;
     }
 }
 

@@ -7,7 +7,7 @@ import {
   useLocation,
   useNavigate
 } from "react-router-dom";
-import CollectionScreen from "./CollectionScreen";
+import SongbookLoadingScreen from "./SongbookLoadingScreen";
 import TitleScreen from "./TitleScreen";
 import CssBaseline from '@mui/material/CssBaseline';
 import CreateTheme from "./Theme"
@@ -18,8 +18,10 @@ import {
   SongStorageSongView,
   LocalStorageSongView
 } from "./LazySongViews";
+import {Navigate} from "react-router-dom";
 import * as SongStorage from "./SongStorage";
-import ToneController from "./ToneController"
+import ToneController from "./ToneController";
+import StaticSongbookStorage from "./StaticSongbookStorage";
 
 // expose storage, to enable client-side debugging/manipulation
 // set to null/undefined to disable save (this may be useless in a constantly-refreshing debugging environment)
@@ -36,27 +38,32 @@ const MakeTitleScreen = (props) => {
   const location = useLocation();
   const navigate = useNavigate();
   const locationState = location.state || {}
-  return (
-    <TitleScreen
-      navigate={navigate}
-      location={location}
-      error={locationState.error}
-      songStorage={SongStorage}
-    />
-  );
+  return <TitleScreen
+    navigate={navigate}
+    location={location}
+    error={locationState.error}
+    songStorage={SongStorage}
+  />;
 };
 
 const MakeSongbookScreen = (props) => {
   const location = useLocation();
   const navigate = useNavigate();
-  const {songbookID} = useParams();
-  return (
-    <CollectionScreen
+  const {songbookStorage, songbookID} = useParams();
+  if(songbookStorage == 'static')
+  {
+    return <SongbookLoadingScreen
       navigate={navigate}
       location={location}
       songbookID={songbookID}
-    />
-  );
+      storage={StaticSongbookStorage}
+    />;
+  }
+  else
+  {
+    const error = `Sorry - I couldn't find that Songbook for you at "${songbookStorage}/${songbookID}"`;
+    return <Navigate to="/" state={{error: error}} />;
+  }
 };
 
 const MakeExample = (props) => {

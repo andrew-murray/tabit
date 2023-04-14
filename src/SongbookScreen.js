@@ -61,44 +61,19 @@ function recordAnalyticsEvent(eventType, eventData)
 
 */
 
-const ExampleCollection = {
-  id: "xxx",
-  name: "Beasties Beltane 2023",
-  songs: [
-    {
-      id: "640ddf7bebd26539d08d5cd7",
-      name:  "Raised by wolves"
-    },
-    {
-      id: "640de010ace6f33a22ed8529",
-      name: "Give it up"
-    },
-    {
-      id: "640bc37eace6f33a22ecc67f",
-      name: "Express"
-    },
-    {
-      id: "641f0c03c0e7653a059442b5",
-      name: "SmolBeast"
-    },
-    {
-      id: "641f0c0face6f33a22fb2bb6",
-      name: "Beat About The Bush"
-    },
-    {
-      id: "641f0ad7ace6f33a22fb29c4",
-      name: "HellaSwolla"
-    }
-  ]
-};
 
 
-class CollectionScreen extends React.Component
+class SongbookScreen extends React.Component
 {
   state = {
     error: this.props.error,
     editing: false,
-    addSongDialogOpen: false
+    addSongDialogOpen: false,
+    songbookData: {
+      id: this.props.songbookData.id,
+      name: this.props.songbookData.name,
+      songs: this.props.songbookData.songs
+    }
   }
 
   render()
@@ -157,11 +132,11 @@ class CollectionScreen extends React.Component
           sx={{ minHeight: '100vh', backgroundColor: 'primary.main' }}
         >
           <Box sx={{paddingBottom: "1.5em"}} >
-            <Typography variant="h2">{ExampleCollection.name}</Typography>
+            <Typography variant="h2">{this.state.songbookData.name}</Typography>
           </Box>
           <Paper>
             <List>
-              {ExampleCollection.songs.map((item)=><ListItem key={item.id} disablePadding>
+              {this.state.songbookData.songs.map((item)=><ListItem key={item.id} disablePadding>
                 <ListItemButton onClick={(e)=>this.props.navigate(`song/${item.id}`)}>
                   <ListItemIcon>
                     <AudioFileIcon />
@@ -203,4 +178,4 @@ class CollectionScreen extends React.Component
   }
 };
 
-export default withStyles(styles)(CollectionScreen);
+export default withStyles(styles)(SongbookScreen);
