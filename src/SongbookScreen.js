@@ -116,7 +116,7 @@ class SongbookScreen extends React.Component
           onShare={undefined} // to be implemented
           onDownload={undefined} // this could be implemented
           locked={!this.state.editing}
-          onLockUnlock={handleLockUnlock}
+          onLockUnlock={this.props.editable ? handleLockUnlock : undefined}
           showHelp={true}
         />
         <AddSongDialog

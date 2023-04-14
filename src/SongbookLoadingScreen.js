@@ -51,7 +51,7 @@ export default class SongbookLoadingScreen extends React.Component
   render()
   {
     return this.state.error ? <Navigate to="/" state={{error: this.state.error}} />
-         : this.state.songbookData ? <SongbookScreen songbookData={this.state.songbookData} navigate={this.props.navigate} location={this.props.location} />
+         : this.state.songbookData ? <SongbookScreen editable={this.props.editable} songbookData={this.state.songbookData} navigate={this.props.navigate} location={this.props.location} />
                                : <WaitingMessage message="Loading songbook..."/>;
   }
 }

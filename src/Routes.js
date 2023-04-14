@@ -57,6 +57,7 @@ const MakeSongbookScreen = (props) => {
       location={location}
       songbookID={songbookID}
       storage={StaticSongbookStorage}
+      editable={false}
     />;
   }
   else
