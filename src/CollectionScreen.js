@@ -6,7 +6,6 @@ import Grid from "@mui/material/Grid";
 import Typography from '@mui/material/Typography';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-import Button from '@mui/material/Button';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
@@ -16,8 +15,6 @@ import HomeIcon from '@mui/icons-material/Home';
 import Paper from "@mui/material/Paper";
 import Tooltip from "./TabitTooltip";
 import AddCircleIcon from '@mui/icons-material/AddCircle';
-import LockIcon from '@mui/icons-material/Lock';
-import LockOpenIcon from '@mui/icons-material/LockOpen';
 import Divider from '@mui/material/Divider'
 import AddSongDialog from "./AddSongDialog";
 import {
@@ -25,7 +22,6 @@ import {
 } from "react-router-dom";
 import Toolbar from '@mui/material/Toolbar';
 import TabitBar from './TabitBar';
-import {isMobile} from "./Mobile";
 
 import './App.css';
 

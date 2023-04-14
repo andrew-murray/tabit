@@ -68,10 +68,15 @@ const MakeExample = (props) => {
   />
 };
 
+const formatReturnURL = (songbookStorage, songbookID) =>
+{
+  return songbookID ? `/songbook/${songbookStorage}/${songbookID}` : undefined;
+}
+
 const MakeSongOrLocalStorageSongView = (props) => {
-  const {songID, songbookID} = useParams();
-  console.log({songID, songbookID});
+  const {songID, songbookStorage, songbookID} = useParams();
   const location = useLocation();
+  const returnURL = formatReturnURL(songbookStorage, songbookID);
   const localID = SongStorage.translateLocalSongID(songID);
   if(localID)
   {
@@ -79,7 +84,7 @@ const MakeSongOrLocalStorageSongView = (props) => {
     return <LocalStorageSongView
       location={location}
       songID={localID}
-      songbookID={songbookID}
+      returnURL={returnURL}
       name={locationState.songName}
       songStorage={SongStorage}
       onSave={(exportState)=>saveCallback(exportState, songID)}
@@ -91,7 +96,7 @@ const MakeSongOrLocalStorageSongView = (props) => {
     return <SongStorageSongView
       location={location}
       songID={songID}
-      songbookID={songbookID}
+      returnURL={returnURL}
       songStorage={SongStorage}
       onSave={saveCallback}
       audioController={ToneController}
@@ -157,11 +162,11 @@ export default function TabitRoutes(props) {
             element={<MakeSongOrLocalStorageSongView />}
           />
           <Route
-            path="/songbook/:songbookID"
+            path="/songbook/:songbookStorage/:songbookID"
             element={<MakeSongbookScreen />}
           />
           <Route
-            path="/songbook/:songbookID/song/:songID"
+            path="/songbook/:songbookStorage/:songbookID/song/:songID"
             element={<MakeSongOrLocalStorageSongView />}
           />
           <Route
