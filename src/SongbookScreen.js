@@ -72,7 +72,8 @@ class SongbookScreen extends React.Component
     songbookData: {
       id: this.props.songbookData.id,
       name: this.props.songbookData.name,
-      songs: this.props.songbookData.songs
+      songs: this.props.songbookData.songs,
+      style: this.props.songbookData.style
     }
   }
 
@@ -129,13 +130,14 @@ class SongbookScreen extends React.Component
           direction="column"
           alignItems="center"
           justifyContent="center"
-          sx={{ minHeight: '100vh', backgroundColor: 'primary.main' }}
+          sx={{ minHeight: '100vh'}}
+          style={this.props.styleEnabled ? this.state.songbookData.style.grid : undefined}
         >
           <Box sx={{paddingBottom: "1.5em"}} >
             <Typography variant="h2">{this.state.songbookData.name}</Typography>
           </Box>
-          <Paper>
-            <List>
+          <Paper variant="outlined" elevation={10}>
+            <List style={{border:"3px"}}>
               {this.state.songbookData.songs.map((item)=><ListItem key={item.id} disablePadding>
                 <ListItemButton onClick={(e)=>this.props.navigate(`song/${item.id}`)}>
                   <ListItemIcon>

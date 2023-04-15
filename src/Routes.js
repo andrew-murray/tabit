@@ -58,6 +58,7 @@ const MakeSongbookScreen = (props) => {
       songbookID={songbookID}
       storage={StaticSongbookStorage}
       editable={false}
+      styleEnabled={true}
     />;
   }
   else

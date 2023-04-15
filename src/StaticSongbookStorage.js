@@ -2,6 +2,12 @@
 const Beastie2023Collection = {
   id: "beasties-beltane-2023",
   name: "Beasties Beltane 2023",
+  style: {
+    grid: {
+      backgroundColor: '#E01B1B',
+      color: "#ffffff"
+    }
+  },
   songs: [
     {
       id: "640ddf7bebd26539d08d5cd7",
