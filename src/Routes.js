@@ -186,6 +186,10 @@ export default function TabitRoutes(props) {
             path="/recent/:songID"
             element={<MakeLocalStorageSongView />}
           />
+          <Route
+            path="/beasties-beltane-2023"
+            element={<Navigate to="/songbook/static/beasties-beltane-2023/" />}
+          />
         </Routes>
       </ThemeProvider>
     </Router>
