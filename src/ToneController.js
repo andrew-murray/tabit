@@ -156,12 +156,18 @@ class ToneController
           onLoadError("Warning: tabit currently only supports inputs where all the pattern names are unique. Good luck!");
       }
     }
+    /*
+    // TODO: tabit used to use this ... hence the name of the input parameter "latencyHint"
+    // but Andy has found the latency penalty too large (just like not right, when using bluetooth headphones)
+    // In my wee round of testing just there - chrome's low performance mobile performs perfectly well
+    // just using the delay, and not telling the context to deprioritise latency so let's try this out
 
     if(latencyHint && Tone.context.latencyHint !== latencyHint)
     {
       let context = new Tone.Context({latencyHint: latencyHint});
       Tone.setContext(context);
     }
+    */
 
     // also configure a larger audio delay, if we're being requested to
     // prioritise playback over latency
