@@ -7,14 +7,7 @@ import WaitingMessage from "./WaitingMessage";
 import {
   Navigate
 } from "react-router-dom";
-
-function recordAnalyticsEvent(eventType, eventData)
-{
-  if(window.umami !== undefined)
-  {
-    window.umami.trackEvent(eventType, eventData);
-  }
-}
+import {recordAnalyticsEvent} from "./analytics";
 
 class ExampleSongView extends React.Component
 {
@@ -87,7 +80,7 @@ class FileImportSongView extends React.Component
         { songData : songData }
       );
       recordAnalyticsEvent("Song Load [File]", {
-        title: songData.title,
+        name: songData.title,
         filename: this.props.filename
       });
       return songData;
@@ -171,8 +164,8 @@ class SongStorageSongView extends React.Component
         { songData : songData }
       );
       recordAnalyticsEvent("Song Load [SongStorage]", {
-        title: songData.title,
-        songID: this.props.songID,
+        name: songData.title,
+        id: this.props.songID,
         url: this.props.songStorage.formatURL(this.props.songID)
       });
     };
@@ -187,7 +180,7 @@ class SongStorageSongView extends React.Component
         }
       );
       recordAnalyticsEvent("Song Load Error [SongStorage]", {
-        songID: this.props.songID,
+        id: this.props.songID,
         error: err === undefined ? undefined : err.toString(),
         url: this.props.songStorage.formatURL(this.props.songID)
       });
@@ -240,7 +233,7 @@ class LocalStorageSongView extends React.Component
         }
       );
       recordAnalyticsEvent("Song Load Error [LocalStorage]", {
-        songID: this.props.songID,
+        id: this.props.songID,
         error: err === undefined ? undefined : err.toString()
       });
     };
@@ -248,7 +241,7 @@ class LocalStorageSongView extends React.Component
       this.setState(
         { songData : songData }
       );
-      recordAnalyticsEvent("Song Load [LocalStorage]", {title: songData.title, songID: this.props.songID});
+      recordAnalyticsEvent("Song Load [LocalStorage]", {name: songData.title, id: this.props.songID});
     };
 
     const history = this.props.songStorage.getLocalHistory();

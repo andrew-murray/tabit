@@ -48,20 +48,6 @@ const styles = (theme)=>{
   };
 };
 
-/*
-  This will become relevant if we actually have to go fetch state. Currently it's baked in.
-
-function recordAnalyticsEvent(eventType, eventData)
-{
-  if(window.umami !== undefined)
-  {
-    window.umami.trackEvent(eventType, eventData);
-  }
-}
-
-*/
-
-
 
 class SongbookScreen extends React.Component
 {

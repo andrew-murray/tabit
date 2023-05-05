@@ -2,15 +2,7 @@ import React from 'react'
 import WaitingMessage from "./WaitingMessage";
 import { Navigate } from "react-router-dom";
 import SongbookScreen from "./SongbookScreen";
-
-// todo: there are three instances of this - make a module?
-function recordAnalyticsEvent(eventType, eventData)
-{
-  if(window.umami !== undefined)
-  {
-    window.umami.trackEvent(eventType, eventData);
-  }
-}
+import {recordAnalyticsEvent} from "./analytics"
 
 export default class SongbookLoadingScreen extends React.Component
 {
