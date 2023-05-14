@@ -251,13 +251,6 @@ class SparseTrack
     return new SparseTrack(points, totalLength, vel);
   }
 
-  static combineSynchronous(a,b)
-  {
-    
-  }
-
-
-
   setPoint(h, value, velocity)
   {
     const ix = this.findInsertionPoint(h);
