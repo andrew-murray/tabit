@@ -240,7 +240,7 @@ class PartByBeat extends React.Component
           tracksForEachLine.length,
           prefixIndent,
           false, // showRepeatCount,
-          false, // interactive todo: is this right?
+          false,
           true // numberMarker
         )}
         {Object.entries(lineRepeatMatrix).map(([lineIndex, lineRepeats], keyIndex) => formatLine(

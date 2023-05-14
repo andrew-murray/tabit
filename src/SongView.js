@@ -717,7 +717,7 @@ class SongView extends React.Component
             tracks={pattern.instrumentTracks}
             config={resolvedSettings}
             patternTime={this.state.patternTime}
-            modifyPatternLocation={this.state.interactive ? this.cycleCellContent : undefined}
+            modifyPatternLocation={(this.state.interactive && !this.state.locked) ? this.cycleCellContent : undefined}
           />
         </Box>
         </Grid>

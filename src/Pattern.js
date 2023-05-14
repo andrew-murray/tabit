@@ -256,7 +256,9 @@ class ActivePattern extends React.Component
     if(nextProps.instruments !== this.props.instruments
       || nextProps.tracks !== this.props.tracks
       || nextProps.config !== this.props.config
-      || nextProps.classes !== this.props.classes)
+      || nextProps.classes !== this.props.classes
+      || nextProps.modifyPatternLocation !== this.props.modifyPatternLocation
+    )
     {
       if(window.trace)
       {
