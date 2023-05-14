@@ -195,23 +195,20 @@ class SongView extends React.Component
     }
     if(anyUndefined)
     {
-      // undefined means that (i) some track has "multiple notes in the"
-      // range as represented ... for example if we're rendering quarter-notes
+      // undefined means that (i) some track has multiple notes in the
+      // range (as represented) ... for example if we're rendering quarter-notes
       // but at eight-note-resolution we would see "-X--" this is undefined
-      // we can't cycle that
       // or (ii) we have multiple tracks hitting on the beat
-      // we can't cycle that,
 
-      // in both cases we clear
+      // in both cases we clear the whole content, so that we can cycle next time
       for(const cell of modificationCells)
       {
         for( let entryIndex = 0; entryIndex < entries.length; ++entryIndex)
         {
           const entry = entries[entryIndex];
           const trackID = entry[0];
-          const lower = cell * resolutionForInstrument;
-          const higher = (cell+1) * resolutionForInstrument;
-          // first point should be representative, see note above
+          const lower = cell;
+          const higher = cell + resolutionForInstrument;
           currentPattern.instrumentTracks[trackID].clearRange(lower, higher);
         }
       }
