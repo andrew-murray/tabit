@@ -16,15 +16,19 @@ const DRUMKITS = Object.keys( AVAILABLE_SAMPLES );
 
 const chooseAppropriateInstrument = (drumkitName, instrumentName) =>
 {
+  if(instrumentName === null || instrumentName === undefined)
+  {
+    return null;
+  }
   const name = instrumentName.toLowerCase();
   // this is currently very basic
-  if(name.includes("kick"))
-  {
-      return {drumkit: "The Black Pearl 1.0", filename: "PearlKick-Hard.wav"};
-  }
-  else if(name.includes("stick"))
+  if(name.includes("stick"))
   {
       return {drumkit: "DeathMetal", filename: "16297_ltibbits_sticks_low_pitch.wav"};
+  }
+  else if(name.includes("kick") || name.includes("bass"))
+  {
+      return {drumkit: "The Black Pearl 1.0", filename: "PearlKick-Hard.wav"};
   }
   else if(name.includes("tom"))
   {
@@ -41,6 +45,14 @@ const chooseAppropriateInstrument = (drumkitName, instrumentName) =>
   else if(name.includes("cowbell"))
   {
     return {drumkit: "GMRockKit", filename: "Cowbell-Softest.wav"};
+  }
+  else if(name.includes("closed") && (name.includes("hh") || name.includes("hat")))
+  {
+    return {drumkit: "GMRockKit", filename: "HatOpen-med.wav"};
+  }
+  else if(name.includes("open") && (name.includes("hh") || name.includes("hat")))
+  {
+    return {drumkit: "GMRockKit", filename: "HatClosed-med.wav"};
   }
   else
   {
@@ -288,6 +300,7 @@ class ToneController
         const clampedVolume = Audio.convertNormalToAudible( Math.min( Math.max( 0.0 , selectedInstrument.volume ), 1.0 ) );
 
         let urlForSample = null;
+        const nearestInstrument = chooseAppropriateInstrument( selectedInstrument.drumkit, selectedInstrument.name );
         if(
           "drumkit" in selectedInstrument &&
           "filename" in selectedInstrument &&
@@ -296,13 +309,12 @@ class ToneController
         {
           urlForSample = process.env.PUBLIC_URL + "/wav/" + selectedInstrument.drumkit + "/" + selectedInstrument.filename;
         }
-        else if("drumkit" in selectedInstrument )
+        else if("drumkit" in selectedInstrument && nearestInstrument !== null )
         {
-          const instrumentObject = chooseAppropriateInstrument( selectedInstrument.drumkit, selectedInstrument.name );
-          urlForSample = process.env.PUBLIC_URL + "/wav/" + instrumentObject.drumkit + "/" + instrumentObject.filename;
+          urlForSample = process.env.PUBLIC_URL + "/wav/" + nearestInstrument.drumkit + "/" + nearestInstrument.filename;
           console.log({
             inputInstrument: selectedInstrument,
-            outputInstrument: instrumentObject
+            outputInstrument: nearestInstrument
           });
         }
         else
