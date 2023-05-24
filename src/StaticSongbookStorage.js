@@ -44,8 +44,24 @@ const Beastie2023Collection = {
   ]
 };
 
+const ENCCollection = {
+  id: "enc",
+  name: "The Noise Committee",
+  style: {
+    grid: {
+      backgroundColor: '#0609EC',
+      color: "#ffffff"
+    }
+  },
+  songs: [
+    {
+    }
+  ]
+}
+
 const Songbooks = {
-  "beasties-beltane-2023" : Beastie2023Collection
+  "beasties-beltane-2023" : Beastie2023Collection,
+  "enc" : ENCCollection
 };
 
 
