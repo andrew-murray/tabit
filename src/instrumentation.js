@@ -196,9 +196,10 @@ function figureSnares(instrumentsRaw, symbolConfig)
   const andyMapping = {
     "snare": "X",
     "snare (g)": ".",
-    "snare (gr)": "x"
+    "snare (gr)": "x",
+    "snare (rim)": "R"
   };
-  if(lowerTrackNames.size >= 2 && snareTracks.length <= 3 && Array.from(lowerTrackNames).every( (name)=> name in andyMapping) )
+  if(lowerTrackNames.size >= 2 && snareTracks.length <= 4 && Array.from(lowerTrackNames).every( (name)=> name in andyMapping) )
   {
       let mapping = {};
       for(const track of snareTracks )
