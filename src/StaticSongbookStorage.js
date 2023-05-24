@@ -55,28 +55,32 @@ const ENCCollection = {
   },
   songs: [
     {
-      id: "646e780db89b1e2299a4335c",
-      name: "Jam (not-played)"
+      id: "646e7d2c8e4aa6225ea3895c",
+      name: "Give It Up"
+    },
+    {
+      id: "646e990e8e4aa6225ea3956f",
+      name: "Headbreaker"
     },
     {
       id: "646e90f18e4aa6225ea39212",
       name: "Hellaswolla (not-played)"
     },
     {
-      id: "646e78f7b89b1e2299a433c9",
-      name: "Wibbly"
-    },
-    {
-      id: "646e7d2c8e4aa6225ea3895c",
-      name: "Give It Up"
-    },
-    {
       id: "646e82adb89b1e2299a437f2",
       name: "Horse"
     },
     {
+      id: "646e780db89b1e2299a4335c",
+      name: "Jam (not-played)"
+    },
+    {
       id: "646e8e1f8e4aa6225ea390ce",
       name: "Pleasure"
+    },
+    {
+      id: "646e78f7b89b1e2299a433c9",
+      name: "Wibbly"
     }
   ]
 };
