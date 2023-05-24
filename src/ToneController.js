@@ -48,11 +48,11 @@ const chooseAppropriateInstrument = (drumkitName, instrumentName) =>
   }
   else if(name.includes("closed") && (name.includes("hh") || name.includes("hat")))
   {
-    return {drumkit: "GMRockKit", filename: "HatOpen-med.wav"};
+    return {drumkit: "GMRockKit", filename: "HatOpen-Med.wav"};
   }
   else if(name.includes("open") && (name.includes("hh") || name.includes("hat")))
   {
-    return {drumkit: "GMRockKit", filename: "HatClosed-med.wav"};
+    return {drumkit: "GMRockKit", filename: "HatClosed-Med.wav"};
   }
   else
   {
