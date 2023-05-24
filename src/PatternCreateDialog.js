@@ -18,22 +18,32 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 
 function PatternCreateDialog(props)
 {
+
+  const patternChoices = [...props.patterns.keys()].map(
+    index =>{ return {value: index, label: props.patterns[index]}; }
+  );
+
   let [patternNameCreate, setPatternNameCreate] = React.useState(null);
   let [patternNameCombine, setPatternNameCombine] = React.useState(null);
   let [patternRecipe, setPatternRecipe] = React.useState([]);
+  let [patternReorderRemaining, setPatternReorderRemaining] = React.useState( patternChoices );
+  let [patternReorder, setPatternReorder] = React.useState([]);
   let [createExpanded, setCreateExpanded] = React.useState(true);
   let [combineExpanded, setCombineExpanded] = React.useState(false);
+  let [rearrangeExpanded, setRearrangeExpanded] = React.useState(false);
   let [combineSynchronous, setCombineSynchronous] = React.useState(false);
 
   const resetState = () => {
     setPatternNameCombine(null);
     setPatternNameCreate(null);
     setPatternRecipe([]);
+    setPatternReorder([]);
 
     // we could change these to a default, but this and combineSynchronous
     // are more helpful as persistent modes.
     // setCreateExpanded(true);
     // setCombineExpanded(false);
+    // setRearrangeExpanded(false);
     // setCombineSynchronous(false);
   };
 
@@ -66,27 +76,25 @@ function PatternCreateDialog(props)
     props.onClose();
   };
 
-  const patternChoices = [...props.patterns.keys()].map(
-    index =>{ return {value: index, label: props.patterns[index]}; }
-  );
-
   const patternNameIsValid = (name) => name && props.patterns.indexOf(name) === -1;
 
   const createExpandedToggle = (event, enabled) =>
   {
+    setCombineExpanded(!enabled);
     setCreateExpanded(enabled);
-    if(combineExpanded)
-    {
-      setCombineExpanded(!enabled);
-    }
+    setRearrangeExpanded(!enabled);
   };
   const combineExpandedToggle = (event, enabled) =>
   {
-    if(createExpanded)
-    {
-      setCreateExpanded(!enabled);
-    }
     setCombineExpanded(enabled);
+    setCreateExpanded(!enabled);
+    setRearrangeExpanded(!enabled);
+  };
+  const rearrangeExpandedToggle = (event, enabled) =>
+  {
+    setCombineExpanded(!enabled);
+    setCreateExpanded(!enabled);
+    setRearrangeExpanded(enabled);
   };
 
   const combineOptionsCommitable = patternRecipe.length >= 1 && patternNameIsValid(patternNameCombine);
@@ -185,6 +193,28 @@ function PatternCreateDialog(props)
         </Box>
       </AccordionDetails>
       </Accordion>
+      { false && <Accordion expanded={rearrangeExpanded} onChange={rearrangeExpandedToggle}>
+      <AccordionSummary
+        aria-controls="option-rearrange"
+        id="panel-rearrange"
+        expandIcon={<ExpandMoreIcon />}
+      >
+        <Typography>Rearrange Patterns</Typography>
+      </AccordionSummary>
+      <AccordionDetails style={{display: "flex", flexDirection: "column"}}>
+        <CustomTransferList
+          items={patternReorderRemaining}
+          selectedItems={patternReorder}
+          onChange={(e)=>{
+            const valuesInSelected = e.map(e=>e.value);
+            const remaining = patternChoices.filter(p=>!valuesInSelected.includes(p.value));
+            setPatternReorderRemaining(remaining);
+            setPatternReorder(e);
+          }}
+        />
+      </AccordionDetails>
+      </Accordion>
+    }
     </DialogContent>
     <DialogActions>
       <Button onClick={()=>{closeAndCommit(true)}} disabled={!canCommit}>
