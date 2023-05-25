@@ -210,8 +210,8 @@ function PatternCreateDialog(props)
             const remaining = patternChoices.filter(p=>!valuesInSelected.includes(p.value));
             // todo: doing this is broken
             // either the things must be controlled/uncontrolled
-            // setPatternReorderRemaining(remaining);
-            // setPatternReorder(e);
+            setPatternReorderRemaining(remaining);
+            setPatternReorder(e);
           }}
         />
       </AccordionDetails>
