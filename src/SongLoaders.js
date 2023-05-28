@@ -166,6 +166,13 @@ function upgradeOldInstrumentIndex(instrumentIndex)
   return instrumentIndexCopy;
 }
 
+function loadAudioState(audioState)
+{
+  return {
+    tempo: Math.round(audioState.tempo)
+  };
+};
+
 function LoadJSON(jsonData, title, filename, fromHydrogen)
 {
   return new Promise((resolve) =>
@@ -199,7 +206,7 @@ function LoadJSON(jsonData, title, filename, fromHydrogen)
       {
         patternSettings = expectedPatternSettings;
       }
-      const audioState = jsonData.audioState ? jsonData.audioState : { tempo : 100.0 };
+      const audioState = jsonData.audioState ? loadAudioState(jsonData.audioState) : { tempo : 100.0 };
       resolve( new SongData(
         title,
         filename,

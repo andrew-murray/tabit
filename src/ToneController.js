@@ -527,7 +527,7 @@ class ToneController
   getExportState = () =>
   {
     return {
-      tempo: Tone.getTransport().bpm.value
+      tempo: Math.round(Tone.getTransport().bpm.value)
     };
   }
 };
