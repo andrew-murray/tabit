@@ -10,9 +10,78 @@ import ClearIcon from '@mui/icons-material/Clear';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { isMobile } from "./Mobile";
 import Tooltip from "./TabitTooltip";
+import { DndProvider } from 'react-dnd'
+import { useDrag, useDrop } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend'
 
 const PatternListItem = (props) =>
 {
+  const ref = React.useRef(null)
+  const [{ handlerId }, drop] = useDrop({
+    accept: "pattern",
+    collect(monitor) {
+      return {
+        handlerId: monitor.getHandlerId(),
+      }
+    },
+    hover(item, monitor) {
+      if (!ref.current) {
+        return
+      }
+      const dragIndex = item.index
+      const hoverIndex = index
+      // Don't replace items with themselves
+      if (dragIndex === hoverIndex) {
+        return
+      }
+      // Determine rectangle on screen
+      const hoverBoundingRect = ref.current?.getBoundingClientRect()
+      // Get vertical middle
+      const hoverMiddleY =
+        (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2
+      // Determine mouse position
+      const clientOffset = monitor.getClientOffset()
+      // Get pixels to the top
+      const hoverClientY = clientOffset.y - hoverBoundingRect.top
+      // Only perform the move when the mouse has crossed half of the items height
+      // When dragging downwards, only move when the cursor is below 50%
+      // When dragging upwards, only move when the cursor is above 50%
+      // Dragging downwards
+      if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
+        return
+      }
+      // Dragging upwards
+      if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
+        return
+      }
+      console.log("hitting moveCard");
+      if(props.moveCard)
+      {
+        // Time to actually perform the action
+        props.moveCard(dragIndex, hoverIndex)
+
+      }
+      // Note: we're mutating the monitor item here!
+      // Generally it's better to avoid mutations,
+      // but it's good here for the sake of performance
+      // to avoid expensive index searches.
+      item.index = hoverIndex
+    }
+  });
+  const [{ isDragging }, drag] = useDrag({
+    type: "pattern",
+    item: () => {
+      return { id: props.id, index: props.index }
+    },
+    collect: (monitor) => ({
+      isDragging: monitor.isDragging(),
+    }),
+  })
+  const opacity = 1; // isDragging ? 0 : 1;
+  if(props.moveCard)
+  {
+    drag(drop(ref));
+  }
   const {
     selectPattern,
     index,
@@ -33,10 +102,18 @@ const PatternListItem = (props) =>
     },
     [index, onRemove]
   );
-  return (<ListItem
-    button
+  const style = props.moveCard ? {opacity, margin:4, background: '#002d6b', "box-shadow": "1px 1px 1px 1px #000000"}
+    : {opacity, margin:4};
+  return (<div
     key={"drawer-pattern" + index.toString()}
+    ref={ref}
+    data-handler-id={handlerId}
+    style={style}
+  >
+  <ListItem
     onClick={selectCallback}
+    button
+    disableRipple
   >
     <ListItemText primary={pattern.name} />
     {onRemove &&
@@ -55,9 +132,12 @@ const PatternListItem = (props) =>
         </Tooltip>
       </ListItemSecondaryAction>
     }
-  </ListItem>
+    </ListItem>
+
+    </div>
   );
 };
+
 
 function DrawerContent(props)
 {
@@ -75,6 +155,7 @@ function DrawerContent(props)
             onRemove={props.onRemove}
             selectPattern={props.selectPattern}
             showHelp={props.showHelp}
+            movePattern={props.movePattern}
           />
         )}
         {props.onAdd &&
@@ -127,6 +208,7 @@ function PatternDrawer(props)
       keepMounted: true,
     }}
     >
+      <DndProvider backend={HTML5Backend}>
       <MemoizedDrawerContent
         patterns={props.patterns}
         onRemove={props.onRemove}
@@ -134,6 +216,7 @@ function PatternDrawer(props)
         onAdd={props.onAdd}
         showHelp={props.showHelp}
       />
+      </DndProvider>
     </SwipeableDrawer>
   );
 };
