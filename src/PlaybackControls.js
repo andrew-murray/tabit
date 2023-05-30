@@ -49,7 +49,7 @@ function PlaybackControls(props)
               defaultValue={props.initialTempo ? props.initialTempo : 100}
               min={60}
               step={1}
-              max={180}
+              max={280}
               onChange={onSetTempo}
               valueLabelDisplay="auto"
               valueLabelFormat={(x)=>x.toString() + " bpm"}
