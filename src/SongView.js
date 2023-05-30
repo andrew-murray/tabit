@@ -654,9 +654,43 @@ class SongView extends React.Component
     );
   }
 
+
+
   onReorderPatterns = (fromIndex, toIndex) =>
   {
-    console.log("reordering " + fromIndex.toString() + " " + toIndex.toString());
+
+    if(this.audio){this.audio.stop();}
+
+    if( this.state.songData.patterns.length === 1 )
+    {
+      return;
+    }
+
+    let indices = [...Array(this.state.songData.patterns.length).keys()].filter(ix => ix !== fromIndex);
+    indices.splice(toIndex, 0, fromIndex);
+
+    console.log({fromIndex, toIndex, indices});
+    const newPatterns = indices.map( ix => this.state.songData.patterns[ix] );
+    const patternSettings =  indices.map( ix => this.state.patternSettings[ix] );
+    const updatedSongData = Object.assign(
+      Object.assign({}, this.state.songData),
+      {patterns: newPatterns}
+    );
+
+    const samePatternIndex = indices[this.state.selectedPattern];
+    this.setState(
+      {
+        songData: updatedSongData,
+        patternSettings: patternSettings,
+        selectedPattern: samePatternIndex
+      },
+      ()=>{
+        // update audioController
+        // actually now, we don't need to do this, as audioController thinks in pattern names
+        // however ... maybe in future we will so I leave a blank-callback here
+      }
+    );
+
   }
 
   render()

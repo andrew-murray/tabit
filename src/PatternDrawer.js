@@ -14,8 +14,25 @@ import { DndProvider } from 'react-dnd'
 import { useDrag, useDrop } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend'
 
-const PatternListItem = (props) =>
+const PatternListItem = ({
+    index,
+    onReorderPatterns,
+    selectPattern,
+    patternName,
+    onRemove,
+    showHelp
+  }) =>
 {
+
+  // fixme: at the moment, all of this doesn't work
+  // the onHover ... appropriately reorders the patterns
+  // and when the thing is dropped, it drops in the right place
+
+  // however UNTIL the thing is dropped.... the thing-being-dropped
+  // automagically starts rendering-in-place
+  // and the thing-being-dropped onto disappears
+
+
   const ref = React.useRef(null)
   const [{ handlerId }, drop] = useDrop({
     accept: "pattern",
@@ -24,12 +41,16 @@ const PatternListItem = (props) =>
         handlerId: monitor.getHandlerId(),
       }
     },
+    drop(item, monitor)
+    {
+
+    }
     hover(item, monitor) {
       if (!ref.current) {
         return
       }
-      const dragIndex = item.index
-      const hoverIndex = index
+      const dragIndex = item.index;
+      const hoverIndex = index;
       // Don't replace items with themselves
       if (dragIndex === hoverIndex) {
         return
@@ -54,11 +75,12 @@ const PatternListItem = (props) =>
       if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
         return
       }
-      if(props.onReorderPatterns)
+      if(onReorderPatterns)
       {
         // Time to actually perform the action
-        props.onReorderPatterns(dragIndex, hoverIndex)
+        onReorderPatterns(dragIndex, hoverIndex)
       }
+      console.log("swapping " + dragIndex.toString() + " and " + hoverIndex.toString());
       // Note: we're mutating the monitor item here!
       // Generally it's better to avoid mutations,
       // but it's good here for the sake of performance
@@ -69,23 +91,18 @@ const PatternListItem = (props) =>
   const [{ isDragging }, drag] = useDrag({
     type: "pattern",
     item: () => {
-      return { id: props.id, index: props.index }
+      return { index }
     },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),
   })
-  const opacity = 1; // isDragging ? 0 : 1;
-  if(props.onReorderPatterns)
+  console.log("item with index " + index.toString() + " is dragging ? " + isDragging.toString());
+  const opacity = isDragging ? 0 : 1;
+  if(onReorderPatterns)
   {
     drag(drop(ref));
   }
-  const {
-    selectPattern,
-    index,
-    pattern,
-    onRemove
-  } = props;
   const selectCallback = React.useCallback(
     ()=>{
       if(selectPattern){selectPattern(index);}
@@ -100,7 +117,7 @@ const PatternListItem = (props) =>
     },
     [index, onRemove]
   );
-  const style = props.onReorderPatterns ? {opacity, margin:4, background: '#002d6b', "box-shadow": "1px 1px 1px 1px #000000"}
+  const style = onReorderPatterns ? {opacity, margin:4, background: '#002d6b', boxShadow: "1px 1px 1px 1px #000000"}
     : {opacity, margin:4};
   return (<div
     key={"drawer-pattern" + index.toString()}
@@ -113,12 +130,12 @@ const PatternListItem = (props) =>
     button
     disableRipple
   >
-    <ListItemText primary={pattern.name} />
+    <ListItemText primary={patternName} />
     {onRemove &&
       <ListItemSecondaryAction>
         <Tooltip
           title="Delete"
-          show={props.showHelp}
+          show={showHelp}
         >
           <IconButton
             edge="end"
@@ -139,6 +156,8 @@ const PatternListItem = (props) =>
 
 function DrawerContent(props)
 {
+  // const patternState = useState()
+
   return (<React.Fragment>
     {!isMobile ? <TabitBar placeholder /> : null }
     <div
@@ -147,8 +166,8 @@ function DrawerContent(props)
       <List>
         {(props.patterns ?? []).map( (pattern, index) =>
           <PatternListItem
-            pattern={pattern}
-            key={"pattern-key-" + String(index)}
+            patternName={pattern.name}
+            key={index}
             index={index}
             onRemove={props.onRemove}
             selectPattern={props.selectPattern}
