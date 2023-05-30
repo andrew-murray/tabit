@@ -41,10 +41,6 @@ const PatternListItem = ({
         handlerId: monitor.getHandlerId(),
       }
     },
-    drop(item, monitor)
-    {
-
-    }
     hover(item, monitor) {
       if (!ref.current) {
         return
@@ -80,7 +76,6 @@ const PatternListItem = ({
         // Time to actually perform the action
         onReorderPatterns(dragIndex, hoverIndex)
       }
-      console.log("swapping " + dragIndex.toString() + " and " + hoverIndex.toString());
       // Note: we're mutating the monitor item here!
       // Generally it's better to avoid mutations,
       // but it's good here for the sake of performance
@@ -97,7 +92,6 @@ const PatternListItem = ({
       isDragging: monitor.isDragging(),
     }),
   })
-  console.log("item with index " + index.toString() + " is dragging ? " + isDragging.toString());
   const opacity = isDragging ? 0 : 1;
   if(onReorderPatterns)
   {
