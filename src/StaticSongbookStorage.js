@@ -59,6 +59,10 @@ const ENCCollection = {
       name: "Disreputable Pie"
     },
     {
+      id: '64767e82b89b1e2299a785b7',
+      name: "Gavs Garage"
+    },
+    {
       id: "646e7d2c8e4aa6225ea3895c",
       name: "Give It Up"
     },
@@ -77,6 +81,10 @@ const ENCCollection = {
     {
       id: "646e780db89b1e2299a4335c",
       name: "Jam (not-played)"
+    },
+    {
+      id: "6476884a8e4aa6225ea6dba2",
+      name: "NuuNuu"
     },
     {
       id: "646e8e1f8e4aa6225ea390ce",
