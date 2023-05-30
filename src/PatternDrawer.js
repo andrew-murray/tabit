@@ -54,12 +54,10 @@ const PatternListItem = (props) =>
       if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
         return
       }
-      console.log("hitting moveCard");
-      if(props.moveCard)
+      if(props.onReorderPatterns)
       {
         // Time to actually perform the action
-        props.moveCard(dragIndex, hoverIndex)
-
+        props.onReorderPatterns(dragIndex, hoverIndex)
       }
       // Note: we're mutating the monitor item here!
       // Generally it's better to avoid mutations,
@@ -78,7 +76,7 @@ const PatternListItem = (props) =>
     }),
   })
   const opacity = 1; // isDragging ? 0 : 1;
-  if(props.moveCard)
+  if(props.onReorderPatterns)
   {
     drag(drop(ref));
   }
@@ -102,7 +100,7 @@ const PatternListItem = (props) =>
     },
     [index, onRemove]
   );
-  const style = props.moveCard ? {opacity, margin:4, background: '#002d6b', "box-shadow": "1px 1px 1px 1px #000000"}
+  const style = props.onReorderPatterns ? {opacity, margin:4, background: '#002d6b', "box-shadow": "1px 1px 1px 1px #000000"}
     : {opacity, margin:4};
   return (<div
     key={"drawer-pattern" + index.toString()}
@@ -155,7 +153,7 @@ function DrawerContent(props)
             onRemove={props.onRemove}
             selectPattern={props.selectPattern}
             showHelp={props.showHelp}
-            movePattern={props.movePattern}
+            onReorderPatterns={props.onReorderPatterns}
           />
         )}
         {props.onAdd &&
@@ -215,6 +213,7 @@ function PatternDrawer(props)
         selectPattern={props.selectPattern}
         onAdd={props.onAdd}
         showHelp={props.showHelp}
+        onReorderPatterns={props.onReorderPatterns}
       />
       </DndProvider>
     </SwipeableDrawer>
