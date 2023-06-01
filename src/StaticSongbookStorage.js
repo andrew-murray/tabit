@@ -76,15 +76,19 @@ const ENCCollection = {
     },
     {
       id: "646e90f18e4aa6225ea39212",
-      name: "Hellaswolla (not-played)"
+      name: "Hellaswolla [OUT]"
     },
     {
       id: "646e82adb89b1e2299a437f2",
       name: "Horse"
     },
     {
+      id: "6478e5f28e4aa6225ea7c33a",
+      name: "Housetrained [OUT]"
+    },
+    {
       id: "646e780db89b1e2299a4335c",
-      name: "Jam (not-played)"
+      name: "Jam [OUT]"
     },
     {
       id: "6476884a8e4aa6225ea6dba2",
