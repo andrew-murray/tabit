@@ -18,7 +18,7 @@
     "buffer": "^6.0.3",
     "compression": "^1.7.4",
     "copy-to-clipboard": "^3.3.1",
-    "fast-xml-parser": "^4.0.8",
+    "fast-xml-parser": "^4.2.4",
     "file-saver": "^2.0.5",
     "memoize-one": "^6.0.0",
     "object-hash": "^3.0.0",
