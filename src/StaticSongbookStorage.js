@@ -56,11 +56,11 @@ const ENCCollection = {
   songs: [
     {
       id: "64727f65b89b1e2299a5f495",
-      name: "Disreputable Pie"
+      name: "Disreputable Pie [OUT]"
     },
     {
       id: "6477c84d8e4aa6225ea75889",
-      name: "Drama Queen"
+      name: "Drama Queen [OUT]"
     },
     {
       id: '64767e82b89b1e2299a785b7',
@@ -88,7 +88,7 @@ const ENCCollection = {
     },
     {
       id: "646e780db89b1e2299a4335c",
-      name: "Jam [OUT]"
+      name: "Jam"
     },
     {
       id: "6476884a8e4aa6225ea6dba2",
@@ -97,6 +97,10 @@ const ENCCollection = {
     {
       id: "646e8e1f8e4aa6225ea390ce",
       name: "Pleasure"
+    },
+    {
+      id: "6564f93954105e766fd65276",
+      name: "Torchlit/P6K"
     },
     {
       id: "646e78f7b89b1e2299a433c9",
