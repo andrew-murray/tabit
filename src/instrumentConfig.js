@@ -86,7 +86,6 @@ function VolumeWidget(props)
 {
   const [active, setActive] = React.useState(false);
   const [sliderValue, setSliderValue] = React.useState(100);
-  const [muted, setMuted] = React.useState(props.muted);
   const sliderRef = React.useRef(null);
   const height = props.height ? props.height / 3 : 24;
   const FixedHeightStylings = {
@@ -136,8 +135,7 @@ function VolumeWidget(props)
 
   const onMuteChange = () =>
   {
-    setMuted(!muted);
-    props.onMuteEvent(!muted);
+    props.onMuteEvent(!props.muted);
   };
 
   return (
@@ -156,7 +154,7 @@ function VolumeWidget(props)
           />
         </div>
         <div style={IconStyles}>
-          { muted ?  <VolumeOffIcon fontSize="small" />
+          { props.muted ?  <VolumeOffIcon fontSize="small" />
           : sliderValue < 10 ? <VolumeMuteIcon fontSize="small" />
           : sliderValue < 50 ? <VolumeDownIcon fontSize="small" />
                              : <VolumeUpIcon fontSize="small"/> }
@@ -473,6 +471,12 @@ function InstrumentTable(props)
     );
   };
 
+  const onSolo = (index) => {
+    // when soloing, the parent component figures out what solo means
+    // it toggles the muted settings appropriately
+    props.onVolumeEvent( {instrument: index, solo: true} );
+  };
+
   return (
     <Table className={classes.table} aria-label="simple table">
       <TableHead>
@@ -480,7 +484,9 @@ function InstrumentTable(props)
           { props.showAdvanced && <NoDividerCenterTableCell key={"instrumentPanel-row-instrument"}></NoDividerCenterTableCell> }
           {[...Array(props.instrumentIndex.length).keys()].map(x=>
               <NoDividerCenterTableCell key={"instrumentPanel-row-header-cell-" + x.toString()}>
-                <Typography>{props.instrumentIndex[x].name}</Typography>
+                <Button onClick={()=>{onSolo(x);}} color="primary">
+                  <Typography>{props.instrumentIndex[x].name}</Typography>
+                </Button>
               </NoDividerCenterTableCell>)}
         </TableRow>
         <TableRow key={"instrumentPanel-row-controls"}>
