@@ -444,22 +444,49 @@ class SongView extends React.Component
 
   sendVolumeEvent = (event) =>
   {
-    // assume that the event is valid and will update the instrument
-    const instrumentID = this.state.songData.instrumentIndex[ event.instrument ].id;
-    let instrumentToUpdate = this.state.songData.instrumentIndex[ event.instrument ];
-    if("volume" in event)
-    {
-      if(this.audio){ this.audio.setVolumeForInstrument( instrumentID, event.volume ); }
-      instrumentToUpdate.volume = event.volume;
-    }
-    else if("muted" in event)
-    {
-      if(this.audio){ this.audio.setMutedForInstrument( instrumentID, event.muted ); }
-      instrumentToUpdate.muted = event.muted;
-    }
-    let updatedInstrumentIndex = this.state.songData.instrumentIndex.slice();
-    updatedInstrumentIndex[event.instrument] = instrumentToUpdate;
 
+    // assume that the event is valid and will update the instrument
+    let updatedInstrumentIndex = this.state.songData.instrumentIndex.slice();
+    if("solo" in event)
+    {
+      const otherInstrumentIndices = [...Array(this.state.songData.instrumentIndex.length).keys()].filter(ix => ix !== event.instrument);
+      const unmutedInstrumentIndices = otherInstrumentIndices.filter( (index) => !updatedInstrumentIndex[index].muted );
+      // if we have some unmuted instruments, mute them
+      // otherwise unmute them all
+      const instrumentIndicesToToggle = unmutedInstrumentIndices.length === 0 ? otherInstrumentIndices : unmutedInstrumentIndices;
+      for(const index of instrumentIndicesToToggle)
+      {
+        const originalInstrument = updatedInstrumentIndex[ index ];
+        if(this.audio){ this.audio.setMutedForInstrument( originalInstrument.id, !originalInstrument.muted ); }
+        updatedInstrumentIndex[index] = Object.assign(
+          {},
+          originalInstrument,
+          {muted: !originalInstrument.muted}
+        );
+      }
+    }
+    else
+    {
+      const instrumentID = this.state.songData.instrumentIndex[ event.instrument ].id;
+      let instrumentToUpdate = this.state.songData.instrumentIndex[ event.instrument ];
+      if("volume" in event)
+      {
+        if(this.audio){ this.audio.setVolumeForInstrument( instrumentID, event.volume ); }
+        instrumentToUpdate.volume = event.volume;
+      }
+      else if("muted" in event)
+      {
+        if(this.audio){ this.audio.setMutedForInstrument( instrumentID, event.muted ); }
+        let instrumentToUpdate = this.state.songData.instrumentIndex[ event.instrument ];
+        instrumentToUpdate.muted = event.muted;
+      }
+      else
+      {
+        this.setError("Unexpected volume change event " + event.toString());
+        return;
+      }
+      updatedInstrumentIndex[event.instrument] = instrumentToUpdate;
+    }
     let updatedSongData = Object.assign(
       Object.assign({}, this.state.songData),
       {instrumentIndex: updatedInstrumentIndex}
