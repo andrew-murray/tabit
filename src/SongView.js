@@ -453,7 +453,10 @@ class SongView extends React.Component
       const unmutedInstrumentIndices = otherInstrumentIndices.filter( (index) => !updatedInstrumentIndex[index].muted );
       // if we have some unmuted instruments, mute them
       // otherwise unmute them all
-      const instrumentIndicesToToggle = unmutedInstrumentIndices.length === 0 ? otherInstrumentIndices : unmutedInstrumentIndices;
+      const otherInstrumentIndicesToToggle = unmutedInstrumentIndices.length === 0 ? otherInstrumentIndices : unmutedInstrumentIndices;
+      const soloInstrumentMuted = this.state.songData.instrumentIndex[event.instrument].muted;
+      const instrumentIndicesToToggle = !soloInstrumentMuted ? otherInstrumentIndicesToToggle
+                                                             : [...otherInstrumentIndicesToToggle, event.instrument];
       for(const index of instrumentIndicesToToggle)
       {
         const originalInstrument = updatedInstrumentIndex[ index ];
