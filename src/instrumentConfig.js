@@ -342,12 +342,13 @@ class EditInstrumentSampleDialog extends React.Component
   }
 }
 
-function InstrumentTable(props)
+function InstrumentTableBody(props)
 {
-  const classes = useStyles();
+
+  // const width = props.instrumentMask.length;
+  // const height = props.instruments.length;
 
   const editRow = (y)=>{ if( props.onEditRow ){ props.onEditRow(y); }};
-  const editColumn = (x)=>{ if( props.onEditColumn ){ props.onEditColumn(x); }};
   const addRow = ()=>{ if( props.onAddRow ){ props.onAddRow(); }};
   const removeRow = (y)=>{ if( props.onRemoveRow ){ props.onRemoveRow(y); }};
 
@@ -413,8 +414,6 @@ function InstrumentTable(props)
     props.onChange(replacedInstruments);
   };
 
-  let [open, setOpen] = React.useState( false );
-
   const createCell = (x,y) =>
   {
       return (
@@ -470,12 +469,29 @@ function InstrumentTable(props)
       </TableRow>
     );
   };
+  return (
+    <TableBody>
+      {[...Array(props.instruments.length).keys()].map(y=>createMatchingRow(y))}
+      {createEditRow()}
+    </TableBody>
+  );
+}
+
+function InstrumentTable(props)
+{
+  const classes = useStyles();
+
+  let [open, setOpen] = React.useState( false );
+  const editColumn = (x)=>{ if( props.onEditColumn ){ props.onEditColumn(x); }};
+
 
   const onSolo = (index) => {
     // when soloing, the parent component figures out what solo means
     // it toggles the muted settings appropriately
     props.onVolumeEvent( {instrument: index, solo: true} );
   };
+
+  const showEditableTableBody = open && props.showAdvanced;
 
   return (
     <Table className={classes.table} aria-label="simple table">
@@ -521,10 +537,17 @@ function InstrumentTable(props)
               </CenterTableCell>)}
         </TableRow>
       </TableHead>
-      <TableBody>
-        {open && props.showAdvanced && [...Array(props.instruments.length).keys()].map(y=>createMatchingRow(y))}
-        {open && props.showAdvanced && createEditRow()}
-      </TableBody>
+      {showEditableTableBody && <InstrumentTableBody 
+        instrumentMask={props.instrumentMask}
+        instrumentIndex={props.instrumentIndex}
+        instruments={props.instruments}
+        showHelp={props.showHelp}
+        onChange={props.onChange}
+        onEditRow={props.onEditRow}
+        onAddRow={props.onAddRow}
+        onRemoveRow={props.onRemoveRow}
+      />}
+      {!showEditableTableBody && <TableBody />}
     </Table>
   );
 }
