@@ -479,6 +479,8 @@ function InstrumentTableBody(props)
 
 function InstrumentTableHeader(props)
 {
+  const editColumn = (x)=>{ if( props.onEditColumn ){ props.onEditColumn(x); }};
+  
   return (
     <TableHead>
       <TableRow key={"instrumentPanel-row-header"}>
@@ -530,7 +532,6 @@ function InstrumentTable(props)
   const classes = useStyles();
 
   let [open, setOpen] = React.useState( false );
-  const editColumn = (x)=>{ if( props.onEditColumn ){ props.onEditColumn(x); }};
 
 
   const onSolo = (index) => {
@@ -548,7 +549,7 @@ function InstrumentTable(props)
         expanded={open}
         showHelp={props.showHelp}
         instrumentIndex={props.instrumentIndex}
-        editColumn={editColumn}
+        editColumn={props.editColumn}
         onSolo={props.onSolo}
         onToggleOpen={()=>setOpen(!open)}
         onVolumeEvent={props.onVolumeEvent}
