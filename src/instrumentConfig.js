@@ -477,6 +477,54 @@ function InstrumentTableBody(props)
   );
 }
 
+function InstrumentTableHeader(props)
+{
+  return (
+    <TableHead>
+      <TableRow key={"instrumentPanel-row-header"}>
+        { props.showExpandControls && <NoDividerCenterTableCell key={"instrumentPanel-row-instrument"}></NoDividerCenterTableCell> }
+        {[...Array(props.instrumentIndex.length).keys()].map(x=>
+            <NoDividerCenterTableCell key={"instrumentPanel-row-header-cell-" + x.toString()}>
+              <Button onClick={()=>{props.onSolo(x);}} color="primary">
+                <Typography>{props.instrumentIndex[x].name}</Typography>
+              </Button>
+            </NoDividerCenterTableCell>)}
+      </TableRow>
+      <TableRow key={"instrumentPanel-row-controls"}>
+        { props.showExpandControls &&
+          <CenterTableCell key={"instrumentPanel-row-instrument"}>
+            <IconButton aria-label="Show Instrument Matcher" size="small" onClick={props.onToggleOpen}>
+              {props.expanded ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+            </IconButton>
+          </CenterTableCell>
+        }
+        {[...Array(props.instrumentIndex.length).keys()].map(x=>
+            <CenterTableCell key={"instrumentPanel-row-controls-cell-" + x.toString()}>
+              <Grid container>
+              <Grid item xs={6}>
+              <Tooltip
+                title="Edit Track"
+                show={props.showHelp}
+              >
+                <InlinableIconButton onClick={(e)=>{props.editColumn(x);}}>
+                  <EditIcon fontSize="small"/>
+                </InlinableIconButton>
+              </Tooltip>
+              </Grid>
+              <Grid item xs={6}>
+                <VolumeWidget
+                  muted={props.instrumentIndex[x].muted}
+                  onChange={(value)=>{props.onVolumeEvent( {instrument: x, volume: value / 100.0}); }}
+                  onMuteEvent={(muted)=>{props.onVolumeEvent( {instrument: x, muted: muted})}}
+                  />
+              </Grid>
+              </Grid>
+            </CenterTableCell>)}
+      </TableRow>
+    </TableHead>
+  );
+}
+
 function InstrumentTable(props)
 {
   const classes = useStyles();
@@ -495,48 +543,16 @@ function InstrumentTable(props)
 
   return (
     <Table className={classes.table} aria-label="simple table">
-      <TableHead>
-        <TableRow key={"instrumentPanel-row-header"}>
-          { props.showAdvanced && <NoDividerCenterTableCell key={"instrumentPanel-row-instrument"}></NoDividerCenterTableCell> }
-          {[...Array(props.instrumentIndex.length).keys()].map(x=>
-              <NoDividerCenterTableCell key={"instrumentPanel-row-header-cell-" + x.toString()}>
-                <Button onClick={()=>{onSolo(x);}} color="primary">
-                  <Typography>{props.instrumentIndex[x].name}</Typography>
-                </Button>
-              </NoDividerCenterTableCell>)}
-        </TableRow>
-        <TableRow key={"instrumentPanel-row-controls"}>
-          { props.showAdvanced &&
-            <CenterTableCell key={"instrumentPanel-row-instrument"}>
-              <IconButton aria-label="Show Instrument Matcher" size="small" onClick={() => setOpen(!open)}>
-                {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-              </IconButton>
-            </CenterTableCell>
-          }
-          {[...Array(props.instrumentIndex.length).keys()].map(x=>
-              <CenterTableCell key={"instrumentPanel-row-controls-cell-" + x.toString()}>
-                <Grid container>
-                <Grid item xs={6}>
-                <Tooltip
-                  title="Edit Track"
-                  show={props.showHelp}
-                >
-                  <InlinableIconButton onClick={(e)=>{editColumn(x);}}>
-                    <EditIcon fontSize="small"/>
-                  </InlinableIconButton>
-                </Tooltip>
-                </Grid>
-                <Grid item xs={6}>
-                  <VolumeWidget
-                    muted={props.instrumentIndex[x].muted}
-                    onChange={(value)=>{props.onVolumeEvent( {instrument: x, volume: value / 100.0}); }}
-                    onMuteEvent={(muted)=>{props.onVolumeEvent( {instrument: x, muted: muted})}}
-                    />
-                </Grid>
-                </Grid>
-              </CenterTableCell>)}
-        </TableRow>
-      </TableHead>
+      <InstrumentTableHeader
+        showExpandControls={props.showAdvanced}
+        expanded={open}
+        showHelp={props.showHelp}
+        instrumentIndex={props.instrumentIndex}
+        editColumn={editColumn}
+        onSolo={props.onSolo}
+        onToggleOpen={()=>setOpen(!open)}
+        onVolumeEvent={props.onVolumeEvent}
+      />
       {showEditableTableBody && <InstrumentTableBody 
         instrumentMask={props.instrumentMask}
         instrumentIndex={props.instrumentIndex}
