@@ -135,7 +135,11 @@ function upgradeOldInstruments(instruments)
     inst => {
       if(inst.length === 2)
       {
-        return [inst[0], inst[1], { "shortName" : guessShortName(inst[0])}];
+        return [inst[0], inst[1], { "shortName" : guessShortName(inst[0])}, {muted: false, volume: 0.8}];
+      }
+      else if(inst.length === 3)
+      {
+        return [inst[0], inst[1], inst[2], {muted: false, volume: 0.8}];
       }
       else
       {
