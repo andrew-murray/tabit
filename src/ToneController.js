@@ -365,7 +365,7 @@ class ToneController
         // const velocityGain = new Tone.Gain(1.0, "normalRange");
         player.connect(gain);
 
-        const usePerInstrumentGain = false;
+        const usePerInstrumentGain = true;
         if(usePerInstrumentGain)
         {
           const matchingEntries = [...instruments.entries()].filter( ([iterIndex, iterInst]) => id in iterInst[1]);

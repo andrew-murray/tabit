@@ -485,7 +485,7 @@ function InstrumentTableHeader(props)
         { props.showExpandControls && <NoDividerCenterTableCell key={"instrumentPanel-row-instrument"}></NoDividerCenterTableCell> }
         {[...Array(props.instruments.length).keys()].map(x=>
             <NoDividerCenterTableCell key={"instrumentPanel-row-header-cell-" + x.toString()}>
-              <Button onClick={()=>{props.onSolo(x);}} color="primary">
+              <Button onClick={()=>{props.onVolumeEvent({index: x, solo: true});}} color="primary">
                 <Typography>{props.instruments[x].name}</Typography>
               </Button>
             </NoDividerCenterTableCell>)}
@@ -514,8 +514,8 @@ function InstrumentTableHeader(props)
               <Grid item xs={6}>
                 <VolumeWidget
                   muted={props.instruments[x].muted}
-                  onChange={(value)=>{props.onVolumeEvent( {instrument: x, volume: value / 100.0}); }}
-                  onMuteEvent={(muted)=>{props.onVolumeEvent( {instrument: x, muted: muted})}}
+                  onChange={(value)=>{props.onVolumeEvent( {index: x, volume: value / 100.0}); }}
+                  onMuteEvent={(muted)=>{props.onVolumeEvent( {index: x, muted: muted})}}
                 />
               </Grid>
               </Grid>
@@ -531,12 +531,6 @@ function InstrumentTable(props)
 
   let [open, setOpen] = React.useState( false );
 
-  const onSolo = (index) => {
-    // when soloing, the parent component figures out what solo means
-    // it toggles the muted settings appropriately
-    props.onVolumeEvent( {instrument: index, solo: true} );
-  };
-
   const showEditableTableBody = open && props.showAdvanced;
 
   const createInstrumentComponents = () => {
@@ -550,6 +544,18 @@ function InstrumentTable(props)
   const editHeaderInstrument = showTrackHeader ? props.onEditColumn
                                                : props.onEditRow;
 
+  const onHeaderVolumeEvent = ({index, volume, muted, solo}) => {
+    const event = showTrackHeader ? {track: index} : {instrument:index};
+    props.onVolumeEvent(Object.assign(
+      event, 
+      {
+        muted: muted,
+        volume: volume,
+        solo: solo
+      }
+    ));
+  };
+
   return (
     <Table className={classes.table} aria-label="simple table">
       <InstrumentTableHeader
@@ -561,9 +567,8 @@ function InstrumentTable(props)
         instrumentCategory={showTrackHeader ? "Track" : "Instrument"}
 
         onEditInstrument={editHeaderInstrument}
-        onSolo={onSolo}
         onToggleOpen={()=>setOpen(!open)}
-        onVolumeEvent={props.onVolumeEvent}
+        onVolumeEvent={onHeaderVolumeEvent}
       />
       {showEditableTableBody && <InstrumentTableBody 
         instrumentMask={props.instrumentMask}
