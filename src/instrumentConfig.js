@@ -543,7 +543,8 @@ function InstrumentTable(props)
     return props.instruments.map(element => { return {name: element[0], muted: false}; }); // currently they can't be muted!
   };
 
-  const showTrackHeader = false && props.showAdvanced;
+  const alwaysShowTracks = true;
+  const showTrackHeader = alwaysShowTracks || props.showAdvanced;
   const headerInstruments = showTrackHeader ? props.instrumentIndex
                                             : createInstrumentComponents();
   const editHeaderInstrument = showTrackHeader ? props.onEditColumn

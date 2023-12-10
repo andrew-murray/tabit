@@ -103,9 +103,11 @@ class SongView extends React.Component
         tempo = this.audio.getTempo();
         this.audio.teardown();
       }
+      console.log({songData: this.state.songData})
       const latencyHint = isMobile ? "playback" : null;
       const animateCallback = this.createAnimateCallback();
       this.audio = new this.props.audioController(
+        this.state.songData.instruments,
         this.state.songData.instrumentIndex,
         this.state.songData.patterns,
         tempo,
@@ -405,6 +407,8 @@ class SongView extends React.Component
   // but react gives better performance by not doing this, sadly
   changeInstruments = (instruments) =>
   {
+    alert("changeInstruments is disabled");
+    return;
     let songData = Object.assign({}, this.state.songData);
     songData.instruments = instruments;
     songData.instrumentMask = createInstrumentMask(this.state.songData.instrumentIndex, instruments);
@@ -415,6 +419,8 @@ class SongView extends React.Component
 
   updateInstrumentIndex = (instrumentIndex) =>
   {
+    alert("updateInstrumentIndex is disabled");
+    return;
     const instrumentMask = createInstrumentMask(instrumentIndex, this.state.songData.instruments);
     this.setState(
       {
@@ -460,7 +466,7 @@ class SongView extends React.Component
       for(const index of instrumentIndicesToToggle)
       {
         const originalInstrument = updatedInstrumentIndex[ index ];
-        if(this.audio){ this.audio.setMutedForInstrument( originalInstrument.id, !originalInstrument.muted ); }
+        if(this.audio){ this.audio.setMutedForTrack( originalInstrument.id, !originalInstrument.muted ); }
         updatedInstrumentIndex[index] = Object.assign(
           {},
           originalInstrument,
@@ -474,12 +480,12 @@ class SongView extends React.Component
       let instrumentToUpdate = this.state.songData.instrumentIndex[ event.instrument ];
       if("volume" in event)
       {
-        if(this.audio){ this.audio.setVolumeForInstrument( instrumentID, event.volume ); }
+        if(this.audio){ this.audio.setVolumeForTrack( instrumentID, event.volume ); }
         instrumentToUpdate.volume = event.volume;
       }
       else if("muted" in event)
       {
-        if(this.audio){ this.audio.setMutedForInstrument( instrumentID, event.muted ); }
+        if(this.audio){ this.audio.setMutedForTrack( instrumentID, event.muted ); }
         let instrumentToUpdate = this.state.songData.instrumentIndex[ event.instrument ];
         instrumentToUpdate.muted = event.muted;
       }

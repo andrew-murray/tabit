@@ -150,6 +150,7 @@ const createSortedUnique = (failures) =>
 class ToneController
 {
   constructor(
+    instruments,
     instrumentIndex,
     patterns,
     tempo,
@@ -158,7 +159,6 @@ class ToneController
     onLoadError
   )
   {
-
     if(onLoadError)
     {
       const patternNames = patterns.map(p=>p.name);
@@ -213,6 +213,9 @@ class ToneController
     this.expectedSampleCount = 0;
     this.patternDetails = {};
     let failures = []
+
+    this.instrumentGains = this.createInstrumentGains(instruments);
+
     for( let p of patterns )
     {
       this.patternDetails[p.name] = {
@@ -222,7 +225,7 @@ class ToneController
         tracks: p.instrumentTracks,
         pattern: p
       };
-      this.populateSamples(instrumentIndex, p.instrumentTracks, failures);
+      this.populateSamples(instruments, this.instrumentGains, instrumentIndex, p.instrumentTracks, failures);
     }
     this.currentPatternName = null;
     this.instrumentIndex = instrumentIndex;
@@ -246,6 +249,7 @@ class ToneController
 
       onLoadError(message);
     }
+    window.audio = this;
   }
 
   teardown()
@@ -286,7 +290,22 @@ class ToneController
     this.patternDetails[patternName] = undefined;
   }
 
-  populateSamples(instrumentIndex, tracks, failures)
+  createInstrumentGains(instruments)
+  {
+    let instrumentGains = []
+
+    for(const inst of instruments)
+    {
+      const instrumentGainSettings = inst[3];
+      const clampedVolume = Audio.convertNormalToAudible( Math.min( Math.max( 0.0 , instrumentGainSettings.volume ), 1.0 ) );
+      const gain = new Tone.Gain(clampedVolume, "normalRange");
+      gain.connect(this.gain);
+      instrumentGains.push(gain);
+    }
+    return instrumentGains;
+  }
+
+  populateSamples(instruments, instrumentGains, instrumentIndex, tracks, failures)
   {
     console.log("=======================");
     console.log(" Selecting Instruments ");
@@ -344,8 +363,23 @@ class ToneController
         player.name = selectedInstrument.name;
         const gain = new Tone.Gain(clampedVolume, "normalRange");
         // const velocityGain = new Tone.Gain(1.0, "normalRange");
-        player.connect(gain)
-        gain.connect(this.gain);
+        player.connect(gain);
+
+        const usePerInstrumentGain = false;
+        if(usePerInstrumentGain)
+        {
+          const matchingEntries = [...instruments.entries()].filter( ([iterIndex, iterInst]) => id in iterInst[1]);
+          if(matchingEntries.length !== 1)
+          {
+            // an error has occurred, to be handled later
+          }
+          gain.connect(instrumentGains[matchingEntries[0][0]]);
+        }
+        else
+        {
+          gain.connect(this.gain);
+        }
+
         this.samples[selectedInstrument.id] = {
           player : player,
           gain : gain,
@@ -499,19 +533,19 @@ class ToneController
     this.onPatternTimeChange = onPatternTimeChange;
   }
 
-  setMutedForInstrument(instrumentID, muted)
+  setMutedForTrack(trackID, muted)
   {
-    this.samples[instrumentID].player.mute = muted;
+    this.samples[trackID].player.mute = muted;
   }
 
-  setGainForInstrument(instrumentID, gainValue)
+  setGainForTrack(trackID, gainValue)
   {
-    this.samples[instrumentID].gain.set( {gain : gainValue } );
+    this.samples[trackID].gain.set( {gain : gainValue } );
   }
 
-  setVolumeForInstrument(instrumentID, volume)
+  setVolumeForTrack(trackID, volume)
   {
-    this.setGainForInstrument(instrumentID, Audio.convertNormalToAudible(volume));
+    this.setGainForTrack(trackID, Audio.convertNormalToAudible(volume));
   }
 
   setTempo(tempo)
