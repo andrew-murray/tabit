@@ -534,8 +534,8 @@ function InstrumentTable(props)
   const showEditableTableBody = open && props.showAdvanced;
 
   const createInstrumentComponents = () => {
-    return props.instruments.map(element => { return {name: element[0], muted: false}; }); // currently they can't be muted!
-  };
+    return props.instruments.map(element => {return {name: element[0], muted: element[3].muted, volume: element[3].volume}; });
+  }
 
   const alwaysShowTracks = true;
   const showTrackHeader = alwaysShowTracks || props.showAdvanced;

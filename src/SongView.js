@@ -454,45 +454,39 @@ class SongView extends React.Component
     let updatedInstrumentIndex = this.state.songData.instrumentIndex.slice();
     if(event.solo !== undefined)
     {
-      const otherInstrumentIndices = [...Array(this.state.songData.instrumentIndex.length).keys()].filter(ix => ix !== event.track);
-      const unmutedInstrumentIndices = otherInstrumentIndices.filter( (index) => !updatedInstrumentIndex[index].muted );
-      // if we have some unmuted instruments, mute them
-      // otherwise unmute them all
-      const otherInstrumentIndicesToToggle = unmutedInstrumentIndices.length === 0 ? otherInstrumentIndices : unmutedInstrumentIndices;
-      const soloInstrumentMuted = this.state.songData.instrumentIndex[event.track].muted;
-      const instrumentIndicesToToggle = !soloInstrumentMuted ? otherInstrumentIndicesToToggle
-                                                             : [...otherInstrumentIndicesToToggle, event.track];
-      for(const index of instrumentIndicesToToggle)
+      const trackIsMuted = updatedInstrumentIndex.map(inst => inst.muted);
+      const indicesToToggle = this.getIndicesToToggleWhenSoloing(event.track, trackIsMuted);
+      for(const index of indicesToToggle)
       {
-        const originalInstrument = updatedInstrumentIndex[ index ];
-        if(this.audio){ this.audio.setMutedForTrack( originalInstrument.id, !originalInstrument.muted ); }
+        const originalTrack = updatedInstrumentIndex[ index ];
+        if(this.audio){ this.audio.setMutedForTrack( originalTrack.id, !originalTrack.muted ); }
         updatedInstrumentIndex[index] = Object.assign(
           {},
-          originalInstrument,
-          {muted: !originalInstrument.muted}
+          originalTrack,
+          {muted: !originalTrack.muted}
         );
       }
     }
     else
     {
-      const instrumentID = this.state.songData.instrumentIndex[ event.track ].id;
-      let instrumentToUpdate = this.state.songData.instrumentIndex[ event.track ];
+      const trackID = this.state.songData.instrumentIndex[ event.track ].id;
+      let trackToUpdate = this.state.songData.instrumentIndex[ event.track ];
       if(event.volume !== undefined)
       {
-        if(this.audio){ this.audio.setVolumeForTrack( instrumentID, event.volume ); }
-        instrumentToUpdate.volume = event.volume;
+        if(this.audio){ this.audio.setVolumeForTrack( trackID, event.volume ); }
+        trackToUpdate.volume = event.volume;
       }
       else if(event.muted !== undefined)
       {
-        if(this.audio){ this.audio.setMutedForTrack( instrumentID, event.muted ); }
-        instrumentToUpdate.muted = event.muted;
+        if(this.audio){ this.audio.setMutedForTrack( trackID, event.muted ); }
+        trackToUpdate.muted = event.muted;
       }
       else
       {
         this.setError("Unexpected volume change event " + event.toString());
         return;
       }
-      updatedInstrumentIndex[event.track] = instrumentToUpdate;
+      updatedInstrumentIndex[event.track] = trackToUpdate;
     }
     let updatedSongData = Object.assign(
       Object.assign({}, this.state.songData),
@@ -503,8 +497,63 @@ class SongView extends React.Component
     } );
   }
 
+  getIndicesToToggleWhenSoloing(selectedIndex, componentIsMuted)
+  {
+    const otherIndices = [...Array(componentIsMuted.length).keys()].filter(ix => ix !== selectedIndex);
+    const unmutedIndices = otherIndices.filter( (index) => !componentIsMuted[index] );
+    // if we have some unmuted instruments, mute them
+    // otherwise unmute them all
+    const otherIndicesToToggle = unmutedIndices.length === 0 ? otherIndices : unmutedIndices;
+    const selectedComponentMuted = componentIsMuted[selectedIndex];
+    const indicesToToggle = !selectedComponentMuted ? otherIndicesToToggle
+                                                    : [...otherIndicesToToggle, selectedIndex];
+    return indicesToToggle;
+  }
+
   sendVolumeEventForInstrument = (event) =>
   {
+    // todo: need to un-mutable everything in the long-term
+    let updatedInstruments = this.state.songData.instruments.slice();
+    if(event.solo !== undefined)
+    {
+      const instrumentIsMuted = updatedInstruments.map(inst => inst[3].muted);
+      const indicesToToggle = this.getIndicesToToggleWhenSoloing(event.instrument, instrumentIsMuted);
+      for(const index of indicesToToggle)
+      {
+        const originalInstrument = updatedInstruments[ index ];
+        if(this.audio){ this.audio.setMutedForInstrumentIndex( index, !originalInstrument[3].muted ); }
+        originalInstrument[3].muted = !originalInstrument[3].muted;
+        updatedInstruments[index] = Object.assign(
+          {},
+          originalInstrument
+        );
+      }
+    }
+    else
+    {
+      let instrumentToUpdate = updatedInstruments[event.instrument];
+      if(event.muted !== undefined)
+      {
+        if(this.audio){ this.audio.setMutedForInstrumentIndex( event.instrument, event.muted ); }
+        instrumentToUpdate[3].muted = event.muted;
+      }
+      else if(event.volume !== undefined)
+      {
+        if(this.audio){ this.audio.setVolumeForInstrumentIndex( event.instrument, event.volume ); }
+        instrumentToUpdate[3].volume = event.muted;
+      }
+      updatedInstruments[event.instrument] = Object.assign(
+        {},
+        instrumentToUpdate
+      );
+    }
+    let updatedSongData = Object.assign(
+      Object.assign({}, this.state.songData),
+      {instruments: updatedInstruments}
+    );
+    this.setState( {
+      songData: updatedSongData
+    } );
   }
 
   sendVolumeEvent = (event) =>

@@ -299,8 +299,10 @@ class ToneController
       const instrumentGainSettings = inst[3];
       const clampedVolume = Audio.convertNormalToAudible( Math.min( Math.max( 0.0 , instrumentGainSettings.volume ), 1.0 ) );
       const gain = new Tone.Gain(clampedVolume, "normalRange");
-      gain.connect(this.gain);
-      instrumentGains.push(gain);
+      const volume = new Tone.Volume({mute: instrumentGainSettings.mute});
+      gain.connect(volume);
+      volume.connect(this.gain);
+      instrumentGains.push({ gain, volume} );
     }
     return instrumentGains;
   }
@@ -373,7 +375,7 @@ class ToneController
           {
             // an error has occurred, to be handled later
           }
-          gain.connect(instrumentGains[matchingEntries[0][0]]);
+          gain.connect(instrumentGains[matchingEntries[0][0]].gain);
         }
         else
         {
@@ -546,6 +548,21 @@ class ToneController
   setVolumeForTrack(trackID, volume)
   {
     this.setGainForTrack(trackID, Audio.convertNormalToAudible(volume));
+  }
+
+  setMutedForInstrumentIndex(index, muted)
+  {
+    this.instrumentGains[index].volume.mute = muted;
+  }
+
+  setGainForInstrumentIndex(index, gainValue)
+  {
+    this.instrumentGains[index].gain.set( {gain : gainValue } );
+  }
+
+  setVolumeForInstrumentIndex(index, volume)
+  {
+    this.setGainForInstrumentIndex(index, Audio.convertNormalToAudible(volume));
   }
 
   setTempo(tempo)
