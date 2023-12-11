@@ -480,9 +480,10 @@ function InstrumentTableBody(props)
 function InstrumentTableHeader(props)
 {
   return (
-    <TableHead>
+    <React.Fragment>
       <TableRow key={"instrumentPanel-row-header"}>
-        { props.showExpandControls && <NoDividerCenterTableCell key={"instrumentPanel-row-instrument"}></NoDividerCenterTableCell> }
+        { (props.showExpandControls || props.showHiddenExpandControls)
+         && <NoDividerCenterTableCell key={"instrumentPanel-row-instrument"}></NoDividerCenterTableCell> }
         {[...Array(props.instruments.length).keys()].map(x=>
             <NoDividerCenterTableCell key={"instrumentPanel-row-header-cell-" + x.toString()}>
               <Button onClick={()=>{props.onVolumeEvent({index: x, solo: true});}} color="primary">
@@ -491,6 +492,9 @@ function InstrumentTableHeader(props)
             </NoDividerCenterTableCell>)}
       </TableRow>
       <TableRow key={"instrumentPanel-row-controls"}>
+        {
+          props.showHiddenExpandControls && <NoDividerCenterTableCell key={"instrumentPanel-row-instrument"}></NoDividerCenterTableCell>
+        }
         { props.showExpandControls &&
           <CenterTableCell key={"instrumentPanel-row-instrument"}>
             <IconButton aria-label="Show Instrument Matcher" size="small" onClick={props.onToggleOpen}>
@@ -521,7 +525,7 @@ function InstrumentTableHeader(props)
               </Grid>
             </CenterTableCell>)}
       </TableRow>
-    </TableHead>
+    </React.Fragment>
   );
 }
 
@@ -537,15 +541,12 @@ function InstrumentTable(props)
     return props.instruments.map(element => {return {name: element[0], muted: element[3].muted, volume: element[3].volume}; });
   }
 
-  const alwaysShowTracks = true;
+  const alwaysShowTracks = false;
   const showTrackHeader = alwaysShowTracks || props.showAdvanced;
-  const headerInstruments = showTrackHeader ? props.instrumentIndex
-                                            : createInstrumentComponents();
-  const editHeaderInstrument = showTrackHeader ? props.onEditColumn
-                                               : props.onEditRow;
-
-  const onHeaderVolumeEvent = ({index, volume, muted, solo}) => {
-    const event = showTrackHeader ? {track: index} : {instrument:index};
+  const headerTracks = props.instrumentIndex;
+  const headerInstruments = createInstrumentComponents();
+  const onHeaderVolumeEvent = (isTrack, {index, volume, muted, solo}) => {
+    const event = isTrack ? {track: index} : {instrument:index};
     props.onVolumeEvent(Object.assign(
       event, 
       {
@@ -555,33 +556,55 @@ function InstrumentTable(props)
       }
     ));
   };
+  /*
 
+  */
   return (
+    <React.Fragment>
     <Table className={classes.table} aria-label="simple table">
-      <InstrumentTableHeader
-        showExpandControls={props.showAdvanced}
-        expanded={open}
-        showHelp={props.showHelp}
-
-        instruments={headerInstruments}
-        instrumentCategory={showTrackHeader ? "Track" : "Instrument"}
-
-        onEditInstrument={editHeaderInstrument}
-        onToggleOpen={()=>setOpen(!open)}
-        onVolumeEvent={onHeaderVolumeEvent}
-      />
-      {showEditableTableBody && <InstrumentTableBody 
-        instrumentMask={props.instrumentMask}
-        instrumentIndex={props.instrumentIndex}
-        instruments={props.instruments}
-        showHelp={props.showHelp}
-        onChange={props.onChange}
-        onEditRow={props.onEditRow}
-        onAddRow={props.onAddRow}
-        onRemoveRow={props.onRemoveRow}
-      />}
-      {!showEditableTableBody && <TableBody />}
+      <TableHead>
+        <InstrumentTableHeader
+          showExpandControls={true}
+          expanded={open}
+          showHelp={props.showHelp}
+          instruments={headerInstruments}
+          instrumentCategory="Instrument"
+          onEditInstrument={props.onEditRow}
+          onToggleOpen={()=>setOpen(!open)}
+          onVolumeEvent={(event)=>onHeaderVolumeEvent(false, event)}
+        />
+      </TableHead>
+      <TableBody />
     </Table>
+    {open &&
+      <Table>
+        <TableHead>
+          <InstrumentTableHeader
+            showExpandControls={false}
+            showHiddenExpandControls={true}
+            expanded={open}
+            showHelp={props.showHelp}
+            instruments={headerTracks}
+            instrumentCategory="Track"
+            onEditInstrument={props.onEditColumn}
+            onToggleOpen={()=>setOpen(!open)}
+            onVolumeEvent={(event)=>onHeaderVolumeEvent(true, event)}
+          />
+        </TableHead>
+        {showEditableTableBody && <InstrumentTableBody 
+          instrumentMask={props.instrumentMask}
+          instrumentIndex={props.instrumentIndex}
+          instruments={props.instruments}
+          showHelp={props.showHelp}
+          onChange={props.onChange}
+          onEditRow={props.onEditRow}
+          onAddRow={props.onAddRow}
+          onRemoveRow={props.onRemoveRow}
+        />}
+        {!showEditableTableBody && <TableBody />}
+      </Table>
+    }
+    </React.Fragment>
   );
 }
 
