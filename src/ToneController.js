@@ -199,11 +199,10 @@ class ToneController
     // would love if this state was a bit more structured
     this.samples = {};
     this.currentPattern = null;
-    // we're mostly trying to match hydrogen for this
-    // and since I've rigged import to set volumes to max-1 (rather than knowing about any gain on top)
-    // of where volume would sit, here we add a constant-offset to try and bump the volume, where we're
-    // setting volumes < 1s, is this an acceptable fudge for a somewhat problematic architecture?
-    this.gain = new Tone.Gain();
+    // we have decent size audio-network with lots of ... essentially... 
+    // volume-reducers (which are in the control of the user).
+    // So we give a bit of a bump, to make sure we're not just too quiet.
+    this.gain = new Tone.Gain(1.5);
     this.gain.toDestination();
     this.onPatternTimeChange = onTimeChange;
     Tone.getTransport().bpm.value = tempo;
