@@ -294,7 +294,7 @@ class ToneController
   {
     const clampedVolume = Audio.convertNormalToAudible( Math.min( Math.max( 0.0 , instrumentGainSettings.volume ), 1.0 ) );
     const gain = new Tone.Gain(clampedVolume, "normalRange");
-    const volume = new Tone.Volume({mute: instrumentGainSettings.mute});
+    const volume = new Tone.Volume({mute: instrumentGainSettings.muted});
     gain.connect(volume);
     volume.connect(this.gain);
     return {gain, volume};
