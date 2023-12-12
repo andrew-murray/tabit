@@ -103,7 +103,6 @@ class SongView extends React.Component
         tempo = this.audio.getTempo();
         this.audio.teardown();
       }
-      console.log({songData: this.state.songData})
       const latencyHint = isMobile ? "playback" : null;
       const animateCallback = this.createAnimateCallback();
       this.audio = new this.props.audioController(
@@ -403,24 +402,95 @@ class SongView extends React.Component
     };
   }
 
-  // note these functions could cleanly be locally defined
-  // but react gives better performance by not doing this, sadly
-  changeInstruments = (instruments) =>
+  handleReplaceInstruments = (replacedInstruments) =>
   {
-    alert("changeInstruments is disabled");
-    return;
     let songData = Object.assign({}, this.state.songData);
-    songData.instruments = instruments;
-    songData.instrumentMask = createInstrumentMask(this.state.songData.instrumentIndex, instruments);
+    songData.instruments = replacedInstruments;
+    songData.instrumentMask = createInstrumentMask(this.state.songData.instrumentIndex, replacedInstruments);
     this.setState( {
       songData: songData
     } );
   }
 
+  handleInstrumentReassign = (trackIndex, instrumentIndex, event) =>
+  {
+    const x = trackIndex;
+    const y = instrumentIndex;
+    const instrumentID = this.state.songData.instrumentIndex[x].id;
+    const oldInstrumentIndex = this.state.songData.instruments.findIndex( instrument => instrumentID in instrument[1]);
+    const dstInstrumentIndex = y;
+    if( oldInstrumentIndex === dstInstrumentIndex )
+    {
+      return;
+    }
+    const oldInstrument = this.state.songData.instruments[oldInstrumentIndex];
+
+    // build new instrument
+    let replacedSrcInstrument = [
+      "", // name
+      {}, // symbol to trackID mapping
+      {}, // metadata,
+      {} // volumeSettings
+    ];
+    if( oldInstrument != null )
+    {
+      // create new instrument, preserving old mappings
+      // that aren't tied to the track we're moving away
+      replacedSrcInstrument[0] = oldInstrument[0];
+      // shortname/metadata copy over
+      replacedSrcInstrument[2] = oldInstrument[2];
+      for( const key of Object.keys(oldInstrument[1]) )
+      {
+        if( key !== instrumentID.toString() )
+        {
+          replacedSrcInstrument[1][key] = oldInstrument[1][key];
+        }
+      }
+      replacedSrcInstrument[3] = oldInstrument[3];
+    }
+    console.log(this.state.songData);
+    console.log(this.state.songData.instruments[dstInstrumentIndex]);
+    let dstInstrument = [
+      this.state.songData.instruments[dstInstrumentIndex][0],
+      Object.assign({}, this.state.songData.instruments[dstInstrumentIndex][1] ),
+      ...this.state.songData.instruments[dstInstrumentIndex].slice(2)
+    ];
+    console.log(dstInstrument);
+    if(oldInstrument != null )
+    {
+      dstInstrument[1][instrumentID.toString()] = oldInstrument[1][instrumentID];
+    }
+    else
+    {
+      dstInstrument[1][instrumentID.toString()] = "X";
+    }
+
+    // construct instrument array
+    let replacedInstruments = [];
+
+    for(let instrumentIndex = 0; instrumentIndex < this.state.songData.instruments.length; ++instrumentIndex)
+    {
+      if( instrumentIndex === oldInstrumentIndex )
+      {
+        replacedInstruments.push( replacedSrcInstrument );
+      }
+      else if( instrumentIndex === dstInstrumentIndex )
+      {
+        replacedInstruments.push( dstInstrument )
+      }
+      else
+      {
+        replacedInstruments.push( this.state.songData.instruments[instrumentIndex] );
+      }
+    }
+    // set state
+    this.handleReplaceInstruments(
+      replacedInstruments
+    );
+  }
+
   updateInstrumentIndex = (instrumentIndex) =>
   {
-    alert("updateInstrumentIndex is disabled");
-    return;
     const instrumentMask = createInstrumentMask(instrumentIndex, this.state.songData.instruments);
     this.setState(
       {
@@ -513,19 +583,19 @@ class SongView extends React.Component
   sendVolumeEventForInstrument = (event) =>
   {
     // todo: need to un-mutable everything in the long-term
-    let updatedInstruments = this.state.songData.instruments.slice();
+    let updatedInstruments = this.state.songData.instruments.map( inst => inst.slice() );
     if(event.solo !== undefined)
     {
       const instrumentIsMuted = updatedInstruments.map(inst => inst[3].muted);
       const indicesToToggle = this.getIndicesToToggleWhenSoloing(event.instrument, instrumentIsMuted);
       for(const index of indicesToToggle)
       {
-        const originalInstrument = updatedInstruments[ index ];
+        const originalInstrument = updatedInstruments[ index ].slice();
         if(this.audio){ this.audio.setMutedForInstrumentIndex( index, !originalInstrument[3].muted ); }
-        originalInstrument[3].muted = !originalInstrument[3].muted;
-        updatedInstruments[index] = Object.assign(
+        originalInstrument[3] = Object.assign(
           {},
-          originalInstrument
+          originalInstrument[3],
+          {muted: !originalInstrument[3].muted}
         );
       }
     }
@@ -535,17 +605,21 @@ class SongView extends React.Component
       if(event.muted !== undefined)
       {
         if(this.audio){ this.audio.setMutedForInstrumentIndex( event.instrument, event.muted ); }
-        instrumentToUpdate[3].muted = event.muted;
+        instrumentToUpdate[3] = Object.assign(
+          {},
+          instrumentToUpdate[3],
+          {muted: event.muted}
+        );
       }
       else if(event.volume !== undefined)
       {
         if(this.audio){ this.audio.setVolumeForInstrumentIndex( event.instrument, event.volume ); }
-        instrumentToUpdate[3].volume = event.muted;
+        instrumentToUpdate[3] = Object.assign(
+          {},
+          instrumentToUpdate[3],
+          {volume: event.volume}
+        );
       }
-      updatedInstruments[event.instrument] = Object.assign(
-        {},
-        instrumentToUpdate
-      );
     }
     let updatedSongData = Object.assign(
       Object.assign({}, this.state.songData),
@@ -883,7 +957,8 @@ class SongView extends React.Component
               instruments={this.state.songData.instruments}
               instrumentIndex={this.state.songData.instrumentIndex}
               instrumentMask={this.state.songData.instrumentMask}
-              onChange={this.changeInstruments}
+              onInstrumentReassign={this.handleInstrumentReassign}
+              onChange={this.handleReplaceInstruments}
               onInstrumentIndexChange={this.updateInstrumentIndex}
               onVolumeEvent={this.sendVolumeEvent}
               showAdvanced={!this.state.locked}

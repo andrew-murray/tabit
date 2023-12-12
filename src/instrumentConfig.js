@@ -352,68 +352,6 @@ function InstrumentTableBody(props)
   const addRow = ()=>{ if( props.onAddRow ){ props.onAddRow(); }};
   const removeRow = (y)=>{ if( props.onRemoveRow ){ props.onRemoveRow(y); }};
 
-  const handleChange = (x,y, event) => {
-    const instrumentID = props.instrumentIndex[x].id;
-    const oldInstrumentIndex = props.instruments.findIndex( instrument => instrumentID in instrument[1]);
-    const dstInstrumentIndex = y;
-    if( oldInstrumentIndex === dstInstrumentIndex )
-    {
-      return;
-    }
-    const oldInstrument = props.instruments[oldInstrumentIndex];
-    let replacedSrcInstrument = [
-      "", // name
-      {}, // symbol to trackID mapping
-      {} // metadata
-    ];
-    if( oldInstrument != null )
-    {
-      // create new instrument, preserving old mappings
-      // that aren't tied to the track we're moving away
-      replacedSrcInstrument[0] = oldInstrument[0];
-      // shortname/metadata copy over
-      replacedSrcInstrument[2] = oldInstrument[2];
-      for( const key of Object.keys(oldInstrument[1]) )
-      {
-        if( key !== instrumentID.toString() )
-        {
-          replacedSrcInstrument[1][key] = oldInstrument[1][key];
-        }
-      }
-    }
-    let dstInstrument = [
-      props.instruments[dstInstrumentIndex][0],
-      Object.assign({}, props.instruments[dstInstrumentIndex][1] ),
-      props.instruments[dstInstrumentIndex][2]
-    ];
-    if(oldInstrument != null )
-    {
-      dstInstrument[1][instrumentID.toString()] = oldInstrument[1][instrumentID];
-    }
-    else
-    {
-      dstInstrument[1][instrumentID.toString()] = "X";
-    }
-    let replacedInstruments = [];
-
-    for(let instrumentIndex = 0; instrumentIndex < props.instruments.length; ++instrumentIndex)
-    {
-      if( instrumentIndex === oldInstrumentIndex )
-      {
-        replacedInstruments.push( replacedSrcInstrument );
-      }
-      else if( instrumentIndex === dstInstrumentIndex )
-      {
-        replacedInstruments.push( dstInstrument )
-      }
-      else
-      {
-        replacedInstruments.push( props.instruments[instrumentIndex] );
-      }
-    }
-    props.onChange(replacedInstruments);
-  };
-
   const createCell = (x,y) =>
   {
       return (
@@ -422,7 +360,7 @@ function InstrumentTableBody(props)
           key={"instrumentPanel-cell-" + y.toString() + "-" + x.toString()}
         >
           <ThinFormControlLabel
-            control={<Checkbox checked={props.instrumentMask[x] === y} onChange={(e) =>{handleChange(x,y,e);}} name={x + "," + y.toString()} />}
+            control={<Checkbox checked={props.instrumentMask[x] === y} onChange={(e) =>{props.onInstrumentReassign(x,y,e);}} name={x + "," + y.toString()} />}
           />
         </TableCell>
       );
@@ -541,8 +479,6 @@ function InstrumentTable(props)
     return props.instruments.map(element => {return {name: element[0], muted: element[3].muted, volume: element[3].volume}; });
   }
 
-  const alwaysShowTracks = false;
-  const showTrackHeader = alwaysShowTracks || props.showAdvanced;
   const headerTracks = props.instrumentIndex;
   const headerInstruments = createInstrumentComponents();
   const onHeaderVolumeEvent = (isTrack, {index, volume, muted, solo}) => {
@@ -597,6 +533,7 @@ function InstrumentTable(props)
           instruments={props.instruments}
           showHelp={props.showHelp}
           onChange={props.onChange}
+          onInstrumentReassign={props.onInstrumentReassign}
           onEditRow={props.onEditRow}
           onAddRow={props.onAddRow}
           onRemoveRow={props.onRemoveRow}
@@ -732,6 +669,7 @@ function InstrumentConfig(props) {
             onRemoveRow={(y)=>{removeInstrument(y);}}
             onVolumeEvent={props.onVolumeEvent}
             onChange={props.onChange}
+            onInstrumentReassign={props.onInstrumentReassign}
             showAdvanced={props.showAdvanced}
             showHelp={props.showHelp}
           />
