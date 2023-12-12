@@ -565,6 +565,12 @@ class ToneController
     this.setGainForInstrumentIndex(index, Audio.convertNormalToAudible(volume));
   }
 
+  rewireTrackToInstrument(instrumentFrom, instrumentTo, trackID)
+  {
+      this.samples[trackID].gain.disconnect(this.instrumentGains[instrumentFrom].gain);
+      this.samples[trackID].gain.connect(this.instrumentGains[instrumentTo].gain);
+  }
+
   setTempo(tempo)
   {
     Tone.getTransport().bpm.value = tempo;

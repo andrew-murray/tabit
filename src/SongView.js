@@ -402,14 +402,15 @@ class SongView extends React.Component
     };
   }
 
-  handleReplaceInstruments = (replacedInstruments) =>
+  handleReplaceInstruments = (replacedInstruments, callback = undefined) =>
   {
     let songData = Object.assign({}, this.state.songData);
     songData.instruments = replacedInstruments;
     songData.instrumentMask = createInstrumentMask(this.state.songData.instrumentIndex, replacedInstruments);
-    this.setState( {
-      songData: songData
-    } );
+    this.setState(
+      { songData: songData },
+      callback
+    );
   }
 
   handleInstrumentReassign = (trackIndex, instrumentIndex, event) =>
@@ -485,7 +486,12 @@ class SongView extends React.Component
     }
     // set state
     this.handleReplaceInstruments(
-      replacedInstruments
+      replacedInstruments,
+      () => {
+        if(this.audio){
+          this.audio.rewireTrackToInstrument(oldInstrumentIndex, dstInstrumentIndex, instrumentID);
+        }
+      }
     );
   }
 
