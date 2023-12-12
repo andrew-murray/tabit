@@ -676,6 +676,7 @@ class SongView extends React.Component
           originalInstrument[3],
           {muted: !originalInstrument[3].muted}
         );
+        updatedInstruments[index] = originalInstrument;
       }
     }
     else
