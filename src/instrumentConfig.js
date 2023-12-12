@@ -532,7 +532,6 @@ function InstrumentTable(props)
           instrumentIndex={props.instrumentIndex}
           instruments={props.instruments}
           showHelp={props.showHelp}
-          onChange={props.onChange}
           onInstrumentReassign={props.onInstrumentReassign}
           onEditRow={props.onEditRow}
           onAddRow={props.onAddRow}
@@ -554,8 +553,7 @@ function InstrumentConfig(props) {
 
   const removeInstrument = (y) =>
   {
-    let replacedInstruments = props.instruments.slice(0,y).concat(props.instruments.slice(y+1));
-    props.onChange(replacedInstruments);
+    props.onChangeRequest({kind: "remove", index: y});
   };
 
   const getSymbol = (x) => {
@@ -568,11 +566,7 @@ function InstrumentConfig(props) {
   {
     if(resolvedSymbol !== null)
     {
-      const instrumentID = props.instrumentIndex[editingSymbol].id;
-      const instrumentIndex = props.instruments.findIndex( instrument => instrumentID in instrument[1]);
-      let replacedInstruments = Array.from(props.instruments);
-      replacedInstruments[instrumentIndex][1][instrumentID] = resolvedSymbol;
-      props.onChange(replacedInstruments);
+      props.onChangeRequest({kind: "symbol", index: editingSymbol, symbol: resolvedSymbol});
     }
     setEditingSymbol( null );
   };
@@ -604,16 +598,11 @@ function InstrumentConfig(props) {
     // this function also deals with the addition of new instruments
     if( renamingInstrument === props.instruments.length )
     {
-      const extraInstrument = [ instrumentName, {}, {shortName: guessShortName(instrumentName)} ];
-      let replacedInstruments = Array.from( props.instruments );
-      replacedInstruments.push(extraInstrument);
-      props.onChange(replacedInstruments);
+      props.onChangeRequest({kind: "create", index: renamingInstrument, name: instrumentName});
     }
     else
     {
-      let replacedInstruments = Array.from( props.instruments );
-      replacedInstruments[renamingInstrument][0] = instrumentName;
-      props.onChange(replacedInstruments);
+      props.onChangeRequest({kind: "rename", index: renamingInstrument, name: instrumentName});
     }
     setRenamingInstrument(null);
   };
@@ -668,7 +657,7 @@ function InstrumentConfig(props) {
             onAddRow={()=>{setRenamingInstrument(props.instruments.length)}}
             onRemoveRow={(y)=>{removeInstrument(y);}}
             onVolumeEvent={props.onVolumeEvent}
-            onChange={props.onChange}
+            onChangeRequest={props.onChangeRequest}
             onInstrumentReassign={props.onInstrumentReassign}
             showAdvanced={props.showAdvanced}
             showHelp={props.showHelp}

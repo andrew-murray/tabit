@@ -290,19 +290,23 @@ class ToneController
     this.patternDetails[patternName] = undefined;
   }
 
+  createGainsForInstrument(instrumentGainSettings)
+  {
+    const clampedVolume = Audio.convertNormalToAudible( Math.min( Math.max( 0.0 , instrumentGainSettings.volume ), 1.0 ) );
+    const gain = new Tone.Gain(clampedVolume, "normalRange");
+    const volume = new Tone.Volume({mute: instrumentGainSettings.mute});
+    gain.connect(volume);
+    volume.connect(this.gain);
+    return {gain, volume};
+  }
+
   createInstrumentGains(instruments)
   {
-    let instrumentGains = []
-
+    let instrumentGains = [];
     for(const inst of instruments)
     {
       const instrumentGainSettings = inst[3];
-      const clampedVolume = Audio.convertNormalToAudible( Math.min( Math.max( 0.0 , instrumentGainSettings.volume ), 1.0 ) );
-      const gain = new Tone.Gain(clampedVolume, "normalRange");
-      const volume = new Tone.Volume({mute: instrumentGainSettings.mute});
-      gain.connect(volume);
-      volume.connect(this.gain);
-      instrumentGains.push({ gain, volume} );
+      instrumentGains.push(this.createGainsForInstrument(instrumentGainSettings));
     }
     return instrumentGains;
   }
@@ -567,8 +571,38 @@ class ToneController
 
   rewireTrackToInstrument(instrumentFrom, instrumentTo, trackID)
   {
+    if(instrumentFrom !== null)
+    {
       this.samples[trackID].gain.disconnect(this.instrumentGains[instrumentFrom].gain);
+    }
+    if(instrumentTo !== null)
+    {
       this.samples[trackID].gain.connect(this.instrumentGains[instrumentTo].gain);
+    }
+  }
+
+  createNewInstrument(instrumentGainSettings)
+  {
+    const gains = this.createGainsForInstrument(instrumentGainSettings);
+    this.instrumentGains.push(gains);
+  }
+
+  removeInstrument(instrumentIndex, connectedTrackIDs)
+  {
+    let nodesToRemove = this.instrumentGains[instrumentIndex];
+    let samples = this.samples;
+    connectedTrackIDs.forEach( trackID => {
+      if(trackID in samples)
+      {
+        // if a track is empty, we won't have a sample for it
+        samples[trackID].gain.disconnect();
+      }
+    });
+    nodesToRemove.volume.disconnect();
+    nodesToRemove.gain.disconnect();
+    const beforeInstruments = this.instrumentGains.slice(0, instrumentIndex);
+    const afterInstruments = this.instrumentGains.slice(instrumentIndex + 1);
+    this.instrumentGains = beforeInstruments.concat(afterInstruments);
   }
 
   setTempo(tempo)

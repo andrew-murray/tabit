@@ -3,7 +3,7 @@ import Pattern from "./Pattern";
 import PlaybackControls from "./PlaybackControls";
 import notation from "./notation";
 import InstrumentConfig from "./instrumentConfig";
-import { createInstrumentMask } from "./instrumentation";
+import { createInstrumentMask, guessShortName } from "./instrumentation";
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Alert from '@mui/lab/Alert';
@@ -402,6 +402,78 @@ class SongView extends React.Component
     };
   }
 
+  onInstrumentChangeRequest = (event) =>
+  {
+    if(event.kind === "rename")
+    {
+      const instrumentName = event.name;
+      const instrumentIndex = event.index;
+      let replacedInstruments = this.state.songData.instruments.slice();
+      let replacedInstrument = replacedInstruments[instrumentIndex].slice();
+      replacedInstrument[0] = instrumentName;
+      replacedInstrument[2] = {shortName: guessShortName(instrumentName)};
+      // in this case ... the audioController doesn't need to do any work
+      replacedInstruments[instrumentIndex] = replacedInstrument;
+      this.handleReplaceInstruments(
+        replacedInstruments
+      );
+    }
+    else if(event.kind === "symbol")
+    {
+      const instrumentID = this.state.songData.instrumentIndex[event.index].id;
+      const instrumentIndex = this.state.songData.instruments.findIndex( instrument => instrumentID in instrument[1]);
+      let replacedInstruments = this.state.songData.instruments.slice();
+      let replacedInstrument = replacedInstruments[instrumentIndex].slice();
+      const replacedMapping = Object.assign(
+        {},
+        replacedInstrument[1],
+        {[instrumentID]: event.symbol}
+      );
+      replacedInstrument[1] = replacedMapping;
+      replacedInstruments[instrumentIndex] = replacedInstrument;
+      this.handleReplaceInstruments(
+        replacedInstruments
+      );
+    }
+    else if(event.kind === "create")
+    {
+      const instrumentName = event.name;
+      const extraInstrument = [
+        instrumentName,
+        {},
+        {shortName: guessShortName(instrumentName)},
+        {muted: false, volume: 0.8}
+      ];
+      const replacedInstruments = this.state.songData.instruments.slice().concat([extraInstrument]);
+      this.handleReplaceInstruments(
+        replacedInstruments,
+        ()=>{
+          if(this.audio){ this.audio.createNewInstrument(extraInstrument[3]); }
+        }
+      );
+    }
+    else if(event.kind === "remove")
+    {
+      const removeIndex = event.index;
+      const instrumentToRemove = this.state.songData.instruments[event.index];
+      const startInstruments = this.state.songData.instruments.slice(0, event.index);
+      const endInstruments = this.state.songData.instruments.slice(event.index + 1);
+      const replacedInstruments = startInstruments.concat(endInstruments);
+      this.handleReplaceInstruments(
+        replacedInstruments,
+        ()=>{
+          const connectedTrackIDs = Array.from(Object.keys(instrumentToRemove[1]));
+          if(this.audio){ this.audio.removeInstrument(removeIndex, connectedTrackIDs); }
+        }
+      );
+    }
+    else
+    {
+      this.setError("Unsupported instrument changeRequest " + event.toString());
+      return;
+    }
+  }
+
   handleReplaceInstruments = (replacedInstruments, callback = undefined) =>
   {
     let songData = Object.assign({}, this.state.songData);
@@ -424,7 +496,7 @@ class SongView extends React.Component
     {
       return;
     }
-    const oldInstrument = this.state.songData.instruments[oldInstrumentIndex];
+    const oldInstrument = oldInstrumentIndex !== -1 ? this.state.songData.instruments[oldInstrumentIndex] : null;
 
     // build new instrument
     let replacedSrcInstrument = [
@@ -449,14 +521,11 @@ class SongView extends React.Component
       }
       replacedSrcInstrument[3] = oldInstrument[3];
     }
-    console.log(this.state.songData);
-    console.log(this.state.songData.instruments[dstInstrumentIndex]);
     let dstInstrument = [
       this.state.songData.instruments[dstInstrumentIndex][0],
       Object.assign({}, this.state.songData.instruments[dstInstrumentIndex][1] ),
       ...this.state.songData.instruments[dstInstrumentIndex].slice(2)
     ];
-    console.log(dstInstrument);
     if(oldInstrument != null )
     {
       dstInstrument[1][instrumentID.toString()] = oldInstrument[1][instrumentID];
@@ -489,7 +558,11 @@ class SongView extends React.Component
       replacedInstruments,
       () => {
         if(this.audio){
-          this.audio.rewireTrackToInstrument(oldInstrumentIndex, dstInstrumentIndex, instrumentID);
+          this.audio.rewireTrackToInstrument(
+            oldInstrumentIndex === -1 ? null : oldInstrumentIndex,
+            dstInstrumentIndex === -1 ? null : dstInstrumentIndex,
+            instrumentID
+          );
         }
       }
     );
@@ -648,7 +721,8 @@ class SongView extends React.Component
     }
     else
     {
-      alert("dodgy volume event " + event.toString());
+      this.setError("Unexpected volume change event " + event.toString());
+      return;
     }
   }
 
@@ -964,7 +1038,7 @@ class SongView extends React.Component
               instrumentIndex={this.state.songData.instrumentIndex}
               instrumentMask={this.state.songData.instrumentMask}
               onInstrumentReassign={this.handleInstrumentReassign}
-              onChange={this.handleReplaceInstruments}
+              onChangeRequest={this.onInstrumentChangeRequest}
               onInstrumentIndexChange={this.updateInstrumentIndex}
               onVolumeEvent={this.sendVolumeEvent}
               showAdvanced={!this.state.locked}
