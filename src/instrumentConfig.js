@@ -47,7 +47,6 @@ import Tooltip from "./TabitTooltip";
 import AVAILABLE_SAMPLES from "./samples.json";
 
 import {isMobile} from "./Mobile";
-import {guessShortName} from "./instrumentation";
 
 const useStyles = makeStyles(() => ({
   root: {
