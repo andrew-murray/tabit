@@ -56,7 +56,8 @@ const Pattern = React.memo((props)=>
   // that ... or ... the part just has to accept a string to render and not worry about most of the stuff
 
 
-  let instrumentShouldBeHidden = Array(props.instruments.length).fill(false);
+  let instrumentShouldBeHidden = props.config.hideMutedParts ? props.instruments.map(inst => inst[3].muted)
+                                                             : Array(props.instruments.length).fill(false);
   if(props.config.hideEmptyParts)
   {
     for(const instIndex of [...Object.keys(props.instruments)])
@@ -72,7 +73,7 @@ const Pattern = React.memo((props)=>
           break;
         }
       }
-      instrumentShouldBeHidden[instIndex] = partIsEmpty;
+      instrumentShouldBeHidden[instIndex] |= partIsEmpty;
     }
   }
 

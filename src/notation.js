@@ -15,6 +15,7 @@ class notation
     "showBeatMark" : true,
     "showBeatNumbers" : true,
     "hideEmptyParts": true,
+    "hideMutedParts": true,
     "expandRepeatedLines": false,
     "smartTupletFormatting": true,
     "compactDisplay" : false,
@@ -33,6 +34,7 @@ class notation
     "showBeatMark",
     "showBeatNumbers",
     "hideEmptyParts",
+    "hideMutedParts",
     "expandRepeatedLines",
     "smartTupletFormatting"
   ];
