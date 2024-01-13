@@ -10,7 +10,6 @@ import ClearIcon from '@mui/icons-material/Clear';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { isMobile } from "./Mobile";
 import Tooltip from "./TabitTooltip";
-import Draggable from 'react-draggable';
 
 const PatternListItem = (props) =>
 {

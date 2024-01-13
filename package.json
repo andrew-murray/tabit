@@ -26,7 +26,6 @@
     "react-app-rewired": "^2.2.1",
     "react-click-n-hold": "^1.0.7",
     "react-dom": "^18.1.0",
-    "react-draggable": "^4.4.6",
     "react-router-dom": "^6.3.0",
     "react-scripts": "^5.0.1",
     "react-test-renderer": "^18.1.0",
