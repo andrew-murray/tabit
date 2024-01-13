@@ -10,93 +10,15 @@ import ClearIcon from '@mui/icons-material/Clear';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { isMobile } from "./Mobile";
 import Tooltip from "./TabitTooltip";
-import { DndProvider } from 'react-dnd'
-import { useDrag, useDrop } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend'
 
-const PatternListItem = ({
-    index,
-    onReorderPatterns,
-    selectPattern,
-    patternName,
-    onRemove,
-    showHelp
-  }) =>
+const PatternListItem = (props) =>
 {
-
-  // fixme: at the moment, all of this doesn't work
-  // the onHover ... appropriately reorders the patterns
-  // and when the thing is dropped, it drops in the right place
-
-  // however UNTIL the thing is dropped.... the thing-being-dropped
-  // automagically starts rendering-in-place
-  // and the thing-being-dropped onto disappears
-
-
-  const ref = React.useRef(null)
-  const [{ handlerId }, drop] = useDrop({
-    accept: "pattern",
-    collect(monitor) {
-      return {
-        handlerId: monitor.getHandlerId(),
-      }
-    },
-    hover(item, monitor) {
-      if (!ref.current) {
-        return
-      }
-      const dragIndex = item.index;
-      const hoverIndex = index;
-      // Don't replace items with themselves
-      if (dragIndex === hoverIndex) {
-        return
-      }
-      // Determine rectangle on screen
-      const hoverBoundingRect = ref.current?.getBoundingClientRect()
-      // Get vertical middle
-      const hoverMiddleY =
-        (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2
-      // Determine mouse position
-      const clientOffset = monitor.getClientOffset()
-      // Get pixels to the top
-      const hoverClientY = clientOffset.y - hoverBoundingRect.top
-      // Only perform the move when the mouse has crossed half of the items height
-      // When dragging downwards, only move when the cursor is below 50%
-      // When dragging upwards, only move when the cursor is above 50%
-      // Dragging downwards
-      if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
-        return
-      }
-      // Dragging upwards
-      if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
-        return
-      }
-      if(onReorderPatterns)
-      {
-        // Time to actually perform the action
-        onReorderPatterns(dragIndex, hoverIndex)
-      }
-      // Note: we're mutating the monitor item here!
-      // Generally it's better to avoid mutations,
-      // but it's good here for the sake of performance
-      // to avoid expensive index searches.
-      item.index = hoverIndex
-    }
-  });
-  const [{ isDragging }, drag] = useDrag({
-    type: "pattern",
-    item: () => {
-      return { index }
-    },
-    collect: (monitor) => ({
-      isDragging: monitor.isDragging(),
-    }),
-  })
-  const opacity = isDragging ? 0 : 1;
-  if(onReorderPatterns)
-  {
-    drag(drop(ref));
-  }
+  const {
+    selectPattern,
+    index,
+    pattern,
+    onRemove
+  } = props;
   const selectCallback = React.useCallback(
     ()=>{
       if(selectPattern){selectPattern(index);}
@@ -111,25 +33,17 @@ const PatternListItem = ({
     },
     [index, onRemove]
   );
-  const style = onReorderPatterns ? {opacity, margin:4, background: '#002d6b', boxShadow: "1px 1px 1px 1px #000000"}
-    : {opacity, margin:4};
-  return (<div
-    key={"drawer-pattern" + index.toString()}
-    ref={ref}
-    data-handler-id={handlerId}
-    style={style}
-  >
-  <ListItem
-    onClick={selectCallback}
+  return (<ListItem
     button
-    disableRipple
+    key={"drawer-pattern" + index.toString()}
+    onClick={selectCallback}
   >
-    <ListItemText primary={patternName} />
+    <ListItemText primary={pattern.name} />
     {onRemove &&
       <ListItemSecondaryAction>
         <Tooltip
           title="Delete"
-          show={showHelp}
+          show={props.showHelp}
         >
           <IconButton
             edge="end"
@@ -141,17 +55,12 @@ const PatternListItem = ({
         </Tooltip>
       </ListItemSecondaryAction>
     }
-    </ListItem>
-
-    </div>
+  </ListItem>
   );
 };
 
-
 function DrawerContent(props)
 {
-  // const patternState = useState()
-
   return (<React.Fragment>
     {!isMobile ? <TabitBar placeholder /> : null }
     <div
@@ -160,13 +69,12 @@ function DrawerContent(props)
       <List>
         {(props.patterns ?? []).map( (pattern, index) =>
           <PatternListItem
-            patternName={pattern.name}
-            key={index}
+            pattern={pattern}
+            key={"pattern-key-" + String(index)}
             index={index}
             onRemove={props.onRemove}
             selectPattern={props.selectPattern}
             showHelp={props.showHelp}
-            onReorderPatterns={props.onReorderPatterns}
           />
         )}
         {props.onAdd &&
@@ -219,16 +127,13 @@ function PatternDrawer(props)
       keepMounted: true,
     }}
     >
-      <DndProvider backend={HTML5Backend}>
       <MemoizedDrawerContent
         patterns={props.patterns}
         onRemove={props.onRemove}
         selectPattern={props.selectPattern}
         onAdd={props.onAdd}
         showHelp={props.showHelp}
-        onReorderPatterns={props.onReorderPatterns}
       />
-      </DndProvider>
     </SwipeableDrawer>
   );
 };
