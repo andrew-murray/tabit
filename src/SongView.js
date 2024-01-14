@@ -37,11 +37,13 @@ class SongView extends React.Component
     selectedPattern: 0,
     patternSettings: this.props.songData.patternSettings,
     formatSettings: this.props.songData.formatSettings,
-    songData: {instruments: this.props.songData.instruments,
-        instrumentIndex: this.props.songData.instrumentIndex,
-        instrumentMask: this.props.songData.instrumentMask,
-        patterns: this.props.songData.patterns,
-        title: this.props.songData.title
+    songData: {
+      instruments: this.props.songData.instruments,
+      instrumentIndex: this.props.songData.instrumentIndex,
+      instrumentMask: this.props.songData.instrumentMask,
+      patterns: this.props.songData.patterns,
+      patternDisplayOrder: this.props.songData.patternDisplayOrder,
+      title: this.props.songData.title
     },
     settingsOpen: false,
     patternsOpen: true,
@@ -392,12 +394,12 @@ class SongView extends React.Component
       instruments : this.state.songData.instruments,
       instrumentIndex : this.state.songData.instrumentIndex,
       patterns : this.state.songData.patterns,
+      patternDisplayOrder: this.state.songDatapatternDisplayOrder,
       songName: this.state.songData.title,
       formatSettings: this.state.formatSettings,
       patternSettings : this.state.patternSettings,
       audioState: this.audio !== null ? this.audio.getExportState() : undefined,
-      version: "1.2.0"
-      // version: "1.3.0"
+      version: "1.3.0"
       // , timestamp: Date.now(), timestamps will mean we continuously regenerate new autosaves at new hashes... think this through
     };
   }
@@ -913,42 +915,16 @@ class SongView extends React.Component
   }
 
 
-
-  onReorderPatterns = (fromIndex, toIndex) =>
+  setPatternDisplayOrder = (patternDisplayIndices) =>
   {
-
-    if(this.audio){this.audio.stop();}
-
-    if( this.state.songData.patterns.length === 1 )
-    {
-      return;
-    }
-
-    let indices = [...Array(this.state.songData.patterns.length).keys()].filter(ix => ix !== fromIndex);
-    indices.splice(toIndex, 0, fromIndex);
-
-    console.log({fromIndex, toIndex, indices});
-    const newPatterns = indices.map( ix => this.state.songData.patterns[ix] );
-    const patternSettings =  indices.map( ix => this.state.patternSettings[ix] );
     const updatedSongData = Object.assign(
       Object.assign({}, this.state.songData),
-      {patterns: newPatterns}
+      {patternDisplayOrder: patternDisplayIndices}
     );
 
-    const samePatternIndex = indices[this.state.selectedPattern];
-    this.setState(
-      {
-        songData: updatedSongData,
-        patternSettings: patternSettings,
-        selectedPattern: samePatternIndex
-      },
-      ()=>{
-        // update audioController
-        // actually now, we don't need to do this, as audioController thinks in pattern names
-        // however ... maybe in future we will so I leave a blank-callback here
-      }
-    );
-
+    this.setState({
+      songData: updatedSongData
+    });
   }
 
   render()
@@ -1057,8 +1033,11 @@ class SongView extends React.Component
           selectPattern={this.selectPattern}
           onRemove={!this.state.locked ? this.removePattern : undefined}
           onAdd={!this.state.locked ? this.openPatternCreateDialog : undefined}
-          // onReorderPatterns={!this.state.locked ? this.onReorderPatterns : undefined}
           showHelp={this.state.showHelp}
+          patternDisplayOrder={this.state.songData.patternDisplayOrder}
+          // right now, we're always draggable unless we're editing!!
+          // in which case the drag and remove icon conflict, so ... we only allow removing          
+          setPatternDisplayOrder={this.state.locked ? this.setPatternDisplayOrder : undefined }
         />
         <SettingsDrawer
           open={this.state.settingsOpen}

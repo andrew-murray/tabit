@@ -35,6 +35,7 @@ class SongData {
     instrumentIndex,
     instrumentMask,
     patterns,
+    patternDisplayOrder,
     formatSettings,
     patternSettings,
     audioState
@@ -46,6 +47,7 @@ class SongData {
     this.instrumentIndex = instrumentIndex;
     this.instrumentMask = instrumentMask;
     this.patterns = patterns;
+    this.patternDisplayOrder = patternDisplayOrder;
     this.formatSettings = formatSettings;
     this.patternSettings = patternSettings;
     this.audioState = audioState;
@@ -210,6 +212,8 @@ function LoadJSON(jsonData, title, filename, fromHydrogen)
       {
         patternSettings = expectedPatternSettings;
       }
+      // if we don't have a pre-existing array order, then generate [0,1,2,3,...]
+      const patternDisplayOrder = jsonData.patternDisplayOrder ?? [...patterns.keys()];
       const audioState = jsonData.audioState ? loadAudioState(jsonData.audioState) : { tempo : 100.0 };
       resolve( new SongData(
         title,
@@ -218,6 +222,7 @@ function LoadJSON(jsonData, title, filename, fromHydrogen)
         instrumentIndex,
         instrumentMask,
         patterns,
+        patternDisplayOrder,
         formatSettings,
         patternSettings,
         audioState
