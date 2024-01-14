@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/tabit/static/css/main.1ed8a4ad.css",
-    "main.js": "/tabit/static/js/main.6e6814b5.js",
+    "main.js": "/tabit/static/js/main.abc6ba44.js",
     "index.html": "/tabit/index.html",
     "main.1ed8a4ad.css.map": "/tabit/static/css/main.1ed8a4ad.css.map",
-    "main.6e6814b5.js.map": "/tabit/static/js/main.6e6814b5.js.map"
+    "main.abc6ba44.js.map": "/tabit/static/js/main.abc6ba44.js.map"
   },
   "entrypoints": [
     "static/css/main.1ed8a4ad.css",
-    "static/js/main.6e6814b5.js"
+    "static/js/main.abc6ba44.js"
   ]
 }
