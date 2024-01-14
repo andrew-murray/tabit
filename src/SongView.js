@@ -120,7 +120,7 @@ class SongView extends React.Component
     }
   }
 
-  removePattern = (index) =>
+  removePattern = (displayIndex) =>
   {
     if(this.audio){this.audio.stop();}
 
@@ -130,12 +130,21 @@ class SongView extends React.Component
       return this.setError("Can't delete the last pattern")
     }
 
+    const index = this.state.songData.patternDisplayOrder[displayIndex];
     const indices = [...Array(this.state.songData.patterns.length).keys()].filter(ix => ix !== index);
     const newPatterns = indices.map( ix => this.state.songData.patterns[ix] );
     const patternSettings =  indices.map( ix => this.state.patternSettings[ix] );
+    // remove the pattern we're removing... (could alternatively remove the element at displayIndex)
+    const patternDisplayOrderWithoutDeleted = this.state.songData.patternDisplayOrder.filter(ix => ix !== index);
+    // decrement elements referencing a pattern higher-in-index than the one we've removed
+    const newPatternDisplayOrder = patternDisplayOrderWithoutDeleted.map(ix => ix >= index ? ix - 1 : ix);
+
     const updatedSongData = Object.assign(
       Object.assign({}, this.state.songData),
-      {patterns: newPatterns}
+      {
+        patterns: newPatterns,
+        patternDisplayOrder: newPatternDisplayOrder
+      }
     );
     // if ix === selected, use the lower pattern index
     // ix < selected shift down by one to keep the same pattern
@@ -144,7 +153,7 @@ class SongView extends React.Component
     // note that since we sometimes shift down, let's just bound ourselves sanely
     const boundedPatternIndex = Math.min( Math.max( 0, samePatternIndex ), indices.length - 1 );
     const removedPatternName = this.state.songData.patterns[index].name;
-
+    // const patternDisplayOrder = this.state.songData.patternDisplayOrder.
     this.setState(
       {
         songData: updatedSongData,
@@ -299,10 +308,14 @@ class SongView extends React.Component
       pattern.instrumentTracks,
       this.state.songData.instruments
     );
+    const newPatternDisplayOrder = this.state.songData.patternDisplayOrder.concat( this.state.songData.patterns.length );
 
     const updatedSongData = Object.assign(
       Object.assign({}, this.state.songData),
-      {patterns: this.state.songData.patterns.concat(pattern)}
+      {
+        patterns: this.state.songData.patterns.concat(pattern),
+        patternDisplayOrder: newPatternDisplayOrder
+      }
     );
 
     this.setState(
@@ -326,10 +339,13 @@ class SongView extends React.Component
       trackKeys
     );
     const patternSettings = notation.guessPerPatternSettings(pattern.instrumentTracks, this.state.songData.instruments);
-
+    const newPatternDisplayOrder = this.state.songData.patternDisplayOrder.concat( this.state.songData.patterns.length );
     const updatedSongData = Object.assign(
       Object.assign({}, this.state.songData),
-      {patterns: this.state.songData.patterns.concat(pattern)}
+      {
+        patterns: this.state.songData.patterns.concat(pattern),
+        patternDisplayOrder: newPatternDisplayOrder
+      }
     );
     this.setState(
       {songData: updatedSongData, patternSettings: this.state.patternSettings.concat(patternSettings)},
@@ -816,6 +832,11 @@ class SongView extends React.Component
     );
   };
 
+  selectPatternDisplayIndex = (displayIndex) => {
+    const index = this.state.songData.patternDisplayOrder[displayIndex];
+    this.selectPattern(index);
+  }
+
   onShare = () => {
     this.props.songStorage.put(this.getExportState())
       .then(songID =>{
@@ -1030,14 +1051,12 @@ class SongView extends React.Component
           onOpen={this.handlePatternsToggle}
           onClose={this.handlePatternsToggle}
           patterns={this.state.songData.patterns}
-          selectPattern={this.selectPattern}
+          selectPattern={this.selectPatternDisplayIndex}
           onRemove={!this.state.locked ? this.removePattern : undefined}
           onAdd={!this.state.locked ? this.openPatternCreateDialog : undefined}
           showHelp={this.state.showHelp}
-          patternDisplayOrder={this.state.songData.patternDisplayOrder}
-          // right now, we're always draggable unless we're editing!!
-          // in which case the drag and remove icon conflict, so ... we only allow removing          
-          setPatternDisplayOrder={this.state.locked ? this.setPatternDisplayOrder : undefined }
+          patternDisplayOrder={this.state.songData.patternDisplayOrder}       
+          setPatternDisplayOrder={!this.state.locked ? this.setPatternDisplayOrder : undefined }
         />
         <SettingsDrawer
           open={this.state.settingsOpen}
