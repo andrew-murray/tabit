@@ -410,7 +410,7 @@ class SongView extends React.Component
       instruments : this.state.songData.instruments,
       instrumentIndex : this.state.songData.instrumentIndex,
       patterns : this.state.songData.patterns,
-      patternDisplayOrder: this.state.songDatapatternDisplayOrder,
+      patternDisplayOrder: this.state.songData.patternDisplayOrder,
       songName: this.state.songData.title,
       formatSettings: this.state.formatSettings,
       patternSettings : this.state.patternSettings,
