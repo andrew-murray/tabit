@@ -91,7 +91,7 @@ const ENCCollection = {
       name: "Jam"
     },
     {
-      id: "65690f090574da7622ce89f3",
+      id: "665e0387e41b4d34e4fdfd52",
       name: "NuuNuu"
     },
     {
@@ -100,7 +100,7 @@ const ENCCollection = {
     },
     {
       id: "6565071354105e766fd6580a",
-      name: "Torchlit/P6K"
+      name: "P6K"
     },
     {
       id: "646e78f7b89b1e2299a433c9",
