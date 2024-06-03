@@ -79,6 +79,10 @@ const ENCCollection = {
       name: "Hellaswolla [OUT]"
     },
     {
+      id: "665e0a28e41b4d34e4fe0032",
+      name: "HoHo"
+    },
+    {
       id: "646e82adb89b1e2299a437f2",
       name: "Horse"
     },
