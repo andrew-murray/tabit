@@ -124,36 +124,38 @@ class TitleScreen extends React.Component
               container
               justifyContent="center"
             >
-              { this.state.songHistory.length > 0 &&
-                <Grid
-                  container
-                  direction="column"
-                  alignItems="center"
-                  justifyContent="center"
-                  lg={5}
-                  px={4}
-                  >
-                  <Paper>
-                    <History
-                      data={this.state.songHistory}
-                      onClick={navigateRecent}
-                    />
-                  </Paper>
-                </Grid>
-              }
               { this.state.songbookHistory.length > 0 &&
                 <Grid
                   container
                   direction="column"
                   alignItems="center"
                   justifyContent="center"
-                  lg={5}
+                  sm={5}
                   px={4}
+                  py={1}
                   >
                   <Paper>
                     <SongbookHistory
                       data={this.state.songbookHistory}
                       onClick={navigateSongbook}
+                    />
+                  </Paper>
+                </Grid>
+              }
+              { this.state.songHistory.length > 0 &&
+                <Grid
+                  container
+                  direction="column"
+                  alignItems="center"
+                  justifyContent="center"
+                  sm={5}
+                  px={4}
+                  py={1}
+                  >
+                  <Paper>
+                    <History
+                      data={this.state.songHistory}
+                      onClick={navigateRecent}
                     />
                   </Paper>
                 </Grid>

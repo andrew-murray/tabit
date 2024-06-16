@@ -10,9 +10,11 @@ import ListItem from '@mui/material/ListItem'
 import ListItemText from '@mui/material/ListItemText'
 import Divider from '@mui/material/Divider'
 
-const useStyles = makeStyles(() => {return {
+const useStyles = makeStyles((styles) => {return {
   root: {
-    height: 400,
+    [styles.breakpoints.up('sm')]: {
+      height: 400,
+    },
     minWidth: 200,
     maxWidth: 300,
     maxHeight: 300,
