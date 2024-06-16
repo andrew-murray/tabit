@@ -3,12 +3,15 @@ import { withStyles } from '@mui/styles';
 import FileImport from "./FileImport";
 import Button from '@mui/material/Button';
 import History from "./History";
+import SongbookHistory from "./SongbookHistory";
 import TitledDialog from "./TitledDialog"
 import Box from '@mui/material/Box';
 import Grid from "@mui/material/Grid";
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import Paper from '@mui/material/Paper';
+// expose staticSongbooks as history
+import StaticSongbookStorage from "./StaticSongbookStorage";
 import './App.css';
 
 const styles = (theme)=>{
@@ -38,12 +41,16 @@ class TitleScreen extends React.Component
 {
   state = {
     error: this.props.error,
-    songHistory: []
+    songHistory: [],
+    songbookHistory: []
   }
 
   componentDidMount = () => {
     this.setState(
-      {songHistory: this.props.songStorage.getLocalHistory()}
+      {
+        songHistory: this.props.songStorage.getLocalHistory(),
+        songbookHistory: StaticSongbookStorage.getAll()
+      }
     )
   }
 
@@ -71,6 +78,12 @@ class TitleScreen extends React.Component
             songName: song.name
           }
         }
+      );
+    };
+
+    const navigateSongbook = (songbookEntry) => {
+      this.props.navigate(
+        `/songbook/${songbookEntry.source}/${songbookEntry.data.id}`
       );
     };
 
@@ -107,21 +120,45 @@ class TitleScreen extends React.Component
             <Typography variant="h2">tabit</Typography>
             <Typography >I read .h2songs and write tab</Typography >
             {controls}
-            { this.state.songHistory.length > 0 &&
-              <Grid
-                container
-                direction="column"
-                alignItems="center"
-                justifyContent="center"
-                >
-                <Paper>
-                  <History
-                    data={this.state.songHistory}
-                    onClick={navigateRecent}
-                  />
-                </Paper>
-              </Grid>
-            }
+            <Grid
+              container
+              justifyContent="center"
+            >
+              { this.state.songHistory.length > 0 &&
+                <Grid
+                  container
+                  direction="column"
+                  alignItems="center"
+                  justifyContent="center"
+                  lg={5}
+                  px={4}
+                  >
+                  <Paper>
+                    <History
+                      data={this.state.songHistory}
+                      onClick={navigateRecent}
+                    />
+                  </Paper>
+                </Grid>
+              }
+              { this.state.songbookHistory.length > 0 &&
+                <Grid
+                  container
+                  direction="column"
+                  alignItems="center"
+                  justifyContent="center"
+                  lg={5}
+                  px={4}
+                  >
+                  <Paper>
+                    <SongbookHistory
+                      data={this.state.songbookHistory}
+                      onClick={navigateSongbook}
+                    />
+                  </Paper>
+                </Grid>
+              }
+            </Grid>
           </Box>
         </Grid>
         { !!this.state.error &&

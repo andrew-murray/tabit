@@ -131,6 +131,13 @@ const get = (songbookID) => {
   }
 };
 
-const storage = { get };
+const getAll = () => {
+  return Object.values(Songbooks).map( e => { return {
+    source: "static",
+    data: e
+  };});
+};
+
+const storage = { get, getAll };
 
 export default storage;

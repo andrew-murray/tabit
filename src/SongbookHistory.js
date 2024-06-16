@@ -35,14 +35,14 @@ function History(props)
   return (
     <Box className={classes.root}>
       <Paper>
-        <Typography>Recent Songs</Typography>
+        <Typography>Songbooks</Typography>
         <Divider />
         <List>
               {[...items.keys()].map ( x => renderRow({
                 index : x,
-                name: items[x].name,
-                id: items[x].id,
-                date: items[x].date,
+                name: items[x].data.name,
+                id: items[x].data.id,
+                date: items[x].data.date,
                 onClick: ()=>{if(props.onClick){props.onClick(items[x]);}}
               }))}
         </List>
