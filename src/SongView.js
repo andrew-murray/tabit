@@ -604,6 +604,8 @@ class SongView extends React.Component
           this.audio.instrumentIndex = instrumentIndex;
           let recordFailures = [];
           this.audio.populateSamples(
+            this.state.songData.instruments,
+            this.audio.instrumentGains,
             instrumentIndex,
             this.state.songData.patterns[this.state.selectedPattern].instrumentTracks,
             recordFailures
