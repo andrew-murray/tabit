@@ -113,9 +113,32 @@ const ENCCollection = {
   ]
 };
 
+
+const PucaiCollection = {
+  id: "pucai-samhuinn-2024",
+  name: "Pucaí Samhuinn 2024",
+  style: {
+    grid: {
+      backgroundColor: '#00ff8f',
+      color: "#000000"
+    }
+  },
+  songs: [
+    {
+      id: "66e218bee41b4d34e42dcf35",
+      name: "FoonkToonk"
+    },
+    {
+      id: "66e2134cacd3cb34a882054f",
+      name:  "GallowDance"
+    }
+  ]
+};
+
 const Songbooks = {
   "beasties-beltane-2023" : Beastie2023Collection,
-  "enc" : ENCCollection
+  "enc" : ENCCollection,
+  "pucai" : PucaiCollection,
 };
 
 
@@ -132,7 +155,9 @@ const get = (songbookID) => {
 };
 
 const getAll = () => {
-  return Object.values(Songbooks).map( e => { return {
+  // the pucai book is hidden for now
+  // Object.values(Songbooks)
+  return [Beastie2023Collection, ENCCollection].map( e => { return {
     source: "static",
     data: e
   };});
