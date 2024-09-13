@@ -16,7 +16,9 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
 import { makeStyles, withStyles } from '@mui/styles';
-import Tooltip from "./TabitTooltip";
+
+import Tooltip from "../common/TabitTooltip";
+
 import VolumeWidget from "./VolumeWidget";
 
 const useStyles = makeStyles(() => ({

@@ -6,8 +6,8 @@ import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Slider from '@mui/material/Slider';
 import Grid from '@mui/material/Grid';
-import Tooltip from './TabitTooltip';
-import { isMobile } from "./Mobile";
+import Tooltip from './common/TabitTooltip';
+import { isMobile } from "./common/Mobile";
 
 function PlaybackControls(props)
 {

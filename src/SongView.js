@@ -2,7 +2,7 @@ import React from 'react';
 import Pattern from "./Pattern";
 import PlaybackControls from "./PlaybackControls";
 import notation from "./notation";
-import InstrumentConfig from "./instrumentConfig";
+import InstrumentConfig from "./instrumentConfig/InstrumentConfig";
 import { createInstrumentMask, guessShortName } from "./instrumentation";
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -12,8 +12,8 @@ import Snackbar from '@mui/material/Snackbar';
 import TabitBar from "./TabitBar";
 import PatternDrawer from "./PatternDrawer"
 import SettingsDrawer from "./SettingsDrawer"
-import RenameDialog from "./RenameDialog"
-import { isMobile } from "./Mobile";
+import RenameDialog from "./common/RenameDialog"
+import { isMobile } from "./common/Mobile";
 import SharingDialog from "./SharingDialog";
 import PatternCreateDialog from "./PatternCreateDialog";
 import Toolbar from '@mui/material/Toolbar';

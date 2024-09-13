@@ -11,7 +11,7 @@ import SparseTrack from "./SparseTrack";
 import {DefaultSettings} from "./FormatSettings";
 import notation from "./notation"
 import Audio from "./Audio"
-import AVAILABLE_SAMPLES from "./samples.json"
+import AVAILABLE_SAMPLES from "./common/samples.json"
 
 const TRACK_FORMAT_SPARSE = true;
 

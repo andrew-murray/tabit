@@ -2,7 +2,7 @@ import React from 'react';
 import notation from "./notation"
 import Typography from '@mui/material/Typography';
 import { withStyles } from '@mui/styles';
-import { isMobile } from "./Mobile";
+import { isMobile } from "./common/Mobile";
 import SparseTrack from "./SparseTrack";
 
 const styles = (theme)=>({

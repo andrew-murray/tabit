@@ -13,8 +13,8 @@ import LockIcon from '@mui/icons-material/Lock';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
 import ViewListIcon from '@mui/icons-material/ViewList';
 import CalendarViewDayIcon from '@mui/icons-material/CalendarViewDay';
-import {isMobile} from "./Mobile";
-import Tooltip from "./TabitTooltip";
+import {isMobile} from "./common/Mobile";
+import Tooltip from "./common/TabitTooltip";
 
 function TabitBar(props) {
   // we need to render "null" appbars for spacing purposes

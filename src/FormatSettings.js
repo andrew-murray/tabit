@@ -11,7 +11,7 @@ import Select from '@mui/material/Select'
 import notation from "./notation"
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import Tooltip from './TabitTooltip';
+import Tooltip from './common/TabitTooltip';
 
 function camelToReadable(s)
 {

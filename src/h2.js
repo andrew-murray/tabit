@@ -4,7 +4,7 @@ import Track from "./Track";
 import SparseTrack from "./SparseTrack";
 import {XMLParser} from "fast-xml-parser";
 import { calculateResolution } from "./utilities";
-import AVAILABLE_SAMPLES from "./samples.json"
+import AVAILABLE_SAMPLES from "./common/samples.json"
 
 function calculatePatternResolution(pattern, size)
 {

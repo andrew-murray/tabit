@@ -16,10 +16,12 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import DispatchingDialog from "./DispatchingDialog"
-import RenameDialog from "./RenameDialog";
 import { useTheme } from '@mui/styles';
-import AVAILABLE_SAMPLES from "./samples.json";
+
+import DispatchingDialog from "../common/DispatchingDialog"
+import RenameDialog from "../common/RenameDialog";
+import AVAILABLE_SAMPLES from "../common/samples.json";
+
 import InstrumentTable from "./InstrumentTable";
 
 class EditInstrumentSymbolDialog extends React.Component

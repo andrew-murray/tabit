@@ -1,6 +1,6 @@
 import Audio from "./Audio"
 import * as Tone from "tone";
-import AVAILABLE_SAMPLES from "./samples.json";
+import AVAILABLE_SAMPLES from "./common/samples.json";
 import Track from "./Track";
 
 // we schedule for a delay of 50ms to allow the audio context to catch up

@@ -8,9 +8,9 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import TabitBar from "./TabitBar";
 import ClearIcon from '@mui/icons-material/Delete';
 import AddCircleIcon from '@mui/icons-material/Add';
-import { isMobile } from "./Mobile";
+import { isMobile } from "./common/Mobile";
 import DragHandleIcon from '@mui/icons-material/DragHandle';
-import Tooltip from "./TabitTooltip";
+import Tooltip from "./common/TabitTooltip";
 import {arrayMove, useSortable, SortableContext, 
   verticalListSortingStrategy} from '@dnd-kit/sortable';
 import {CSS} from '@dnd-kit/utilities';

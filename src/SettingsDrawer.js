@@ -6,11 +6,11 @@ import Button from '@mui/material/Button';
 import Divider from "@mui/material/Divider";
 import Box from "@mui/material/Box";
 import {FormatSettings} from "./FormatSettings";
-import { isMobile } from "./Mobile";
+import { isMobile } from "./common/Mobile";
 import TabitBar from "./TabitBar";
 import Switch from '@mui/material/Switch';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import Tooltip from "./TabitTooltip";
+import Tooltip from "./common/TabitTooltip";
 
 function SettingsDrawer(props)
 {

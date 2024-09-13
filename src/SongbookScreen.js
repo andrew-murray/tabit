@@ -13,7 +13,7 @@ import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction';
 import AudioFileIcon from '@mui/icons-material/AudioFile';
 import HomeIcon from '@mui/icons-material/Home';
 import Paper from "@mui/material/Paper";
-import Tooltip from "./TabitTooltip";
+import Tooltip from "./common/TabitTooltip";
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import Divider from '@mui/material/Divider'
 import AddSongDialog from "./AddSongDialog";

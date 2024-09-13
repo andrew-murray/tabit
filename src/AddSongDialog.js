@@ -1,22 +1,6 @@
-import DispatchingDialog from "./DispatchingDialog";
+import DispatchingDialog from "./common/DispatchingDialog";
 import Button from '@mui/material/Button';
 import FileImport from "./FileImport";
-
-/*
-
-<FileImport
-          style={{margin: "1em"}}
-          variant="contained"
-          onImport={handleFileImport}
-          accept=".tabit,.h2song"
-          color="secondary"
-          />
-
-          &/
-*/
-
-
-
 
 export default function AddSongDialog (props) {
 

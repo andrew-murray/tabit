@@ -115,7 +115,7 @@ const ENCCollection = {
 
 
 const PucaiCollection = {
-  id: "pucai-samhuinn-2024",
+  id: "pucai",
   name: "Pucaí Samhuinn 2024",
   style: {
     grid: {
@@ -138,7 +138,7 @@ const PucaiCollection = {
 const Songbooks = {
   "beasties-beltane-2023" : Beastie2023Collection,
   "enc" : ENCCollection,
-  "pucai" : PucaiCollection,
+  "pucai" : PucaiCollection
 };
 
 

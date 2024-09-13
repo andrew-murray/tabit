@@ -1,5 +1,4 @@
 import React from 'react';
-import {isMobile} from "./Mobile";
 import { withStyles } from '@mui/styles';
 import IconButton from '@mui/material/IconButton';
 import Slider from '@mui/material/Slider';
@@ -8,6 +7,8 @@ import VolumeMuteIcon from '@mui/icons-material/VolumeMute';
 import VolumeDownIcon from '@mui/icons-material/VolumeDown';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import ClickNHold from 'react-click-n-hold';
+
+import {isMobile} from "../common/Mobile";
 
 const InlinableIconButton = withStyles({
   root: {
