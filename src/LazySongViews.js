@@ -2,7 +2,7 @@ import React from 'react'
 import SongLoaders from "./SongLoaders"
 import SongView from "./SongView"
 import hash from "object-hash";
-import h2 from "./h2"
+import h2 from "./data/h2"
 import WaitingMessage from "./WaitingMessage";
 import {
   Navigate

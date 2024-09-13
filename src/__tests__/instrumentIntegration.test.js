@@ -1,9 +1,16 @@
 // instrumentIntegration.test.js
 
 import fs from "fs"
-import Track from "../Track"
-import SparseTrack from "../SparseTrack"
-import { DEFAULT_INSTRUMENT_SYMBOLS, figureClickyInstruments, figureDjembes, figureInstruments, figureShakers, figureSnares } from "../instrumentation"
+import Track from "../data/Track"
+import SparseTrack from "../data/SparseTrack"
+import { 
+  DEFAULT_INSTRUMENT_SYMBOLS,
+  figureClickyInstruments,
+  figureDjembes,
+  figureInstruments,
+  figureShakers,
+  figureSnares
+} from "../data/instrumentation"
 
 
 function createObjects(state)

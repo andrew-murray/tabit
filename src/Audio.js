@@ -1,4 +1,4 @@
-import {findHCF} from "./utilities";
+import {findHCF} from "./data/utilities";
 
 class Audio
 {

@@ -1,9 +1,9 @@
 import React from 'react';
 import Pattern from "./Pattern";
 import PlaybackControls from "./PlaybackControls";
-import notation from "./notation";
 import InstrumentConfig from "./instrumentConfig/InstrumentConfig";
-import { createInstrumentMask, guessShortName } from "./instrumentation";
+import { createInstrumentMask, guessShortName } from "./data/instrumentation";
+import notation from "./data/notation";
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Alert from '@mui/lab/Alert';

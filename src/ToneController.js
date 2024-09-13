@@ -1,7 +1,7 @@
-import Audio from "./Audio"
 import * as Tone from "tone";
-import AVAILABLE_SAMPLES from "./common/samples.json";
-import Track from "./Track";
+import AVAILABLE_SAMPLES from "./data/samples.json";
+import Audio from "./Audio"
+import Track from "./data/Track";
 
 // we schedule for a delay of 50ms to allow the audio context to catch up
 const DEFAULT_AUDIO_DELAY = 0.05;

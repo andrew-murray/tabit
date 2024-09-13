@@ -20,7 +20,7 @@ import { useTheme } from '@mui/styles';
 
 import DispatchingDialog from "../common/DispatchingDialog"
 import RenameDialog from "../common/RenameDialog";
-import AVAILABLE_SAMPLES from "../common/samples.json";
+import AVAILABLE_SAMPLES from "../data/samples.json";
 
 import InstrumentTable from "./InstrumentTable";
 

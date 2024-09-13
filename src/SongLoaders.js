@@ -1,17 +1,18 @@
-import kuva from "./kuva.json";
+import kuva from "./data/kuva.json";
 import {
   activeInstrumentation,
   createInstrumentMask,
   DEFAULT_INSTRUMENT_SYMBOLS,
   figureInstruments,
   guessShortName
-} from "./instrumentation";
-import Track from "./Track";
-import SparseTrack from "./SparseTrack";
+} from "./data/instrumentation";
+import notation from "./data/notation"
+import Track from "./data/Track";
+import SparseTrack from "./data/SparseTrack";
+import AVAILABLE_SAMPLES from "./data/samples.json"
+
 import {DefaultSettings} from "./FormatSettings";
-import notation from "./notation"
 import Audio from "./Audio"
-import AVAILABLE_SAMPLES from "./common/samples.json"
 
 const TRACK_FORMAT_SPARSE = true;
 

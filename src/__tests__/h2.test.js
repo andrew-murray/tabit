@@ -1,6 +1,6 @@
 // h2.test.js
 
-import h2 from "../h2"
+import h2 from "../data/h2"
 import fs from "fs"
 
 const updateSerialisations = false;

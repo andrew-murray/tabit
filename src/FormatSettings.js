@@ -8,7 +8,7 @@ import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
 import Switch from '@mui/material/Switch'
 import Select from '@mui/material/Select'
-import notation from "./notation"
+import notation from "./data/notation"
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Tooltip from './common/TabitTooltip';

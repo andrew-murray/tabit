@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import notation from "./notation"
+import notation from "./data/notation"
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import Button from '@mui/material/Button';
 import Divider from "@mui/material/Divider";
