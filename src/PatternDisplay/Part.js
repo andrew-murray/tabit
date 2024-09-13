@@ -1,9 +1,9 @@
 import React from 'react';
-import notation from "./data/notation"
 import Typography from '@mui/material/Typography';
 import { withStyles } from '@mui/styles';
-import { isMobile } from "./common/Mobile";
-import SparseTrack from "./data/SparseTrack";
+import { isMobile } from "../common/Mobile";
+import notation from "../data/notation"
+import SparseTrack from "../data/SparseTrack";
 
 const styles = (theme)=>({
   root: {

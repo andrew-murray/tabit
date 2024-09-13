@@ -1,5 +1,5 @@
 import React from 'react';
-import Pattern from "./Pattern";
+import Pattern from "./PatternDisplay/Pattern";
 import PlaybackControls from "./PlaybackControls";
 import InstrumentConfig from "./instrumentConfig/InstrumentConfig";
 import { createInstrumentMask, guessShortName } from "./data/instrumentation";
