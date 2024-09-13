@@ -6,7 +6,6 @@ import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import CustomTransferList from "./CustomTransferList";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
@@ -15,6 +14,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
+import CustomTransferList from "./CustomTransferList";
 
 function PatternCreateDialog(props)
 {

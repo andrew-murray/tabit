@@ -1,16 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import notation from "./data/notation"
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import Button from '@mui/material/Button';
 import Divider from "@mui/material/Divider";
 import Box from "@mui/material/Box";
-import {FormatSettings} from "./FormatSettings";
-import { isMobile } from "./common/Mobile";
-import TabitBar from "./TabitBar";
 import Switch from '@mui/material/Switch';
 import FormControlLabel from '@mui/material/FormControlLabel';
+import { isMobile } from "./common/Mobile";
 import Tooltip from "./common/TabitTooltip";
+import notation from "./data/notation"
+import {FormatSettings} from "./FormatSettings";
+import TabitBar from "./TabitBar";
 
 function SettingsDrawer(props)
 {
