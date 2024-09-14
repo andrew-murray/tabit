@@ -1,4 +1,4 @@
-import Track from '../Track'
+import Track from '../data/Track'
 
 test('unit test fromPositions', () => {
   const positions = [

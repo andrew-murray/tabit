@@ -2,9 +2,9 @@
 
 import fs from "fs"
 
-import notation from "../notation"
-import SparseTrack from "../SparseTrack"
-import Track from "../Track"
+import notation from "../data/notation"
+import SparseTrack from "../data/SparseTrack"
+import Track from "../data/Track"
 
 function formatAsPage(state, instruments, config = {})
 {
