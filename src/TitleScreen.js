@@ -4,7 +4,7 @@ import FileImport from "./FileImport";
 import Button from '@mui/material/Button';
 import History from "./History";
 import SongbookHistory from "./SongbookHistory";
-import TitledDialog from "./TitledDialog"
+import TitledDialog from "./common/TitledDialog"
 import Box from '@mui/material/Box';
 import Grid from "@mui/material/Grid";
 import Typography from '@mui/material/Typography';
