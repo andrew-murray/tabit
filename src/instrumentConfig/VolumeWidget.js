@@ -9,6 +9,7 @@ import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import ClickNHold from 'react-click-n-hold';
 
 import {isMobile} from "../common/Mobile";
+import TitledDialog from "../common/TitledDialog";
 
 const InlinableIconButton = withStyles({
   root: {
@@ -16,10 +17,33 @@ const InlinableIconButton = withStyles({
   }
 })(IconButton);
 
+function VolumeDialog(props)
+{
+  return <TitledDialog
+    open={props.open}
+    onClose={props.onClose}
+    title={props.instrumentName + " Volume"}
+  >
+    <div
+      style={{display: "flex", justifyContent: "center"}}
+    >
+      <Slider
+        value={props.sliderValue}
+        orientation={props.orientation=="landscape" ? "horizontal" : "vertical"}
+        aria-labelledby={props.orientation=="landscape" ? "horizontal-slider" : "vertical-slider"}
+        onChange={props.onChange}
+        style={props.orientation == "landscape" ? {minWidth: "50vw", marginLeft: 25} : {minHeight: "50vh", marginTop: 25}}
+      />
+    </div>
+  </TitledDialog>
+}
+
 export default function VolumeWidget(props)
 {
+  // on desktop we have click'n'hold and drag semantics
+  // on mobile, on long-press we open a dialog
   const [active, setActive] = React.useState(false);
-  const [sliderValue, setSliderValue] = React.useState(100);
+  const [dialogActive, setDialogActive] = React.useState(false);
   const sliderRef = React.useRef(null);
   const height = props.height ? props.height / 3 : 24;
   const FixedHeightStylings = {
@@ -35,7 +59,6 @@ export default function VolumeWidget(props)
   // potential fixes - seperate the audio and the visual state and/or create smaller state objects
   const setVolume = (event, value) =>
   {
-    setSliderValue(value);
     if( props.onChange )
     {
       props.onChange( value );
@@ -54,7 +77,7 @@ export default function VolumeWidget(props)
   };
 
   const holdMobile= (start, event)=>{
-    if(!active){ setActive(true); }
+    if(!dialogActive){ setDialogActive(true); }
   };
 
   const holdEndDesktop = (e)=>{
@@ -63,7 +86,6 @@ export default function VolumeWidget(props)
 
   const commitVolume = (event,value)=>
   {
-    if( isMobile ){ setActive(false); }
     setVolume(event,value);
   };
 
@@ -72,7 +94,17 @@ export default function VolumeWidget(props)
     props.onMuteEvent(!props.muted);
   };
 
-  return (
+  const sliderValue = props.volume * 100;
+  return <>
+    {dialogActive && <VolumeDialog 
+        open={dialogActive}
+        onClose={()=>{setDialogActive(false)}}
+        instrumentName={props.instrumentName}
+        onChange={commitVolume}
+        orientation={props.orientation}
+        sliderValue={sliderValue}
+      />
+    }
     <ClickNHold
       time={0.5} // Time to keep pressing. Default is 2
       onClickNHold={isMobile ? holdMobile : holdDesktop}
@@ -80,7 +112,7 @@ export default function VolumeWidget(props)
       <InlinableIconButton disableRipple disableFocusRipple onClick={onMuteChange} >
         <div style={SliderStyles}>
           <Slider
-            defaultValue={100}
+            value={sliderValue}
             orientation="vertical"
             aria-labelledby="vertical-slider"
             onChange={commitVolume}
@@ -95,5 +127,5 @@ export default function VolumeWidget(props)
         </div>
       </InlinableIconButton>
     </ClickNHold>
-  );
+  </>
 }
