@@ -29,10 +29,10 @@ function VolumeDialog(props)
     >
       <Slider
         value={props.sliderValue}
-        orientation={props.orientation=="landscape" ? "horizontal" : "vertical"}
-        aria-labelledby={props.orientation=="landscape" ? "horizontal-slider" : "vertical-slider"}
+        orientation={props.orientation ==="landscape" ? "horizontal" : "vertical"}
+        aria-labelledby={props.orientation ==="landscape" ? "horizontal-slider" : "vertical-slider"}
         onChange={props.onChange}
-        style={props.orientation == "landscape" ? {minWidth: "50vw", marginLeft: 25} : {minHeight: "50vh", marginTop: 25}}
+        style={props.orientation === "landscape" ? {minWidth: "50vw", marginLeft: 25} : {minHeight: "50vh", marginTop: 25}}
       />
     </div>
   </TitledDialog>
