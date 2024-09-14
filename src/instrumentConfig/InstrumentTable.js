@@ -127,6 +127,9 @@ function InstrumentTableBody(props)
   );
 }
 
+const getOrientation = () =>
+  window.screen.orientation.type
+
 function InstrumentTableHeader(props)
 {
   return (
@@ -168,8 +171,11 @@ function InstrumentTableHeader(props)
               <Grid item xs={6}>
                 <VolumeWidget
                   muted={props.instruments[x].muted}
+                  volume={props.instruments[x].volume}
                   onChange={(value)=>{props.onVolumeEvent( {index: x, volume: value / 100.0}); }}
                   onMuteEvent={(muted)=>{props.onVolumeEvent( {index: x, muted: muted})}}
+                  instrumentName={props.instruments[x].name}
+                  orientation={props.orientation}
                 />
               </Grid>
               </Grid>
@@ -181,6 +187,28 @@ function InstrumentTableHeader(props)
 
 export default function InstrumentTable(props)
 {
+
+  const [orientation, setOrientation] =
+    React.useState(getOrientation())
+  const updateOrientation = event => {
+    setOrientation(
+      window.screen.height >= window.screen.width ? "portrait" : "landscape"
+    )
+  };
+
+  React.useEffect(() => {
+    window.addEventListener(
+      'resize',
+      updateOrientation
+    )
+    return () => {
+      window.removeEventListener(
+        'resize',
+        updateOrientation
+      )
+    }
+  }, []);
+
   const classes = useStyles();
 
   let [open, setOpen] = React.useState( false );
@@ -212,6 +240,7 @@ export default function InstrumentTable(props)
     <Table className={classes.table} aria-label="simple table">
       <TableHead>
         <InstrumentTableHeader
+          orientation={orientation}
           showExpandControls={true}
           expanded={open}
           showHelp={props.showHelp}
@@ -228,6 +257,7 @@ export default function InstrumentTable(props)
       <Table>
         <TableHead>
           <InstrumentTableHeader
+            orientation={orientation}
             showExpandControls={false}
             showHiddenExpandControls={true}
             expanded={open}
