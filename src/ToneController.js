@@ -377,8 +377,14 @@ class ToneController
           if(matchingEntries.length !== 1)
           {
             // an error has occurred, to be handled later
+            // FIXME: Figure out what the logic problem is here
+            // Presumably an old serialisation format
+            // gain.connect(this.gain);
           }
-          gain.connect(instrumentGains[matchingEntries[0][0]].gain);
+          else
+          {
+            gain.connect(instrumentGains[matchingEntries[0][0]].gain);
+          }
         }
         else
         {
