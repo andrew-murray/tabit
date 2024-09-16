@@ -152,11 +152,15 @@ class PartByBeat extends React.Component
       const makeClasses = beat => startBeats.map(sb => "partNote"+ (beat + sb).toString()).join(" ");
       const numberIndicator = numberMarker ? "-number" : "";
       const createBeatFragment = (beat) => {
+        const beatStart = beat * this.props.config.beatResolution;
+        const beatEndIndex = Math.min( beat + 1, beatsOnLine );
+        const beatEnd = beatEndIndex * this.props.config.beatResolution;
+        const notesInThisBeat = (beatEnd - beatStart) / this.props.resolution;
         const editable = interactive && this.props.modifyPatternLocation;
         let renderedBeat = null;
         if(numberMarker)
         {
-          renderedBeat = { content: [((beat+1) % 10).toString()].concat(Array(notesInBeat-1).fill(this.props.config.numberRestMark)) };
+          renderedBeat = { content: [((beat+1) % 10).toString()].concat(Array(notesInThisBeat-1).fill(this.props.config.numberRestMark)) };
         }
         else
         {
@@ -168,11 +172,12 @@ class PartByBeat extends React.Component
             this.props.resolution,
             useAlternativeResolution ? candidateResolution : null,
             // note we disregard lineResolution offsets, as we're passing tracks that have done the same
-            beat * this.props.config.beatResolution,
-            (beat+1) * this.props.config.beatResolution
+            beatStart,
+            beatEnd
           );
         }
-        const lastNote = notesInBeat - 1;
+        const lastNote = notesInThisBeat - 1;
+        const lastBeat = Math.ceil(beatsOnLine) - 1;
         return <React.Fragment key={"fragment-beat-"+ (beat + startBeats[0]).toString() + numberIndicator}>
           <Typo
             variant="subtitle1"
@@ -187,7 +192,7 @@ class PartByBeat extends React.Component
                   component="span"
                   style={Object.assign( renderedBeat.alternative ? {textDecoration: "underline"} : {}, editable ? interactiveStyles : {})}
                   className={editable && !isMobile ? "hoverableNote" : undefined}
-                  onClick={!editable? undefined : ()=>{
+                  onClick={!editable? undefined : ()=>  {
                     const resolution = renderedBeat.alternative ? candidateResolution : this.props.resolution;
                     const placesToEdit = startBeats.map( sb => ( (sb + beat) * this.props.config.beatResolution + noteIndex * resolution));
                     this.props.modifyPatternLocation(
@@ -215,16 +220,17 @@ class PartByBeat extends React.Component
             }
           </Typo>
           <Typo variant="subtitle1" component="span" key={"span-beat-marker-" + (beat + startBeats[0]).toString() + numberIndicator} style={{display: "inline-block"}}>
-            {(this.props.config.showBeatMark && (beat !== beatsOnLine - 1)) ? this.props.config.beatMark : ""}
+            {(this.props.config.showBeatMark && (beat !== lastBeat)) ? this.props.config.beatMark : ""}
           </Typo>
         </React.Fragment>
       };
+      const roundedBeatsOnLine = Math.ceil(beatsOnLine);
       return (
         <Typo key={"pattern-line-" + lineIndex} component="div">
           {prefix && <Typo variant="subtitle1" component="span" key={"line-prefix-" + lineIndex} style={{display: "inline-block"}}>{prefix}</Typo>}
           <Typo variant="subtitle1" component="span" key={"line-start-" + lineIndex} style={{display: "inline-block"}}>{this.props.config.lineMark}</Typo>
           {
-            [...Array(beatsOnLine).keys()].map( beatIndex => createBeatFragment(beatIndex) )
+            [...Array(roundedBeatsOnLine).keys()].map( beatIndex => createBeatFragment(beatIndex) )
           }
           <Typo variant="subtitle1" component="span" key={"line-end-" + lineIndex}>{this.props.config.lineMark}</Typo>
           {showRepeatCount && <Typo variant="subtitle1" component="span" key={"rep-marker"}>x{startBeats.length.toString()}</Typo>}
