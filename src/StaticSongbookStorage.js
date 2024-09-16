@@ -116,7 +116,7 @@ const ENCCollection = {
 
 const PucaiCollection = {
   id: "pucai",
-  name: "Pucaí Samhuinn 2024",
+  name: "Púcaí Samhuinn 2024",
   style: {
     grid: {
       backgroundColor: '#00ff8f',
@@ -131,6 +131,14 @@ const PucaiCollection = {
     {
       id: "66e2134cacd3cb34a882054f",
       name:  "GallowDance"
+    },
+    {
+      id: "66e86f2be41b4d34e4315ffa",
+      name: "Standing Stone"
+    },
+    {
+      id: "66e87526e41b4d34e431625a",
+      name: "W.O.S.S."
     }
   ]
 };
