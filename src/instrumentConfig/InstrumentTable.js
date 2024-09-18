@@ -128,7 +128,7 @@ function InstrumentTableBody(props)
 }
 
 const getOrientation = () =>
-  window.screen.orientation.type
+  window.screen.height >= window.screen.width ? "portrait" : "landscape";
 
 function InstrumentTableHeader(props)
 {
@@ -192,7 +192,7 @@ export default function InstrumentTable(props)
     React.useState(getOrientation())
   const updateOrientation = event => {
     setOrientation(
-      window.screen.height >= window.screen.width ? "portrait" : "landscape"
+      getOrientation()
     )
   };
 
