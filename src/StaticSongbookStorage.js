@@ -125,19 +125,19 @@ const PucaiCollection = {
   },
   songs: [
     {
-      id: "66e218bee41b4d34e42dcf35",
+      id: "66ec7838e41b4d34e433610c",
       name: "FoonkToonk"
     },
     {
-      id: "66e2134cacd3cb34a882054f",
+      id: "66ec78ceacd3cb34a88799ce",
       name:  "GallowDance"
     },
     {
-      id: "66e87998acd3cb34a8859bb6",
+      id: "66ec7da3ad19ca34f8a92315 ",
       name: "Standing Stone"
     },
     {
-      id: "66e87526e41b4d34e431625a",
+      id: "66ec73b1ad19ca34f8a91f56",
       name: "W.O.S.S."
     }
   ]
