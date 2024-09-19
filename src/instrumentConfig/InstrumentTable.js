@@ -139,9 +139,15 @@ function InstrumentTableHeader(props)
          && <NoDividerCenterTableCell key={"instrumentPanel-row-instrument"}></NoDividerCenterTableCell> }
         {[...Array(props.instruments.length).keys()].map(x=>
             <NoDividerCenterTableCell key={"instrumentPanel-row-header-cell-" + x.toString()}>
-              <Button onClick={()=>{props.onVolumeEvent({index: x, solo: true});}} color="primary">
-                <Typography>{props.instruments[x].name}</Typography>
-              </Button>
+
+              <Tooltip
+                title={`Solo ${props.instruments[x].name}`}
+                show={props.showHelp}
+               >
+                <Button onClick={()=>{props.onVolumeEvent({index: x, solo: true});}} color="primary">
+                  <Typography>{props.instruments[x].name}</Typography>
+                </Button>
+              </Tooltip>
             </NoDividerCenterTableCell>)}
       </TableRow>
       <TableRow key={"instrumentPanel-row-controls"}>
