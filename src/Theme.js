@@ -16,8 +16,8 @@ const CreateTheme = () => {
             main: '#00c853',
           },
           background: {
-            default: prefersDarkMode ? '#242424' : "#ffffff",
-            paper: prefersDarkMode ? '#303030' : '#fefefe'
+            default: prefersDarkMode ? '#242424' : "#F6F6F6",
+            paper: prefersDarkMode ? '#303030' : '#f0f0f0'
           }
         },
       }),
