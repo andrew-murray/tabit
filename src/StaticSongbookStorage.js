@@ -167,9 +167,9 @@ const get = (songbookID) => {
 };
 
 const getAll = () => {
-  // the pucai book is hidden for now
-  // Object.values(Songbooks)
-  return [Beastie2023Collection, ENCCollection].map( e => { return {
+  // the pucai book is shown for now
+  // [Beastie2023Collection, ENCCollection]
+  return Object.values(Songbooks).map( e => { return {
     source: "static",
     data: e
   };});
