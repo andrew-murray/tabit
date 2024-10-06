@@ -132,6 +132,7 @@ const getOrientation = () =>
 
 function InstrumentTableHeader(props)
 {
+  // TODO: Need AddSample support here?
   return (
     <React.Fragment>
       <TableRow key={"instrumentPanel-row-header"}>
@@ -238,9 +239,8 @@ export default function InstrumentTable(props)
       }
     ));
   };
-  /*
-
-  */
+  // TODO: InstrumentTableHeader needs onAddColumn / AddSample support
+  // TODO: This component needs onAddColumn support
   return (
     <React.Fragment>
     <Table className={classes.table} aria-label="simple table">

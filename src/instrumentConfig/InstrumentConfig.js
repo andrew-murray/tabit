@@ -268,6 +268,7 @@ function InstrumentConfig(props) {
   const containerStyle = {
     "overflowY": "hidden"
   };
+  // TODO: InstrumentTable needs an add-column, to support new samples
   return (
     <React.Fragment>
       <RenameDialog
