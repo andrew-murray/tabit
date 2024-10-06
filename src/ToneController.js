@@ -267,7 +267,7 @@ class ToneController
 
   updatePattern = (p) =>
   {
-    const oldPatternLength = this.patternDetails[p.name].length;
+    const oldPatternLength = this.patternDetails[p.name] !== undefined ? this.patternDetails[p.name].length : undefined;
     const newPatternLength = Audio.determineTrackLength(this.instrumentIndex, p.instrumentTracks )
     this.patternDetails[p.name] = {
       resolution: Audio.determineMinResolution(this.instrumentIndex, p.instrumentTracks ),
