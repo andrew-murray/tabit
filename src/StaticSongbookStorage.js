@@ -137,11 +137,11 @@ const PucaiCollection = {
       name:  "GallowDance"
     },
     {
-      id: "67028388ad19ca34f8b3ae5a",
+      id: "67030d84ad19ca34f8b3e86c",
       name: "Hemiocalypse"
     },
     {
-      id: "66ec7da3ad19ca34f8a92315 ",
+      id: "66ec7da3ad19ca34f8a92315",
       name: "Standing Stone"
     },
     {
