@@ -267,19 +267,26 @@ class ToneController
 
   updatePattern = (p) =>
   {
+    const oldPatternLength = this.patternDetails[p.name].length;
+    const newPatternLength = Audio.determineTrackLength(this.instrumentIndex, p.instrumentTracks )
     this.patternDetails[p.name] = {
       resolution: Audio.determineMinResolution(this.instrumentIndex, p.instrumentTracks ),
-      length : Audio.determineTrackLength(this.instrumentIndex, p.instrumentTracks ),
+      length : newPatternLength,
       name: p.name,
       tracks: p.instrumentTracks,
       pattern: p
     };
-
     if( p.name === this.currentPatternName)
     {
       const updatedSequence = this.createSequenceForPattern(this.instrumentIndex, this.patternDetails[p.name].pattern);
       this.sequence._part.mute = true;
       this.sequence = updatedSequence;
+      // todo: this fixes a bug when resizing the pattern, but perhaps it's the wrong fix
+      // need to review setActivePattern to see if more work should be done to manage the transition smoothly
+      if(oldPatternLength !== newPatternLength)
+      {
+        Tone.getTransport().setLoopPoints(0, Tone.Time("4n") * (newPatternLength / 48.0));
+      }
       updatedSequence._part.mute = false;
     }
   }
@@ -471,7 +478,6 @@ class ToneController
       }
       if(oldPatternName === null || oldLength !== length )
       {
-
         Tone.getTransport().setLoopPoints(0, Tone.Time("4n") * (length / 48.0));
       }
       this.sequence = nextSequence;

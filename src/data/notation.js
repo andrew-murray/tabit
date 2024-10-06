@@ -578,6 +578,23 @@ class notation
     };
   }
 
+  static createResizedPattern(name, pattern, size)
+  {
+    // shrink to works, if size >= pattern.size
+    const updatedTracks = Object.fromEntries( new Map (
+      Array.from(Object.keys(pattern.instrumentTracks)).map(
+        k => [k, pattern.instrumentTracks[k].shrinkTo(size)]
+      )
+    ));
+    // FIXME: We might have to update the resolution, if the new resolution doesn't make sense?
+    return {
+      size: size,
+      name: name,
+      resolution: pattern.resolution,
+      instrumentTracks: updatedTracks
+    };
+  };
+
   static combinePatternsSynchronous(name, patternA, patternB)
   {
 

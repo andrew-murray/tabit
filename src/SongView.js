@@ -586,6 +586,37 @@ class SongView extends React.Component
     );
   }
 
+
+  resizeCurrentPattern = (size) =>
+  {
+    const currentPattern = this.state.songData.patterns[this.state.selectedPattern];
+    const updatedPattern = notation.createResizedPattern(currentPattern.name, currentPattern, size);
+    const newPatterns = [...Array(this.state.songData.patterns.length).keys()].map(
+      (ix) => ix === this.state.selectedPattern ? updatedPattern : this.state.songData.patterns[ix]
+    );
+    const updatedSongData = Object.assign(
+      Object.assign({}, this.state.songData),
+      {
+        patterns: newPatterns
+      }
+    );
+     this.setState(
+      {
+        songData: updatedSongData
+      },
+      () => {
+        // we change away before removing the pattern, this is currently enforced by the AudioController
+        if(this.audio)
+        {
+          const playing = this.audio.isPlaying();
+          if(playing){ this.audio.stop();}
+          this.audio.updatePattern(newPatterns[this.state.selectedPattern] );
+          if(playing){this.audio.play();}
+        }
+      }
+    );
+  }
+
   updateInstrumentIndex = (instrumentIndex) =>
   {
     const instrumentMask = createInstrumentMask(instrumentIndex, this.state.songData.instruments);
