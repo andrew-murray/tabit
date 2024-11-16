@@ -6,7 +6,7 @@ import glob
 def build_sample_map(input_dir, output_file):
     is_audio = lambda f : f.endswith(".wav") or f.endswith(".mp3") or f.endswith(".flac")
     samples = {
-        x : [f for f in os.listdir(os.path.join(input_dir, x)) if is_audio(f)] for x in os.listdir(input_dir)
+        x : [f for f in sorted(os.listdir(os.path.join(input_dir, x))) if is_audio(f)] for x in os.listdir(input_dir)
     }
     json.dump(
         samples,
