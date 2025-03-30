@@ -113,6 +113,43 @@ const ENCCollection = {
   ]
 };
 
+const Beastie2025Collection = {
+  id: "beasties-beltane-2025",
+  name: "Beasties Beltane 2025",
+  style: {
+    grid: {
+      backgroundColor: '#E01B1B',
+      color: "#ffffff"
+    }
+  },
+  songs: [    
+    {
+      id: "67e9bc428a456b79667f9bf0",
+      name: "Frankenfurter"
+    },
+    {
+      id: "67e9b8688561e97a50f5cf3d",
+      name: "Hoarse Fever"
+    },
+    {
+      id: "67e9cc8f8a456b79667fa1bb",
+      name: "Moroccan Twelves"
+    },
+    {
+      id: "67e9bd308a456b79667f9c39",
+      name: "Qualcosa"
+    },
+    {
+      id: "67e9bade8a456b79667f9b7b",
+      name: "Solvent"
+    },
+    {
+      id: "67e590bc8960c979a579ad58",
+      name:  "That Guy"
+    }
+  ]
+};
+
 
 const PucaiCollection = {
   id: "pucai",
@@ -154,7 +191,8 @@ const PucaiCollection = {
 const Songbooks = {
   "beasties-beltane-2023" : Beastie2023Collection,
   "enc" : ENCCollection,
-  "pucai" : PucaiCollection
+  "pucai" : PucaiCollection,
+  "beasties-beltane-2025": Beastie2025Collection
 };
 
 
@@ -173,7 +211,8 @@ const get = (songbookID) => {
 const getAll = () => {
   // the pucai book is shown for now
   // [Beastie2023Collection, ENCCollection]
-  return Object.values(Songbooks).map( e => { return {
+  // return Object.values(Songbooks).map( e => { return {
+  return [Beastie2023Collection, ENCCollection, PucaiCollection].map( e => { return {
     source: "static",
     data: e
   };});
