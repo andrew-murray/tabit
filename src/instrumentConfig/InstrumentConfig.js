@@ -107,12 +107,14 @@ class EditInstrumentSampleDialog extends React.Component
   constructor(props) {
     super(props);
     const drumkitSelections = [...Object.keys(AVAILABLE_SAMPLES) ];
-    const selectedDrumkit = props.initialDrumkit !== undefined ? drumkitSelections.indexOf(props.initialDrumkit) : 0;
-    const selectedSample = (props.initialDrumkit !== undefined && props.initialSample !== undefined) ?
+    // TODO: there's been times when an invalid sample/invalid drumkit (read: invalid === that we don't support)
+    // it's not clear if this component should expect/handle that but we try to!
+    const selectedDrumkit = props.initialDrumkit !== undefined && drumkitSelections.includes(props.initialDrumkit) ? drumkitSelections.indexOf(props.initialDrumkit) : 0;
+    const selectedSample = (props.initialDrumkit !== undefined && props.initialSample !== undefined && props.initialDrumkit in AVAILABLE_SAMPLES) ?
       [...AVAILABLE_SAMPLES[props.initialDrumkit]].indexOf(props.initialSample) : 0;
     this.state = {
       currentDrumkitIndex : selectedDrumkit,
-      currentSampleIndex: selectedSample
+      currentSampleIndex: selectedSample === -1 ? 0 : selectedSample
     };
   }
 
