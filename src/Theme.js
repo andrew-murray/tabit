@@ -10,14 +10,14 @@ const CreateTheme = () => {
         palette: {
           mode: prefersDarkMode ? 'dark' : 'light',
           primary: {
-            main: prefersDarkMode ? '#29006B' : '#6200FF',
+            main: prefersDarkMode ? '#002d6b' : '#0d559a',
           },
           secondary: {
             main: '#00c853',
           },
           background: {
-            default: prefersDarkMode ? '#242424' : "#F6F6F6",
-            paper: prefersDarkMode ? '#303030' : '#f0f0f0'
+            default: prefersDarkMode ? '#303030' : "#ffffff",
+            paper: prefersDarkMode ? '#3b3b3b' : '#fefefe'
           }
         },
       }),
