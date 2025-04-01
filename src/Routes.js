@@ -191,6 +191,10 @@ export default function TabitRoutes(props) {
             element={<Navigate to="/songbook/static/beasties-beltane-2023/" />}
           />
           <Route
+            path="/beasties-beltane-2025"
+            element={<Navigate to="/songbook/static/beasties-beltane-2025/" />}
+          />
+          <Route
             path="/enc"
             element={<Navigate to="/songbook/static/enc/" />}
           />
