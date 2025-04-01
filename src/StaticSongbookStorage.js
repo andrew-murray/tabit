@@ -132,6 +132,10 @@ const Beastie2025Collection = {
       name: "Hoarse Fever"
     },
     {
+      id: "67ec52f98a456b796680bee8",
+      name: "Insomnia Brain"
+    },
+    {
       id: "67e9cc8f8a456b79667fa1bb",
       name: "Moroccan Twelves"
     },
