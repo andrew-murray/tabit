@@ -140,6 +140,10 @@ const Beastie2025Collection = {
       name: "Moroccan Twelves"
     },
     {
+      id: "67f1ab5d8960c979a57ef3cd",
+      name: "MOTWBJAH"
+    },
+    {
       id: "67e9bd308a456b79667f9c39",
       name: "Qualcosa"
     },
