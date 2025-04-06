@@ -124,7 +124,7 @@ const Beastie2025Collection = {
   },
   songs: [    
     {
-      id: "67e9bc428a456b79667f9bf0",
+      id: "67f2ea8a8960c979a57f793b",
       name: "Frankenfurter"
     },
     {
@@ -148,11 +148,11 @@ const Beastie2025Collection = {
       name: "Qualcosa"
     },
     {
-      id: "67e9bade8a456b79667f9b7b",
+      id: "67f2ecb68960c979a57f7a3a",
       name: "Solvent"
     },
     {
-      id: "67e590bc8960c979a579ad58",
+      id: "67f2eb958a456b796683b3cd",
       name:  "That Guy"
     }
   ]
