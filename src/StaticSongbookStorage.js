@@ -128,7 +128,7 @@ const Beastie2025Collection = {
       name: "Frankenfurter"
     },
     {
-      id: "67e9b8688561e97a50f5cf3d",
+      id: "67f6faf78a456b79668608a4",
       name: "Hoarse Fever"
     },
     {
