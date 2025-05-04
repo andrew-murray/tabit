@@ -197,10 +197,10 @@ const PucaiCollection = {
 };
 
 const Songbooks = {
-  "beasties-beltane-2023" : Beastie2023Collection,
   "enc" : ENCCollection,
-  "pucai" : PucaiCollection,
-  "beasties-beltane-2025": Beastie2025Collection
+  "beasties-beltane-2023" : Beastie2023Collection,
+  "beasties-beltane-2025": Beastie2025Collection,
+  "pucai" : PucaiCollection
 };
 
 
@@ -217,10 +217,7 @@ const get = (songbookID) => {
 };
 
 const getAll = () => {
-  // the pucai book is shown for now
-  // [Beastie2023Collection, ENCCollection]
-  // return Object.values(Songbooks).map( e => { return {
-  return [Beastie2023Collection, ENCCollection, PucaiCollection].map( e => { return {
+  return Object.values(Songbooks).map( e => { return {
     source: "static",
     data: e
   };});
