@@ -336,7 +336,8 @@ class SongView extends React.Component
       name,
       res,
       length,
-      trackKeys
+      trackKeys,
+      true // sparse
     );
     const patternSettings = notation.guessPerPatternSettings(pattern.instrumentTracks, this.state.songData.instruments);
     const newPatternDisplayOrder = this.state.songData.patternDisplayOrder.concat( this.state.songData.patterns.length );
