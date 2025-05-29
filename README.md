@@ -18,7 +18,7 @@ tabit is inspired by the Desktop application [Hydrogen](http://hydrogen-music.or
 
 Use it live at [https://andrew-murray.github.io/tabit/example](https://andrew-murray.github.io/tabit/example)
 
-https://github.com/user-attachments/assets/3942b656-f02a-4a1d-8141-a3f68dfd12ce
+[Tabit-Demo-Hd.webm](https://github.com/user-attachments/assets/e351ce17-bb9f-459f-bba8-9e9049a4b951)
 
 ## Features
 
