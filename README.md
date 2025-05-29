@@ -15,8 +15,10 @@ tabit helps drum crews learn tunes. It's both a drum-machine and a [drum-tab](ht
 tabit is inspired by the Desktop application [Hydrogen](http://hydrogen-music.org/) and provides an importer for that format.
 
 ## Demo
+
+Use it live at [https://andrew-murray.github.io/tabit/example](https://andrew-murray.github.io/tabit/example)
+
 https://github.com/user-attachments/assets/3942b656-f02a-4a1d-8141-a3f68dfd12ce
-Or use it live at [https://andrew-murray.github.io/tabit/example](https://andrew-murray.github.io/tabit/example)
 
 ## Features
 
