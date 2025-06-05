@@ -55,6 +55,10 @@ const ENCCollection = {
   },
   songs: [
     {
+      id: "6841e9378960c979a5a5ad8b",
+      name: "Beat About the Bush"
+    },
+    {
       id: "666f78adad19ca34f879f80c",
       name: "Disreputable Pie"
     },
