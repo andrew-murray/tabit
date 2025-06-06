@@ -1,4 +1,46 @@
 
+
+const Beastie2022Collection = {
+  id: "beasties-beltane-2022",
+  name: "Beasties Beltane 2022",
+  style: {
+    grid: {
+      backgroundColor: '#E01B1B',
+      color: "#ffffff"
+    }
+  },
+  songs: [   
+    {
+      id: "6842d0d48a456b7966aa25a1",
+      name: "ChurpyPurps"
+    }, 
+    {
+      id: "6842e7c08960c979a5a5ece1",
+      name: "Faerydae"
+    },
+    {
+      id: "6478e5f28e4aa6225ea7c33a",
+      name: "Housetrained"
+    },
+    {
+      id: "67ec56978a456b796680c06c",
+      name: "Insomnia Brain"
+    },
+    {
+      id: "6842cb0b8a456b7966aa240a",
+      name: "No Room"
+    },
+    {
+      id: "6842eacd8561e97a502052be",
+      name: "Shake"
+    },
+    {
+      id: "6842cb1e8a456b7966aa240f",
+      name: "Too Much Garlic"
+    }
+  ]
+};
+
 const Beastie2023Collection = {
   id: "beasties-beltane-2023",
   name: "Beasties Beltane 2023",
@@ -202,6 +244,7 @@ const PucaiCollection = {
 
 const Songbooks = {
   "enc" : ENCCollection,
+  "beasties-beltane-2022": Beastie2022Collection,
   "beasties-beltane-2023" : Beastie2023Collection,
   "beasties-beltane-2025": Beastie2025Collection,
   "pucai" : PucaiCollection
