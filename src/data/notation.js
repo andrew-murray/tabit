@@ -181,7 +181,15 @@ class notation
         trackLength, // 31
         trackLength / 4, // 32
       ];
-      return mapping[ beatCount - 13 ];
+      const beatFloor = Math.floor(beatCount) - 13;
+      if (beatFloor.length <= mapping.length)
+      {
+        return mapping[beatFloor];
+      }
+      else
+      {
+        return trackLength;
+      }
     }
   }
 
