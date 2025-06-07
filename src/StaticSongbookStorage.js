@@ -271,11 +271,11 @@ const PucaiCollection = {
 
 const Songbooks = {
   "enc" : ENCCollection,
-  "ignis": IgnisCollection,
-  "beasties-beltane-2022": Beastie2022Collection,
-  "beasties-beltane-2023" : Beastie2023Collection,
   "beasties-beltane-2025": Beastie2025Collection,
-  "pucai" : PucaiCollection
+  "pucai" : PucaiCollection,
+  "beasties-beltane-2023" : Beastie2023Collection,
+  "beasties-beltane-2022": Beastie2022Collection,
+  "ignis": IgnisCollection
 };
 
 
