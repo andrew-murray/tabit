@@ -1,4 +1,31 @@
-
+const IgnisCollection = {
+  id: "ignis",
+  name: "Ignis Drummers",
+  style: {
+    grid: {
+      backgroundColor: '#7D4BE3',
+      color: "#ffffff"
+    }
+  },
+  songs: [
+    {
+      id: "684452538561e97a5020b161",
+      name: "Cumulus"
+    },
+    {
+      id: "684455c38a456b7966aa8f49",
+      name: "Ignimbrite"
+    },
+    {
+      id: "684458d18a456b7966aa9075",
+      name: "Marsera"
+    },
+    {
+      id: "684458048561e97a5020b355",
+      name: "Vikingur"
+    }
+  ]
+};
 
 const Beastie2022Collection = {
   id: "beasties-beltane-2022",
@@ -244,6 +271,7 @@ const PucaiCollection = {
 
 const Songbooks = {
   "enc" : ENCCollection,
+  "ignis": IgnisCollection,
   "beasties-beltane-2022": Beastie2022Collection,
   "beasties-beltane-2023" : Beastie2023Collection,
   "beasties-beltane-2025": Beastie2025Collection,
