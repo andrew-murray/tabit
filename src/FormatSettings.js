@@ -118,7 +118,7 @@ function FormatSettings(props) {
   // it technically has to look through all the active resolutions for each part
   // to make sure it can display a sensible candidate
   // TODO: Is it really worth having like this?
-  const candidateBeatResolutions = [48, 96];
+  const candidateBeatResolutions = [48, 64, 96, 192];
   let beatResolutions = [];
   for( const c of candidateBeatResolutions )
   {
@@ -128,7 +128,7 @@ function FormatSettings(props) {
     }
   }
 
-  const candidatePrimaryResolutions = [4, 6, 8, 12, 16, 24, 36, 48];
+  const candidatePrimaryResolutions = [4, 6, 8, 12, 16, 24, 32, 48, 64, 96, 128, 192];
   let primaryResolutions = [];
   for( const c of candidatePrimaryResolutions )
   {
@@ -145,10 +145,12 @@ function FormatSettings(props) {
     "12" : "1/16",
     "16" : "1/8 triplet",
     "24" : "1/8",
-    "36" : "1/4 triplet",
+    "32" : "1/4 triplet",
     "48" : "1/4",
-    "72" : "1/2 triplet",
-    "96" : "1/2"
+    "64" : "1/2 triplet",
+    "96" : "1/2",
+    "128" : "1/1 triplet",
+    "192" : "1/1"
   };
 
   const resolutionInverseLookup = Object.fromEntries( Object.entries(resolutionLookup).map( ([k,v]) => [v,k] ) );
