@@ -99,10 +99,16 @@ function FormatSettings(props) {
   let lineLengths = [];
   for( const c of candidateLineLengths )
   {
-    const resolution = c * 48;
-    if( (resolution % props.settings.beatResolution) === 0
-      && (resolution <= props.pattern.length)
-     )
+    // The code used to just work in 48s, not in beatResolution
+    // Andy changed this recently, but isn't strictly sure that's correct.
+    // It's possible this code was appropriate when we didn't support ragged-line-lengths
+    // const resolution = c * 48;
+    // note that this is always true and 
+    // if( (resolution % props.settings.beatResolution) === 0
+    //   && (resolution <= props.pattern.length)
+    //  )
+    const resolution = c * props.settings.beatResolution;
+    if (resolution <= props.pattern.length)
     {
       lineLengths.push( resolution );
     }
