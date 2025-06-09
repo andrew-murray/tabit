@@ -1,6 +1,6 @@
 const IgnisCollection = {
   id: "ignis",
-  name: "Ignis Drummers",
+  name: "Ignis Samhuinn 2018",
   style: {
     grid: {
       backgroundColor: '#7D4BE3',
