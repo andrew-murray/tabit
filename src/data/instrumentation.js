@@ -10,7 +10,8 @@ const DEFAULT_INSTRUMENT_SYMBOLS = {
   "Click" : "X",
   "Bass" : "O",
   "Tom" : "O",
-  "Default" : "X"
+  "Default" : "X",
+  "TabitEncodingSymbol": "/"
 };
 
 function normalizeInstrumentsForFiguring(instruments)
@@ -193,6 +194,7 @@ function figureSnares(instrumentsRaw, symbolConfig)
       ];
   }
   const lowerTrackNames = new Set( snareTracks.map((inst) => inst.name.toLowerCase()) );
+  // TODO: Remove/standardise this
   const andyMapping = {
     "snare": "X",
     "snare (g)": ".",
@@ -236,7 +238,7 @@ function activeInstruments(patterns)
 }
 
 function activeInstrumentation(instrumentIndex, patterns)
-{
+{  
   const active = activeInstruments(patterns);
   let nonTrivialInstruments = [];
   for( const inst of instrumentIndex)
@@ -379,8 +381,44 @@ function defaultSymbolForSingleInstrument(symbolConfig, name)
   return symbolConfig["Default"];
 }
 
+function nameMatchesTabitFormat(instrumentName, tabitEncodingSymbol)
+{
+  const split = instrumentName.split(tabitEncodingSymbol)
+  const containsTwoSeparators = split.length === 3;
+  if (containsTwoSeparators)
+  {
+    const lastElement = split[2].trim();
+    // this should represent a symbol to use in the notation
+    return lastElement.length === 1;
+  }
+  else
+  {
+    return false;
+  }
+}
+
+function figureInstrumentsWithTabitFormat(instrumentsRaw, symbolConfig, tabitEncodingSymbol, patterns)
+{
+  let instrumentMapping = {};
+  for (const instrumentTrack of instrumentsRaw)
+  {
+      const key = instrumentTrack.name;
+      const keyParts = key.split(tabitEncodingSymbol).map( x => x.trim() );
+      if(!(keyParts[0] in instrumentMapping))
+      {
+          instrumentMapping[keyParts[0]] = {};
+      }
+      instrumentMapping[keyParts[0]][instrumentTrack.id] = keyParts[2];
+  }
+  return [...Object.entries(instrumentMapping)];
+}
+
 function figureInstruments(instrumentsRaw, symbolConfig, patterns)
 {
+  if (instrumentsRaw.every(x => nameMatchesTabitFormat(x.name, symbolConfig["TabitEncodingSymbol"])))
+  {
+    return figureInstrumentsWithTabitFormat(instrumentsRaw, symbolConfig, symbolConfig["TabitEncodingSymbol"], patterns);
+  }
   let output = [];
   output = output.concat( figureClickyInstruments( instrumentsRaw, symbolConfig, patterns ) );
   output = output.concat( figureDjembes( instrumentsRaw, symbolConfig ) );
@@ -390,7 +428,6 @@ function figureInstruments(instrumentsRaw, symbolConfig, patterns)
   // we ignore track used by multiple instruments
 
   // but attempt to cover "instrument not recognised anywhere"
-
   const worthwhileInstruments = activeInstruments(patterns);
 
   for(const inst of instrumentsRaw)

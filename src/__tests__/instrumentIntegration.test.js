@@ -314,3 +314,17 @@ test("instrumentation BFS RBW", () => {
   const instruments = figureInstruments( state.instruments, DEFAULT_INSTRUMENT_SYMBOLS, state.patterns );
   expect(instruments).toEqual(rbwInstruments);
 });
+
+const pangolinInstruments = [
+  [ 'Bass', { '27': 'X', '50': 'O'} ],
+  [ 'Tom', { '42': 'O', '43': 'X'} ],
+  [ 'Dj', { '44': 'O', '45': 'S', '46': 'T'} ],
+  [ 'Snare', { '28': 'X', '35': '.', '40': 'x' } ],
+  [ 'Shkr', { '23': 'X', '37': '.' } ]
+];
+
+test("instrumentation - tabit format - pangolin", () => {
+  const state = createObjects(JSON.parse(fs.readFileSync("./test_data/pangolin.json")));
+  const instruments = figureInstruments( state.instruments, DEFAULT_INSTRUMENT_SYMBOLS, state.patterns );
+  expect(instruments).toEqual(pangolinInstruments);
+});
