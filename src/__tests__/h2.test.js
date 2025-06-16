@@ -143,3 +143,20 @@ test('h2 parsing - bfs_drumkit example', async () => {
   const expectedJSON = String(fs.readFileSync(testJSON));
   return expect(resultJSON).toEqual(expectedJSON);
 });
+
+// pangolin example contains tabit-instrument-specifier
+test('h2 parsing - pangolin', async () => {
+  const testXml = fs.readFileSync("./test_data/pangolin.h2song");
+  const testJSON = "./test_data/pangolin.json";
+  const resultJSONPromise = h2.parseHydrogenPromise(testXml.toString()).then(result =>
+  {
+    return JSON.stringify(result, null, 4);
+  });
+  const resultJSON = await resultJSONPromise;
+  if(updateSerialisations)
+  {
+    fs.writeFileSync(testJSON, resultJSON);
+  }
+  const expectedJSON = String(fs.readFileSync(testJSON));
+  return expect(resultJSON).toEqual(expectedJSON);
+});
