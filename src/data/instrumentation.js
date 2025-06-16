@@ -240,12 +240,32 @@ function activeInstruments(patterns)
 function activeInstrumentation(instrumentIndex, patterns)
 {  
   const active = activeInstruments(patterns);
+  // TODO: tabitSymbol isn't configurable
+  const replaceNames = instrumentIndex.every(x => nameMatchesTabitFormat(x.name, "/"));
   let nonTrivialInstruments = [];
   for( const inst of instrumentIndex)
   {
     if( active.has(inst.id) )
     {
-      nonTrivialInstruments.push( Object.assign( {}, inst ) );
+      if (replaceNames)
+      {
+        // if the h2 song is using tabit format instrument names
+        // then we specifically want to replace the name with the middle component
+        // the format is [INSTRUMENT/SOUNDNAME/SYMBOL]
+        const nameParts = inst.name.split("/");
+        const configuredName = nameParts[0].trim() + "/" + nameParts[1].trim();
+        nonTrivialInstruments.push(
+            Object.assign( 
+                {},
+                inst,
+                {name: configuredName}
+            )
+        );
+      }
+      else
+      {
+        nonTrivialInstruments.push( Object.assign( {}, inst ) );
+      }
     }
   }
   return nonTrivialInstruments;
