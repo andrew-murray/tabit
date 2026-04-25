@@ -39,6 +39,8 @@
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
     "eject": "react-scripts eject",
+    "build:e2e": "PUBLIC_URL=/ react-app-rewired build",
+    "test:e2e": "playwright test",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
@@ -58,6 +60,8 @@
     ]
   },
   "devDependencies": {
-    "gh-pages": "^6.3.0"
+    "@playwright/test": "^1.59.1",
+    "gh-pages": "^6.3.0",
+    "serve": "^14.2.6"
   }
 }
