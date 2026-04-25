@@ -5,6 +5,9 @@ import fs from "fs"
 
 const updateSerialisations = false;
 
+// Normalize line endings - fixture files may have CRLF on Windows/Linux shared filesystems
+const normalizeNewlines = (s) => s.replace(/\r\n/g, '\n');
+
 test('h2 parsing - too_much_garlic', async () => {
   const testXml = fs.readFileSync("./test_data/too_much_garlic.h2song");
   const testJSON = "./test_data/too_much_garlic.json";
@@ -19,7 +22,7 @@ test('h2 parsing - too_much_garlic', async () => {
     fs.writeFileSync(testJSON, resultJSON);
   }
   const expectedJSON = String(fs.readFileSync(testJSON));
-  return expect(resultJSON).toEqual(expectedJSON);
+  return expect(normalizeNewlines(resultJSON)).toEqual(normalizeNewlines(expectedJSON));
 });
 
 test('h2 parsing - kuva', async () => {
@@ -36,7 +39,7 @@ test('h2 parsing - kuva', async () => {
     fs.writeFileSync(testJSON, resultJSON);
   }
   const expectedJSON = String(fs.readFileSync(testJSON));
-  return expect(resultJSON).toEqual(expectedJSON);
+  return expect(normalizeNewlines(resultJSON)).toEqual(normalizeNewlines(expectedJSON));
 });
 
 test('h2 parsing - coconot', async () => {
@@ -53,7 +56,7 @@ test('h2 parsing - coconot', async () => {
     fs.writeFileSync(testJSON, resultJSON);
   }
   const expectedJSON = String(fs.readFileSync(testJSON));
-  return expect(resultJSON).toEqual(expectedJSON);
+  return expect(normalizeNewlines(resultJSON)).toEqual(normalizeNewlines(expectedJSON));
 });
 
 test('h2 parsing - that_guy', async() => {
@@ -69,7 +72,7 @@ test('h2 parsing - that_guy', async() => {
     fs.writeFileSync(testJSON, resultJSON);
   }
   const expectedJSON = String(fs.readFileSync(testJSON));
-  return expect(resultJSON).toEqual(expectedJSON);
+  return expect(normalizeNewlines(resultJSON)).toEqual(normalizeNewlines(expectedJSON));
 });
 
 
@@ -86,7 +89,7 @@ test('h2 parsing - cumulus', async () => {
     fs.writeFileSync(testJSON, resultJSON);
   }
   const expectedJSON = String(fs.readFileSync(testJSON));
-  return expect(resultJSON).toEqual(expectedJSON);
+  return expect(normalizeNewlines(resultJSON)).toEqual(normalizeNewlines(expectedJSON));
 });
 
 // the above are mostly random regression tests,
@@ -104,7 +107,7 @@ test('h2 parsing - virtual', async () => {
     fs.writeFileSync(testJSON, resultJSON);
   }
   const expectedJSON = String(fs.readFileSync(testJSON));
-  return expect(resultJSON).toEqual(expectedJSON);
+  return expect(normalizeNewlines(resultJSON)).toEqual(normalizeNewlines(expectedJSON));
 });
 
 // "a single pattern" or "a single instrument" will often require special
@@ -122,7 +125,7 @@ test('h2 parsing - single_elements', async () => {
     fs.writeFileSync(testJSON, resultJSON);
   }
   const expectedJSON = String(fs.readFileSync(testJSON));
-  return expect(resultJSON).toEqual(expectedJSON);
+  return expect(normalizeNewlines(resultJSON)).toEqual(normalizeNewlines(expectedJSON));
 });
 
 
@@ -141,7 +144,7 @@ test('h2 parsing - bfs_drumkit example', async () => {
     fs.writeFileSync(testJSON, resultJSON);
   }
   const expectedJSON = String(fs.readFileSync(testJSON));
-  return expect(resultJSON).toEqual(expectedJSON);
+  return expect(normalizeNewlines(resultJSON)).toEqual(normalizeNewlines(expectedJSON));
 });
 
 // pangolin example contains tabit-instrument-specifier
@@ -158,5 +161,5 @@ test('h2 parsing - pangolin', async () => {
     fs.writeFileSync(testJSON, resultJSON);
   }
   const expectedJSON = String(fs.readFileSync(testJSON));
-  return expect(resultJSON).toEqual(expectedJSON);
+  return expect(normalizeNewlines(resultJSON)).toEqual(normalizeNewlines(expectedJSON));
 });
