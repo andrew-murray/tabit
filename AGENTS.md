@@ -23,10 +23,10 @@ Run these without waiting for explicit approval:
 
 ```bash
 yarn test --watchAll=false
-yarn build
+yarn test:e2e
 ```
 
-Both must pass before suggesting a commit.
+Both must pass before suggesting a commit. Note: `yarn test:e2e` runs a production build internally (`build:e2e`) before serving - it takes several minutes.
 
 ## Dev Server
 
@@ -38,8 +38,9 @@ Runs on `http://localhost:3000` with hot reload.
 
 ## Testing
 
-- Tests live in `src/__tests__/` and use Jest with React Testing Library
+- Unit tests live in `src/__tests__/` and use Jest with React Testing Library
 - Some tests use Jest snapshots - only update snapshots with explicit human approval (`yarn test --watchAll=false -u`)
+- E2e tests live in `e2e/` and use Playwright (`yarn test:e2e`)
 - The Python scripts in `/scripts/` are for managing test data only - not part of normal dev workflow
 
 ## Code Style
@@ -49,6 +50,7 @@ Runs on `http://localhost:3000` with hot reload.
 - No empty catch blocks - handle the error or explain why not
 - Prefer `-` (hyphen) over `--` (em dash) in all files
 - Avoid non-ASCII characters in text files
+- E2e tests (`e2e/`) use `require` not `import`
 
 ## Architecture
 
@@ -58,8 +60,11 @@ Runs on `http://localhost:3000` with hot reload.
   - `src/PatternDisplay/` - pattern rendering components
   - `src/instrumentConfig/` - drum kit configuration UI
   - `src/common/` - reusable dialog components
+- `e2e/` - Playwright e2e tests
 - `public/wav/` - WAV audio samples
 - `test_data/` - fixture files for import tests
+
+`yarn build` produces a production build for GitHub Pages (assets prefixed with `/tabit/`). `yarn build:e2e` builds with `PUBLIC_URL=/` for local serving during e2e tests - do not use it for deployment.
 
 ## General Principles
 
