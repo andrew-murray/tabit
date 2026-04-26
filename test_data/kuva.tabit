@@ -1,0 +1,1900 @@
+{
+    "instruments": [
+        [
+            "Bass",
+            {
+                "23": "X",
+                "24": "O"
+            },
+            {
+                "shortName": "Ba"
+            },
+            {
+                "muted": false,
+                "volume": 0.8
+            }
+        ],
+        [
+            "Bass 2",
+            {
+                "25": "O",
+                "26": "X"
+            },
+            {
+                "shortName": "Ba2"
+            },
+            {
+                "muted": false,
+                "volume": 0.8
+            }
+        ],
+        [
+            "Djembe",
+            {
+                "10": "S",
+                "11": "t",
+                "12": "O"
+            },
+            {
+                "shortName": "Dj"
+            },
+            {
+                "muted": false,
+                "volume": 0.8
+            }
+        ],
+        [
+            "Snare",
+            {
+                "13": "x",
+                "27": "X"
+            },
+            {
+                "shortName": "Sn"
+            },
+            {
+                "muted": false,
+                "volume": 0.8
+            }
+        ],
+        [
+            "Shaker",
+            {
+                "16": "x",
+                "21": "X"
+            },
+            {
+                "shortName": "Sh"
+            },
+            {
+                "muted": false,
+                "volume": 0.8
+            }
+        ]
+    ],
+    "instrumentIndex": [
+        {
+            "id": 23,
+            "name": "Stick",
+            "volume": 0.5931256706007502,
+            "muted": false,
+            "drumkit": "GMRockKit",
+            "filename": "SideStick-Softest.wav"
+        },
+        {
+            "id": 24,
+            "name": "Kick Short",
+            "volume": 0.5941513149624601,
+            "muted": false,
+            "drumkit": "TR808EmulationKit",
+            "filename": "808_Kick_Short.wav"
+        },
+        {
+            "id": 26,
+            "name": "Stick",
+            "volume": 0.5931256706007502,
+            "muted": false,
+            "drumkit": "GMRockKit",
+            "filename": "SideStick-Softest.wav"
+        },
+        {
+            "id": 25,
+            "name": "Kick Short",
+            "volume": 0.5941513149624601,
+            "muted": false,
+            "drumkit": "TR808EmulationKit",
+            "filename": "808_Kick_Short.wav"
+        },
+        {
+            "id": 27,
+            "name": "snare",
+            "volume": 0.44665838844152395,
+            "muted": false,
+            "drumkit": "DeathMetal",
+            "filename": "014b.WAV"
+        },
+        {
+            "id": 10,
+            "name": "Djembe4 Slap",
+            "volume": 0.26215002732335185,
+            "muted": false,
+            "drumkit": "circAfrique v4",
+            "filename": "Djembe4 Slap.wav"
+        },
+        {
+            "id": 11,
+            "name": "Djembe4 Tone",
+            "volume": 0.256826213857754,
+            "muted": false,
+            "drumkit": "circAfrique v4",
+            "filename": "Djembe4 Tone.wav"
+        },
+        {
+            "id": 12,
+            "name": "Djembe4 Bass",
+            "volume": 0.3527261233035785,
+            "muted": false,
+            "drumkit": "circAfrique v4",
+            "filename": "Djembe4 Bass.wav"
+        },
+        {
+            "id": 21,
+            "name": "Shaker",
+            "volume": 1,
+            "muted": false,
+            "drumkit": "TR808EmulationKit",
+            "filename": "808_Shaker.wav"
+        }
+    ],
+    "patterns": [
+        {
+            "size": 384,
+            "name": "k-1",
+            "notes": [
+                {
+                    "position": 0,
+                    "instrument": 21
+                },
+                {
+                    "position": 0,
+                    "instrument": 24
+                },
+                {
+                    "position": 0,
+                    "instrument": 26
+                },
+                {
+                    "position": 0,
+                    "instrument": 11
+                },
+                {
+                    "position": 12,
+                    "instrument": 21
+                },
+                {
+                    "position": 24,
+                    "instrument": 11
+                },
+                {
+                    "position": 24,
+                    "instrument": 21
+                },
+                {
+                    "position": 24,
+                    "instrument": 24
+                },
+                {
+                    "position": 24,
+                    "instrument": 26
+                },
+                {
+                    "position": 24,
+                    "instrument": 27
+                },
+                {
+                    "position": 36,
+                    "instrument": 21
+                },
+                {
+                    "position": 36,
+                    "instrument": 11
+                },
+                {
+                    "position": 48,
+                    "instrument": 21
+                },
+                {
+                    "position": 48,
+                    "instrument": 11
+                },
+                {
+                    "position": 48,
+                    "instrument": 23
+                },
+                {
+                    "position": 48,
+                    "instrument": 26
+                },
+                {
+                    "position": 48,
+                    "instrument": 27
+                },
+                {
+                    "position": 60,
+                    "instrument": 24
+                },
+                {
+                    "position": 72,
+                    "instrument": 10
+                },
+                {
+                    "position": 72,
+                    "instrument": 21
+                },
+                {
+                    "position": 72,
+                    "instrument": 26
+                },
+                {
+                    "position": 84,
+                    "instrument": 25
+                },
+                {
+                    "position": 96,
+                    "instrument": 23
+                },
+                {
+                    "position": 96,
+                    "instrument": 26
+                },
+                {
+                    "position": 108,
+                    "instrument": 25
+                },
+                {
+                    "position": 120,
+                    "instrument": 12
+                },
+                {
+                    "position": 120,
+                    "instrument": 25
+                },
+                {
+                    "position": 144,
+                    "instrument": 12
+                },
+                {
+                    "position": 144,
+                    "instrument": 21
+                },
+                {
+                    "position": 144,
+                    "instrument": 23
+                },
+                {
+                    "position": 144,
+                    "instrument": 25
+                },
+                {
+                    "position": 144,
+                    "instrument": 27
+                },
+                {
+                    "position": 156,
+                    "instrument": 21
+                },
+                {
+                    "position": 168,
+                    "instrument": 21
+                },
+                {
+                    "position": 180,
+                    "instrument": 27
+                },
+                {
+                    "position": 192,
+                    "instrument": 11
+                },
+                {
+                    "position": 192,
+                    "instrument": 21
+                },
+                {
+                    "position": 192,
+                    "instrument": 24
+                },
+                {
+                    "position": 192,
+                    "instrument": 26
+                },
+                {
+                    "position": 216,
+                    "instrument": 12
+                },
+                {
+                    "position": 216,
+                    "instrument": 21
+                },
+                {
+                    "position": 216,
+                    "instrument": 24
+                },
+                {
+                    "position": 216,
+                    "instrument": 26
+                },
+                {
+                    "position": 216,
+                    "instrument": 27
+                },
+                {
+                    "position": 240,
+                    "instrument": 11
+                },
+                {
+                    "position": 240,
+                    "instrument": 23
+                },
+                {
+                    "position": 240,
+                    "instrument": 26
+                },
+                {
+                    "position": 240,
+                    "instrument": 27
+                },
+                {
+                    "position": 252,
+                    "instrument": 12
+                },
+                {
+                    "position": 252,
+                    "instrument": 24
+                },
+                {
+                    "position": 264,
+                    "instrument": 21
+                },
+                {
+                    "position": 264,
+                    "instrument": 27
+                },
+                {
+                    "position": 276,
+                    "instrument": 11
+                },
+                {
+                    "position": 276,
+                    "instrument": 25
+                },
+                {
+                    "position": 288,
+                    "instrument": 12
+                },
+                {
+                    "position": 288,
+                    "instrument": 21
+                },
+                {
+                    "position": 288,
+                    "instrument": 24
+                },
+                {
+                    "position": 288,
+                    "instrument": 25
+                },
+                {
+                    "position": 300,
+                    "instrument": 21
+                },
+                {
+                    "position": 312,
+                    "instrument": 11
+                },
+                {
+                    "position": 312,
+                    "instrument": 23
+                },
+                {
+                    "position": 312,
+                    "instrument": 26
+                },
+                {
+                    "position": 324,
+                    "instrument": 12
+                },
+                {
+                    "position": 324,
+                    "instrument": 21
+                },
+                {
+                    "position": 324,
+                    "instrument": 24
+                },
+                {
+                    "position": 324,
+                    "instrument": 25
+                },
+                {
+                    "position": 336,
+                    "instrument": 21
+                },
+                {
+                    "position": 336,
+                    "instrument": 27
+                },
+                {
+                    "position": 360,
+                    "instrument": 21
+                },
+                {
+                    "position": 360,
+                    "instrument": 10
+                },
+                {
+                    "position": 360,
+                    "instrument": 23
+                },
+                {
+                    "position": 360,
+                    "instrument": 26
+                },
+                {
+                    "position": 360,
+                    "instrument": 27
+                },
+                {
+                    "position": 372,
+                    "instrument": 21
+                },
+                {
+                    "position": 372,
+                    "instrument": 27
+                }
+            ],
+            "resolution": 12,
+            "instrumentTracks": {
+                "10": {
+                    "points": [
+                        72,
+                        360
+                    ],
+                    "length_": 384,
+                    "velocity": [
+                        0.8,
+                        0.8
+                    ]
+                },
+                "11": {
+                    "points": [
+                        0,
+                        24,
+                        36,
+                        48,
+                        192,
+                        240,
+                        276,
+                        312
+                    ],
+                    "length_": 384,
+                    "velocity": [
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8
+                    ]
+                },
+                "12": {
+                    "points": [
+                        120,
+                        144,
+                        216,
+                        252,
+                        288,
+                        324
+                    ],
+                    "length_": 384,
+                    "velocity": [
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8
+                    ]
+                },
+                "13": {
+                    "points": [],
+                    "length_": 384,
+                    "velocity": []
+                },
+                "16": {
+                    "points": [],
+                    "length_": 384,
+                    "velocity": []
+                },
+                "20": {
+                    "points": [],
+                    "length_": 384,
+                    "velocity": []
+                },
+                "21": {
+                    "points": [
+                        0,
+                        12,
+                        24,
+                        36,
+                        48,
+                        72,
+                        144,
+                        156,
+                        168,
+                        192,
+                        216,
+                        264,
+                        288,
+                        300,
+                        324,
+                        336,
+                        360,
+                        372
+                    ],
+                    "length_": 384,
+                    "velocity": [
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8
+                    ]
+                },
+                "22": {
+                    "points": [],
+                    "length_": 384,
+                    "velocity": []
+                },
+                "23": {
+                    "points": [
+                        48,
+                        96,
+                        144,
+                        240,
+                        312,
+                        360
+                    ],
+                    "length_": 384,
+                    "velocity": [
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8
+                    ]
+                },
+                "24": {
+                    "points": [
+                        0,
+                        24,
+                        60,
+                        192,
+                        216,
+                        252,
+                        288,
+                        324
+                    ],
+                    "length_": 384,
+                    "velocity": [
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8
+                    ]
+                },
+                "25": {
+                    "points": [
+                        84,
+                        108,
+                        120,
+                        144,
+                        276,
+                        288,
+                        324
+                    ],
+                    "length_": 384,
+                    "velocity": [
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8
+                    ]
+                },
+                "26": {
+                    "points": [
+                        0,
+                        24,
+                        48,
+                        72,
+                        96,
+                        192,
+                        216,
+                        240,
+                        312,
+                        360
+                    ],
+                    "length_": 384,
+                    "velocity": [
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8
+                    ]
+                },
+                "27": {
+                    "points": [
+                        24,
+                        48,
+                        144,
+                        180,
+                        216,
+                        240,
+                        264,
+                        336,
+                        360,
+                        372
+                    ],
+                    "length_": 384,
+                    "velocity": [
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8
+                    ]
+                }
+            }
+        },
+        {
+            "size": 384,
+            "name": "k-2",
+            "notes": [
+                {
+                    "position": 0,
+                    "instrument": 12
+                },
+                {
+                    "position": 0,
+                    "instrument": 21
+                },
+                {
+                    "position": 0,
+                    "instrument": 24
+                },
+                {
+                    "position": 0,
+                    "instrument": 25
+                },
+                {
+                    "position": 0,
+                    "instrument": 27
+                },
+                {
+                    "position": 12,
+                    "instrument": 12
+                },
+                {
+                    "position": 12,
+                    "instrument": 24
+                },
+                {
+                    "position": 12,
+                    "instrument": 25
+                },
+                {
+                    "position": 24,
+                    "instrument": 12
+                },
+                {
+                    "position": 24,
+                    "instrument": 21
+                },
+                {
+                    "position": 24,
+                    "instrument": 24
+                },
+                {
+                    "position": 24,
+                    "instrument": 25
+                },
+                {
+                    "position": 36,
+                    "instrument": 21
+                },
+                {
+                    "position": 48,
+                    "instrument": 21
+                },
+                {
+                    "position": 48,
+                    "instrument": 10
+                },
+                {
+                    "position": 48,
+                    "instrument": 23
+                },
+                {
+                    "position": 48,
+                    "instrument": 26
+                },
+                {
+                    "position": 48,
+                    "instrument": 27
+                },
+                {
+                    "position": 72,
+                    "instrument": 21
+                },
+                {
+                    "position": 84,
+                    "instrument": 21
+                },
+                {
+                    "position": 84,
+                    "instrument": 27
+                },
+                {
+                    "position": 96,
+                    "instrument": 21
+                },
+                {
+                    "position": 96,
+                    "instrument": 23
+                },
+                {
+                    "position": 96,
+                    "instrument": 26
+                },
+                {
+                    "position": 108,
+                    "instrument": 21
+                },
+                {
+                    "position": 108,
+                    "instrument": 27
+                },
+                {
+                    "position": 120,
+                    "instrument": 11
+                },
+                {
+                    "position": 120,
+                    "instrument": 21
+                },
+                {
+                    "position": 132,
+                    "instrument": 10
+                },
+                {
+                    "position": 132,
+                    "instrument": 27
+                },
+                {
+                    "position": 144,
+                    "instrument": 23
+                },
+                {
+                    "position": 144,
+                    "instrument": 26
+                },
+                {
+                    "position": 144,
+                    "instrument": 27
+                },
+                {
+                    "position": 156,
+                    "instrument": 10
+                },
+                {
+                    "position": 168,
+                    "instrument": 12
+                },
+                {
+                    "position": 168,
+                    "instrument": 21
+                },
+                {
+                    "position": 168,
+                    "instrument": 24
+                },
+                {
+                    "position": 168,
+                    "instrument": 25
+                },
+                {
+                    "position": 180,
+                    "instrument": 12
+                },
+                {
+                    "position": 180,
+                    "instrument": 24
+                },
+                {
+                    "position": 180,
+                    "instrument": 25
+                },
+                {
+                    "position": 192,
+                    "instrument": 12
+                },
+                {
+                    "position": 192,
+                    "instrument": 21
+                },
+                {
+                    "position": 192,
+                    "instrument": 24
+                },
+                {
+                    "position": 192,
+                    "instrument": 25
+                },
+                {
+                    "position": 192,
+                    "instrument": 27
+                },
+                {
+                    "position": 216,
+                    "instrument": 21
+                },
+                {
+                    "position": 216,
+                    "instrument": 11
+                },
+                {
+                    "position": 228,
+                    "instrument": 11
+                },
+                {
+                    "position": 228,
+                    "instrument": 21
+                },
+                {
+                    "position": 228,
+                    "instrument": 27
+                },
+                {
+                    "position": 240,
+                    "instrument": 21
+                },
+                {
+                    "position": 240,
+                    "instrument": 23
+                },
+                {
+                    "position": 240,
+                    "instrument": 26
+                },
+                {
+                    "position": 240,
+                    "instrument": 27
+                },
+                {
+                    "position": 252,
+                    "instrument": 10
+                },
+                {
+                    "position": 264,
+                    "instrument": 21
+                },
+                {
+                    "position": 264,
+                    "instrument": 11
+                },
+                {
+                    "position": 276,
+                    "instrument": 21
+                },
+                {
+                    "position": 276,
+                    "instrument": 27
+                },
+                {
+                    "position": 288,
+                    "instrument": 11
+                },
+                {
+                    "position": 288,
+                    "instrument": 21
+                },
+                {
+                    "position": 288,
+                    "instrument": 23
+                },
+                {
+                    "position": 288,
+                    "instrument": 26
+                },
+                {
+                    "position": 300,
+                    "instrument": 11
+                },
+                {
+                    "position": 312,
+                    "instrument": 21
+                },
+                {
+                    "position": 324,
+                    "instrument": 10
+                },
+                {
+                    "position": 336,
+                    "instrument": 11
+                },
+                {
+                    "position": 336,
+                    "instrument": 23
+                },
+                {
+                    "position": 336,
+                    "instrument": 26
+                },
+                {
+                    "position": 360,
+                    "instrument": 21
+                }
+            ],
+            "resolution": 12,
+            "instrumentTracks": {
+                "10": {
+                    "points": [
+                        48,
+                        132,
+                        156,
+                        252,
+                        324
+                    ],
+                    "length_": 384,
+                    "velocity": [
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8
+                    ]
+                },
+                "11": {
+                    "points": [
+                        120,
+                        216,
+                        228,
+                        264,
+                        288,
+                        300,
+                        336
+                    ],
+                    "length_": 384,
+                    "velocity": [
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8
+                    ]
+                },
+                "12": {
+                    "points": [
+                        0,
+                        12,
+                        24,
+                        168,
+                        180,
+                        192
+                    ],
+                    "length_": 384,
+                    "velocity": [
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8
+                    ]
+                },
+                "13": {
+                    "points": [],
+                    "length_": 384,
+                    "velocity": []
+                },
+                "16": {
+                    "points": [],
+                    "length_": 384,
+                    "velocity": []
+                },
+                "20": {
+                    "points": [],
+                    "length_": 384,
+                    "velocity": []
+                },
+                "21": {
+                    "points": [
+                        0,
+                        24,
+                        36,
+                        48,
+                        72,
+                        84,
+                        96,
+                        108,
+                        120,
+                        168,
+                        192,
+                        216,
+                        228,
+                        240,
+                        264,
+                        276,
+                        288,
+                        312,
+                        360
+                    ],
+                    "length_": 384,
+                    "velocity": [
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8
+                    ]
+                },
+                "22": {
+                    "points": [],
+                    "length_": 384,
+                    "velocity": []
+                },
+                "23": {
+                    "points": [
+                        48,
+                        96,
+                        144,
+                        240,
+                        288,
+                        336
+                    ],
+                    "length_": 384,
+                    "velocity": [
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8
+                    ]
+                },
+                "24": {
+                    "points": [
+                        0,
+                        12,
+                        24,
+                        168,
+                        180,
+                        192
+                    ],
+                    "length_": 384,
+                    "velocity": [
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8
+                    ]
+                },
+                "25": {
+                    "points": [
+                        0,
+                        12,
+                        24,
+                        168,
+                        180,
+                        192
+                    ],
+                    "length_": 384,
+                    "velocity": [
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8
+                    ]
+                },
+                "26": {
+                    "points": [
+                        48,
+                        96,
+                        144,
+                        240,
+                        288,
+                        336
+                    ],
+                    "length_": 384,
+                    "velocity": [
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8
+                    ]
+                },
+                "27": {
+                    "points": [
+                        0,
+                        48,
+                        84,
+                        108,
+                        132,
+                        144,
+                        192,
+                        228,
+                        240,
+                        276
+                    ],
+                    "length_": 384,
+                    "velocity": [
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8
+                    ]
+                }
+            }
+        },
+        {
+            "size": 192,
+            "name": "lightbulb",
+            "notes": [
+                {
+                    "position": 0,
+                    "instrument": 24
+                },
+                {
+                    "position": 12,
+                    "instrument": 24
+                },
+                {
+                    "position": 24,
+                    "instrument": 24
+                },
+                {
+                    "position": 36,
+                    "instrument": 24
+                },
+                {
+                    "position": 48,
+                    "instrument": 24
+                },
+                {
+                    "position": 96,
+                    "instrument": 27
+                },
+                {
+                    "position": 144,
+                    "instrument": 24
+                },
+                {
+                    "position": 160,
+                    "instrument": 24
+                },
+                {
+                    "position": 176,
+                    "instrument": 24
+                }
+            ],
+            "resolution": 4,
+            "instrumentTracks": {
+                "10": {
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
+                },
+                "11": {
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
+                },
+                "12": {
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
+                },
+                "13": {
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
+                },
+                "16": {
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
+                },
+                "20": {
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
+                },
+                "21": {
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
+                },
+                "22": {
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
+                },
+                "23": {
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
+                },
+                "24": {
+                    "points": [
+                        0,
+                        12,
+                        24,
+                        36,
+                        48,
+                        144,
+                        160,
+                        176
+                    ],
+                    "length_": 192,
+                    "velocity": [
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8
+                    ]
+                },
+                "25": {
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
+                },
+                "26": {
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
+                },
+                "27": {
+                    "points": [
+                        96
+                    ],
+                    "length_": 192,
+                    "velocity": [
+                        0.8
+                    ]
+                }
+            }
+        },
+        {
+            "size": 192,
+            "name": "break",
+            "notes": [
+                {
+                    "position": 24,
+                    "instrument": 21
+                },
+                {
+                    "position": 24,
+                    "instrument": 11
+                },
+                {
+                    "position": 24,
+                    "instrument": 27
+                },
+                {
+                    "position": 48,
+                    "instrument": 21
+                },
+                {
+                    "position": 48,
+                    "instrument": 11
+                },
+                {
+                    "position": 48,
+                    "instrument": 27
+                },
+                {
+                    "position": 96,
+                    "instrument": 21
+                },
+                {
+                    "position": 96,
+                    "instrument": 11
+                },
+                {
+                    "position": 96,
+                    "instrument": 27
+                },
+                {
+                    "position": 120,
+                    "instrument": 21
+                },
+                {
+                    "position": 120,
+                    "instrument": 11
+                },
+                {
+                    "position": 120,
+                    "instrument": 27
+                },
+                {
+                    "position": 144,
+                    "instrument": 24
+                },
+                {
+                    "position": 168,
+                    "instrument": 21
+                },
+                {
+                    "position": 168,
+                    "instrument": 11
+                },
+                {
+                    "position": 168,
+                    "instrument": 24
+                },
+                {
+                    "position": 168,
+                    "instrument": 27
+                }
+            ],
+            "resolution": 24,
+            "instrumentTracks": {
+                "10": {
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
+                },
+                "11": {
+                    "points": [
+                        24,
+                        48,
+                        96,
+                        120,
+                        168
+                    ],
+                    "length_": 192,
+                    "velocity": [
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8
+                    ]
+                },
+                "12": {
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
+                },
+                "13": {
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
+                },
+                "16": {
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
+                },
+                "20": {
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
+                },
+                "21": {
+                    "points": [
+                        24,
+                        48,
+                        96,
+                        120,
+                        168
+                    ],
+                    "length_": 192,
+                    "velocity": [
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8
+                    ]
+                },
+                "22": {
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
+                },
+                "23": {
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
+                },
+                "24": {
+                    "points": [
+                        144,
+                        168
+                    ],
+                    "length_": 192,
+                    "velocity": [
+                        0.8,
+                        0.8
+                    ]
+                },
+                "25": {
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
+                },
+                "26": {
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
+                },
+                "27": {
+                    "points": [
+                        24,
+                        48,
+                        96,
+                        120,
+                        168
+                    ],
+                    "length_": 192,
+                    "velocity": [
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8
+                    ]
+                }
+            }
+        },
+        {
+            "size": 192,
+            "name": "squash",
+            "notes": [
+                {
+                    "position": 0,
+                    "instrument": 21
+                },
+                {
+                    "position": 0,
+                    "instrument": 12
+                },
+                {
+                    "position": 0,
+                    "instrument": 24
+                },
+                {
+                    "position": 0,
+                    "instrument": 27
+                },
+                {
+                    "position": 48,
+                    "instrument": 21
+                },
+                {
+                    "position": 48,
+                    "instrument": 12
+                },
+                {
+                    "position": 48,
+                    "instrument": 24
+                },
+                {
+                    "position": 48,
+                    "instrument": 27
+                },
+                {
+                    "position": 96,
+                    "instrument": 21
+                },
+                {
+                    "position": 96,
+                    "instrument": 12
+                },
+                {
+                    "position": 96,
+                    "instrument": 24
+                },
+                {
+                    "position": 96,
+                    "instrument": 27
+                },
+                {
+                    "position": 144,
+                    "instrument": 21
+                },
+                {
+                    "position": 144,
+                    "instrument": 12
+                },
+                {
+                    "position": 144,
+                    "instrument": 24
+                },
+                {
+                    "position": 144,
+                    "instrument": 27
+                }
+            ],
+            "resolution": 48,
+            "instrumentTracks": {
+                "10": {
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
+                },
+                "11": {
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
+                },
+                "12": {
+                    "points": [
+                        0,
+                        48,
+                        96,
+                        144
+                    ],
+                    "length_": 192,
+                    "velocity": [
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8
+                    ]
+                },
+                "13": {
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
+                },
+                "16": {
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
+                },
+                "20": {
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
+                },
+                "21": {
+                    "points": [
+                        0,
+                        48,
+                        96,
+                        144
+                    ],
+                    "length_": 192,
+                    "velocity": [
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8
+                    ]
+                },
+                "22": {
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
+                },
+                "23": {
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
+                },
+                "24": {
+                    "points": [
+                        0,
+                        48,
+                        96,
+                        144
+                    ],
+                    "length_": 192,
+                    "velocity": [
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8
+                    ]
+                },
+                "25": {
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
+                },
+                "26": {
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
+                },
+                "27": {
+                    "points": [
+                        0,
+                        48,
+                        96,
+                        144
+                    ],
+                    "length_": 192,
+                    "velocity": [
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8
+                    ]
+                }
+            }
+        }
+    ],
+    "patternDisplayOrder": [
+        0,
+        1,
+        2,
+        3,
+        4
+    ],
+    "songName": "kuva",
+    "formatSettings": {
+        "restMark": "-",
+        "beatMark": "|",
+        "undefinedMark": "3",
+        "lineMark": "|",
+        "numberRestMark": "-",
+        "beatResolution": 48,
+        "showBeatMark": true,
+        "showBeatNumbers": true,
+        "hideEmptyParts": true,
+        "hideMutedParts": true,
+        "expandRepeatedLines": false,
+        "smartTupletFormatting": true,
+        "compactDisplay": false,
+        "lineResolution": 384
+    },
+    "patternSettings": [
+        {
+            "lineResolution": 384,
+            "beatResolution": 48,
+            "primaryResolution": 12,
+            "individualResolutions": [
+                {
+                    "index": "0",
+                    "name": "Bass",
+                    "resolution": 12
+                },
+                {
+                    "index": "1",
+                    "name": "Bass 2",
+                    "resolution": 12
+                },
+                {
+                    "index": "2",
+                    "name": "Djembe",
+                    "resolution": 12
+                },
+                {
+                    "index": "3",
+                    "name": "Snare",
+                    "resolution": 12
+                },
+                {
+                    "index": "4",
+                    "name": "Shaker",
+                    "resolution": 12
+                }
+            ],
+            "useIndividualResolution": false
+        },
+        {
+            "lineResolution": 384,
+            "beatResolution": 48,
+            "primaryResolution": 12,
+            "individualResolutions": [
+                {
+                    "index": "0",
+                    "name": "Bass",
+                    "resolution": 12
+                },
+                {
+                    "index": "1",
+                    "name": "Bass 2",
+                    "resolution": 12
+                },
+                {
+                    "index": "2",
+                    "name": "Djembe",
+                    "resolution": 12
+                },
+                {
+                    "index": "3",
+                    "name": "Snare",
+                    "resolution": 12
+                },
+                {
+                    "index": "4",
+                    "name": "Shaker",
+                    "resolution": 12
+                }
+            ],
+            "useIndividualResolution": false
+        },
+        {
+            "lineResolution": 192,
+            "beatResolution": "48",
+            "primaryResolution": "12",
+            "individualResolutions": [
+                {
+                    "index": "0",
+                    "name": "Bass",
+                    "resolution": 4
+                },
+                {
+                    "index": "1",
+                    "name": "Bass 2",
+                    "resolution": 4
+                },
+                {
+                    "index": "2",
+                    "name": "Djembe",
+                    "resolution": 4
+                },
+                {
+                    "index": "3",
+                    "name": "Snare",
+                    "resolution": 4
+                },
+                {
+                    "index": "4",
+                    "name": "Shaker",
+                    "resolution": 4
+                }
+            ],
+            "useIndividualResolution": false
+        },
+        {
+            "lineResolution": 192,
+            "beatResolution": 48,
+            "primaryResolution": 24,
+            "individualResolutions": [
+                {
+                    "index": "0",
+                    "name": "Bass",
+                    "resolution": 24
+                },
+                {
+                    "index": "1",
+                    "name": "Bass 2",
+                    "resolution": 24
+                },
+                {
+                    "index": "2",
+                    "name": "Djembe",
+                    "resolution": 24
+                },
+                {
+                    "index": "3",
+                    "name": "Snare",
+                    "resolution": 24
+                },
+                {
+                    "index": "4",
+                    "name": "Shaker",
+                    "resolution": 24
+                }
+            ],
+            "useIndividualResolution": false
+        },
+        {
+            "lineResolution": 192,
+            "beatResolution": 48,
+            "primaryResolution": 48,
+            "individualResolutions": [
+                {
+                    "index": "0",
+                    "name": "Bass",
+                    "resolution": 48
+                },
+                {
+                    "index": "1",
+                    "name": "Bass 2",
+                    "resolution": 48
+                },
+                {
+                    "index": "2",
+                    "name": "Djembe",
+                    "resolution": 48
+                },
+                {
+                    "index": "3",
+                    "name": "Snare",
+                    "resolution": 48
+                },
+                {
+                    "index": "4",
+                    "name": "Shaker",
+                    "resolution": 48
+                }
+            ],
+            "useIndividualResolution": false
+        }
+    ],
+    "audioState": {
+        "tempo": 100
+    },
+    "version": "1.3.0"
+}

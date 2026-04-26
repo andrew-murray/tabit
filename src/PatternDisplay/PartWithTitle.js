@@ -20,7 +20,7 @@ class PartWithTitle extends React.Component
   render() {
     const Title = getTitleType(this.props.headingLevel, "h4");
     return (
-      <article>
+      <article data-testid="instrument-part">
         <Title>{this.props.instrumentName}</Title>
         <Part
           instrument={this.props.instrument}

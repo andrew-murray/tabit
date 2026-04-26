@@ -46,6 +46,7 @@ function PlaybackControls(props)
             </Box>
 
             <Slider
+              data-testid="tempo-slider"
               defaultValue={props.initialTempo ? props.initialTempo : 100}
               min={60}
               step={1}
