@@ -56,7 +56,7 @@ function FormatSettings(props) {
     // awkwardly when using outlined, we need to specify label in two places, see https://mui.com/material-ui/react-select/
     return (
       <ListItem variant="filled" sx={{margin: 1}} styles={{minWidth:120}} key={idString} id={idString} style={{width:"75%"}}>
-        <FormControl style={{width:"100%"}}>
+        <FormControl style={{width:"100%"}} data-testid={"settings-control-" + name}>
           <InputLabel id="settings-option-{name}">{name}</InputLabel>
           <Select
             labelId={"settings-option-" + name + "-labelID"}
