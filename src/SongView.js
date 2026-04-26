@@ -1005,6 +1005,7 @@ class SongView extends React.Component
           locked={this.state.locked}
           onLockUnlock={this.onToggleLocked}
           onTitleClick={this.onEnableRenameDialog}
+          compact={this.state.formatSettings.compactDisplay}
           onToggleCompact={this.onToggleCompact}
           showHelp={this.state.showHelp}
         />
