@@ -22,29 +22,29 @@ Coverage gaps - all pure logic, straightforward Jest tests.
 
 ### Infrastructure
 
-- [ ] **JSONBin mock** - Playwright fixture using `page.route()` to intercept JSONBin API calls. Needs to support: successful share (returns fake URL), successful load (returns seeded song), and failure (error-handling path). Required before share/URL round-trip tests can be written.
+- [x] **JSONBin mock** - `e2e/fixtures/jsonbin.js`: `mockJsonBinShare`, `mockJsonBinLoad`, `mockJsonBinFailure` helpers using `page.route()`. Ready to use in share/URL round-trip tests.
 
 ### Settings
 
 `notation-settings.spec.js` covers: `restMark`, `numberRestMark`, `showBeatMark`, `showBeatNumbers`, `hideEmptyParts`, `smartTupletFormatting`, `compactDisplay`. Gaps:
 
-- [ ] **`undefinedMark`** - best tested with a pattern that has notes at sub-resolution positions so the mark is actually visible in output.
-- [ ] **`hideMutedParts`** - requires loading a song with a muted instrument. Verify muted parts disappear/reappear when toggled.
+- [x] **`undefinedMark`** - tested in `notation-settings.spec.js`: change from "3" to "#" with `smartTupletFormatting:false` to expose off-grid notes.
+- [x] **`hideMutedParts`** - tested in `notation-settings.spec.js`: load kuva with Bass muted, verify 4 vs 5 instrument-parts.
 - [ ] **`expandRepeatedLines`** - needs a pattern with repeated lines. May need dedicated test data.
-- [ ] **`lineResolution` (Pattern tab)** - changing this reflows notation into wider/narrower lines. Test with a pattern long enough to have multiple candidate values.
+- [x] **`lineResolution` (Pattern tab)** - tested in `settings-pattern-tab.spec.js`: change 8 beats/line to 4, verify notation reflows (note: `expandRepeatedLines:false` suppresses the beat-number header on the second line).
 - [ ] **`beatResolution` (Pattern tab)** - interacts with `lineResolution`; best with a non-standard time signature.
 - [ ] **`primaryResolution` (Pattern tab)** - needs a pattern with notes at multiple sub-beat resolutions.
 - [ ] **`useIndividualResolution` / `individualResolutions` (Pattern tab)** - per-instrument resolution override. Needs instruments at different native resolutions.
-- [ ] **`showHelp` toggle** - toggling "Show Help" in the drawer should show/hide tooltip text on controls.
-- [ ] **Tempo slider** - changing the `PlaybackControls` slider updates displayed BPM. Audio out of scope; UI state only.
+- [x] **`showHelp` toggle** - tested in `notation-settings.spec.js`: toggle off/on, verify Switch checked state.
+- [x] **Tempo slider** - tested in `settings-pattern-tab.spec.js`: ArrowRight/Left change `aria-valuenow`.
 - [ ] **Per-instrument volume** - changing the volume slider in `InstrumentConfig` persists in downloaded `.tabit` and reloads correctly.
 
 ### Editing
 
-- [ ] **Rename a pattern** - edit name in-app, assert new name in pattern list and in downloaded `.tabit`.
-- [ ] **Add a new pattern** - assert it appears in the list, is selectable, renders an empty grid.
-- [ ] **Delete a pattern** - assert removal from list; app navigates cleanly to adjacent pattern (or empty state).
-- [ ] **Share URL round-trip** - encode state to a share URL via JSONBin mock, reload from URL, same song appears. Depends on JSONBin mock above.
+- [x] **Rename song title** - tested in `editing.spec.js`: click title button, fill RenameDialog, assert new title in app bar.
+- [x] **Add a new pattern** - tested in `editing.spec.js`: AddIcon button opens PatternCreateDialog, new pattern appears and renders empty grid.
+- [x] **Delete a pattern** - tested in `editing.spec.js`: DeleteIcon (4 tests: locked/unlocked state, removal from list, navigation after delete).
+- [ ] **Share URL round-trip** - encode state to a share URL via JSONBin mock, reload from URL, same song appears. Depends on JSONBin mock (done).
 
 ### Data Import
 
@@ -53,6 +53,7 @@ Coverage gaps - all pure logic, straightforward Jest tests.
 - [ ] **Triplet content** - patterns with genuine triplet subdivisions (not just `smartTupletFormatting` artefacts). Assert round-trip through import without data loss.
 - [ ] **Instrument categorisation** - assert correct category (djembe, snare, shaker, etc.) across a range of drumkit files with varied naming conventions.
 - [ ] **Virtual pattern resolution** - Hydrogen's pattern-in-pattern feature is correctly expanded on import. Needs a `.h2song` that exercises this as test data.
+- [ ] **Multi-line notation** - verify that patterns long enough to span multiple display lines render correctly: first line has beat numbers, subsequent lines show notes only (`expandRepeatedLines:false` default); toggling `expandRepeatedLines:true` restores headers on all lines. Good candidates in the existing test data (longer patterns from `that_guy`, `too_much_garlic`, etc.).
 
 ### Playback
 

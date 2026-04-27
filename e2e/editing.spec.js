@@ -1,7 +1,8 @@
 // @ts-check
-// Tests for editing interactions: note toggling and pattern reordering.
+// Tests for editing interactions: note toggling, pattern reordering,
+// song title rename, add pattern, and delete pattern.
 //
-// Both features require the song to be unlocked (locked=true on load).
+// Most edits require the song to be unlocked (locked=true on load).
 // Notes: clicking cycles through a cell's content via cycleCellContent.
 // Pattern reordering: @dnd-kit PointerSensor; drag handles only appear when
 // unlocked. Playwright's mouse API dispatches pointer events too, which is
@@ -112,5 +113,125 @@ test.describe("Pattern reordering", () => {
         .boundingBox();
       expect(lightbulbBox.y).toBeLessThan(k2Box.y);
     }).toPass({ timeout: 3000 });
+  });
+});
+
+// ─── Song Title Rename ───────────────────────────────────────────────────────
+//
+// The song title is a clickable Button in the TabitBar (onTitleClick is always
+// passed in SongView). Clicking it opens a RenameDialog. The rename does NOT
+// require unlocking.
+
+test.describe("Song title rename", () => {
+  test.beforeEach(async ({ page }) => {
+    await loadKuva(page);
+  });
+
+  test("clicking the title opens a rename dialog", async ({ page }) => {
+    await page.getByRole("button", { name: KUVA.songName }).click();
+    await expect(page.getByRole("dialog")).toBeVisible();
+    await expect(page.getByText("Enter new title")).toBeVisible();
+  });
+
+  test("confirming a new name updates the app bar title", async ({ page }) => {
+    await page.getByRole("button", { name: KUVA.songName }).click();
+    const dialog = page.getByRole("dialog");
+    await dialog.getByRole("textbox").fill("renamed song");
+    await dialog.getByRole("button", { name: "Confirm" }).click();
+    await expect(page.getByRole("button", { name: "renamed song" })).toBeVisible();
+    await expect(page.getByRole("button", { name: KUVA.songName })).not.toBeVisible();
+  });
+});
+
+// ─── Add Pattern ─────────────────────────────────────────────────────────────
+//
+// The AddIcon button appears in the patterns drawer when unlocked.
+// Clicking it opens PatternCreateDialog. The "Create new pattern" accordion is
+// expanded by default. Typing a name and clicking Confirm adds the pattern,
+// selects it, and navigates to it.
+
+test.describe("Add pattern", () => {
+  test.beforeEach(async ({ page }) => {
+    await loadKuva(page);
+    await unlock(page);
+  });
+
+  test("add button is not visible when locked", async ({ page }) => {
+    // Load fresh (locked) for this test - unlock was already called in beforeEach,
+    // so we reload instead.
+    await loadKuva(page);
+    await expect(page.getByTestId("AddIcon")).not.toBeVisible();
+  });
+
+  test("add button appears after unlocking", async ({ page }) => {
+    await expect(page.getByTestId("AddIcon")).toBeVisible();
+  });
+
+  test("adding a pattern makes it appear in the pattern list", async ({ page }) => {
+    await page.getByTestId("AddIcon").click();
+    await expect(page.getByText("Create new pattern")).toBeVisible();
+
+    // Fill the Pattern Name field (first visible one - in the expanded Create accordion)
+    await page.getByLabel("Pattern Name").first().fill("my new pattern");
+    await page.getByRole("dialog").getByRole("button", { name: "Confirm" }).click();
+
+    // New pattern should appear in the list
+    await expect(page.getByRole("button", { name: "my new pattern" })).toBeVisible();
+  });
+
+  test("newly added pattern is selected and displays an empty grid", async ({ page }) => {
+    await page.getByTestId("AddIcon").click();
+    await page.getByLabel("Pattern Name").first().fill("brand new");
+    await page.getByRole("dialog").getByRole("button", { name: "Confirm" }).click();
+
+    // The new pattern should be selected (no instrument-parts have notes to show,
+    // but hideEmptyParts=true means the grid is empty - 0 instrument-parts visible).
+    await expect(page.getByRole("button", { name: "brand new" })).toBeVisible();
+    await expect(page.getByTestId("instrument-part")).toHaveCount(0);
+  });
+});
+
+// ─── Delete Pattern ──────────────────────────────────────────────────────────
+//
+// DeleteIcon (ClearIcon from @mui/icons-material/Delete) appears next to each
+// pattern in the drawer when unlocked. kuva has 5 patterns in display order:
+// k-1, k-2, lightbulb, break, squash.
+
+test.describe("Delete pattern", () => {
+  test.beforeEach(async ({ page }) => {
+    await loadKuva(page);
+  });
+
+  test("delete icons are not visible when locked", async ({ page }) => {
+    await expect(page.getByTestId("DeleteIcon").first()).not.toBeVisible();
+  });
+
+  test("delete icons appear after unlocking", async ({ page }) => {
+    await unlock(page);
+    await expect(page.getByTestId("DeleteIcon").first()).toBeVisible();
+    await expect(page.getByTestId("DeleteIcon")).toHaveCount(5);
+  });
+
+  test("deleting a pattern removes it from the list", async ({ page }) => {
+    await unlock(page);
+
+    // Delete k-2 (index 1 in display order)
+    await page.getByTestId("DeleteIcon").nth(1).click();
+
+    await expect(page.getByRole("button", { name: "k-2", exact: true })).not.toBeVisible();
+    // 4 patterns remain
+    await expect(page.getByTestId("DeleteIcon")).toHaveCount(4);
+  });
+
+  test("app navigates away from deleted pattern", async ({ page }) => {
+    await unlock(page);
+
+    // k-1 is selected by default. Delete k-1 (index 0).
+    await page.getByTestId("DeleteIcon").nth(0).click();
+
+    // App should navigate to another pattern (k-2 or whichever is now first)
+    await expect(page.getByRole("button", { name: "k-1", exact: true })).not.toBeVisible();
+    // The song title is still shown (song is still loaded)
+    await expect(page.getByRole("button", { name: KUVA.songName })).toBeVisible();
   });
 });

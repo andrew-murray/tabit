@@ -11,6 +11,17 @@ const KUVA_TABIT = JSON.parse(
   fs.readFileSync(path.join(__dirname, "../test_data/kuva.tabit"), "utf8"),
 );
 
+// Load arbitrary song data (any top-level fields can be overridden).
+async function loadSong(page, songData) {
+  await page.goto("/");
+  await page.locator('input[type="file"]').setInputFiles({
+    name: "test.tabit",
+    mimeType: "application/json",
+    buffer: Buffer.from(JSON.stringify(songData)),
+  });
+  await expect(page.getByText(songData.songName)).toBeVisible();
+}
+
 // Load kuva.tabit with the given formatSettings overrides via the title-screen file import.
 // Resolves once SongView has rendered (song title visible in app bar).
 // On load, the first pattern (k-1) is selected and the pattern drawer is open.
@@ -199,5 +210,98 @@ test.describe("Notation display settings", () => {
     // With smart formatting restored, triplet beat renders correctly as "|OOO3 |"
     await expect(firstPart).toContainText("|OOO3 |");
     await expect(firstPart).not.toContainText("|O33-|");
+  });
+
+  // -------------------------------------------------------------------------
+  // undefinedMark (dropdown in drawer, options: "?", "o", "3", "4", "#", etc.)
+  // Controls the character rendered for notes that don't align to the display
+  // grid. Easiest to observe with smartTupletFormatting:false, which forces
+  // lightbulb's triplet notes through the primary resolution and renders them
+  // as undefinedMark. kuva.tabit already sets undefinedMark:"3".
+  // -------------------------------------------------------------------------
+  test("undefinedMark - changing the mark changes how off-grid notes render", async ({
+    page,
+  }) => {
+    // With smartTupletFormatting off, lightbulb Bass shows "|O33-|" (undefinedMark="3")
+    await loadWithSettings(page, { smartTupletFormatting: false });
+    await page.getByText("lightbulb").click();
+
+    const firstPart = page.getByTestId("instrument-part").first();
+    await expect(firstPart).toContainText("|O33-|");
+
+    // Change undefinedMark from "3" to "#"
+    await openSettingsDrawer(page);
+    await page.getByTestId("settings-control-undefinedMark").locator('[aria-haspopup="listbox"]').click();
+    await page.getByRole("option", { name: "#" }).click();
+
+    await expect(firstPart).toContainText("|O##-|");
+    await expect(firstPart).not.toContainText("|O33-|");
+
+    // Revert to "3"
+    await page.getByTestId("settings-control-undefinedMark").locator('[aria-haspopup="listbox"]').click();
+    await page.getByRole("option", { name: "3" }).click();
+
+    await expect(firstPart).toContainText("|O33-|");
+    await expect(firstPart).not.toContainText("|O##-|");
+  });
+
+  // -------------------------------------------------------------------------
+  // hideMutedParts (bool toggle in drawer)
+  // When true (default): instruments with muted:true in instruments[i][3] are
+  // not rendered.
+  // When false: all instruments rendered regardless of muted state.
+  // Test data: kuva modified so Bass (instruments[0]) has muted:true.
+  // k-1 has 5 instruments all with notes; with Bass muted + hideMutedParts:true
+  // only 4 are visible.
+  // -------------------------------------------------------------------------
+  test("hideMutedParts - muted instruments are hidden by default and visible when setting disabled", async ({
+    page,
+  }) => {
+    const bass = KUVA_TABIT.instruments[0];
+    const kuvaWithMutedBass = {
+      ...KUVA_TABIT,
+      instruments: [
+        [bass[0], bass[1], bass[2], { ...bass[3], muted: true }],
+        ...KUVA_TABIT.instruments.slice(1),
+      ],
+    };
+    await loadSong(page, kuvaWithMutedBass);
+
+    // k-1: 5 instruments all with notes, Bass is muted -> only 4 visible
+    await expect(page.getByTestId("instrument-part")).toHaveCount(4);
+
+    // Toggle hideMutedParts off -> all 5 visible
+    await openSettingsDrawer(page);
+    await page.getByText("Hide Muted Parts").click();
+    await expect(page.getByTestId("instrument-part")).toHaveCount(5);
+
+    // Toggle back on -> Bass hidden again
+    await page.getByText("Hide Muted Parts").click();
+    await expect(page.getByTestId("instrument-part")).toHaveCount(4);
+  });
+
+  // -------------------------------------------------------------------------
+  // showHelp (toggle in the SettingsDrawer, not in FormatSettings)
+  // SongView initial state: showHelp:true. The Switch reflects this.
+  // Toggling off/on changes the Switch checked state.
+  // -------------------------------------------------------------------------
+  test("showHelp toggle - can be turned off and on via settings drawer", async ({
+    page,
+  }) => {
+    await loadWithSettings(page, {});
+    await openSettingsDrawer(page);
+
+    const helpToggle = page.getByLabel("Show Help");
+
+    // Default is showHelp:true
+    await expect(helpToggle).toBeChecked();
+
+    // Toggle off
+    await helpToggle.click();
+    await expect(helpToggle).not.toBeChecked();
+
+    // Toggle back on
+    await helpToggle.click();
+    await expect(helpToggle).toBeChecked();
   });
 });
