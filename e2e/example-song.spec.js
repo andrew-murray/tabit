@@ -3,6 +3,15 @@ const { test, expect } = require("@playwright/test");
 const fs = require("fs");
 const path = require("path");
 
+/**
+ * This test suite covers basic attributes of how a SongView should behave, using the example.
+ * This checks that 
+ *    - the page initialises and shows the nav components correctly (lists patterns, shows title bar)
+ *    - pattern-nav-components navigate to the pattern correctly
+ *    - exhaustive test of the notation display (under default conditions)
+ *    - the download widget correctly downloads the example
+ */
+
 // Fixture files may have CRLF line endings on Windows/Linux shared filesystems.
 const normalizeNewlines = (s) => s.replace(/\r\n/g, "\n");
 
@@ -76,14 +85,17 @@ test.describe("Example song page", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto("/example");
     // wait for the song to load asynchronously
+      // TODO: Prefer to restrict scope to the titlebar and look for an annotated title
     await expect(page.getByText("kuva")).toBeVisible();
   });
 
   test("displays the song title", async ({ page }) => {
+      // TODO: Prefer to restrict scope to the titlebar and look for an annotated title
     await expect(page.getByText("kuva")).toBeVisible();
   });
 
   test("shows all patterns in the drawer", async ({ page }) => {
+    // TODO: Prefer to restrict-scope to the drawer & look for buttons/more annotated elements
     for (const name of EXAMPLE_PATTERNS) {
       await expect(page.getByText(name)).toBeVisible();
     }
@@ -94,6 +106,7 @@ test.describe("Example song page", () => {
       await page.getByText(name).click();
       await expect(page).toHaveURL(/\/example/);
       // song title remains visible after each navigation
+      // TODO: Prefer to restrict scope to the titlebar and look for an annotated title
       await expect(page.getByText("kuva")).toBeVisible();
     }
   });
@@ -101,11 +114,13 @@ test.describe("Example song page", () => {
   // Default state checks
 
   test("default state is locked", async ({ page }) => {
+    // TODO: Prefer to look for more general attributes
     await expect(page.getByTestId("LockIcon")).toBeVisible();
     await expect(page.getByTestId("LockOpenIcon")).not.toBeVisible();
   });
 
   test("default state is not compact", async ({ page }) => {
+    // TODO: Prefer to look for more general attributes
     // CalendarViewDayIcon = "show compact layout" button - visible when not compact
     await expect(page.getByTestId("CalendarViewDayIcon")).toBeVisible();
   });
@@ -114,12 +129,14 @@ test.describe("Example song page", () => {
   // Note: editing behavior (locked vs unlocked) is tested in e2e/editing.spec.js
 
   test("lock button unlocks editing", async ({ page }) => {
+    // TODO: Prefer to look for more general attributes
     await page.getByTestId("LockIcon").click();
     await expect(page.getByTestId("LockOpenIcon")).toBeVisible();
     await expect(page.getByTestId("LockIcon")).not.toBeVisible();
   });
 
   test("unlock button re-locks editing", async ({ page }) => {
+    // TODO: Prefer to look for more general attributes
     await page.getByTestId("LockIcon").click();
     await page.getByTestId("LockOpenIcon").click();
     await expect(page.getByTestId("LockIcon")).toBeVisible();
@@ -130,12 +147,14 @@ test.describe("Example song page", () => {
   // ViewListIcon = "show expanded layout" (compact)
 
   test("compact button toggles icon", async ({ page }) => {
+    // TODO: Prefer to look for more general attributes
     await page.getByTestId("CalendarViewDayIcon").click();
     await expect(page.getByTestId("ViewListIcon")).toBeVisible();
     await expect(page.getByTestId("CalendarViewDayIcon")).not.toBeVisible();
   });
 
   test("compact button toggles back", async ({ page }) => {
+    // TODO: Prefer to look for more general attributes
     await page.getByTestId("CalendarViewDayIcon").click();
     await page.getByTestId("ViewListIcon").click();
     await expect(page.getByTestId("CalendarViewDayIcon")).toBeVisible();
@@ -148,6 +167,7 @@ test.describe("Example song page", () => {
 
   test("download button exports a .tabit file", async ({ page }) => {
     const downloadPromise = page.waitForEvent("download");
+    // TODO: Prefer to look for more general attributes
     await page.getByTestId("SaveAltIcon").click();
     const download = await downloadPromise;
     expect(download.suggestedFilename()).toBe("kuva.tabit");
@@ -167,70 +187,7 @@ test.describe("Example song page", () => {
   });
 });
 
-// formatSettings are loaded from kuva.tabit on startup. These tests verify that
-// the correct values from the file are applied to the UI's initial state.
-test.describe("formatSettings initialized from kuva.tabit", () => {
-  test.beforeEach(async ({ page }) => {
-    await page.goto("/example");
-    await expect(page.getByText("kuva")).toBeVisible();
-  });
-
-  // formatSettings.compactDisplay: false
-  test("compactDisplay false - compact toggle shows 'enter compact mode' icon", async ({
-    page,
-  }) => {
-    await expect(page.getByTestId("CalendarViewDayIcon")).toBeVisible();
-    await expect(page.getByTestId("ViewListIcon")).not.toBeVisible();
-  });
-
-  // SongView.state.locked: true - hardcoded in SongView, not from the file.
-  // The file does not control locked state; editing always starts disabled.
-  test("locked true - editing starts disabled regardless of file contents", async ({
-    page,
-  }) => {
-    await expect(page.getByTestId("LockIcon")).toBeVisible();
-  });
-
-  // audioState.tempo: 100 (from kuva.tabit audioState)
-  test("tempo initializes to 100 bpm from audioState", async ({ page }) => {
-    // MUI Slider puts aria-valuenow on the inner thumb element (role="slider"),
-    // not on the root span that receives data-testid.
-    await expect(
-      page.getByTestId("tempo-slider").getByRole("slider"),
-    ).toHaveAttribute("aria-valuenow", "100");
-  });
-
-  // formatSettings.showBeatNumbers: true
-  // The beat-number row (|1---|2---|...) appears above the notation in each instrument part.
-  test("showBeatNumbers true - beat number row visible above notation", async ({
-    page,
-  }) => {
-    const firstPart = page.getByTestId("instrument-part").first();
-    // k-1 has beatResolution=48 and primaryResolution=12 (4 notes per beat)
-    // so beat 1 renders as "1---" in the number row
-    await expect(firstPart).toContainText("|1---");
-  });
-
-  // formatSettings.hideEmptyParts: true
-  // Instruments whose tracks are all empty are not rendered.
-  // lightbulb has notes only for Bass and Snare; Bass 2 / Djembe / Shaker are empty.
-  test("hideEmptyParts true - empty instruments not rendered for lightbulb", async ({
-    page,
-  }) => {
-    await page.getByText("lightbulb").click();
-    const parts = page.getByTestId("instrument-part");
-    await expect(parts.filter({ hasText: "Bass" })).toBeVisible();
-    await expect(parts.filter({ hasText: "Snare" })).toBeVisible();
-    await expect(parts.filter({ hasText: "Bass 2" })).not.toBeVisible();
-    await expect(parts.filter({ hasText: "Djembe" })).not.toBeVisible();
-    await expect(parts.filter({ hasText: "Shaker" })).not.toBeVisible();
-  });
-});
-
 // Checks the rendered notation text for each pattern and instrument.
-// EXPECTED_NOTATION values are null (TODO) until populated.
-// To populate: run `yarn test:e2e`, note the actual output in the failure messages,
-// and fill in the corresponding entries in EXPECTED_NOTATION above.
 test.describe("Notation rendered for each pattern", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto("/example");
@@ -267,3 +224,4 @@ test.describe("Notation rendered for each pattern", () => {
     });
   }
 });
+

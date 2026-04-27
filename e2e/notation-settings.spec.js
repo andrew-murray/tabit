@@ -46,6 +46,67 @@ async function openSettingsDrawer(page) {
   await expect(page.getByText("Show Beat Numbers")).toBeVisible();
 }
 
+
+// formatSettings are loaded from kuva.tabit on startup. These tests verify that
+// the correct values from the file are applied to the UI's initial state.
+test.describe("formatSettings initialized from kuva.tabit", () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto("/example");
+    await expect(page.getByText("kuva")).toBeVisible();
+  });
+
+  // formatSettings.compactDisplay: false
+  test("compactDisplay false - compact toggle shows 'enter compact mode' icon", async ({
+    page,
+  }) => {
+    await expect(page.getByTestId("CalendarViewDayIcon")).toBeVisible();
+    await expect(page.getByTestId("ViewListIcon")).not.toBeVisible();
+  });
+
+  // SongView.state.locked: true - hardcoded in SongView, not from the file.
+  // The file does not control locked state; editing always starts disabled.
+  test("locked true - editing starts disabled regardless of file contents", async ({
+    page,
+  }) => {
+    await expect(page.getByTestId("LockIcon")).toBeVisible();
+  });
+
+  // audioState.tempo: 100 (from kuva.tabit audioState)
+  test("tempo initializes to 100 bpm from audioState", async ({ page }) => {
+    // MUI Slider puts aria-valuenow on the inner thumb element (role="slider"),
+    // not on the root span that receives data-testid.
+    await expect(
+      page.getByTestId("tempo-slider").getByRole("slider"),
+    ).toHaveAttribute("aria-valuenow", "100");
+  });
+
+  // formatSettings.showBeatNumbers: true
+  // The beat-number row (|1---|2---|...) appears above the notation in each instrument part.
+  test("showBeatNumbers true - beat number row visible above notation", async ({
+    page,
+  }) => {
+    const firstPart = page.getByTestId("instrument-part").first();
+    // k-1 has beatResolution=48 and primaryResolution=12 (4 notes per beat)
+    // so beat 1 renders as "1---" in the number row
+    await expect(firstPart).toContainText("|1---");
+  });
+
+  // formatSettings.hideEmptyParts: true
+  // Instruments whose tracks are all empty are not rendered.
+  // lightbulb has notes only for Bass and Snare; Bass 2 / Djembe / Shaker are empty.
+  test("hideEmptyParts true - empty instruments not rendered for lightbulb", async ({
+    page,
+  }) => {
+    await page.getByText("lightbulb").click();
+    const parts = page.getByTestId("instrument-part");
+    await expect(parts.filter({ hasText: "Bass" })).toBeVisible();
+    await expect(parts.filter({ hasText: "Snare" })).toBeVisible();
+    await expect(parts.filter({ hasText: "Bass 2" })).not.toBeVisible();
+    await expect(parts.filter({ hasText: "Djembe" })).not.toBeVisible();
+    await expect(parts.filter({ hasText: "Shaker" })).not.toBeVisible();
+  });
+});
+
 test.describe("Notation display settings", () => {
   // -------------------------------------------------------------------------
   // compactDisplay

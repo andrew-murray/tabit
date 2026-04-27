@@ -15,12 +15,19 @@ test.describe('Title screen', () => {
   test('shows Load example and Import file buttons', async ({ page }) => {
     await expect(page.getByRole('button', { name: 'Load example' })).toBeVisible();
     await expect(page.getByRole('button', { name: /import/i })).toBeVisible();
-  });
-
-  test('shows license link', async ({ page }) => {
     await expect(page.getByRole('link', { name: /github\.com\/andrew-murray\/tabit/i })).toBeVisible();
   });
 
+  test('shows license link', async ({ page }) => {
+  });
+
+  test('Load example navigates to /example', async ({ page }) => {
+    await page.getByRole('button', { name: 'Load example' }).click();
+    await expect(page).toHaveURL(/\/example/);
+  });
+});
+
+test.describe('Songbook widget', () => {
   test('shows all static songbooks', async ({ page }) => {
     const expectedSongbooks = [
       'Beasties Beltane 2025',
@@ -34,15 +41,9 @@ test.describe('Title screen', () => {
       await expect(page.getByText(name)).toBeVisible();
     }
   });
-
-  test('Load example navigates to /example', async ({ page }) => {
-    await page.getByRole('button', { name: 'Load example' }).click();
-    await expect(page).toHaveURL(/\/example/);
-  });
-
+  
   test('clicking a songbook navigates to the songbook page', async ({ page }) => {
     await page.getByText('The Noise Committee').click();
     await expect(page).toHaveURL(/\/songbook\/static\/enc/);
   });
-
 });
