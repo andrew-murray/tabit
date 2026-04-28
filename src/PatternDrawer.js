@@ -223,7 +223,7 @@ function DrawerContent(props)
   return (<React.Fragment>
     {!isMobile ? <TabitBar placeholder /> : null }
     <div>
-      <List>
+      <List data-testid="pattern-list">
         <DNDSwitcher
           disabled={!props.setPatternDisplayOrder}
           patterns={props.patterns}

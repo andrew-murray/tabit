@@ -14,7 +14,7 @@ const { test, expect } = require("@playwright/test");
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
 async function openSettingsDrawer(page) {
-  await page.getByTestId("SettingsIcon").click();
+  await page.getByRole("button", { name: "Notation settings" }).click();
   // "Show Beat Numbers" is in the Song tab - use as ready signal
   await expect(page.getByText("Show Beat Numbers")).toBeVisible();
 }
@@ -41,7 +41,7 @@ async function switchToPatternTab(page) {
 test.describe("Pattern tab - lineResolution", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto("/example");
-    await expect(page.getByText("kuva")).toBeVisible();
+    await expect(page.getByTestId("song-title")).toBeVisible();
   });
 
   test("changing lineResolution from 8 to 4 beats reflows notation into shorter lines", async ({ page }) => {
@@ -96,7 +96,7 @@ test.describe("Pattern tab - lineResolution", () => {
 test.describe("Tempo slider", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto("/example");
-    await expect(page.getByText("kuva")).toBeVisible();
+    await expect(page.getByTestId("song-title")).toBeVisible();
   });
 
   test("tempo slider is present and interactive when locked", async ({ page }) => {
@@ -129,8 +129,8 @@ test.describe("Tempo slider", () => {
     // The slider itself is still in the DOM but its interaction is suppressed by
     // the disabled prop on the PlayIcon/StopIcon - the Slider itself doesn't get
     // a disabled attribute, so we verify visually by checking the locked state.
-    await page.getByTestId("LockIcon").click();
-    await expect(page.getByTestId("LockOpenIcon")).toBeVisible();
+    await page.getByRole("button", { name: "Unlock editing" }).click();
+    await expect(page.getByRole("button", { name: "Lock editing" })).toBeVisible();
 
     // Slider is still present; its aria state doesn't change, but the PlayArrow
     // icon is greyed (no direct attribute to check for the slider itself).

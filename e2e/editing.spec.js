@@ -23,12 +23,12 @@ async function loadKuva(page) {
     mimeType: "application/json",
     buffer: Buffer.from(JSON.stringify(KUVA)),
   });
-  await expect(page.getByText(KUVA.songName)).toBeVisible();
+  await expect(page.getByTestId("song-title")).toContainText(KUVA.songName);
 }
 
 async function unlock(page) {
-  await page.getByTestId("LockIcon").click();
-  await expect(page.getByTestId("LockOpenIcon")).toBeVisible();
+  await page.getByRole("button", { name: "Unlock editing" }).click();
+  await expect(page.getByRole("button", { name: "Lock editing" })).toBeVisible();
 }
 
 // ─── Note Toggling ───────────────────────────────────────────────────────────
@@ -56,6 +56,8 @@ test.describe("Note toggling", () => {
     await firstPart.locator(".hoverableNote").first().click();
 
     const updatedText = await firstPart.innerText();
+    // TODO: Add a test for the entirety of what this *should* be *before* and *after*
+    // not just that "it has changed"
     expect(updatedText).not.toBe(initialText);
   });
 });
@@ -203,14 +205,18 @@ test.describe("Delete pattern", () => {
   });
 
   test("delete icons are not visible when locked", async ({ page }) => {
+    // TODO: Look for a delete role / test-id rather than DeleteIcon in MUI
     await expect(page.getByTestId("DeleteIcon").first()).not.toBeVisible();
   });
 
   test("delete icons appear after unlocking", async ({ page }) => {
     await unlock(page);
+    // TODO: Look for a delete role / test-id rather than DeleteIcon in MUI
     await expect(page.getByTestId("DeleteIcon").first()).toBeVisible();
     await expect(page.getByTestId("DeleteIcon")).toHaveCount(5);
   });
+
+  // TODO: Test deletion behaviour when patterns have been reordered
 
   test("deleting a pattern removes it from the list", async ({ page }) => {
     await unlock(page);
@@ -218,20 +224,30 @@ test.describe("Delete pattern", () => {
     // Delete k-2 (index 1 in display order)
     await page.getByTestId("DeleteIcon").nth(1).click();
 
+    // TODO: Restrict search for the pattern widget to at least within the PatternDrawer
     await expect(page.getByRole("button", { name: "k-2", exact: true })).not.toBeVisible();
     // 4 patterns remain
+    // TODO: Test the the list of visible patterns is exactly as expected
+    // TODO: Verify shown pattern notation is as expected, code from example-song.spec.js
+    // could be refactored to support this
     await expect(page.getByTestId("DeleteIcon")).toHaveCount(4);
   });
 
+  // TODO: Test behaviour when deleting the last pattern in the list (when currently viewing/when not currently viewing)
+  // TODO: Test behaviour when deleting the first pattern in the last (when currently viewing/when not currently viewing)
   test("app navigates away from deleted pattern", async ({ page }) => {
     await unlock(page);
 
     // k-1 is selected by default. Delete k-1 (index 0).
     await page.getByTestId("DeleteIcon").nth(0).click();
 
+    // TODO: Restrict search for the pattern widget (k-1) to at least within the PatternDrawers
     // App should navigate to another pattern (k-2 or whichever is now first)
     await expect(page.getByRole("button", { name: "k-1", exact: true })).not.toBeVisible();
     // The song title is still shown (song is still loaded)
+    // TODO: Test the the list of visible patterns is exactly as expected
+    // TODO: Verify shown pattern notation is as expected, code from example-song.spec.js
+    // could be refactored to support this
     await expect(page.getByRole("button", { name: KUVA.songName })).toBeVisible();
   });
 });

@@ -19,7 +19,7 @@ async function loadSong(page, songData) {
     mimeType: "application/json",
     buffer: Buffer.from(JSON.stringify(songData)),
   });
-  await expect(page.getByText(songData.songName)).toBeVisible();
+  await expect(page.getByTestId("song-title")).toContainText(songData.songName);
 }
 
 // Load kuva.tabit with the given formatSettings overrides via the title-screen file import.
@@ -36,12 +36,12 @@ async function loadWithSettings(page, overrides) {
     mimeType: "application/json",
     buffer: Buffer.from(JSON.stringify(modified)),
   });
-  await expect(page.getByText("kuva")).toBeVisible();
+  await expect(page.getByTestId("song-title")).toBeVisible();
 }
 
 // Open the Settings drawer and wait for its controls to be visible.
 async function openSettingsDrawer(page) {
-  await page.getByTestId("SettingsIcon").click();
+  await page.getByRole("button", { name: "Notation settings" }).click();
   // "Show Beat Numbers" is always present in the Song tab - use it as the ready signal
   await expect(page.getByText("Show Beat Numbers")).toBeVisible();
 }
@@ -52,15 +52,15 @@ async function openSettingsDrawer(page) {
 test.describe("formatSettings initialized from kuva.tabit", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto("/example");
-    await expect(page.getByText("kuva")).toBeVisible();
+    await expect(page.getByTestId("song-title")).toBeVisible();
   });
 
   // formatSettings.compactDisplay: false
   test("compactDisplay false - compact toggle shows 'enter compact mode' icon", async ({
     page,
   }) => {
-    await expect(page.getByTestId("CalendarViewDayIcon")).toBeVisible();
-    await expect(page.getByTestId("ViewListIcon")).not.toBeVisible();
+    await expect(page.getByRole("button", { name: "Show compact layout" })).toBeVisible();
+    await expect(page.getByRole("button", { name: "Show expanded layout" })).not.toBeVisible();
   });
 
   // SongView.state.locked: true - hardcoded in SongView, not from the file.
@@ -68,7 +68,7 @@ test.describe("formatSettings initialized from kuva.tabit", () => {
   test("locked true - editing starts disabled regardless of file contents", async ({
     page,
   }) => {
-    await expect(page.getByTestId("LockIcon")).toBeVisible();
+    await expect(page.getByRole("button", { name: "Unlock editing" })).toBeVisible();
   });
 
   // audioState.tempo: 100 (from kuva.tabit audioState)
@@ -97,7 +97,7 @@ test.describe("formatSettings initialized from kuva.tabit", () => {
   test("hideEmptyParts true - empty instruments not rendered for lightbulb", async ({
     page,
   }) => {
-    await page.getByText("lightbulb").click();
+    await page.getByTestId("pattern-list").getByRole("button", { name: "lightbulb", exact: true }).click();
     const parts = page.getByTestId("instrument-part");
     await expect(parts.filter({ hasText: "Bass" })).toBeVisible();
     await expect(parts.filter({ hasText: "Snare" })).toBeVisible();
@@ -123,8 +123,8 @@ test.describe("Notation display settings", () => {
     await expect(page.getByTestId("instrument-part")).toHaveCount(0);
     await expect(page.getByRole("heading", { level: 4 })).toHaveCount(0);
 
-    // Toggle back via ViewListIcon (shown in app bar when compact=true)
-    await page.getByTestId("ViewListIcon").click();
+    // Toggle back via "Show expanded layout" button (shown in app bar when compact=true)
+    await page.getByRole("button", { name: "Show expanded layout" }).click();
 
     // Expanded mode restored: k-1 has 5 instruments, all with notes
     await expect(page.getByTestId("instrument-part")).toHaveCount(5);
@@ -185,7 +185,7 @@ test.describe("Notation display settings", () => {
     page,
   }) => {
     await loadWithSettings(page, { hideEmptyParts: false });
-    await page.getByText("lightbulb").click();
+    await page.getByTestId("pattern-list").getByRole("button", { name: "lightbulb", exact: true }).click();
 
     // All 5 instruments visible
     await expect(page.getByTestId("instrument-part")).toHaveCount(5);
@@ -255,7 +255,7 @@ test.describe("Notation display settings", () => {
     page,
   }) => {
     await loadWithSettings(page, { smartTupletFormatting: false });
-    await page.getByText("lightbulb").click();
+    await page.getByTestId("pattern-list").getByRole("button", { name: "lightbulb", exact: true }).click();
 
     const firstPart = page.getByTestId("instrument-part").first();
     // Without smart formatting, lightbulb Bass beat 4 renders using primary resolution
@@ -285,7 +285,7 @@ test.describe("Notation display settings", () => {
   }) => {
     // With smartTupletFormatting off, lightbulb Bass shows "|O33-|" (undefinedMark="3")
     await loadWithSettings(page, { smartTupletFormatting: false });
-    await page.getByText("lightbulb").click();
+    await page.getByTestId("pattern-list").getByRole("button", { name: "lightbulb", exact: true }).click();
 
     const firstPart = page.getByTestId("instrument-part").first();
     await expect(firstPart).toContainText("|O33-|");

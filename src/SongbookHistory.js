@@ -39,7 +39,7 @@ function History(props)
       <Paper>
         <Typography>Songbooks</Typography>
         <Divider />
-        <List>
+        <List data-testid="songbook-list">
               {[...items.keys()].map ( x => renderRow({
                 index : x,
                 name: items[x].data.name,

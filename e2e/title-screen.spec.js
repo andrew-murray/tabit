@@ -28,6 +28,10 @@ test.describe('Title screen', () => {
 });
 
 test.describe('Songbook widget', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto('/');
+  });
+
   test('shows all static songbooks', async ({ page }) => {
     const expectedSongbooks = [
       'Beasties Beltane 2025',
@@ -38,12 +42,12 @@ test.describe('Songbook widget', () => {
       'Ignis Samhuinn 2018',
     ];
     for (const name of expectedSongbooks) {
-      await expect(page.getByText(name)).toBeVisible();
+      await expect(page.getByTestId("songbook-list").getByText(name)).toBeVisible();
     }
   });
-  
+
   test('clicking a songbook navigates to the songbook page', async ({ page }) => {
-    await page.getByText('The Noise Committee').click();
+    await page.getByTestId("songbook-list").getByText('The Noise Committee').click();
     await expect(page).toHaveURL(/\/songbook\/static\/enc/);
   });
 });

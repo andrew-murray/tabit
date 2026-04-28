@@ -27,12 +27,12 @@ async function loadBFS(page) {
     mimeType: "text/xml",
     buffer: BFS_FILE,
   });
-  await expect(page.getByText("bfs_drumkit_rbw4")).toBeVisible();
+  await expect(page.getByTestId("song-title")).toContainText("bfs_drumkit_rbw4");
 }
 
 async function unlock(page) {
-  await page.getByTestId("LockIcon").click();
-  await expect(page.getByTestId("LockOpenIcon")).toBeVisible();
+  await page.getByRole("button", { name: "Unlock editing" }).click();
+  await expect(page.getByRole("button", { name: "Lock editing" })).toBeVisible();
 }
 
 // Show the track columns (and, when unlocked, the reassignment matrix).
@@ -44,7 +44,7 @@ async function expandTable(page) {
 // Download the current song and return the parsed .tabit JSON.
 async function downloadSong(page) {
   const downloadPromise = page.waitForEvent("download");
-  await page.getByTestId("SaveAltIcon").click();
+  await page.getByRole("button", { name: "Download" }).click();
   const download = await downloadPromise;
   return JSON.parse(fs.readFileSync(await download.path(), "utf8"));
 }

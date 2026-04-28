@@ -67,7 +67,7 @@ function TabitBar(props) {
             show={props.showHelp}
           >
             <Button onClick={props.onTitleClick} color="inherit" style={{"textOverflow": "ellipsis"}}>
-              <Typography variant="h6" color="inherit" noWrap>
+              <Typography variant="h6" color="inherit" noWrap data-testid="song-title">
               {props.title}
               </Typography>
             </Button>
@@ -75,7 +75,7 @@ function TabitBar(props) {
         }
         {
           !props.onTitleClick &&
-            <Typography variant="h6" color="inherit" noWrap>
+            <Typography variant="h6" color="inherit" noWrap data-testid="song-title">
             {props.title}
             </Typography>
         }
@@ -88,6 +88,7 @@ function TabitBar(props) {
           <IconButton
             color="inherit"
             edge="start"
+            aria-label={props.locked ? "Unlock editing" : "Lock editing"}
             onClick={props.onLockUnlock}
             >
             {props.locked ? <LockIcon /> : <LockOpenIcon />}
@@ -102,6 +103,7 @@ function TabitBar(props) {
           <IconButton
             color="inherit"
             edge="start"
+            aria-label={props.compact ? "Show expanded layout" : "Show compact layout"}
             onClick={props.onToggleCompact}
           >
             {props.compact ? <ViewListIcon /> : <CalendarViewDayIcon />}
@@ -131,6 +133,7 @@ function TabitBar(props) {
           <IconButton
           color="inherit"
           edge="start"
+          aria-label="Download"
           onClick={props.onDownload}
           >
             <SaveAltIcon />
@@ -145,6 +148,7 @@ function TabitBar(props) {
           <IconButton
             color="inherit"
             edge="end"
+            aria-label="Notation settings"
             onClick={props.settingsToggle}
           >
             <SettingsIcon />

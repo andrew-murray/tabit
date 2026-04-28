@@ -5,7 +5,7 @@ const path = require("path");
 
 /**
  * This test suite covers basic attributes of how a SongView should behave, using the example.
- * This checks that 
+ * This checks that
  *    - the page initialises and shows the nav components correctly (lists patterns, shows title bar)
  *    - pattern-nav-components navigate to the pattern correctly
  *    - exhaustive test of the notation display (under default conditions)
@@ -85,79 +85,68 @@ test.describe("Example song page", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto("/example");
     // wait for the song to load asynchronously
-      // TODO: Prefer to restrict scope to the titlebar and look for an annotated title
-    await expect(page.getByText("kuva")).toBeVisible();
+    await expect(page.getByTestId("song-title")).toBeVisible();
   });
 
   test("displays the song title", async ({ page }) => {
-      // TODO: Prefer to restrict scope to the titlebar and look for an annotated title
-    await expect(page.getByText("kuva")).toBeVisible();
+    await expect(page.getByTestId("song-title")).toContainText("kuva");
   });
 
   test("shows all patterns in the drawer", async ({ page }) => {
-    // TODO: Prefer to restrict-scope to the drawer & look for buttons/more annotated elements
     for (const name of EXAMPLE_PATTERNS) {
-      await expect(page.getByText(name)).toBeVisible();
+      await expect(page.getByTestId("pattern-list").getByRole("button", { name, exact: true })).toBeVisible();
     }
   });
 
   test("can navigate to each pattern", async ({ page }) => {
     for (const name of EXAMPLE_PATTERNS) {
-      await page.getByText(name).click();
+      await page.getByTestId("pattern-list").getByRole("button", { name, exact: true }).click();
       await expect(page).toHaveURL(/\/example/);
       // song title remains visible after each navigation
-      // TODO: Prefer to restrict scope to the titlebar and look for an annotated title
-      await expect(page.getByText("kuva")).toBeVisible();
+      await expect(page.getByTestId("song-title")).toBeVisible();
     }
   });
 
   // Default state checks
 
   test("default state is locked", async ({ page }) => {
-    // TODO: Prefer to look for more general attributes
-    await expect(page.getByTestId("LockIcon")).toBeVisible();
-    await expect(page.getByTestId("LockOpenIcon")).not.toBeVisible();
+    await expect(page.getByRole("button", { name: "Unlock editing" })).toBeVisible();
+    await expect(page.getByRole("button", { name: "Lock editing" })).not.toBeVisible();
   });
 
   test("default state is not compact", async ({ page }) => {
-    // TODO: Prefer to look for more general attributes
-    // CalendarViewDayIcon = "show compact layout" button - visible when not compact
-    await expect(page.getByTestId("CalendarViewDayIcon")).toBeVisible();
+    await expect(page.getByRole("button", { name: "Show compact layout" })).toBeVisible();
   });
 
   // Lock toggle
   // Note: editing behavior (locked vs unlocked) is tested in e2e/editing.spec.js
 
   test("lock button unlocks editing", async ({ page }) => {
-    // TODO: Prefer to look for more general attributes
-    await page.getByTestId("LockIcon").click();
-    await expect(page.getByTestId("LockOpenIcon")).toBeVisible();
-    await expect(page.getByTestId("LockIcon")).not.toBeVisible();
+    await page.getByRole("button", { name: "Unlock editing" }).click();
+    await expect(page.getByRole("button", { name: "Lock editing" })).toBeVisible();
+    await expect(page.getByRole("button", { name: "Unlock editing" })).not.toBeVisible();
   });
 
   test("unlock button re-locks editing", async ({ page }) => {
-    // TODO: Prefer to look for more general attributes
-    await page.getByTestId("LockIcon").click();
-    await page.getByTestId("LockOpenIcon").click();
-    await expect(page.getByTestId("LockIcon")).toBeVisible();
+    await page.getByRole("button", { name: "Unlock editing" }).click();
+    await page.getByRole("button", { name: "Lock editing" }).click();
+    await expect(page.getByRole("button", { name: "Unlock editing" })).toBeVisible();
   });
 
   // Compact toggle
-  // CalendarViewDayIcon = "show compact layout" (not compact)
-  // ViewListIcon = "show expanded layout" (compact)
+  // "Show compact layout" button is visible when not compact (clicking enters compact mode)
+  // "Show expanded layout" button is visible when compact (clicking exits compact mode)
 
   test("compact button toggles icon", async ({ page }) => {
-    // TODO: Prefer to look for more general attributes
-    await page.getByTestId("CalendarViewDayIcon").click();
-    await expect(page.getByTestId("ViewListIcon")).toBeVisible();
-    await expect(page.getByTestId("CalendarViewDayIcon")).not.toBeVisible();
+    await page.getByRole("button", { name: "Show compact layout" }).click();
+    await expect(page.getByRole("button", { name: "Show expanded layout" })).toBeVisible();
+    await expect(page.getByRole("button", { name: "Show compact layout" })).not.toBeVisible();
   });
 
   test("compact button toggles back", async ({ page }) => {
-    // TODO: Prefer to look for more general attributes
-    await page.getByTestId("CalendarViewDayIcon").click();
-    await page.getByTestId("ViewListIcon").click();
-    await expect(page.getByTestId("CalendarViewDayIcon")).toBeVisible();
+    await page.getByRole("button", { name: "Show compact layout" }).click();
+    await page.getByRole("button", { name: "Show expanded layout" }).click();
+    await expect(page.getByRole("button", { name: "Show compact layout" })).toBeVisible();
   });
 
   // TODO: Check the pattern renders differently in compact vs expanded mode
@@ -167,8 +156,7 @@ test.describe("Example song page", () => {
 
   test("download button exports a .tabit file", async ({ page }) => {
     const downloadPromise = page.waitForEvent("download");
-    // TODO: Prefer to look for more general attributes
-    await page.getByTestId("SaveAltIcon").click();
+    await page.getByRole("button", { name: "Download" }).click();
     const download = await downloadPromise;
     expect(download.suggestedFilename()).toBe("kuva.tabit");
     const savedPath = await download.path();
@@ -191,14 +179,14 @@ test.describe("Example song page", () => {
 test.describe("Notation rendered for each pattern", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto("/example");
-    await expect(page.getByText("kuva")).toBeVisible();
+    await expect(page.getByTestId("song-title")).toBeVisible();
   });
 
   for (const patternName of EXAMPLE_PATTERNS) {
     test(`${patternName} - correct instruments visible and notation correct`, async ({
       page,
     }) => {
-      await page.getByText(patternName).click();
+      await page.getByTestId("pattern-list").getByRole("button", { name: patternName, exact: true }).click();
 
       page.on("console", (msg) => console.log(msg.text()));
 
@@ -224,4 +212,3 @@ test.describe("Notation rendered for each pattern", () => {
     });
   }
 });
-

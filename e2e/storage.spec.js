@@ -23,7 +23,7 @@ async function importKuva(page, overrides = {}) {
     mimeType: "application/json",
     buffer: Buffer.from(JSON.stringify(modified)),
   });
-  await expect(page.getByText(modified.songName ?? KUVA.songName)).toBeVisible();
+  await expect(page.getByTestId("song-title")).toContainText(modified.songName ?? KUVA.songName);
 }
 
 // Navigate from the song view back to the title screen using the in-app home
@@ -77,9 +77,9 @@ test.describe("Title screen - history display", () => {
     await page.goto("/");
 
     await page.getByText(KUVA.songName).click();
-    await expect(page.getByText(KUVA.songName)).toBeVisible();
+    await expect(page.getByTestId("song-title")).toContainText(KUVA.songName);
     // Confirm we landed in the song view, not still on the title screen
-    await expect(page.getByTestId("LockIcon")).toBeVisible();
+    await expect(page.getByRole("button", { name: "Unlock editing" })).toBeVisible();
   });
 
   test("clicking a corrupted history entry redirects home with an error dialog", async ({
