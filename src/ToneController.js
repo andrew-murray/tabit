@@ -338,11 +338,11 @@ class ToneController
           DRUMKITS.includes(selectedInstrument.drumkit) &&
           AVAILABLE_SAMPLES[selectedInstrument.drumkit].includes(selectedInstrument.filename) )
         {
-          urlForSample = process.env.PUBLIC_URL + "/wav/" + selectedInstrument.drumkit + "/" + selectedInstrument.filename;
+          urlForSample = import.meta.env.BASE_URL + "wav/" + selectedInstrument.drumkit + "/" + selectedInstrument.filename;
         }
         else if("drumkit" in selectedInstrument && nearestInstrument !== null )
         {
-          urlForSample = process.env.PUBLIC_URL + "/wav/" + nearestInstrument.drumkit + "/" + nearestInstrument.filename;
+          urlForSample = import.meta.env.BASE_URL + "wav/" + nearestInstrument.drumkit + "/" + nearestInstrument.filename;
           console.log({
             inputInstrument: selectedInstrument,
             outputInstrument: nearestInstrument

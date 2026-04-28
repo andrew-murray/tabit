@@ -15,9 +15,6 @@
     "@testing-library/jest-dom": "5.17.0",
     "@testing-library/react": "13.4.0",
     "@testing-library/user-event": "14.6.1",
-    "assert": "2.1.0",
-    "browserify-zlib": "0.2.0",
-    "buffer": "6.0.3",
     "compression": "1.8.1",
     "copy-to-clipboard": "3.3.3",
     "fast-xml-parser": "5.5.7",
@@ -25,27 +22,20 @@
     "memoize-one": "6.0.0",
     "object-hash": "3.0.0",
     "react": "18.3.1",
-    "react-app-rewired": "2.2.1",
     "react-click-n-hold": "1.0.7",
     "react-dom": "18.3.1",
     "react-router-dom": "6.30.3",
-    "react-scripts": "5.0.1",
     "react-test-renderer": "18.3.1",
-    "stream-browserify": "3.0.0",
     "tone": "^15.1.22"
   },
   "scripts": {
-    "start": "react-app-rewired start",
-    "build": "react-app-rewired build",
-    "test": "react-app-rewired test",
-    "eject": "react-scripts eject",
-    "build:e2e": "PUBLIC_URL=/ react-app-rewired build",
+    "start": "vite",
+    "build": "vite build --base=/tabit/",
+    "build:e2e": "vite build --base=/",
+    "test": "vitest run",
     "test:e2e": "playwright test",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
+    "predeploy": "yarn build",
+    "deploy": "gh-pages -d dist"
   },
   "browserslist": {
     "production": [
@@ -61,7 +51,12 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.59.1",
+    "@vitejs/plugin-react": "^4.0.0",
     "gh-pages": "^6.3.0",
-    "serve": "^14.2.6"
+    "jsdom": "^25.0.0",
+    "serve": "^14.2.6",
+    "vite": "^6.0.0",
+    "vite-plugin-node-polyfills": "^0.22.0",
+    "vitest": "^2.0.0"
   }
 }

@@ -140,7 +140,7 @@ const MakeLocalStorageSongView = (props) => {
 };
 
 export default function TabitRoutes(props) {
-  const info = process.env.REACT_APP_VERSION_INFO;
+  const info = import.meta.env.VITE_VERSION_INFO;
   if (!info) {
     console.info("Reporting App Version: No version information present at build time.");
   }
@@ -152,7 +152,7 @@ export default function TabitRoutes(props) {
   const theme = CreateTheme();
 
   return (
-    <Router basename={process.env.PUBLIC_URL}>
+    <Router basename={import.meta.env.BASE_URL.slice(0, -1)}>
       <ThemeProvider theme={theme}>
       <CssBaseline />
       <Routes>
