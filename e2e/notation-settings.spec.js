@@ -173,28 +173,31 @@ test.describe("Notation display settings", () => {
     await page.getByText("Show Beat Mark").click();
 
     await expect(firstPart).toContainText("O-O-|XO--");
+    await expect(firstPart).not.toContainText("O-O-XO--");
   });
 
   // -------------------------------------------------------------------------
   // hideEmptyParts (bool toggle in drawer)
-  // When true (default): instruments with no notes are not rendered.
-  // When false: all instruments rendered regardless.
-  // lightbulb has notes only in Bass and Snare; Bass 2, Djembe, Shaker are empty.
+  // When true (default): instrument-parts with no notes are not rendered.
+  // When false: all instrument-parts are rendered regardless.
   // -------------------------------------------------------------------------
   test("hideEmptyParts - toggling off shows empty instruments, toggling on hides them", async ({
     page,
   }) => {
     await loadWithSettings(page, { hideEmptyParts: false });
+    // lightbulb has notes only in Bass and Snare; Bass 2, Djembe, Shaker are empty.
     await page.getByTestId("pattern-list").getByRole("button", { name: "lightbulb", exact: true }).click();
 
     // All 5 instruments visible
+    // TODO: Check shown names of instruments in the instrument-parts
     await expect(page.getByTestId("instrument-part")).toHaveCount(5);
 
     // Toggle back
     await openSettingsDrawer(page);
     await page.getByText("Hide Empty Parts").click();
 
-    // Only Bass and Snare remain (2 parts)
+    // Only Bass and Snare should remain (2 parts)
+    // TODO: Check shown names of instruments in the instrument-parts
     await expect(page.getByTestId("instrument-part")).toHaveCount(2);
   });
 
@@ -258,7 +261,7 @@ test.describe("Notation display settings", () => {
     await page.getByTestId("pattern-list").getByRole("button", { name: "lightbulb", exact: true }).click();
 
     const firstPart = page.getByTestId("instrument-part").first();
-    // Without smart formatting, lightbulb Bass beat 4 renders using primary resolution
+    // Without smart tuplet formatting, lightbulb Bass beat 4 renders using primary resolution
     // only; the three triplet notes don't align to the grid and appear as undefinedMark
     // (kuva.tabit sets undefinedMark: "3"), producing "|O33-|" instead of "|OOO3 |"
     await expect(firstPart).toContainText("|O33-|");
@@ -349,6 +352,8 @@ test.describe("Notation display settings", () => {
   test("showHelp toggle - can be turned off and on via settings drawer", async ({
     page,
   }) => {
+    // FIXME: This test ... merely observes that you can click the setting on/off
+    // it does not verify the behaviour
     await loadWithSettings(page, {});
     await openSettingsDrawer(page);
 
