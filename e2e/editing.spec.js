@@ -32,7 +32,7 @@ async function unlock(page) {
   await expect(page.getByRole("button", { name: "Lock editing", exact: true })).toBeVisible();
 }
 
-// ─── Note Toggling ───────────────────────────────────────────────────────────
+// --- Note Toggling -----------------------------------------------------------
 
 test.describe("Note toggling", () => {
   test.beforeEach(async ({ page }) => {
@@ -68,7 +68,7 @@ test.describe("Note toggling", () => {
   });
 });
 
-// ─── Pattern Reordering ──────────────────────────────────────────────────────
+// --- Pattern Reordering ------------------------------------------------------
 
 test.describe("Pattern reordering", () => {
   test.beforeEach(async ({ page }) => {
@@ -124,7 +124,7 @@ test.describe("Pattern reordering", () => {
   });
 });
 
-// ─── Song Title Rename ───────────────────────────────────────────────────────
+// --- Song Title Rename -------------------------------------------------------
 //
 // The song title is a clickable Button in the TabitBar (onTitleClick is always
 // passed in SongView). Clicking it opens a RenameDialog. The rename does NOT
@@ -151,7 +151,7 @@ test.describe("Song title rename", () => {
   });
 });
 
-// ─── Add Pattern ─────────────────────────────────────────────────────────────
+// --- Add Pattern -------------------------------------------------------------
 //
 // The AddIcon button appears in the patterns drawer when unlocked.
 // Clicking it opens PatternCreateDialog. The "Create new pattern" accordion is
@@ -199,7 +199,7 @@ test.describe("Add pattern", () => {
   });
 });
 
-// ─── Delete Pattern ──────────────────────────────────────────────────────────
+// --- Delete Pattern ----------------------------------------------------------
 //
 // Each pattern list item has an aria-label="delete <name>" button (visible only
 // when unlocked). kuva has 5 patterns in display order:

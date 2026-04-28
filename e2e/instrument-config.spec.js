@@ -52,7 +52,7 @@ async function downloadSong(page) {
 const instrumentTable = (page) => page.getByRole("table").first();
 const trackTable = (page) => page.getByRole("table").nth(1);
 
-// ─── Locked / Unlocked State ────────────────────────────────────────────────
+// --- Locked / Unlocked State ------------------------------------------------
 
 test.describe("InstrumentConfig - locked state", () => {
   test.beforeEach(async ({ page }) => {
@@ -102,7 +102,7 @@ test.describe("InstrumentConfig - unlocked state", () => {
   });
 });
 
-// ─── Rename Instrument ───────────────────────────────────────────────────────
+// --- Rename Instrument -------------------------------------------------------
 
 test.describe("Rename instrument", () => {
   test.beforeEach(async ({ page }) => {
@@ -127,7 +127,7 @@ test.describe("Rename instrument", () => {
   });
 });
 
-// ─── Edit Symbol ─────────────────────────────────────────────────────────────
+// --- Edit Symbol -------------------------------------------------------------
 
 test.describe("Edit symbol", () => {
   test.beforeEach(async ({ page }) => {
@@ -154,7 +154,7 @@ test.describe("Edit symbol", () => {
   });
 });
 
-// ─── Edit Sample ─────────────────────────────────────────────────────────────
+// --- Edit Sample -------------------------------------------------------------
 
 test.describe("Edit sample", () => {
   test.beforeEach(async ({ page }) => {
@@ -185,7 +185,7 @@ test.describe("Edit sample", () => {
   });
 });
 
-// ─── Mute Instrument ─────────────────────────────────────────────────────────
+// --- Mute Instrument ---------------------------------------------------------
 
 test.describe("Mute instrument", () => {
   test.beforeEach(async ({ page }) => {
@@ -193,7 +193,7 @@ test.describe("Mute instrument", () => {
   });
 
   test("muting an instrument shows the muted icon", async ({ page }) => {
-    // bfs_drumkit_rbw4 instruments start with volume 1.0 → VolumeUpIcon shown initially.
+    // bfs_drumkit_rbw4 instruments start with volume 1.0 - VolumeUpIcon shown initially.
     await instrumentTable(page)
       .locator("thead")
       .getByTestId("VolumeUpIcon")
@@ -216,7 +216,7 @@ test.describe("Mute instrument", () => {
   });
 });
 
-// ─── Delete Instrument ───────────────────────────────────────────────────────
+// --- Delete Instrument -------------------------------------------------------
 
 test.describe("Delete instrument", () => {
   test.beforeEach(async ({ page }) => {
@@ -243,7 +243,7 @@ test.describe("Delete instrument", () => {
   });
 });
 
-// ─── Add Instrument ──────────────────────────────────────────────────────────
+// --- Add Instrument ----------------------------------------------------------
 
 test.describe("Add instrument", () => {
   test.beforeEach(async ({ page }) => {
@@ -265,7 +265,7 @@ test.describe("Add instrument", () => {
   });
 });
 
-// ─── Track Reassignment ──────────────────────────────────────────────────────
+// --- Track Reassignment ------------------------------------------------------
 
 test.describe("Track reassignment", () => {
   test.beforeEach(async ({ page }) => {

@@ -11,7 +11,7 @@
 
 const { test, expect } = require("@playwright/test");
 
-// ─── Helpers ─────────────────────────────────────────────────────────────────
+// --- Helpers -----------------------------------------------------------------
 
 async function openSettingsDrawer(page) {
   await page.getByRole("button", { name: "Notation settings" }).click();
@@ -25,7 +25,7 @@ async function switchToPatternTab(page) {
   await expect(page.getByTestId("settings-control-lineResolution")).toBeVisible();
 }
 
-// ─── lineResolution ──────────────────────────────────────────────────────────
+// --- lineResolution ----------------------------------------------------------
 //
 // lineResolution controls how many beats appear per line.
 // kuva example song: k-1 has beatResolution=48, patternLength=384 (8 beats).
@@ -86,7 +86,7 @@ test.describe("Pattern tab - lineResolution", () => {
   });
 });
 
-// ─── Tempo slider ─────────────────────────────────────────────────────────────
+// --- Tempo slider -------------------------------------------------------------
 //
 // PlaybackControls has data-testid="tempo-slider" on the MUI Slider.
 // The slider renders a [role="slider"] with aria-valuenow.

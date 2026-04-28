@@ -8,7 +8,7 @@
 const { test, expect } = require("@playwright/test");
 const fs = require("fs");
 const path = require("path");
-const { makeHistoryEntry, seedHistory, readHistory } = require("./storage-helpers");
+const { makeHistoryEntry, seedHistory, readHistory, decodeState } = require("./storage-helpers");
 
 const KUVA = JSON.parse(
   fs.readFileSync(path.join(__dirname, "../test_data/kuva.tabit"), "utf8"),
@@ -34,7 +34,7 @@ async function goHome(page) {
   await expect(page.getByRole("heading", { name: "tabit" })).toBeVisible();
 }
 
-// ─── Title Screen Display ────────────────────────────────────────────────────
+// --- Title Screen Display ----------------------------------------------------
 
 test.describe("Title screen - history display", () => {
   test("shows no recent-songs section when history is empty", async ({ page }) => {
@@ -50,12 +50,11 @@ test.describe("Title screen - history display", () => {
     await seedHistory(page, entries);
     await page.goto("/");
 
-    // TODO: This is not sufficient, we expect the list containing song entries to have
-    // a precise length, contain two elements *and* for those elements to be these two.
-    // TODO: What attributes can we verify about the list entries? Do they only display the title?
     await expect(page.getByText("Recent Songs")).toBeVisible();
-    await expect(page.getByText("Song Alpha")).toBeVisible();
-    await expect(page.getByText("Song Beta")).toBeVisible();
+    const historyList = page.getByTestId("song-history");
+    await expect(historyList.getByRole("button")).toHaveCount(2);
+    await expect(historyList.getByText("Song Alpha")).toBeVisible();
+    await expect(historyList.getByText("Song Beta")).toBeVisible();
   });
 
   test("lists songs most-recent first", async ({ page }) => {
@@ -104,7 +103,7 @@ test.describe("Title screen - history display", () => {
   });
 });
 
-// ─── SongView History Writes ─────────────────────────────────────────────────
+// --- SongView History Writes -------------------------------------------------
 
 test.describe("SongView - writing to history", () => {
   test.beforeEach(async ({ page }) => {
@@ -114,10 +113,9 @@ test.describe("SongView - writing to history", () => {
   test("navigating away from an imported file saves it to history", async ({
     page,
   }) => {
-    // TODO: Assert history is empty before we start
+    expect(await readHistory(page)).toHaveLength(0);
     await importKuva(page);
     await goHome(page);
-
 
     const history = await readHistory(page);
     expect(history).toHaveLength(1);
@@ -127,29 +125,35 @@ test.describe("SongView - writing to history", () => {
   test("importing the same file twice produces one history entry", async ({
     page,
   }) => {
-    // TODO: Assert history is empty before we start
+    expect(await readHistory(page)).toHaveLength(0);
     await importKuva(page);
     await goHome(page);
 
-    // TODO: Assert history is as expected then wait
+    const afterFirst = await readHistory(page);
+    expect(afterFirst).toHaveLength(1);
+    const firstTimestamp = afterFirst[0].date;
+
     // Import the identical file a second time
     await importKuva(page);
     await goHome(page);
 
-    // TODO: Assert the timestamp has been updated, and is newer than previous
     const history = await readHistory(page);
     expect(history).toHaveLength(1);
+    expect(history[0].date).toBeGreaterThanOrEqual(firstTimestamp);
   });
 
   test("same song name but different content produces two history entries", async ({
     page,
   }) => {
-    // TODO: Assert history is empty before we start
-    // First import: default kuva settings
+    expect(await readHistory(page)).toHaveLength(0);
+
+    // First import: default kuva settings (showBeatNumbers: true)
     await importKuva(page);
     await goHome(page);
-    // TODO: Assert history is as expected here
-    // TODO: Assert that the history entry has showBeatNumbers == false
+
+    const afterFirst = await readHistory(page);
+    expect(afterFirst).toHaveLength(1);
+    expect(decodeState(afterFirst[0].content).formatSettings.showBeatNumbers).toBe(true);
 
     // Second import: same songName, one setting changed - different hash
     await importKuva(page, {
@@ -157,10 +161,11 @@ test.describe("SongView - writing to history", () => {
     });
     await goHome(page);
 
+    // History is sorted newest-first
     const history = await readHistory(page);
-    // TODO: Assert that the newer history entry has showBeatNumbers == false
-    // TODO: Assert that the older history entry has showBeatNumbers == true
     expect(history).toHaveLength(2);
     expect(history.every((e) => e.name === KUVA.songName)).toBe(true);
+    expect(decodeState(history[0].content).formatSettings.showBeatNumbers).toBe(false);
+    expect(decodeState(history[1].content).formatSettings.showBeatNumbers).toBe(true);
   });
 });

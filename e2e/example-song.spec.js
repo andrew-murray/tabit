@@ -84,8 +84,21 @@ test.describe("Example song page", () => {
     await expect(page.getByRole("button", { name: "Show compact layout" })).toBeVisible();
   });
 
-  // TODO: Check the pattern renders differently in compact vs expanded mode
-  // (instrument names change position, content compacted vertically)
+  test("compact mode replaces individual instrument sections with a unified view", async ({ page }) => {
+    // Navigate to k-1 so we have a known multi-instrument pattern
+    await page.getByTestId("pattern-list").getByRole("button", { name: "k-1", exact: true }).click();
+
+    // Expanded (default): each instrument is a titled section with beat numbers
+    const parts = page.getByTestId("instrument-part");
+    expect(await parts.count()).toBeGreaterThan(1);
+    await expect(parts.first()).toContainText("|1---|");
+    await expect(parts.first().locator("h4")).toBeVisible();
+
+    await page.getByRole("button", { name: "Show compact layout" }).click();
+
+    // Compact: individual titled sections are gone, replaced by a unified compact layout
+    await expect(parts).toHaveCount(0);
+  });
 
   // Export
 

@@ -47,4 +47,9 @@ async function readHistory(page) {
   });
 }
 
-module.exports = { encodeState, makeHistoryEntry, seedHistory, readHistory };
+// Mirrors the inverse of encodeState - decodes a history entry's content back to song data.
+function decodeState(content) {
+  return JSON.parse(zlib.inflateSync(Buffer.from(content.state, "base64")).toString("utf8"));
+}
+
+module.exports = { encodeState, decodeState, makeHistoryEntry, seedHistory, readHistory };
