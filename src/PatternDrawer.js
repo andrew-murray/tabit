@@ -50,6 +50,7 @@ const PatternListItem = (props) =>
     <ListItem
     button
     key={"drawer-pattern" + index.toString()}
+    aria-label={pattern.name}
     onClick={selectCallback}
     dense
     secondaryAction={(!onRemove) ? undefined :
@@ -61,9 +62,10 @@ const PatternListItem = (props) =>
           edge="end"
           size="small"
           onClick={removeCallback}
+          aria-label={`delete ${pattern.name}`}
         >
-          <ClearIcon 
-            fontSize="small" 
+          <ClearIcon
+            fontSize="small"
           />
         </IconButton>
       </Tooltip>

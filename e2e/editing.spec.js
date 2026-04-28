@@ -11,6 +11,7 @@
 const { test, expect } = require("@playwright/test");
 const fs = require("fs");
 const path = require("path");
+const { getPatternNotation, EXPECTED_NOTATION } = require("./kuva-helpers");
 
 const KUVA = JSON.parse(
   fs.readFileSync(path.join(__dirname, "../test_data/kuva.tabit"), "utf8"),
@@ -28,7 +29,7 @@ async function loadKuva(page) {
 
 async function unlock(page) {
   await page.getByRole("button", { name: "Unlock editing" }).click();
-  await expect(page.getByRole("button", { name: "Lock editing" })).toBeVisible();
+  await expect(page.getByRole("button", { name: "Lock editing", exact: true })).toBeVisible();
 }
 
 // ─── Note Toggling ───────────────────────────────────────────────────────────
@@ -50,15 +51,20 @@ test.describe("Note toggling", () => {
   test("clicking a note changes the notation", async ({ page }) => {
     await unlock(page);
 
-    const firstPart = page.getByTestId("instrument-part").first();
-    const initialText = await firstPart.innerText();
+    // k-1 is the default pattern; first instrument-part is Bass
+    const before = await getPatternNotation(page);
+    expect(before["Bass"]).toBe("Bass\n" + EXPECTED_NOTATION["k-1"]["Bass"]);
 
-    await firstPart.locator(".hoverableNote").first().click();
+    // click the first note in the first instrument-part (Bass beat 1, pos 0 = 'O')
+    await page.getByTestId("instrument-part").first().locator(".hoverableNote").first().click();
 
-    const updatedText = await firstPart.innerText();
-    // TODO: Add a test for the entirety of what this *should* be *before* and *after*
-    // not just that "it has changed"
-    expect(updatedText).not.toBe(initialText);
+    // Bass has symbols X (track 23) and O (track 24), sorted by insertion order.
+    // 'O' is the last symbol in the cycle, so it clears to '-'.
+    // Beat 1 changes from |O-O-| to |--O-|.
+    const after = await getPatternNotation(page);
+    expect(after["Bass"]).toBe(
+      "Bass\n|1---|2---|3---|4---|5---|6---|7---|8---|\n|--O-|XO--|X---|X---|O-O-|XO--|O-XO|--X-|"
+    );
   });
 });
 
@@ -178,7 +184,7 @@ test.describe("Add pattern", () => {
     await page.getByRole("dialog").getByRole("button", { name: "Confirm" }).click();
 
     // New pattern should appear in the list
-    await expect(page.getByRole("button", { name: "my new pattern" })).toBeVisible();
+    await expect(page.getByRole("button", { name: "my new pattern", exact: true })).toBeVisible();
   });
 
   test("newly added pattern is selected and displays an empty grid", async ({ page }) => {
@@ -188,15 +194,15 @@ test.describe("Add pattern", () => {
 
     // The new pattern should be selected (no instrument-parts have notes to show,
     // but hideEmptyParts=true means the grid is empty - 0 instrument-parts visible).
-    await expect(page.getByRole("button", { name: "brand new" })).toBeVisible();
+    await expect(page.getByRole("button", { name: "brand new", exact: true })).toBeVisible();
     await expect(page.getByTestId("instrument-part")).toHaveCount(0);
   });
 });
 
 // ─── Delete Pattern ──────────────────────────────────────────────────────────
 //
-// DeleteIcon (ClearIcon from @mui/icons-material/Delete) appears next to each
-// pattern in the drawer when unlocked. kuva has 5 patterns in display order:
+// Each pattern list item has an aria-label="delete <name>" button (visible only
+// when unlocked). kuva has 5 patterns in display order:
 // k-1, k-2, lightbulb, break, squash.
 
 test.describe("Delete pattern", () => {
@@ -204,50 +210,151 @@ test.describe("Delete pattern", () => {
     await loadKuva(page);
   });
 
-  test("delete icons are not visible when locked", async ({ page }) => {
-    // TODO: Look for a delete role / test-id rather than DeleteIcon in MUI
-    await expect(page.getByTestId("DeleteIcon").first()).not.toBeVisible();
+  test("delete buttons are not present when locked", async ({ page }) => {
+    const patternList = page.getByTestId("pattern-list");
+    await expect(patternList.getByRole("button", { name: /^delete / })).toHaveCount(0);
   });
 
-  test("delete icons appear after unlocking", async ({ page }) => {
+  test("delete buttons appear after unlocking, one per pattern", async ({ page }) => {
     await unlock(page);
-    // TODO: Look for a delete role / test-id rather than DeleteIcon in MUI
-    await expect(page.getByTestId("DeleteIcon").first()).toBeVisible();
-    await expect(page.getByTestId("DeleteIcon")).toHaveCount(5);
+    const patternList = page.getByTestId("pattern-list");
+    await expect(patternList.getByRole("button", { name: /^delete / })).toHaveCount(5);
   });
-
-  // TODO: Test deletion behaviour when patterns have been reordered
 
   test("deleting a pattern removes it from the list", async ({ page }) => {
     await unlock(page);
+    const patternList = page.getByTestId("pattern-list");
 
-    // Delete k-2 (index 1 in display order)
-    await page.getByTestId("DeleteIcon").nth(1).click();
+    await patternList.getByRole("button", { name: "delete k-2" }).click();
 
-    // TODO: Restrict search for the pattern widget to at least within the PatternDrawer
-    await expect(page.getByRole("button", { name: "k-2", exact: true })).not.toBeVisible();
-    // 4 patterns remain
-    // TODO: Test the the list of visible patterns is exactly as expected
-    // TODO: Verify shown pattern notation is as expected, code from example-song.spec.js
-    // could be refactored to support this
-    await expect(page.getByTestId("DeleteIcon")).toHaveCount(4);
+    await expect(patternList.getByRole("button", { name: "k-2", exact: true })).not.toBeVisible();
+    for (const name of ["k-1", "lightbulb", "break", "squash"]) {
+      await expect(patternList.getByRole("button", { name, exact: true })).toBeVisible();
+    }
+    await expect(patternList.getByRole("button", { name: /^delete / })).toHaveCount(4);
+
+    // Still viewing k-1 (the default selection is unaffected by deleting k-2)
+    const notation = await getPatternNotation(page);
+    for (const [instrument, expectedText] of Object.entries(EXPECTED_NOTATION["k-1"])) {
+      expect(notation[instrument]).toBe(instrument + "\n" + expectedText);
+    }
   });
 
-  // TODO: Test behaviour when deleting the last pattern in the list (when currently viewing/when not currently viewing)
-  // TODO: Test behaviour when deleting the first pattern in the last (when currently viewing/when not currently viewing)
   test("app navigates away from deleted pattern", async ({ page }) => {
     await unlock(page);
+    const patternList = page.getByTestId("pattern-list");
 
-    // k-1 is selected by default. Delete k-1 (index 0).
-    await page.getByTestId("DeleteIcon").nth(0).click();
+    // k-1 is selected by default; delete it
+    await patternList.getByRole("button", { name: "delete k-1" }).click();
 
-    // TODO: Restrict search for the pattern widget (k-1) to at least within the PatternDrawers
-    // App should navigate to another pattern (k-2 or whichever is now first)
-    await expect(page.getByRole("button", { name: "k-1", exact: true })).not.toBeVisible();
-    // The song title is still shown (song is still loaded)
-    // TODO: Test the the list of visible patterns is exactly as expected
-    // TODO: Verify shown pattern notation is as expected, code from example-song.spec.js
-    // could be refactored to support this
+    await expect(patternList.getByRole("button", { name: "k-1", exact: true })).not.toBeVisible();
+    for (const name of ["k-2", "lightbulb", "break", "squash"]) {
+      await expect(patternList.getByRole("button", { name, exact: true })).toBeVisible();
+    }
+    await expect(patternList.getByRole("button", { name: /^delete / })).toHaveCount(4);
+
+    // App navigated to k-2 (new first pattern)
+    const notation = await getPatternNotation(page);
+    for (const [instrument, expectedText] of Object.entries(EXPECTED_NOTATION["k-2"])) {
+      expect(notation[instrument]).toBe(instrument + "\n" + expectedText);
+    }
+
+    // Song title is still shown
     await expect(page.getByRole("button", { name: KUVA.songName })).toBeVisible();
+  });
+
+  test("deleting a non-current pattern stays on the current view", async ({ page }) => {
+    await unlock(page);
+    const patternList = page.getByTestId("pattern-list");
+
+    // Navigate to k-2 first
+    await patternList.getByRole("button", { name: "k-2", exact: true }).click();
+
+    // Delete k-1 (not currently viewed)
+    await patternList.getByRole("button", { name: "delete k-1" }).click();
+
+    await expect(patternList.getByRole("button", { name: "k-1", exact: true })).not.toBeVisible();
+    for (const name of ["k-2", "lightbulb", "break", "squash"]) {
+      await expect(patternList.getByRole("button", { name, exact: true })).toBeVisible();
+    }
+
+    // Still viewing k-2
+    const notation = await getPatternNotation(page);
+    for (const [instrument, expectedText] of Object.entries(EXPECTED_NOTATION["k-2"])) {
+      expect(notation[instrument]).toBe(instrument + "\n" + expectedText);
+    }
+  });
+
+  test("deleting the last pattern while viewing it navigates to the preceding pattern", async ({ page }) => {
+    await unlock(page);
+    const patternList = page.getByTestId("pattern-list");
+
+    // Navigate to squash (last pattern)
+    await patternList.getByRole("button", { name: "squash", exact: true }).click();
+
+    await patternList.getByRole("button", { name: "delete squash" }).click();
+
+    await expect(patternList.getByRole("button", { name: "squash", exact: true })).not.toBeVisible();
+    for (const name of ["k-1", "k-2", "lightbulb", "break"]) {
+      await expect(patternList.getByRole("button", { name, exact: true })).toBeVisible();
+    }
+
+    // App navigated to break (new last pattern)
+    const notation = await getPatternNotation(page);
+    for (const [instrument, expectedText] of Object.entries(EXPECTED_NOTATION["break"])) {
+      expect(notation[instrument]).toBe(instrument + "\n" + expectedText);
+    }
+  });
+
+  test("deleting the last pattern while not viewing it stays on the current view", async ({ page }) => {
+    await unlock(page);
+    const patternList = page.getByTestId("pattern-list");
+
+    // Stay on k-1 (default), delete squash
+    await patternList.getByRole("button", { name: "delete squash" }).click();
+
+    await expect(patternList.getByRole("button", { name: "squash", exact: true })).not.toBeVisible();
+    for (const name of ["k-1", "k-2", "lightbulb", "break"]) {
+      await expect(patternList.getByRole("button", { name, exact: true })).toBeVisible();
+    }
+
+    // Still viewing k-1
+    const notation = await getPatternNotation(page);
+    for (const [instrument, expectedText] of Object.entries(EXPECTED_NOTATION["k-1"])) {
+      expect(notation[instrument]).toBe(instrument + "\n" + expectedText);
+    }
+  });
+
+  test("deleting a pattern after reordering removes the correct pattern", async ({ page }) => {
+    await unlock(page);
+    const patternList = page.getByTestId("pattern-list");
+
+    // Drag k-2 (index 1) below lightbulb (index 2).
+    // Display order becomes: k-1, lightbulb, k-2, break, squash.
+    const secondHandle = page.getByTestId("DragHandleIcon").nth(1);
+    const thirdHandle = page.getByTestId("DragHandleIcon").nth(2);
+    const fromBox = await secondHandle.boundingBox();
+    const toBox = await thirdHandle.boundingBox();
+    await page.mouse.move(fromBox.x + fromBox.width / 2, fromBox.y + fromBox.height / 2);
+    await page.mouse.down();
+    await page.mouse.move(fromBox.x + fromBox.width / 2, fromBox.y + fromBox.height / 2 + 5);
+    await page.mouse.move(toBox.x + toBox.width / 2, toBox.y + toBox.height);
+    await page.mouse.up();
+
+    // Wait for reorder to settle
+    await expect(async () => {
+      const k2Box = await patternList.getByRole("button", { name: "k-2", exact: true }).boundingBox();
+      const lightbulbBox = await patternList.getByRole("button", { name: "lightbulb", exact: true }).boundingBox();
+      expect(lightbulbBox.y).toBeLessThan(k2Box.y);
+    }).toPass({ timeout: 3000 });
+
+    // Delete lightbulb by name - verifies deletion targets the right pattern regardless of position
+    await patternList.getByRole("button", { name: "delete lightbulb" }).click();
+
+    await expect(patternList.getByRole("button", { name: "lightbulb", exact: true })).not.toBeVisible();
+    for (const name of ["k-1", "k-2", "break", "squash"]) {
+      await expect(patternList.getByRole("button", { name, exact: true })).toBeVisible();
+    }
+    await expect(patternList.getByRole("button", { name: /^delete / })).toHaveCount(4);
   });
 });

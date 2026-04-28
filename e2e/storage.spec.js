@@ -50,6 +50,9 @@ test.describe("Title screen - history display", () => {
     await seedHistory(page, entries);
     await page.goto("/");
 
+    // TODO: This is not sufficient, we expect the list containing song entries to have
+    // a precise length, contain two elements *and* for those elements to be these two.
+    // TODO: What attributes can we verify about the list entries? Do they only display the title?
     await expect(page.getByText("Recent Songs")).toBeVisible();
     await expect(page.getByText("Song Alpha")).toBeVisible();
     await expect(page.getByText("Song Beta")).toBeVisible();
@@ -111,8 +114,10 @@ test.describe("SongView - writing to history", () => {
   test("navigating away from an imported file saves it to history", async ({
     page,
   }) => {
+    // TODO: Assert history is empty before we start
     await importKuva(page);
     await goHome(page);
+
 
     const history = await readHistory(page);
     expect(history).toHaveLength(1);
@@ -122,13 +127,16 @@ test.describe("SongView - writing to history", () => {
   test("importing the same file twice produces one history entry", async ({
     page,
   }) => {
+    // TODO: Assert history is empty before we start
     await importKuva(page);
     await goHome(page);
 
+    // TODO: Assert history is as expected then wait
     // Import the identical file a second time
     await importKuva(page);
     await goHome(page);
 
+    // TODO: Assert the timestamp has been updated, and is newer than previous
     const history = await readHistory(page);
     expect(history).toHaveLength(1);
   });
@@ -136,9 +144,12 @@ test.describe("SongView - writing to history", () => {
   test("same song name but different content produces two history entries", async ({
     page,
   }) => {
+    // TODO: Assert history is empty before we start
     // First import: default kuva settings
     await importKuva(page);
     await goHome(page);
+    // TODO: Assert history is as expected here
+    // TODO: Assert that the history entry has showBeatNumbers == false
 
     // Second import: same songName, one setting changed - different hash
     await importKuva(page, {
@@ -147,6 +158,8 @@ test.describe("SongView - writing to history", () => {
     await goHome(page);
 
     const history = await readHistory(page);
+    // TODO: Assert that the newer history entry has showBeatNumbers == false
+    // TODO: Assert that the older history entry has showBeatNumbers == true
     expect(history).toHaveLength(2);
     expect(history.every((e) => e.name === KUVA.songName)).toBe(true);
   });
