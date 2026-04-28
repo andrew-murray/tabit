@@ -17,7 +17,7 @@
     "@testing-library/user-event": "14.6.1",
     "compression": "1.8.1",
     "copy-to-clipboard": "3.3.3",
-    "fast-xml-parser": "5.5.7",
+    "fast-xml-parser": "5.7.2",
     "file-saver": "2.0.5",
     "memoize-one": "6.0.0",
     "object-hash": "3.0.0",
