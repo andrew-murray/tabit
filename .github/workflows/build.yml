@@ -14,4 +14,5 @@ jobs:
       - run: yarn install --frozen-lockfile
       - run: yarn test
       - run: npx playwright install --with-deps chromium
+      - run: yarn build:e2e
       - run: yarn test:e2e
