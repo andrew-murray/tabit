@@ -6,8 +6,8 @@ import { createInstrumentMask, guessShortName } from "./data/instrumentation";
 import notation from "./data/notation";
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import Alert from '@mui/lab/Alert';
-import AlertTitle from '@mui/lab/AlertTitle';
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
 import Snackbar from '@mui/material/Snackbar';
 import TabitBar from "./TabitBar";
 import PatternDrawer from "./PatternDrawer"
