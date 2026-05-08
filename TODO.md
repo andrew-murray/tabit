@@ -67,5 +67,6 @@ Audio output is out of scope - assert on UI state only. Strategy for beat-marker
 
 ## Project Next Steps
 
-- [ ] **Migrate away from CRA** - Create React App is unmaintained and blocks modern tooling. Recommended replacement is Vite (fast dev server, native ESM, smaller output). Key risks: `react-app-rewired` config overrides need porting; the `build:e2e` `PUBLIC_URL` workaround may need revisiting under a new bundler.
+- [x] **Migrate away from CRA** - Migrated to Vite + Vitest. All React component `.js` files renamed to `.jsx`. `stream` polyfill retained via `vite-plugin-node-polyfills` (needed by `browserify-zlib` in `SongStorage.js`).
 - [ ] **In-app documentation and help** - the `showHelp` toggle in the SettingsDrawer already provides a hook, but coverage is sparse. Decide on scope: tooltips on all controls, a dedicated help panel, or a short guided tour for first-time users.
+- [ ] **Dependency cleanup** - `path-to-regexp@3.x` (via `serve-handler`) and `yaml@1.x` (via `cosmiconfig`) are outdated but locked by their parents. `lodash@4.17.x` (via `@testing-library/jest-dom`) could be forced to `4.18.x` via `resolutions` if desired.
