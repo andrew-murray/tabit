@@ -6,8 +6,6 @@ import VolumeOffIcon from '@mui/icons-material/VolumeOff';
 import VolumeMuteIcon from '@mui/icons-material/VolumeMute';
 import VolumeDownIcon from '@mui/icons-material/VolumeDown';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
-import { useLongPress, usePress, mergeProps } from 'react-aria';
-
 import {isMobile} from "../common/Mobile";
 import TitledDialog from "../common/TitledDialog";
 
@@ -47,7 +45,7 @@ export default function VolumeWidget(props)
     position: "absolute",
     top: -height
   };
-  const SliderStyles = Object.assign(active? {} : {"visibility": "hidden", paddingLeft: "0px"}, FixedHeightStylings);
+  const SliderStyles = Object.assign(active? {} : {"display": "none"}, FixedHeightStylings);
   const IconStyles = active ?  {"visibility":"hidden"} : {};
 
   // currently: updating based on the normal volume event isn't nearly performant enough
@@ -71,33 +69,67 @@ export default function VolumeWidget(props)
     props.onMuteEvent(!props.muted);
   };
 
+  const LONG_PRESS_MS = 500;
+  const pressTimer = React.useRef(null);
   const longPressDidFire = React.useRef(false);
+  const onChangeRef = React.useRef(props.onChange);
+  React.useEffect(() => { onChangeRef.current = props.onChange; }, [props.onChange]);
 
-  const { longPressProps } = useLongPress({
-    threshold: 500,
-    onLongPressStart: () => {
+  // While the slider is active, track pointer globally so the user can drag
+  // to set volume while still holding from the original long-press.
+  // MUI Slider's own drag won't start (it never received pointerdown), so we
+  // compute the value from the pointer position against the slider's bounding rect.
+  React.useEffect(() => {
+    if (!active) return;
+
+    const handleMove = (e) => {
+      if (!sliderRef.current || !onChangeRef.current) return;
+      const rect = sliderRef.current.getBoundingClientRect();
+      const newValue = Math.max(0, Math.min(100,
+        (1 - (e.clientY - rect.top) / rect.height) * 100
+      ));
+      onChangeRef.current(newValue);
+    };
+
+    const handleUp = () => setActive(false);
+
+    window.addEventListener('pointermove', handleMove);
+    window.addEventListener('pointerup', handleUp, { once: true });
+
+    return () => {
+      window.removeEventListener('pointermove', handleMove);
+      window.removeEventListener('pointerup', handleUp);
+    };
+  }, [active]);
+
+  const handlePointerDown = (e) => {
+    if (e.button !== 0) return;
+    longPressDidFire.current = false;
+    pressTimer.current = setTimeout(() => {
       longPressDidFire.current = true;
+      pressTimer.current = null;
       if (isMobile) {
         setDialogActive(true);
       } else {
         setActive(true);
       }
-    },
-    onLongPressEnd: () => {
-      if (!isMobile) {
-        setActive(false);
-      }
-    },
-  });
+    }, LONG_PRESS_MS);
+  };
 
-  const { pressProps } = usePress({
-    onPress: () => {
-      if (!longPressDidFire.current) {
-        onMuteChange();
-      }
-      longPressDidFire.current = false;
-    },
-  });
+  const handlePointerUp = () => {
+    if (pressTimer.current) {
+      clearTimeout(pressTimer.current);
+      pressTimer.current = null;
+    }
+    // setActive(false) for desktop is handled by the global pointerup in the useEffect
+  };
+
+  const handleClick = () => {
+    if (!longPressDidFire.current) {
+      onMuteChange();
+    }
+    longPressDidFire.current = false;
+  };
 
   const sliderValue = props.volume * 100;
   return <>
@@ -110,7 +142,7 @@ export default function VolumeWidget(props)
         sliderValue={sliderValue}
       />
     }
-    <InlinableIconButton disableRipple disableFocusRipple {...mergeProps(longPressProps, pressProps)}>
+    <InlinableIconButton disableRipple disableFocusRipple onPointerDown={handlePointerDown} onPointerUp={handlePointerUp} onClick={handleClick}>
       <div style={SliderStyles}>
         <Slider
           value={sliderValue}
