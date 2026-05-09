@@ -144,7 +144,7 @@ function InstrumentTableHeader(props)
         {[...Array(props.instruments.length).keys()].map(x=>
             <CenterTableCell key={"instrumentPanel-row-controls-cell-" + x.toString()}>
               <Grid container>
-              <Grid item xs={6}>
+              <Grid size={6}>
               <Tooltip
                 title={`Edit ${props.instrumentCategory}`}
                 show={props.showHelp}
@@ -154,7 +154,7 @@ function InstrumentTableHeader(props)
                 </InlinableIconButton>
               </Tooltip>
               </Grid>
-              <Grid item xs={6}>
+              <Grid size={6}>
                 <VolumeWidget
                   muted={props.instruments[x].muted}
                   volume={props.instruments[x].volume}

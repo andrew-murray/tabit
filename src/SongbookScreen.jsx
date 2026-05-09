@@ -71,7 +71,6 @@ class SongbookScreen extends React.Component
 
     return (
       <Box className="App">
-        <Toolbar variant="dense"/>
         <TabitBar
           title="tabit"
           OutLink={'/'}
@@ -90,9 +89,7 @@ class SongbookScreen extends React.Component
         <Grid
           container
           direction="column"
-          alignItems="center"
-          justifyContent="center"
-          sx={{ minHeight: '100vh'}}
+          sx={{ minHeight: '100vh', pt: '48px', alignItems: 'center', justifyContent: 'center' }}
           style={this.props.styleEnabled ? this.state.songbookData.style.grid : undefined}
         >
           <Box sx={{paddingBottom: "1.5em"}} >

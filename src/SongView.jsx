@@ -991,17 +991,9 @@ class SongView extends React.Component
     const resolvedSettings = makeResolvedSettings( this.state.formatSettings, patternSpecifics );
     const instrumentConfigColumns = isMobile ? 12 : 8;
 
-    const drawerWidth = 240;
-    const contentShift = !isMobile && this.state.patternsOpen ? drawerWidth : 0;
-
     return (
       <Box
         className="App"
-        sx={contentShift > 0 ? {
-          marginLeft: `${contentShift}px`,
-          width: `calc(100% - ${contentShift}px)`,
-          maxWidth: `calc(100% - ${contentShift}px)`,
-        } : {}}
       >
         <Toolbar variant="dense"/>
         <TabitBar
@@ -1075,8 +1067,8 @@ class SongView extends React.Component
           py: 1
         }}>
         <Grid container>
-        {instrumentConfigColumns < 12 ? <Grid item xs={(12 - instrumentConfigColumns) / 2} /> : null}
-        <Grid item xs={instrumentConfigColumns}>
+        {instrumentConfigColumns < 12 ? <Grid size={(12 - instrumentConfigColumns) / 2} /> : null}
+        <Grid size={instrumentConfigColumns}>
           <InstrumentConfig
               instruments={this.state.songData.instruments}
               instrumentIndex={this.state.songData.instrumentIndex}
@@ -1089,7 +1081,7 @@ class SongView extends React.Component
               showHelp={this.state.showHelp}
             />
         </Grid>
-        {instrumentConfigColumns < 12 ? <Grid item xs={(12 - instrumentConfigColumns) / 2} /> : null}
+        {instrumentConfigColumns < 12 ? <Grid size={(12 - instrumentConfigColumns) / 2} /> : null}
         </Grid>
         </Box>
         <PatternDrawer

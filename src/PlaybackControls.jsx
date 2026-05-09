@@ -21,8 +21,8 @@ function PlaybackControls(props)
   const stopTooltip = props.disabled ? tooltipMsg : "";
 
   return (<Grid container>
-        <Grid item xs={(12 - tempoControlColumns) / 2} />
-        <Grid item xs={tempoControlColumns}>
+        <Grid size={(12 - tempoControlColumns) / 2} />
+        <Grid size={tempoControlColumns}>
           <Paper sx={{px: 5}}>
             <Box>
               <Tooltip title={playTooltip}>
@@ -57,7 +57,7 @@ function PlaybackControls(props)
             />
           </Paper>
         </Grid>
-        <Grid item xs={(12 - tempoControlColumns ) / 2} />
+        <Grid size={(12 - tempoControlColumns ) / 2} />
       </Grid>
     );
 };

@@ -96,9 +96,7 @@ class TitleScreen extends React.Component
         <Grid
           container
           direction="column"
-          alignItems="center"
-          justifyContent="center"
-          sx={{ minHeight: '100vh', backgroundColor: 'primary.main' }}
+          sx={{ minHeight: '100vh', backgroundColor: 'primary.main', alignItems: 'center', justifyContent: 'center' }}
         >
           <Box>
             <Typography variant="h2">tabit</Typography>
@@ -106,17 +104,16 @@ class TitleScreen extends React.Component
             {controls}
             <Grid
               container
-              justifyContent="center"
+              sx={{ justifyContent: 'center' }}
             >
               { this.state.songbookHistory.length > 0 &&
                 <Grid
                   container
                   direction="column"
-                  alignItems="center"
-                  justifyContent="center"
-                  sm={5}
+                  size={{ xs: 12, sm: 5 }}
                   px={4}
                   py={1}
+                  sx={{ alignItems: 'center', justifyContent: 'center' }}
                   >
                   <Paper>
                     <SongbookHistory
@@ -130,11 +127,10 @@ class TitleScreen extends React.Component
                 <Grid
                   container
                   direction="column"
-                  alignItems="center"
-                  justifyContent="center"
-                  sm={5}
+                  size={{ xs: 12, sm: 5 }}
                   px={4}
                   py={1}
+                  sx={{ alignItems: 'center', justifyContent: 'center' }}
                   >
                   <Paper>
                     <History

@@ -74,13 +74,11 @@ export default function TransferList({items, selectedItems, onChange}) {
     <Grid
       container
       spacing={2}
-      justify="center"
-      alignItems="center"
-      sx={{margin: "auto"}}
+      sx={{margin: "auto", justifyContent: "center", alignItems: "center"}}
     >
       <Grid item>{customList(items, true)}</Grid>
       <Grid item>
-        <Grid container direction="column" alignItems="center">
+        <Grid container direction="column" sx={{ alignItems: "center" }}>
           <IconButton
             size="small"
             onClick={handleCheckedRight}
