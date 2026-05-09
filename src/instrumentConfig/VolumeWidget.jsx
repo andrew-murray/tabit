@@ -6,7 +6,7 @@ import VolumeOffIcon from '@mui/icons-material/VolumeOff';
 import VolumeMuteIcon from '@mui/icons-material/VolumeMute';
 import VolumeDownIcon from '@mui/icons-material/VolumeDown';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
-import ClickNHold from 'react-click-n-hold';
+import { useLongPress, usePress, mergeProps } from 'react-aria';
 
 import {isMobile} from "../common/Mobile";
 import TitledDialog from "../common/TitledDialog";
@@ -61,28 +61,9 @@ export default function VolumeWidget(props)
     }
   };
 
-  // for mobile
-  // we click'n'hold which opens the volume slider, but don't propagate focus
-
-  // for desktop/tablet
-  // we click'n'hold and propagate focus to the slider, so that our drag
-  // will pull the slider up and down
-  const holdDesktop = (start, event)=>{
-    if(!active){ setActive(true); }
-    if(sliderRef){ sliderRef.current.dispatchEvent(event.nativeEvent);}
-  };
-
-  const holdMobile= (start, event)=>{
-    if(!dialogActive){ setDialogActive(true); }
-  };
-
-  const holdEndDesktop = (e)=>{
-    setActive(false);
-  };
-
-  const commitVolume = (event,value)=>
+  const commitVolume = (event, value) =>
   {
-    setVolume(event,value);
+    setVolume(event, value);
   };
 
   const onMuteChange = () =>
@@ -90,9 +71,37 @@ export default function VolumeWidget(props)
     props.onMuteEvent(!props.muted);
   };
 
+  const longPressDidFire = React.useRef(false);
+
+  const { longPressProps } = useLongPress({
+    threshold: 500,
+    onLongPressStart: () => {
+      longPressDidFire.current = true;
+      if (isMobile) {
+        setDialogActive(true);
+      } else {
+        setActive(true);
+      }
+    },
+    onLongPressEnd: () => {
+      if (!isMobile) {
+        setActive(false);
+      }
+    },
+  });
+
+  const { pressProps } = usePress({
+    onPress: () => {
+      if (!longPressDidFire.current) {
+        onMuteChange();
+      }
+      longPressDidFire.current = false;
+    },
+  });
+
   const sliderValue = props.volume * 100;
   return <>
-    {dialogActive && <VolumeDialog 
+    {dialogActive && <VolumeDialog
         open={dialogActive}
         onClose={()=>{setDialogActive(false)}}
         instrumentName={props.instrumentName}
@@ -101,27 +110,22 @@ export default function VolumeWidget(props)
         sliderValue={sliderValue}
       />
     }
-    <ClickNHold
-      time={0.5} // Time to keep pressing. Default is 2
-      onClickNHold={isMobile ? holdMobile : holdDesktop}
-      onEnd={isMobile ? null : holdEndDesktop} >
-      <InlinableIconButton disableRipple disableFocusRipple onClick={onMuteChange} >
-        <div style={SliderStyles}>
-          <Slider
-            value={sliderValue}
-            orientation="vertical"
-            aria-labelledby="vertical-slider"
-            onChange={commitVolume}
-            ref={sliderRef}
-          />
-        </div>
-        <div style={IconStyles}>
-          { props.muted ?  <VolumeOffIcon fontSize="small" data-testid="VolumeOffIcon"/>
-          : sliderValue < 10 ? <VolumeMuteIcon fontSize="small" />
-          : sliderValue < 50 ? <VolumeDownIcon fontSize="small" />
-                             : <VolumeUpIcon fontSize="small" data-testid="VolumeUpIcon"/> }
-        </div>
-      </InlinableIconButton>
-    </ClickNHold>
+    <InlinableIconButton disableRipple disableFocusRipple {...mergeProps(longPressProps, pressProps)}>
+      <div style={SliderStyles}>
+        <Slider
+          value={sliderValue}
+          orientation="vertical"
+          aria-labelledby="vertical-slider"
+          onChange={commitVolume}
+          ref={sliderRef}
+        />
+      </div>
+      <div style={IconStyles}>
+        { props.muted ?  <VolumeOffIcon fontSize="small" data-testid="VolumeOffIcon"/>
+        : sliderValue < 10 ? <VolumeMuteIcon fontSize="small" />
+        : sliderValue < 50 ? <VolumeDownIcon fontSize="small" />
+                           : <VolumeUpIcon fontSize="small" data-testid="VolumeUpIcon"/> }
+      </div>
+    </InlinableIconButton>
   </>
 }
