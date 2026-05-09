@@ -3,6 +3,7 @@ import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import List from '@mui/material/List';
 import IconButton from '@mui/material/IconButton';
 import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import TabitBar from "./TabitBar";
@@ -48,11 +49,9 @@ const PatternListItem = (props) =>
   );
   return (
     <ListItem
-    button
     key={"drawer-pattern" + index.toString()}
-    aria-label={pattern.name}
-    onClick={selectCallback}
     dense
+    disablePadding
     secondaryAction={(!onRemove) ? undefined :
       <Tooltip
         title="Delete"
@@ -71,6 +70,10 @@ const PatternListItem = (props) =>
       </Tooltip>
     }
   >
+    <ListItemButton
+      aria-label={pattern.name}
+      onClick={selectCallback}
+    >
       {dragEnabled &&
         <ListItemAvatar>
           <Tooltip
@@ -84,12 +87,13 @@ const PatternListItem = (props) =>
               {...props.dragAttributes}
               ref={props.dragSetActivatorNodeRef}
             >
-              <DragHandleIcon fontSize="small"/>
+              <DragHandleIcon fontSize="small" data-testid="DragHandleIcon"/>
             </IconButton>
           </Tooltip>
         </ListItemAvatar>
       }
       <ListItemText primary={pattern.name} />
+    </ListItemButton>
     </ListItem>
   );
 };
@@ -250,7 +254,7 @@ function DrawerContent(props)
                   onClick={()=>{props.onAdd();}}
                   aria-label="add"
                 >
-                  <AddCircleIcon
+                  <AddCircleIcon data-testid="AddIcon"
                     size="small"
                     // edge="end"
                     />

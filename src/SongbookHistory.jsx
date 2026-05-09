@@ -1,41 +1,27 @@
 // History.js
 
 import React from 'react'
-import { makeStyles } from '@mui/styles'
 import List from '@mui/material/List'
 import Box from '@mui/material/Box'
 import Paper from '@mui/material/Paper'
 import Typography from '@mui/material/Typography'
-import ListItem from '@mui/material/ListItem'
+import ListItemButton from '@mui/material/ListItemButton'
 import ListItemText from '@mui/material/ListItemText'
 import Divider from '@mui/material/Divider'
 
-const useStyles = makeStyles((styles) => {return {
-  root: {
-    [styles.breakpoints.up('sm')]: {
-      height: 400,
-    },
-    minWidth: 200,
-    maxWidth: 300,
-    maxHeight: 300,
-    overflow: 'auto'
-  }
-}});
-
 function renderRow(props) {
   return (
-    <ListItem button style={props.style} key={props.index} onClick={props.onClick}>
+    <ListItemButton style={props.style} key={props.index} onClick={props.onClick}>
       <ListItemText primary={props.name} secondary={props.date ? new Date(props.date).toLocaleDateString() : undefined}/>
-    </ListItem>
+    </ListItemButton>
   );
 }
 
 function History(props)
 {
-  const classes = useStyles();
   const items = props.data;
   return (
-    <Box className={classes.root}>
+    <Box sx={{ height: { sm: 400 }, minWidth: 200, maxWidth: 300, maxHeight: 300, overflow: 'auto' }}>
       <Paper>
         <Typography>Songbooks</Typography>
         <Divider />

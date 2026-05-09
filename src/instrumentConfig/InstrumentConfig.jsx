@@ -16,7 +16,6 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { useTheme } from '@mui/styles';
 
 import DispatchingDialog from "../common/DispatchingDialog"
 import RenameDialog from "../common/RenameDialog";
@@ -205,7 +204,6 @@ class EditInstrumentSampleDialog extends React.Component
 }
 
 function InstrumentConfig(props) {
-  const theme = useTheme();
   const [editingSymbol, setEditingSymbol] = React.useState(null);
   const [editingSample, setEditingSample] = React.useState(null);
   const [renamingInstrument, setRenamingInstrument] = React.useState(null);
@@ -307,7 +305,7 @@ function InstrumentConfig(props) {
           Edit Sample
         </Button>
       </DispatchingDialog>
-      <Box style={{"paddingBottom" : theme.spacing(1)}}>
+      <Box sx={{ paddingBottom: 1 }}>
         <TableContainer component={Paper} style={containerStyle}>
           <InstrumentTable
             instrumentIndex={props.instrumentIndex}

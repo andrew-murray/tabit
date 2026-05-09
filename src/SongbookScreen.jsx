@@ -1,5 +1,4 @@
 import React from 'react'
-import { withStyles } from '@mui/styles';
 import IconButton from '@mui/material/IconButton';
 import Box from '@mui/material/Box';
 import Grid from "@mui/material/Grid";
@@ -24,29 +23,6 @@ import Toolbar from '@mui/material/Toolbar';
 import TabitBar from './TabitBar';
 
 import './App.css';
-
-const styles = (theme)=>{
-  return {
-    licenseBanner: {
-      position: "absolute",
-      bottom:0,
-      "width": "95%",
-      "textAlign": "center",
-      "zIndex" : theme.zIndex.drawer
-    },
-    modal: {
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    paper: {
-      backgroundColor: theme.palette.background.paper,
-      border: '2px solid #000',
-      boxShadow: theme.shadows[5],
-      padding: theme.spacing(2, 4, 3),
-    }
-  };
-};
 
 
 class SongbookScreen extends React.Component
@@ -166,4 +142,4 @@ class SongbookScreen extends React.Component
   }
 };
 
-export default withStyles(styles)(SongbookScreen);
+export default SongbookScreen;

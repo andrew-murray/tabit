@@ -15,44 +15,23 @@ import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
-import { makeStyles, withStyles } from '@mui/styles';
+import { styled } from '@mui/material/styles';
 
 import Tooltip from "../common/TabitTooltip";
 
 import VolumeWidget from "./VolumeWidget";
 
-const useStyles = makeStyles(() => ({
-  root: {
-    display: 'flex',
-  }
+const InlinableIconButton = styled(IconButton)({ padding: 2 });
+
+const ThinFormControlLabel = styled(FormControlLabel)({ marginLeft: 0, marginRight: 0 });
+
+const NoDividerCenterTableCell = styled(TableCell)(({ theme }) => ({
+  borderBottom: "none",
+  textAlign: "center",
+  paddingBottom: theme.spacing(0) // make instrument titles bunch up with their controls a little more
 }));
 
-const InlinableIconButton = withStyles({
-  root: {
-    padding: 2
-  }
-})(IconButton);
-
-const ThinFormControlLabel = withStyles({
-  root: {
-    marginLeft: 0,
-    marginRight: 0
-  }
-})(FormControlLabel);
-
-const NoDividerCenterTableCell = withStyles((theme) => ({
-  root: {
-    borderBottom: "none",
-    textAlign: "center",
-    paddingBottom: theme.spacing(0) // make instrument titles bunch up with their controls a little more
-  }
-}))(TableCell);
-
-const CenterTableCell = withStyles((theme) => ({
-  root: {
-    textAlign: "center"
-  }
-}))(TableCell);
+const CenterTableCell = styled(TableCell)({ textAlign: "center" });
 
 function InstrumentTableBody(props)
 {
@@ -88,13 +67,13 @@ function InstrumentTableBody(props)
               title="Edit Instrument"
               show={props.showHelp}
             >
-              <InlinableIconButton onClick={(e)=>{editRow(y);}}><EditIcon fontSize="small"/></InlinableIconButton>
+              <InlinableIconButton onClick={(e)=>{editRow(y);}}><EditIcon fontSize="small" data-testid="EditIcon"/></InlinableIconButton>
             </Tooltip>
             <Tooltip
               title="Delete Instrument"
               show={props.showHelp}
             >
-              <InlinableIconButton onClick={(e)=>{removeRow(y);}}><ClearIcon fontSize="small"/></InlinableIconButton>
+              <InlinableIconButton onClick={(e)=>{removeRow(y);}}><ClearIcon fontSize="small" data-testid="ClearIcon"/></InlinableIconButton>
             </Tooltip>
           </TableCell>
           {[...Array(props.instrumentMask.length).keys()].map(x=>createCell(x,y))}
@@ -112,7 +91,7 @@ function InstrumentTableBody(props)
             show={props.showHelp}
           >
             <IconButton onClick={(e)=>{addRow();}} aria-label="add">
-              <AddBoxIcon/>
+              <AddBoxIcon data-testid="AddBoxIcon"/>
             </IconButton>
           </Tooltip>
         </TableCell>
@@ -158,7 +137,7 @@ function InstrumentTableHeader(props)
         { props.showExpandControls &&
           <CenterTableCell key={"instrumentPanel-row-instrument"}>
             <IconButton aria-label="Show Instrument Matcher" size="small" onClick={props.onToggleOpen}>
-              {props.expanded ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+              {props.expanded ? <KeyboardArrowUpIcon data-testid="KeyboardArrowUpIcon"/> : <KeyboardArrowDownIcon data-testid="KeyboardArrowDownIcon"/>}
             </IconButton>
           </CenterTableCell>
         }
@@ -171,7 +150,7 @@ function InstrumentTableHeader(props)
                 show={props.showHelp}
               >
                 <InlinableIconButton onClick={(e)=>{props.onEditInstrument(x);}}>
-                  <EditIcon fontSize="small"/>
+                  <EditIcon fontSize="small" data-testid="EditIcon"/>
                 </InlinableIconButton>
               </Tooltip>
               </Grid>
@@ -216,8 +195,6 @@ export default function InstrumentTable(props)
     }
   }, []);
 
-  const classes = useStyles();
-
   let [open, setOpen] = React.useState( false );
 
   const showEditableTableBody = open && props.showAdvanced;
@@ -243,7 +220,7 @@ export default function InstrumentTable(props)
   // TODO: This component needs onAddColumn support
   return (
     <React.Fragment>
-    <Table className={classes.table} aria-label="simple table">
+    <Table aria-label="simple table">
       <TableHead>
         <InstrumentTableHeader
           orientation={orientation}

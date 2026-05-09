@@ -991,13 +991,23 @@ class SongView extends React.Component
     const resolvedSettings = makeResolvedSettings( this.state.formatSettings, patternSpecifics );
     const instrumentConfigColumns = isMobile ? 12 : 8;
 
+    const drawerWidth = 240;
+    const contentShift = !isMobile && this.state.patternsOpen ? drawerWidth : 0;
+
     return (
-      <Box className="App">
+      <Box
+        className="App"
+        sx={contentShift > 0 ? {
+          marginLeft: `${contentShift}px`,
+          width: `calc(100% - ${contentShift}px)`,
+          maxWidth: `calc(100% - ${contentShift}px)`,
+        } : {}}
+      >
         <Toolbar variant="dense"/>
         <TabitBar
           title={this.state.songData.title}
           OutLink={this.props.returnURL ? this.props.returnURL : '/' }
-          OutIcon={this.props.returnURL ? <BackIcon/> : <HomeIcon />}
+          OutIcon={this.props.returnURL ? <BackIcon/> : <HomeIcon data-testid="HomeIcon"/>}
           settingsToggle={this.handleSettingsToggle}
           patternsToggle={this.handlePatternsToggle}
           onShare={this.onShare}
@@ -1091,7 +1101,7 @@ class SongView extends React.Component
           onRemove={!this.state.locked ? this.removePattern : undefined}
           onAdd={!this.state.locked ? this.openPatternCreateDialog : undefined}
           showHelp={this.state.showHelp}
-          patternDisplayOrder={this.state.songData.patternDisplayOrder}       
+          patternDisplayOrder={this.state.songData.patternDisplayOrder}
           setPatternDisplayOrder={!this.state.locked ? this.setPatternDisplayOrder : undefined }
         />
         <SettingsDrawer

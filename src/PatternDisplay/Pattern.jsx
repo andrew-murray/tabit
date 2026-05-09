@@ -1,21 +1,19 @@
 import React from 'react';
 import Part from "./Part";
 import PartWithTitle from "./PartWithTitle";
-import { withStyles } from '@mui/styles';
+import { styled } from '@mui/material/styles';
 
-const useStyles = theme => ({
-  root: {
-    fontFamily: "Roboto Mono",
-    textAlign: "left",
-    whiteSpace:"pre",
-    margin: "auto",
-    paddingLeft: 10,
-    paddingRight: 10,
-    "& .activeNote": {
-      color: theme.palette.secondary.main
-    }
-  },
-});
+const PatternRoot = styled('div')(({ theme }) => ({
+  fontFamily: "Roboto Mono",
+  textAlign: "left",
+  whiteSpace: "pre",
+  margin: "auto",
+  paddingLeft: 10,
+  paddingRight: 10,
+  "& .activeNote": {
+    color: theme.palette.secondary.main
+  }
+}));
 
 const makeCompactConfig = (config, index) => {
   if(index === 0 ){
@@ -226,8 +224,7 @@ class ActivePattern extends React.Component
     }
     if(prevProps.instruments !== this.props.instruments
       || prevProps.tracks !== this.props.tracks
-      || prevProps.config !== this.props.config
-      || prevProps.classes !== this.props.classes)
+      || prevProps.config !== this.props.config)
     {
       if(window.trace)
       {
@@ -257,7 +254,6 @@ class ActivePattern extends React.Component
     if(nextProps.instruments !== this.props.instruments
       || nextProps.tracks !== this.props.tracks
       || nextProps.config !== this.props.config
-      || nextProps.classes !== this.props.classes
       || nextProps.modifyPatternLocation !== this.props.modifyPatternLocation
     )
     {
@@ -298,16 +294,16 @@ class ActivePattern extends React.Component
   render()
   {
     return (
-      <div className={this.props.classes.root} ref={this.ref}>
+      <PatternRoot ref={this.ref}>
         <Pattern
           instruments={this.props.instruments}
           tracks={this.props.tracks}
           config={this.props.config}
           modifyPatternLocation={this.props.modifyPatternLocation}
         />
-      </div>
+      </PatternRoot>
     );
   }
 }
 
-export default withStyles(useStyles)(ActivePattern);
+export default ActivePattern;

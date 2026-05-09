@@ -1,5 +1,5 @@
 import React from 'react'
-import { withStyles } from '@mui/styles';
+import { styled } from '@mui/material/styles';
 import FileImport from "./FileImport";
 import Button from '@mui/material/Button';
 import History from "./History";
@@ -14,28 +14,13 @@ import Paper from '@mui/material/Paper';
 import StaticSongbookStorage from "./StaticSongbookStorage";
 import './App.css';
 
-const styles = (theme)=>{
-  return {
-    licenseBanner: {
-      position: "absolute",
-      bottom:0,
-      "width": "95%",
-      "textAlign": "center",
-      "zIndex" : theme.zIndex.drawer
-    },
-    modal: {
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    paper: {
-      backgroundColor: theme.palette.background.paper,
-      border: '2px solid #000',
-      boxShadow: theme.shadows[5],
-      padding: theme.spacing(2, 4, 3),
-    }
-  };
-};
+const LicenseBanner = styled(Box)(({ theme }) => ({
+  position: "absolute",
+  bottom: 0,
+  width: "95%",
+  textAlign: "center",
+  zIndex: theme.zIndex.drawer
+}));
 
 class TitleScreen extends React.Component
 {
@@ -106,7 +91,6 @@ class TitleScreen extends React.Component
           />
       </React.Fragment>
     );
-    const { classes } = this.props;
     return (
       <Box className="App">
         <Grid
@@ -172,13 +156,13 @@ class TitleScreen extends React.Component
             {this.state.error}
           </TitledDialog>
         }
-        <Box className={classes.licenseBanner} sx={{backgroundColor: 'primary.main', py: 0.5}}>
+        <LicenseBanner sx={{backgroundColor: 'primary.main', py: 0.5}}>
           <Typography>tabit relies on publicly available sound libraries listed at <Link href="https://github.com/andrew-murray/tabit" color="secondary.main">https://github.com/andrew-murray/tabit</Link>
           </Typography>
-        </Box>
+        </LicenseBanner>
       </Box>
     );
   }
 };
 
-export default withStyles(styles)(TitleScreen);
+export default TitleScreen;

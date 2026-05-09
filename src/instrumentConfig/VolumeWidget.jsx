@@ -1,5 +1,5 @@
 import React from 'react';
-import { withStyles } from '@mui/styles';
+import { styled } from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
 import Slider from '@mui/material/Slider';
 import VolumeOffIcon from '@mui/icons-material/VolumeOff';
@@ -11,11 +11,7 @@ import ClickNHold from 'react-click-n-hold';
 import {isMobile} from "../common/Mobile";
 import TitledDialog from "../common/TitledDialog";
 
-const InlinableIconButton = withStyles({
-  root: {
-    padding: 2
-  }
-})(IconButton);
+const InlinableIconButton = styled(IconButton)({ padding: 2 });
 
 function VolumeDialog(props)
 {
@@ -120,10 +116,10 @@ export default function VolumeWidget(props)
           />
         </div>
         <div style={IconStyles}>
-          { props.muted ?  <VolumeOffIcon fontSize="small" />
+          { props.muted ?  <VolumeOffIcon fontSize="small" data-testid="VolumeOffIcon"/>
           : sliderValue < 10 ? <VolumeMuteIcon fontSize="small" />
           : sliderValue < 50 ? <VolumeDownIcon fontSize="small" />
-                             : <VolumeUpIcon fontSize="small"/> }
+                             : <VolumeUpIcon fontSize="small" data-testid="VolumeUpIcon"/> }
         </div>
       </InlinableIconButton>
     </ClickNHold>

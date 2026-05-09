@@ -1,32 +1,25 @@
 import React from 'react';
 import Typography from '@mui/material/Typography';
-import { withStyles } from '@mui/styles';
+import { styled } from '@mui/material/styles';
 import { isMobile } from "../common/Mobile";
 import notation from "../data/notation"
 import SparseTrack from "../data/SparseTrack";
 
-const styles = (theme)=>({
-  root: {
-    fontFamily: "Roboto Mono",
-    fontSize: '1.2rem',
-    '@media (min-width:800px)': {
-      fontSize: '1.4rem',
-    }
+const PreTypography = styled(Typography)({
+  fontFamily: "Roboto Mono",
+  fontSize: '1.2rem',
+  '@media (min-width:800px)': {
+    fontSize: '1.4rem',
   }
 });
 
-const denseStyles = (theme)=>({
-  root: {
-    fontFamily: "Roboto Mono",
-    fontSize: '0.8rem',
-    '@media (min-width:800px)': {
-      fontSize: '1.1rem',
-    }
+const DensePreTypography = styled(Typography)({
+  fontFamily: "Roboto Mono",
+  fontSize: '0.8rem',
+  '@media (min-width:800px)': {
+    fontSize: '1.1rem',
   }
 });
-
-const PreTypography = withStyles(styles)(Typography);
-const DensePreTypography = withStyles(denseStyles)(Typography);
 
 
 const splitTracksIntoLines = (instrument, trackDict, lineResolution) =>
@@ -431,5 +424,4 @@ class Part extends React.Component
   }
 }
 */
-// export default withStyles(styles)(Part);
-export default withStyles(styles)(PartByBeat);
+export default PartByBeat;
