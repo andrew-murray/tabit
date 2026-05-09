@@ -10,7 +10,6 @@
     "@emotion/styled": "11.14.1",
     "@mui/icons-material": "9.0.1",
     "@mui/material": "9.0.1",
-    "@mui/styles": "6.4.8",
     "copy-to-clipboard": "4.0.2",
     "fast-xml-parser": "5.7.3",
     "file-saver": "2.0.5",
