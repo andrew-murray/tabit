@@ -8,6 +8,11 @@ export default defineConfig({
     // SongStorage.js imports browserify-zlib, which requires stream internally.
     nodePolyfills({ include: ['stream'] }),
   ],
+  resolve: {
+    // Force all packages to use the root react instance.
+    // react-click-n-hold bundles its own React 0.14, which causes React error #525.
+    dedupe: ['react', 'react-dom'],
+  },
   build: {
     outDir: 'dist',
   },
