@@ -216,6 +216,38 @@ test.describe("Mute instrument", () => {
   });
 });
 
+// --- Volume Slider -----------------------------------------------------------
+
+test.describe("Volume slider", () => {
+  test.beforeEach(async ({ page }) => {
+    await loadBFS(page);
+  });
+
+  test("long-pressing and dragging the volume button changes the volume", async ({ page }) => {
+    // bfs_drumkit_rbw4 instruments start with volume 1.0.
+    const icon = instrumentTable(page)
+      .locator("thead")
+      .getByTestId("VolumeUpIcon")
+      .first();
+
+    const box = await icon.boundingBox();
+    const cx = box.x + box.width / 2;
+    const cy = box.y + box.height / 2;
+
+    // Hold for longer than the 500ms long-press threshold, then drag downward
+    // (toward the slider's minimum) to reduce volume below 1.0.
+    await page.mouse.move(cx, cy);
+    await page.mouse.down();
+    await page.waitForTimeout(600);
+    await page.mouse.move(cx, cy + 30, { steps: 5 });
+    await page.mouse.up();
+
+    const exported = await downloadSong(page);
+    // instruments is [[name, symbols, ..., {muted, volume}], ...]
+    expect(exported.instruments[0][3].volume).toBeLessThan(1.0);
+  });
+});
+
 // --- Delete Instrument -------------------------------------------------------
 
 test.describe("Delete instrument", () => {
