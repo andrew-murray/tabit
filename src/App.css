@@ -5,7 +5,7 @@
   justify-content: safe center;
   display: inline-flex;
   width: 100%;
-  minWidth: 100%;
+  min-width: 100%;
 }
 
 .App-logo {
