@@ -124,7 +124,7 @@ function FormatSettings(props) {
   // it technically has to look through all the active resolutions for each part
   // to make sure it can display a sensible candidate
   // TODO: Is it really worth having like this?
-  const candidateBeatResolutions = [48, 64, 96, 192];
+  const candidateBeatResolutions = [24, 48, 64, 96, 192];
   let beatResolutions = [];
   for( const c of candidateBeatResolutions )
   {
