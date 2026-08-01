@@ -359,7 +359,7 @@ class ToneController
           // update pitch node
           // NOTE: we do this here, because it's part of the instrumentConfig - perhaps it shouldn't be
           const nextPitch = selectedInstrument.pitchShift ?? 0;
-          const existingPitch = this.samples[selectedInstrument.id].pitchParameter ?? 0;
+          const existingPitch = this.samples[selectedInstrument.id].pitchShift ?? 0;
 
           if (existingPitch !== nextPitch)
           {
@@ -424,7 +424,7 @@ class ToneController
           player: player,
           gain: gain,
           pitch: usePerSamplePitch ? pitch: null,
-          pitchParameter: selectedInstrument.pitchShift ?? 0,
+          pitchShift: selectedInstrument.pitchShift ?? 0,
           // velocityGain: velocityGain,
           drumkit: selectedInstrument.drumkit,
           filename: selectedInstrument.filename,
@@ -589,9 +589,8 @@ class ToneController
     let sample = this.samples[trackID];
     if (sample?.pitch !== null)
     {
-      // sample.pitch.pitch = pitchShiftValue;
       sample.pitch.set({pitch: pitchShiftValue});
-      sample.pitchParameter = pitchShiftValue;
+      sample.pitchShift = pitchShiftValue;
     }
   }
 
