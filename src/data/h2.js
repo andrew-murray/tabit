@@ -33,18 +33,26 @@ function parseHydrogen(dom, sparse)
         "volume" : parseFloat(element.volume),
         "muted" : element.isMuted,
         "gain" : parseFloat(element.gain),
-        "drumkit" : element.drumkit.toString()
+        "drumkit" : element.drumkit.toString(),
+        // we take the instrument pitch, but ignore the pitch on the sample
+        "pitchShift": parseInt(element.pitchOffset)
       };
+      let chosenLayer = {
+        gain: null,
+        pitchShift: null
+      }
       if(instrumentComponent.layer)
       {
         // fixme:
         // we can have multiple layers (indicating multiple samples) in an instrument
-        // hydrogen selects the most appropriate based on the gain/volume OF the individual note
+        // hydrogen selects the most appropriate based on the gain/velocity OF the individual note
         const layers = [].concat(instrumentComponent.layer);
         // find the midpoint
-        // (presume that's most appropriate? You could also choose the one that most matches the current gain)
+        // You could also choose the one that most matches the current gain 
+        // even incorporating velocity for the pattern's notes
         const midIndex = Math.min( Math.max( Math.floor(layers.length / 2), 0), layers.length - 1);
-        if(layers[midIndex].filename)
+        const chosenLayer = layers[midIndex];
+        if (chosenLayer.filename)
         {
           if(element.drumkit.toString() in AVAILABLE_SAMPLES)
           {
@@ -56,6 +64,14 @@ function parseHydrogen(dom, sparse)
             // else, preserve the filename for more accurate error messages
             inst["filename"] = layers[0].filename.toString();
           }
+        }
+        if (chosenLayer.pitch !== undefined && parseInt(chosenLayer.pitch) !== 0)
+        {
+            inst.pitchShift = (element.pitchOffset ?? 0) + parseInt(chosenLayer.pitch);
+        }
+        if (chosenLayer.gain !== undefined && parseFloat(chosenLayer.gain) !== 1)
+        {
+          inst.gain = inst.gain * parseFloat(chosenLayer.gain);
         }
       }
       return inst;
