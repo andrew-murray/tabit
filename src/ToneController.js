@@ -356,7 +356,15 @@ class ToneController
 
         if( selectedInstrument.id in this.samples && this.samples[selectedInstrument.id].url === urlForSample )
         {
-          // no need to reload
+          // update pitch node
+          // NOTE: we do this here, because it's part of the instrumentConfig - perhaps it shouldn't be
+          const nextPitch = selectedInstrument.pitchShift ?? 0;
+          const existingPitch = this.samples[selectedInstrument.id].pitchParameter ?? 0;
+
+          if (existingPitch !== nextPitch)
+          {
+            this.setPitchShiftForTrack(selectedInstrument.id, nextPitch);
+          }
           continue;
         }
 
@@ -373,9 +381,23 @@ class ToneController
         );
         player.mute = selectedInstrument.muted;
         player.name = selectedInstrument.name;
+        // unit is measured in semitones
+
+
         const gain = new Tone.Gain(clampedVolume, "normalRange");
         // const velocityGain = new Tone.Gain(1.0, "normalRange");
-        player.connect(gain);
+
+        const usePerSamplePitch = true;
+        let pitch = new Tone.PitchShift(selectedInstrument.pitchShift ?? 0);
+        if (usePerSamplePitch)
+        {
+          player.connect(pitch);
+          pitch.connect(gain);
+        }
+        else
+        {
+          player.connect(gain);
+        }
 
         const usePerInstrumentGain = true;
         if(usePerInstrumentGain)
@@ -399,8 +421,10 @@ class ToneController
         }
 
         this.samples[selectedInstrument.id] = {
-          player : player,
-          gain : gain,
+          player: player,
+          gain: gain,
+          pitch: usePerSamplePitch ? pitch: null,
+          pitchParameter: selectedInstrument.pitchShift ?? 0,
           // velocityGain: velocityGain,
           drumkit: selectedInstrument.drumkit,
           filename: selectedInstrument.filename,
@@ -558,6 +582,17 @@ class ToneController
   setGainForTrack(trackID, gainValue)
   {
     this.samples[trackID].gain.set( {gain : gainValue } );
+  }
+
+  setPitchShiftForTrack(trackID, pitchShiftValue)
+  {
+    let sample = this.samples[trackID];
+    if (sample?.pitch !== null)
+    {
+      // sample.pitch.pitch = pitchShiftValue;
+      sample.pitch.set({pitch: pitchShiftValue});
+      sample.pitchParameter = pitchShiftValue;
+    }
   }
 
   setVolumeForTrack(trackID, volume)

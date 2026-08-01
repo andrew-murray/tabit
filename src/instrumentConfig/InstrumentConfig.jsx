@@ -21,6 +21,7 @@ import { useTheme } from '@mui/styles';
 import DispatchingDialog from "../common/DispatchingDialog"
 import RenameDialog from "../common/RenameDialog";
 import AVAILABLE_SAMPLES from "../data/samples.json";
+import PitchShiftField from "./PitchShiftField";
 
 import InstrumentTable from "./InstrumentTable";
 
@@ -112,9 +113,11 @@ class EditInstrumentSampleDialog extends React.Component
     const selectedDrumkit = props.initialDrumkit !== undefined && drumkitSelections.includes(props.initialDrumkit) ? drumkitSelections.indexOf(props.initialDrumkit) : 0;
     const selectedSample = (props.initialDrumkit !== undefined && props.initialSample !== undefined && props.initialDrumkit in AVAILABLE_SAMPLES) ?
       [...AVAILABLE_SAMPLES[props.initialDrumkit]].indexOf(props.initialSample) : 0;
+    const selectedPitchShift = props.pitchShift !== undefined ? props.pitchShift : 0;
     this.state = {
       currentDrumkitIndex : selectedDrumkit,
-      currentSampleIndex: selectedSample === -1 ? 0 : selectedSample
+      currentSampleIndex: selectedSample === -1 ? 0 : selectedSample,
+      currentPitchShift: selectedPitchShift
     };
   }
 
@@ -154,7 +157,8 @@ class EditInstrumentSampleDialog extends React.Component
         if(this.props.onChange){
           this.props.onChange({
             drumkit: drumkitSelections[this.state.currentDrumkitIndex],
-            sample: sampleSelections[this.state.currentSampleIndex]
+            sample: sampleSelections[this.state.currentSampleIndex],
+            pitchShift: this.state.currentPitchShift
           });
         }
       }
@@ -166,30 +170,39 @@ class EditInstrumentSampleDialog extends React.Component
       >
         <DialogTitle id="form-dialog-title"></DialogTitle>
         <DialogContent>
-          <FormControl variant="standard">
-            <InputLabel id="drumkit-label">Drumkit</InputLabel>
-            <Select
-              labelId="drumkit-select-label"
-              id="drumkit-select"
-              value={this.state.currentDrumkitIndex}
-              onChange={handleDrumkitChange}
-              label="Drumkit"
-            >
-            {drumkitSelections.map( (element,index) => <MenuItem value={index} key={index + "-" + element}> {element} </MenuItem> )}
-            </Select>
-          </FormControl>
-          <FormControl variant="standard">
-            <InputLabel id="sample-label">Sample</InputLabel>
-            <Select
-              labelId="sample-select-label"
-              id="sample-select"
-              value={this.state.currentSampleIndex}
-              onChange={(e)=>{this.setState({currentSampleIndex: e.target.value})}}
-              label="Sample"
-            >
-            {sampleSelections.map( (element,index) => <MenuItem value={index} key={index.toString() + "-" + element}> {element} </MenuItem> )}
-            </Select>
-          </FormControl>
+          <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+            <Box sx={{ display: "flex", gap: 2 }}>
+              <FormControl variant="standard">
+                <InputLabel id="drumkit-label">Drumkit</InputLabel>
+                <Select
+                  labelId="drumkit-select-label"
+                  id="drumkit-select"
+                  value={this.state.currentDrumkitIndex}
+                  onChange={handleDrumkitChange}
+                  label="Drumkit"
+                >
+                {drumkitSelections.map( (element,index) => <MenuItem value={index} key={index + "-" + element}> {element} </MenuItem> )}
+                </Select>
+              </FormControl>
+              <FormControl variant="standard">
+                <InputLabel id="sample-label">Sample</InputLabel>
+                <Select
+                  labelId="sample-select-label"
+                  id="sample-select"
+                  value={this.state.currentSampleIndex}
+                  onChange={(e)=>{this.setState({currentSampleIndex: e.target.value})}}
+                  label="Sample"
+                >
+                {sampleSelections.map( (element,index) => <MenuItem value={index} key={index.toString() + "-" + element}> {element} </MenuItem> )}
+                </Select>
+              </FormControl>
+            </Box>
+            <PitchShiftField
+              label="Pitch Shift (semitones)"
+              value={this.state.currentPitchShift}
+              onChange={(value) => { this.setState({ currentPitchShift: value }); }}
+            />
+          </Box>
         </DialogContent>
         <DialogActions>
           <Button onClick={cancel} color="primary">
@@ -241,7 +254,8 @@ function InstrumentConfig(props) {
         Object.assign( {}, replacedInstrumentIndex[editingSample] ),
         {
           drumkit: resolvedSample.drumkit,
-          filename: resolvedSample.sample
+          filename: resolvedSample.sample,
+          pitchShift: resolvedSample.pitchShift ?? 0
         }
       );
       props.onInstrumentIndexChange(replacedInstrumentIndex);
@@ -293,6 +307,7 @@ function InstrumentConfig(props) {
           onChange={(s)=>{endEditingSample(s);}}
           initialDrumkit={editingSample !== null ? props.instrumentIndex[editingSample].drumkit : undefined}
           initialSample={editingSample !== null ? props.instrumentIndex[editingSample].filename : undefined}
+          pitchShift={editingSample !== null ? props.instrumentIndex[editingSample].pitchShift : undefined}
         />
       }
       <DispatchingDialog
