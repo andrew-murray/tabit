@@ -280,11 +280,11 @@ const BlocoSambaraCollection = {
   },
   songs: [
     {
-      id: "6a6e9a00da38895dfeae42ef",
+      id: "6a6e9e1bf5f4af5e29dfbb14",
       name: "Samba Reggae"
     },
     {
-      id: "6a6e9723f5f4af5e29dfaec8",
+      id: "6a6e9ee8da38895dfeae4b58",
       name: "Avenida"
     },
     {
@@ -296,7 +296,7 @@ const BlocoSambaraCollection = {
       name: "Tudo"
     },
     {
-      id: "6a6e946bda38895dfeae389b",
+      id: "6a6e9bdbf5f4af5e29dfb732",
       name: "Enredo"
     }
   ]
