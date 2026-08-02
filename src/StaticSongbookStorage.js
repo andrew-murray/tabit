@@ -269,14 +269,54 @@ const PucaiCollection = {
   ]
 };
 
-const Songbooks = {
+const BlocoSambaraCollection = {
+  id: "bloco",
+  name: "Bloco Sambara 2026",
+  style: {
+    grid: {
+      backgroundColor: '#ce2578',
+      color: "#FFE302"
+    }
+  },
+  songs: [
+    {
+      id: "6a6e9a00da38895dfeae42ef",
+      name: "Samba Reggae"
+    },
+    {
+      id: "6a6e9723f5f4af5e29dfaec8",
+      name: "Avenida"
+    },
+    {
+      id: "6a6e9379da38895dfeae36c2",
+      name:  "Our Em Lata"
+    },
+    {
+      id: "6a6e9437da38895dfeae3825",
+      name: "Tudo"
+    },
+    {
+      id: "6a6e946bda38895dfeae389b",
+      name: "Enredo"
+    }
+  ]
+}
+
+const PublicSongbooks = {
   "enc" : ENCCollection,
   "beasties-beltane-2025": Beastie2025Collection,
   "pucai" : PucaiCollection,
   "beasties-beltane-2023" : Beastie2023Collection,
   "beasties-beltane-2022": Beastie2022Collection,
   "ignis": IgnisCollection
-};
+}
+
+const Songbooks = Object.assign(
+  {
+    "bloco": BlocoSambaraCollection
+  },
+  PublicSongbooks
+)
 
 
 const get = (songbookID) => {
@@ -292,7 +332,7 @@ const get = (songbookID) => {
 };
 
 const getAll = () => {
-  return Object.values(Songbooks).map( e => { return {
+  return Object.values(PublicSongbooks).map( e => { return {
     source: "static",
     data: e
   };});
