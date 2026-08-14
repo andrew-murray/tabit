@@ -82,7 +82,8 @@ const createSequenceCallback = (pattern, sampleSource) =>
     {
       // update our knowledge, and early out if needed
       samplesReady = sampleSource.samplesReady();
-      if(!samplesReady){ return; }
+      // just don't play the samples, if they aren't ready!
+      // if(!samplesReady){ return; }
     }
     if(window.trace)
     {
@@ -93,7 +94,7 @@ const createSequenceCallback = (pattern, sampleSource) =>
         if( t.rep[indexFromStart] )
         {
           const sampleData = sampleSource.samples[id];
-          if( sampleData !== undefined )
+          if ( (sampleData !== undefined) && (samplesReady || sampleData.player.loaded) )
           {
             // we ensure the sample stops '10ms' before the beat as presumably
             // that'll make tonejs happier (hopefully this should be small enough, never to clash with earlier notes?)
@@ -253,16 +254,63 @@ class ToneController
 
   teardown()
   {
+    if (this.tornDown)
+    {
+      return;
+    }
+    this.tornDown = true;
     this.stop();
     // cancel all future events
     // note: it's unclear if this will appropriately dispose of all sequences & samples
     // so this may be a performance problem in the long term
     Tone.getTransport().cancel();
+
+    if(this.sequence)
+    {
+      // sometimes tone has floating point issues here
+      this.sequence.stop(Math.max(0, Tone.getTransport().seconds));
+      this.sequence.dispose();
+      this.sequence = null;
+    }
+
+    for(const sample of Object.values(this.samples))
+    {
+      sample.player?.stop();
+
+      sample.player?.disconnect();
+      sample.pitch?.disconnect();
+      sample.gain?.disconnect();
+      sample.pitch?.dispose();
+      sample.player?.dispose();
+      sample.gain?.dispose();
+    }
+    this.samples = {};
+
+    // Dispose all per-instrument gain/volume chains.
+    for(const instrument of this.instrumentGains)
+    {
+      instrument.volume?.disconnect();
+      instrument.gain?.disconnect();
+
+      instrument.volume?.dispose();
+      instrument.gain?.dispose();
+    }
+
+    this.instrumentGains = [];
+    // Finally dispose the controller's master gain.
+    this.gain?.disconnect();
+    this.gain?.dispose();
+    this.gain = null;
+
+    this.currentPattern = null;
+    this.currentPatternName = null;
   }
 
   samplesReady()
-  {
-    return this.sampleCount === this.expectedSampleCount;
+  { 
+    return Object.values(this.samples).every(
+      sample => sample.player.loaded
+    );
   }
 
   updatePattern = (p) =>
@@ -372,8 +420,10 @@ class ToneController
         {
           this.samples[selectedInstrument.id].gain.disconnect();
           this.samples[selectedInstrument.id].player.disconnect();
+          this.samples[selectedInstrument.id].pitch?.disconnect();
           this.samples[selectedInstrument.id].gain.dispose();
           this.samples[selectedInstrument.id].player.dispose();
+          this.samples[selectedInstrument.id].pitch?.dispose();
         }
         let player = new Tone.Player(
           urlForSample,
@@ -455,16 +505,6 @@ class ToneController
     return seq;
   }
 
-  createSequences(instrumentIndex, patterns)
-  {
-    let sequences = {};
-    for( let p of patterns )
-    {
-      sequences[p.name] = this.createSequenceForPattern(instrumentIndex, p);
-    }
-    return sequences;
-  }
-
   setActivePattern( patternName )
   {
     if(patternName === this.currentPatternName)
@@ -495,6 +535,7 @@ class ToneController
     const nextSequence = this.createSequenceForPattern(this.instrumentIndex, this.patternDetails[patternName].pattern);
 
     const enableNewTrack = (time) => {
+      let oldSequence = this.sequence;
       if(oldPatternName !== null)
       {
         // note: setting mute on the sequence directly seems to have no effect
@@ -507,6 +548,11 @@ class ToneController
       this.sequence = nextSequence;
       this.sequence._part.mute = false;
       this.currentPatternName = patternName;
+      if(oldSequence)
+      {
+        oldSequence.stop();
+        oldSequence.dispose();
+      }
     };
 
     const playing = Tone.getTransport().state === "started";
@@ -645,6 +691,7 @@ class ToneController
     });
     nodesToRemove.volume.disconnect();
     nodesToRemove.gain.disconnect();
+    nodesToRemove.pitch?.disconnect();
     const beforeInstruments = this.instrumentGains.slice(0, instrumentIndex);
     const afterInstruments = this.instrumentGains.slice(instrumentIndex + 1);
     this.instrumentGains = beforeInstruments.concat(afterInstruments);
