@@ -204,7 +204,9 @@ class ToneController
     // volume-reducers (which are in the control of the user).
     // So we give a bit of a bump, to make sure we're not just too quiet.
     this.gain = new Tone.Gain(1.5);
-    this.gain.toDestination();
+    this.limiter = new Tone.Limiter(-1);
+    this.gain.connect(this.limiter);
+    this.limiter.toDestination();
     this.onPatternTimeChange = onTimeChange;
     Tone.getTransport().bpm.value = tempo;
     Tone.getTransport().loop = true;
@@ -301,6 +303,9 @@ class ToneController
     this.gain?.disconnect();
     this.gain?.dispose();
     this.gain = null;
+    this.limiter?.disconnect();
+    this.limiter.dispose();
+    this.limiter = null;
 
     this.currentPattern = null;
     this.currentPatternName = null;
