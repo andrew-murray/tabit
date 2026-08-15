@@ -35,12 +35,8 @@ function parseHydrogen(dom, sparse)
         "gain" : parseFloat(element.gain),
         "drumkit" : element.drumkit.toString(),
         // we take the instrument pitch, but ignore the pitch on the sample
-        "pitchShift": parseInt(element.pitchOffset)
+        "pitchShift": element.pitchOffset !== undefined ? parseInt(element.pitchOffset) : 0
       };
-      let chosenLayer = {
-        gain: null,
-        pitchShift: null
-      }
       if(instrumentComponent.layer)
       {
         // fixme:
