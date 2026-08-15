@@ -7,6 +7,7 @@
             "muted": false,
             "gain": 3.65,
             "drumkit": "GMkit",
+            "pitchShift": 0,
             "filename": "kick_Dry_b.flac"
         },
         {
@@ -16,6 +17,7 @@
             "muted": false,
             "gain": 1,
             "drumkit": "GMkit",
+            "pitchShift": 0,
             "filename": "stick_Woody.flac"
         },
         {
@@ -25,6 +27,7 @@
             "muted": true,
             "gain": 0.6,
             "drumkit": "GMkit",
+            "pitchShift": 0,
             "filename": "sn_Jazz_c.flac"
         },
         {
@@ -34,6 +37,7 @@
             "muted": false,
             "gain": 1,
             "drumkit": "GMkit",
+            "pitchShift": 0,
             "filename": "sn_Wet_b.flac"
         },
         {
@@ -43,6 +47,7 @@
             "muted": false,
             "gain": 1,
             "drumkit": "GMkit",
+            "pitchShift": 0,
             "filename": "clap_Dry_c.flac"
         },
         {
@@ -52,6 +57,7 @@
             "muted": false,
             "gain": 1,
             "drumkit": "GMkit",
+            "pitchShift": 0,
             "filename": "tom_Rock_lo.flac"
         },
         {
@@ -61,6 +67,7 @@
             "muted": true,
             "gain": 1,
             "drumkit": "GMkit",
+            "pitchShift": 0,
             "filename": "hhc_Dry_a.flac"
         },
         {
@@ -70,6 +77,7 @@
             "muted": true,
             "gain": 1,
             "drumkit": "GMkit",
+            "pitchShift": 0,
             "filename": "tom_Rock_mid.flac"
         },
         {
@@ -79,6 +87,7 @@
             "muted": true,
             "gain": 1,
             "drumkit": "GMkit",
+            "pitchShift": 0,
             "filename": "hhp_Dry_a.flac"
         },
         {
@@ -88,6 +97,7 @@
             "muted": true,
             "gain": 1,
             "drumkit": "GMkit",
+            "pitchShift": 0,
             "filename": "tom_Rock_hi.flac"
         },
         {
@@ -97,6 +107,7 @@
             "muted": true,
             "gain": 1,
             "drumkit": "GMkit",
+            "pitchShift": 0,
             "filename": "hhc_Rock_b.flac"
         },
         {
@@ -106,6 +117,7 @@
             "muted": true,
             "gain": 1,
             "drumkit": "GMkit",
+            "pitchShift": 0,
             "filename": "misc_Cowbell.flac"
         },
         {
@@ -115,6 +127,7 @@
             "muted": true,
             "gain": 1,
             "drumkit": "GMkit",
+            "pitchShift": 0,
             "filename": "cym_Jazz.flac"
         },
         {
@@ -124,6 +137,7 @@
             "muted": true,
             "gain": 1,
             "drumkit": "GMkit",
+            "pitchShift": 0,
             "filename": "cra_Rock_a.flac"
         },
         {
@@ -133,6 +147,7 @@
             "muted": true,
             "gain": 1,
             "drumkit": "GMkit",
+            "pitchShift": 0,
             "filename": "cym_Rock_b.flac"
         },
         {
@@ -142,6 +157,7 @@
             "muted": true,
             "gain": 1,
             "drumkit": "GMkit",
+            "pitchShift": 0,
             "filename": "cra_Jazz.flac"
         }
     ],

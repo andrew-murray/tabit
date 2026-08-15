@@ -7,6 +7,7 @@
             "muted": true,
             "gain": 0.45,
             "drumkit": "GMkit",
+            "pitchShift": 0,
             "filename": "stick_Woody.flac"
         },
         {
@@ -16,6 +17,7 @@
             "muted": false,
             "gain": 1.7,
             "drumkit": "GMkit",
+            "pitchShift": 0,
             "filename": "kick_Dry_b.flac"
         },
         {
@@ -24,7 +26,8 @@
             "volume": 0.193966,
             "muted": false,
             "gain": 1,
-            "drumkit": "DeathMetal"
+            "drumkit": "DeathMetal",
+            "pitchShift": 0
         },
         {
             "id": 1,
@@ -33,6 +36,7 @@
             "muted": false,
             "gain": 1.2,
             "drumkit": "GMkit",
+            "pitchShift": 0,
             "filename": "stick_Woody.flac"
         },
         {
@@ -42,6 +46,7 @@
             "muted": false,
             "gain": 2.15,
             "drumkit": "GMkit",
+            "pitchShift": 0,
             "filename": "kick_Dry_b.flac"
         },
         {
@@ -50,7 +55,8 @@
             "volume": 0.65,
             "muted": false,
             "gain": 1,
-            "drumkit": "DeathMetal"
+            "drumkit": "DeathMetal",
+            "pitchShift": 0
         },
         {
             "id": 2,
@@ -59,6 +65,7 @@
             "muted": false,
             "gain": 0.85,
             "drumkit": "GMkit",
+            "pitchShift": 0,
             "filename": "sn_Jazz_c.flac"
         },
         {
@@ -67,7 +74,8 @@
             "volume": 0.35,
             "muted": false,
             "gain": 0.4,
-            "drumkit": "DeathMetal"
+            "drumkit": "DeathMetal",
+            "pitchShift": 0
         },
         {
             "id": 10,
@@ -76,6 +84,7 @@
             "muted": false,
             "gain": 1,
             "drumkit": "circAfrique v4",
+            "pitchShift": 0,
             "filename": "Djembe4 Slap.wav"
         },
         {
@@ -85,6 +94,7 @@
             "muted": false,
             "gain": 0.95,
             "drumkit": "circAfrique v4",
+            "pitchShift": 0,
             "filename": "Djembe4 Tone.wav"
         },
         {
@@ -94,6 +104,7 @@
             "muted": false,
             "gain": 3.1,
             "drumkit": "circAfrique v4",
+            "pitchShift": 0,
             "filename": "Djembe4 Bass.wav"
         },
         {
@@ -103,6 +114,7 @@
             "muted": false,
             "gain": 2.2,
             "drumkit": "TR808EmulationKit",
+            "pitchShift": 0,
             "filename": "808_Shaker.wav"
         },
         {
@@ -112,6 +124,7 @@
             "muted": false,
             "gain": 1.5,
             "drumkit": "TR808EmulationKit",
+            "pitchShift": 0,
             "filename": "808_Shaker.wav"
         }
     ],

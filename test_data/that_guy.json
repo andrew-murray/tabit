@@ -7,6 +7,7 @@
             "muted": false,
             "gain": 1,
             "drumkit": "GMkit",
+            "pitchShift": 0,
             "filename": "kick_Dry_b.flac"
         },
         {
@@ -16,6 +17,7 @@
             "muted": false,
             "gain": 1,
             "drumkit": "GMkit",
+            "pitchShift": 0,
             "filename": "stick_Woody.flac"
         },
         {
@@ -25,6 +27,7 @@
             "muted": false,
             "gain": 1,
             "drumkit": "The Black Pearl 1.0",
+            "pitchShift": 0,
             "filename": "PearlKick-Softest.wav"
         },
         {
@@ -34,6 +37,7 @@
             "muted": false,
             "gain": 1,
             "drumkit": "GMkit",
+            "pitchShift": 0,
             "filename": "stick_Woody.flac"
         },
         {
@@ -43,6 +47,7 @@
             "muted": false,
             "gain": 1,
             "drumkit": "circAfrique v4",
+            "pitchShift": 0,
             "filename": "Djembe2 Bass.wav"
         },
         {
@@ -52,6 +57,7 @@
             "muted": false,
             "gain": 1,
             "drumkit": "circAfrique v4",
+            "pitchShift": 0,
             "filename": "Djembe2 Tone.wav"
         },
         {
@@ -61,6 +67,7 @@
             "muted": false,
             "gain": 1,
             "drumkit": "circAfrique v4",
+            "pitchShift": 0,
             "filename": "Djembe2 Slap.wav"
         },
         {
@@ -70,6 +77,7 @@
             "muted": false,
             "gain": 1,
             "drumkit": "TR808EmulationKit",
+            "pitchShift": 0,
             "filename": "808_Shaker.wav"
         },
         {
@@ -79,6 +87,7 @@
             "muted": false,
             "gain": 1,
             "drumkit": "GMkit",
+            "pitchShift": 0,
             "filename": "sn_Wet_b.flac"
         },
         {
@@ -88,6 +97,7 @@
             "muted": false,
             "gain": 1,
             "drumkit": "GMkit",
+            "pitchShift": 0,
             "filename": "sn_Wet_b.flac"
         }
     ],

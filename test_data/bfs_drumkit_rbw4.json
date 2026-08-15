@@ -7,6 +7,7 @@
             "muted": false,
             "gain": 1,
             "drumkit": "BFS drumming",
+            "pitchShift": 0,
             "filename": "bass hit 1.wav"
         },
         {
@@ -16,6 +17,7 @@
             "muted": false,
             "gain": 0.5,
             "drumkit": "BFS drumming",
+            "pitchShift": 0,
             "filename": "bass click.wav"
         },
         {
@@ -25,6 +27,7 @@
             "muted": false,
             "gain": 1,
             "drumkit": "BFS drumming",
+            "pitchShift": 3,
             "filename": "bass hit 1.wav"
         },
         {
@@ -34,6 +37,7 @@
             "muted": false,
             "gain": 1,
             "drumkit": "BFS drumming",
+            "pitchShift": 2,
             "filename": "bass click.wav"
         },
         {
@@ -43,6 +47,7 @@
             "muted": false,
             "gain": 1,
             "drumkit": "BFS drumming",
+            "pitchShift": 0,
             "filename": "tom hit.wav"
         },
         {
@@ -52,6 +57,7 @@
             "muted": false,
             "gain": 1,
             "drumkit": "BFS drumming",
+            "pitchShift": 0,
             "filename": "tom click.wav"
         },
         {
@@ -61,6 +67,7 @@
             "muted": false,
             "gain": 1,
             "drumkit": "BFS drumming",
+            "pitchShift": 0,
             "filename": "small tom hit 1.wav"
         },
         {
@@ -70,6 +77,7 @@
             "muted": false,
             "gain": 1,
             "drumkit": "BFS drumming",
+            "pitchShift": 0,
             "filename": "small tom click.wav"
         },
         {
@@ -79,6 +87,7 @@
             "muted": false,
             "gain": 1.35,
             "drumkit": "BFS drumming",
+            "pitchShift": 0,
             "filename": "snare hit (not real).wav"
         },
         {
@@ -88,6 +97,7 @@
             "muted": false,
             "gain": 1,
             "drumkit": "BFS drumming",
+            "pitchShift": 0,
             "filename": "snare ghost 2 (not real).wav"
         },
         {
@@ -97,6 +107,7 @@
             "muted": false,
             "gain": 1,
             "drumkit": "BFS drumming",
+            "pitchShift": 0,
             "filename": "snare click (not real).wav"
         },
         {
@@ -106,6 +117,7 @@
             "muted": false,
             "gain": 0.7,
             "drumkit": "BFS drumming",
+            "pitchShift": 0,
             "filename": "forward7.wav"
         },
         {
@@ -115,6 +127,7 @@
             "muted": false,
             "gain": 0.85,
             "drumkit": "BFS drumming",
+            "pitchShift": 0,
             "filename": "forward3.wav"
         },
         {
@@ -124,6 +137,7 @@
             "muted": false,
             "gain": 1.35,
             "drumkit": "BFS drumming",
+            "pitchShift": 0,
             "filename": "back6.wav"
         },
         {
@@ -133,6 +147,7 @@
             "muted": false,
             "gain": 0.9,
             "drumkit": "BFS drumming",
+            "pitchShift": 0,
             "filename": "back1.wav"
         },
         {
@@ -142,6 +157,7 @@
             "muted": false,
             "gain": 1,
             "drumkit": "BFS drumming",
+            "pitchShift": 0,
             "filename": "djembe bass 1.wav"
         },
         {
@@ -151,6 +167,7 @@
             "muted": false,
             "gain": 1,
             "drumkit": "BFS drumming",
+            "pitchShift": 0,
             "filename": "djembe tone fat.wav"
         },
         {
@@ -160,6 +177,7 @@
             "muted": false,
             "gain": 1,
             "drumkit": "BFS drumming",
+            "pitchShift": 0,
             "filename": "djembe slap 1.wav"
         },
         {
@@ -169,6 +187,7 @@
             "muted": false,
             "gain": 1,
             "drumkit": "BFS drumming",
+            "pitchShift": 0,
             "filename": "djembe ghost 1.wav"
         }
     ],

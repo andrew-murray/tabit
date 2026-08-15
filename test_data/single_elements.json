@@ -7,6 +7,7 @@
             "muted": false,
             "gain": 1,
             "drumkit": "BFS drumming",
+            "pitchShift": 0,
             "filename": "bass hit 1.wav"
         }
     ],
