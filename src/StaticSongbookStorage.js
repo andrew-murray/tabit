@@ -296,6 +296,14 @@ const BlocoSambaraCollection = {
       name: "Tudo"
     },
     {
+      id: "6a8238e5da38895dfeecb5c8",
+      name: "Reggae"
+    },
+    {
+      id: "6a823566f5f4af5e291e3855",
+      name: "Magalenha"
+    },
+    {
       id: "6a6e9bdbf5f4af5e29dfb732",
       name: "Enredo"
     }
