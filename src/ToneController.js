@@ -560,7 +560,7 @@ class ToneController
       this.currentPatternName = patternName;
       if(oldSequence)
       {
-        oldSequence.stop();
+        oldSequence.stop(Math.max(0, Tone.getTransport().seconds));
         oldSequence.dispose();
       }
     };
