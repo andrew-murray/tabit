@@ -436,16 +436,21 @@ class ToneController
         );
         player.mute = selectedInstrument.muted;
         player.name = selectedInstrument.name;
-        // unit is measured in semitones
 
+      const gain = new Tone.Gain(clampedVolume, "normalRange");
 
-        const gain = new Tone.Gain(clampedVolume, "normalRange");
-        // const velocityGain = new Tone.Gain(1.0, "normalRange");
+      const usePerSamplePitch = true;
+      // unit is measured in semitones
+      let pitch = new Tone.PitchShift({
+        pitch: selectedInstrument.pitchShift ?? 0,
+        delayTime: 0,
+        feedback: 0,
+        wet: 1.0,
+        windowSize: 0.013
+      });
 
-        const usePerSamplePitch = true;
-        let pitch = new Tone.PitchShift(selectedInstrument.pitchShift ?? 0);
-        if (usePerSamplePitch)
-        {
+      if(usePerSamplePitch)
+      {
           player.connect(pitch);
           pitch.connect(gain);
         }
