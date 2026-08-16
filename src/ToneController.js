@@ -702,6 +702,9 @@ class ToneController
     nodesToRemove.volume.disconnect();
     nodesToRemove.gain.disconnect();
     nodesToRemove.pitch?.disconnect();
+    nodesToRemove.volume.dispose();
+    nodesToRemove.gain.dispose();
+    nodesToRemove.pitch?.dispose();
     const beforeInstruments = this.instrumentGains.slice(0, instrumentIndex);
     const afterInstruments = this.instrumentGains.slice(instrumentIndex + 1);
     this.instrumentGains = beforeInstruments.concat(afterInstruments);
