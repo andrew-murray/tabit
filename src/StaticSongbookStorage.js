@@ -280,6 +280,20 @@ const BlocoSambaraCollection = {
   },
   songs: [
     {
+      id: "6a8238e5da38895dfeecb5c8",
+      name: "Reggae"
+    },
+    {
+      id: "6a823566f5f4af5e291e3855",
+      name: "Magalenha"
+    },
+    {
+      id: "6a84d1e6da38895dfef486db",
+      name: "AfroReggae"
+    }
+    
+    /*
+    {
       id: "6a6e9e1bf5f4af5e29dfbb14",
       name: "Samba Reggae"
     },
@@ -296,17 +310,10 @@ const BlocoSambaraCollection = {
       name: "Tudo"
     },
     {
-      id: "6a8238e5da38895dfeecb5c8",
-      name: "Reggae"
-    },
-    {
-      id: "6a823566f5f4af5e291e3855",
-      name: "Magalenha"
-    },
-    {
       id: "6a6e9bdbf5f4af5e29dfb732",
       name: "Enredo"
-    }
+    },
+    */
   ]
 }
 
