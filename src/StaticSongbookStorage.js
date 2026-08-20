@@ -288,7 +288,7 @@ const BlocoSambaraCollection = {
       name: "Magalenha"
     },
     {
-      id: "6a8713bdf5f4af5e292d5c1c",
+      id: "6a87737dda38895dfefd01eb",
       name: "AfroReggae"
     }
     
