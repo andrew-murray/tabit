@@ -280,40 +280,37 @@ const BlocoSambaraCollection = {
   },
   songs: [
     {
-      id: "6a8238e5da38895dfeecb5c8",
-      name: "Reggae"
+      id: "6a87737dda38895dfefd01eb",
+      name: "AfroReggae"
+    },
+    {
+      id: "6a8c879bf5f4af5e293d3250",
+      name: "Avenida"
+    },
+    {
+      id: "6a8c83b1da38895dfe0b9362",
+      name: "Enredo"
     },
     {
       id: "6a823566f5f4af5e291e3855",
       name: "Magalenha"
     },
     {
-      id: "6a87737dda38895dfefd01eb",
-      name: "AfroReggae"
-    }
-    
-    /*
+      id: "6a8c8cc0da38895dfe0bb4c6",
+      name:  "Ouro Em Lata"
+    },
     {
-      id: "6a6e9e1bf5f4af5e29dfbb14",
+      id: "6a8238e5da38895dfeecb5c8",
+      name: "Reggae"
+    },
+    {
+      id: "6a8c975ada38895dfe0bdb13",
       name: "Samba Reggae"
     },
     {
-      id: "6a6e9ee8da38895dfeae4b58",
-      name: "Avenida"
-    },
-    {
-      id: "6a6e9379da38895dfeae36c2",
-      name:  "Our Em Lata"
-    },
-    {
-      id: "6a6e9437da38895dfeae3825",
+      id: "6a8c8e94f5f4af5e293d4c27",
       name: "Tudo"
-    },
-    {
-      id: "6a6e9bdbf5f4af5e29dfb732",
-      name: "Enredo"
-    },
-    */
+    }
   ]
 }
 
