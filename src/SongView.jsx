@@ -30,11 +30,17 @@ const makeResolvedSettings = memoizeOne( (globalSettings, patternSettings) => {
   return resolvedSettings;
 });
 
+const firstPattern = (songData) =>
+{
+  const index = songData?.patternDisplayOrder.findIndex(x => x === 0);
+  return index === undefined || index === -1 ? 0 : index;
+};
+
 class SongView extends React.Component
 {
 
   state = {
-    selectedPattern: 0,
+    selectedPattern: firstPattern(this.props.songData),
     patternSettings: this.props.songData.patternSettings,
     formatSettings: this.props.songData.formatSettings,
     songData: {
