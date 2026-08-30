@@ -42,6 +42,40 @@ function FormatSettings(props) {
     // const updatedState = {...props.settings, [event.target.name]: event.target.checked};
     props.onChange({key: name, value: value, local: local});
   };
+    
+  const makeColorStyle = (color, activeLocalSetting) => {
+    return Object.assign(
+      {},
+      activeLocalSetting ? {
+        "& .MuiInputLabel-root": {
+          // color: `${color}.main`,
+        },
+        "& .MuiOutlinedInput-root": {
+          "& fieldset": {
+            borderColor: `${color}.main`,
+          },
+          "&:hover fieldset": {
+            borderColor: `${color}.main`,
+          },
+          "&.Mui-focused fieldset": {
+            borderColor: `${color}.main`,
+          },
+        },
+        "& .MuiSwitch-switchBase": {
+          color: `${color}.main`,
+        },
+        "& .MuiSwitch-switchBase.Mui-checked": {
+          color: `${color}.main`,
+        },
+        "& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track": {
+          backgroundColor: `${color}.main`,
+        },
+        "& .MuiSwitch-track": {
+          backgroundColor: `${color}.main`,
+        }
+      } : {}
+    );
+  };
 
   function createOptionMenu(
     name,
@@ -51,43 +85,77 @@ function FormatSettings(props) {
     localSetting = false
   )
   {
-    const idString = "form-control-" + name + "-id";
+    const localString = (localSetting ? "-local" : "-global")
+    const idString = "form-control-" + name + "-id" + localString;
+    const overridden = !localSetting && (name in props.patternSettings);
+    const activeLocalSetting = localSetting && (name in props.globalSettings) && (name in props.patternSettings);
 
-    // awkwardly when using outlined, we need to specify label in two places, see https://mui.com/material-ui/react-select/
     return (
       <ListItem variant="filled" sx={{margin: 1}} styles={{minWidth:120}} key={idString} id={idString} style={{width:"75%"}}>
-        <FormControl style={{width:"100%"}} data-testid={"settings-control-" + name}>
-          <InputLabel id="settings-option-{name}">{name}</InputLabel>
-          <Select
-            labelId={"settings-option-" + name + "-labelID"}
-            id={"settings-option-" + name + "-id"}
-            value={stateToItem(props.settings[name])}
-            name={name}
-            onChange={(e) => handleOptionChange( e.target.name, itemToState(e.target.value), localSetting)}
-            style={{width:"75%", textAlign: "center"}}
-            label={name}
+        <Tooltip
+          title="Song setting overridden for this pattern"
+          show={props.showHelp && overridden}
+        >
+          <FormControl
+            sx={
+              Object.assign(
+                makeColorStyle("secondary", activeLocalSetting), 
+                {width: "100%"}
+              )
+            }
+            data-testid={"settings-control-" + name + localString}
+            disabled={overridden ? true : undefined}
           >
-            {options.map((op) => <MenuItem key={"settings-menu-item-" + name + "-" + op} value={stateToItem(op)} style={{textAlign: "center"}}>{stateToItem(op)}</MenuItem>)}
-          </Select>
-        </FormControl>
+            <InputLabel id="settings-option-{name}">{name}</InputLabel>
+            <Select
+              labelId={"settings-option-" + name + "-labelID"}
+              id={"settings-option-" + name + "-id"}
+              value={stateToItem(props.settings[name])}
+              name={name}
+              onChange={(e) => handleOptionChange( e.target.name, itemToState(e.target.value), localSetting)}
+              style={{width:"75%", textAlign: "center"}}
+              label={name}
+            >
+              {options.map((op) => <MenuItem key={"settings-menu-item-" + name + "-" + op} value={stateToItem(op)} style={{textAlign: "center"}}>{stateToItem(op)}</MenuItem>)}
+            </Select>
+          </FormControl>
+        </Tooltip>
       </ListItem>
     );
   };
 
-  function createBoolControl(name, local, settingsName)
+  function createBoolControl(name, localSetting, settingsName)
   {
     const sName = settingsName ? settingsName : name;
+    const overridden = !localSetting && (name in props.patternSettings);
+    const activeLocalSetting = localSetting && (name in props.globalSettings) && (name in props.patternSettings);
     return (
       <ListItem key={"form-control-" + name}>
-        <FormControlLabel
-          control={<Switch
-            checked={props.settings[sName]}
-            onChange={(e) => handleCheckedChange(e.target.name, e.target.checked, local)}
-            name={sName}
-          />}
-          label={camelToReadable(name)}
-          key={"switch-"+name}
-        />
+        <Tooltip
+          title="Song setting overridden for this pattern"
+          show={props.showHelp && overridden}
+        >
+          <FormControlLabel
+            control={
+              <Switch
+                checked={props.settings[sName]}
+                onChange={(e) => handleCheckedChange(e.target.name, e.target.checked, localSetting)}
+                name={sName}
+                sx={makeColorStyle("secondary", activeLocalSetting)}
+              />
+            }
+            label={camelToReadable(name)}
+            key={"switch-"+name}
+            disabled={overridden}
+            sx={
+            activeLocalSetting
+              ? {
+                  color: "secondary.main",
+                }
+              : undefined
+            }
+          />
+        </Tooltip>
       </ListItem>
     );
   };
@@ -231,11 +299,19 @@ function FormatSettings(props) {
             <span>Pattern</span>
           </Tooltip>
         }/>
+        <Tab label={
+          <Tooltip
+            show={props.showHelp}
+            title="Override Song Settings for this pattern"
+          >
+            <span>Overrides</span>
+          </Tooltip>
+        }/>
       </Tabs>
       {settingsTabIndex === 0 &&
         <List>
-          {notation.FORMAT_CONFIG_STRINGS.map( op => createOptionMenu( op[0], op[1] ) ).reduce((prev, curr) => [prev, curr])}
-          {notation.FORMAT_CONFIG_BOOLS.map( op => createBoolControl( op, false )).reduce((prev, curr) => [prev, curr]) }
+          {notation.FORMAT_CONFIG_STRINGS.map( op => createOptionMenu( op[0], op[1], tokenItemToState, tokenStateToItem ) ).reduce((prev, curr) => [prev, curr])}
+          {notation.FORMAT_CONFIG_BOOLS.map( op => createBoolControl( op, false, op )).reduce((prev, curr) => [prev, curr]) }
         </List>
       }
       {settingsTabIndex === 1 &&
@@ -274,6 +350,12 @@ function FormatSettings(props) {
               primaryResolutions,
             ) ).reduce((prev, curr) => [prev, curr])
           }
+        </List>
+      }
+      {settingsTabIndex === 2 &&
+        <List>
+          {notation.FORMAT_CONFIG_STRINGS.map( op => createOptionMenu( op[0], op[1], tokenItemToState, tokenStateToItem, true ) ).reduce((prev, curr) => [prev, curr])}
+          {notation.FORMAT_CONFIG_BOOLS.map( op => createBoolControl( op, true, op)).reduce((prev, curr) => [prev, curr]) }
         </List>
       }
       </FormGroup>

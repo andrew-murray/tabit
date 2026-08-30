@@ -821,15 +821,25 @@ class SongView extends React.Component
     // change returns an object with .key, .value and .local
     if(change.local)
     {
+      const changeMatchesGlobalValue = this.state.formatSettings[change.key] === change.value;
       const updateState = (state) => {
         const modifiedSettings = state.patternSettings.map( (settings, index) => {
           if(index !== state.selectedPattern){ return settings; }
           else {
-            return Object.assign(
-              {},
-              state.patternSettings[state.selectedPattern],
-              {[change.key]: change.value}
-            );
+            if (changeMatchesGlobalValue)
+            {
+              let updatedValues = {...state.patternSettings[state.selectedPattern]};
+              delete updatedValues[change.key];
+              return updatedValues;
+            }
+            else
+            {
+              return Object.assign(
+                {},
+                state.patternSettings[state.selectedPattern],
+                {[change.key]: change.value}
+              );
+            }
           }
         });
         return {patternSettings: modifiedSettings};
@@ -993,10 +1003,20 @@ class SongView extends React.Component
     const pattern = this.state.songData.patterns[
       this.state.selectedPattern
     ];
-    const patternSpecifics = ( this.state.songData && this.state.patternSettings) ? this.state.patternSettings[this.state.selectedPattern] : null;
+    const patternSpecifics = ( this.state.songData && this.state.patternSettings) ? this.state.patternSettings[this.state.selectedPattern] : {};
     const resolvedSettings = makeResolvedSettings( this.state.formatSettings, patternSpecifics );
     const instrumentConfigColumns = isMobile ? 12 : 8;
-
+    
+    const neverGlobal = (formatSettings) =>
+    {
+      const forbidden = new Set([
+        "beatResolution",
+        "lineResolution"
+      ]);
+      return Object.fromEntries(Object.entries(formatSettings).filter(
+        (entry => !forbidden.has(entry[0])
+      )));
+    };
     return (
       <Box className="App">
         <Toolbar variant="dense"/>
@@ -1107,6 +1127,11 @@ class SongView extends React.Component
           anchor="right"
           pattern={pattern}
           settings={resolvedSettings}
+          patternSettings={patternSpecifics}
+          // TODO: Currently state.formatSettings has lineResolution/beatResolution which
+          // I think we never use from the globalSettings? 
+          // They could/should be removed, but seems least controversial to remove them here
+          globalSettings={neverGlobal(this.state.formatSettings)}
           onChange={this.handleSettingsChange}
           animating={this.state.animating}
           showHelp={this.state.showHelp}

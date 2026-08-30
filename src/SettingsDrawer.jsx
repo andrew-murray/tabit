@@ -104,6 +104,8 @@ function SettingsDrawer(props)
             onChange={props.onChange ??  noop}
             settings={props.settings}
             pattern={patternDetails}
+            patternSettings={props.patternSettings}
+            globalSettings={props.globalSettings}
             showHelp={props.showHelp}
             />
         }
@@ -120,6 +122,8 @@ SettingsDrawer.propTypes = {
   open: PropTypes.bool.isRequired,
   anchor: PropTypes.oneOf(['left', 'right']).isRequired,
   settings: PropTypes.object,
+  patternSettings: PropTypes.object,
+  globalSettings: PropTypes.object,
   className: PropTypes.string
 }
 
