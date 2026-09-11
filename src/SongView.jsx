@@ -1025,6 +1025,16 @@ class SongView extends React.Component
         (entry => !forbidden.has(entry[0])
       )));
     };
+
+    const queuePattern = (index) => {
+      const setPattern = () => {
+        if (index >= 0 && index < this.state.songData.patterns.length)
+        {
+          this.selectPattern(index);
+        }
+      };
+      this.audio.setPatternEndCallback(setPattern);
+    };
     return (
       <Box className="App">
         <Toolbar variant="dense"/>
@@ -1124,6 +1134,7 @@ class SongView extends React.Component
           selectPattern={this.selectPatternDisplayIndex}
           onRemove={!this.state.locked ? this.removePattern : undefined}
           onAdd={!this.state.locked ? this.openPatternCreateDialog : undefined}
+          onQueue={this.state.locked ? queuePattern : undefined}
           showHelp={this.state.showHelp}
           patternDisplayOrder={this.state.songData.patternDisplayOrder}       
           setPatternDisplayOrder={!this.state.locked ? this.setPatternDisplayOrder : undefined }

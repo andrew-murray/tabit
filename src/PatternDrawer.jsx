@@ -10,6 +10,7 @@ import ClearIcon from '@mui/icons-material/Delete';
 import AddCircleIcon from '@mui/icons-material/Add';
 import { isMobile } from "./common/Mobile";
 import DragHandleIcon from '@mui/icons-material/DragHandle';
+import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
 import Tooltip from "./common/TabitTooltip";
 import {arrayMove, useSortable, SortableContext, 
   verticalListSortingStrategy} from '@dnd-kit/sortable';
@@ -25,10 +26,12 @@ import {
 
 const PatternListItem = (props) =>
 {
+
   const {
     selectPattern,
     index,
     pattern,
+    onQueue,
     onRemove,
     dragEnabled
   } = props;
@@ -46,15 +49,18 @@ const PatternListItem = (props) =>
     },
     [index, onRemove]
   );
-  return (
-    <ListItem
-    button
-    key={"drawer-pattern" + index.toString()}
-    aria-label={pattern.name}
-    onClick={selectCallback}
-    dense
-    secondaryAction={(!onRemove) ? undefined :
-      <Tooltip
+  const queueCallback = React.useCallback(
+    (event)=>{
+      event.stopPropagation();
+      event.preventDefault();
+      onQueue(index);
+    },
+    [index, onQueue]
+  );
+  const makeSecondaryAction = () => {
+    if (onRemove)
+    {
+      return <Tooltip
         title="Delete"
         show={props.showHelp}
       >
@@ -70,7 +76,39 @@ const PatternListItem = (props) =>
         </IconButton>
       </Tooltip>
     }
-  >
+    else if (onQueue)
+    {
+
+      return <Tooltip
+        title="Play Next"
+        show={props.showHelp}
+      >
+        <IconButton
+          edge="end"
+          size="small"
+          onClick={queueCallback}
+          aria-label={`Play ${pattern.name} next`}
+        >
+          <PlaylistAddIcon
+            fontSize="small"
+          />
+        </IconButton>
+      </Tooltip>
+    }
+    else
+    {
+      return undefined;
+    }
+  }
+  return (
+    <ListItem
+      button
+      key={"drawer-pattern" + index.toString()}
+      aria-label={pattern.name}
+      onClick={selectCallback}
+      dense
+      secondaryAction={makeSecondaryAction()}
+    >
       {dragEnabled &&
         <ListItemAvatar>
           <Tooltip
@@ -123,6 +161,7 @@ const DraggablePatternListItem = (props) =>
         dragAttributes={attributes}
         dragSetActivatorNodeRef={setActivatorNodeRef}
         dragEnabled={props.dragEnabled}
+        onQueue={props.onQueue}
       />
     </div>
   );
@@ -136,7 +175,8 @@ const DNDSwitcher = (props) => {
     setPatternDisplayOrder,
     selectPattern,
     showHelp,
-    onRemove
+    onRemove,
+    onQueue
   } = props;
   const sensors = useSensors(
     useSensor(PointerSensor)
@@ -174,6 +214,7 @@ const DNDSwitcher = (props) => {
           id={pattern.name}
           index={index}
           onRemove={onRemove}
+          onQueue={onQueue}
           selectPattern={selectPattern}
           showHelp={showHelp}
           dragEnabled={!disabled}
@@ -234,6 +275,7 @@ function DrawerContent(props)
           selectPattern={props.selectPattern}
           showHelp={props.showHelp}
           onRemove={props.onRemove}
+          onQueue={props.onQueue}
         />
         {props.onAdd &&
           <ListItem
@@ -291,6 +333,7 @@ function PatternDrawer(props)
         onRemove={props.onRemove}
         selectPattern={props.selectPattern}
         onAdd={props.onAdd}
+        onQueue={props.onQueue}
         showHelp={props.showHelp}
         patternDisplayOrder={props.patternDisplayOrder}
         setPatternDisplayOrder={props.setPatternDisplayOrder}
