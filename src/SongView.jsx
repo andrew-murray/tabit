@@ -113,6 +113,11 @@ class SongView extends React.Component
       }
       const latencyHint = isMobile ? "playback" : null;
       const animateCallback = this.createAnimateCallback();
+      const setNextPatternCallback = ()=>{
+        const currentPattern = this.state.selectedPattern;
+        const nextPattern = (currentPattern + 1) % this.state.songData.patterns.length;
+        this.selectPattern(nextPattern);
+      };
       this.audio = new this.props.audioController(
         this.state.songData.instruments,
         this.state.songData.instrumentIndex,
@@ -123,6 +128,9 @@ class SongView extends React.Component
         this.setError
       );
       this.audio.setActivePattern( this.state.songData.patterns[this.state.selectedPattern].name );
+      // We can, if we choose, set the song to auto-advance pattern
+      // This isn't particularly useful but serves as a proof of concept that I can queue transitions
+      // this.audio.setPatternEndCallback(setNextPatternCallback);
     }
   }
 

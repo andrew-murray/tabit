@@ -61,10 +61,11 @@ const chooseAppropriateInstrument = (drumkitName, instrumentName) =>
   }
 }
 
-const createSequenceCallback = (pattern, sampleSource) =>
+const createSequenceCallback = (pattern, sampleSource, patternSteps, patternTimeResolution) =>
 {
   let samplesReady = sampleSource.samplesReady();
   let denseTracks = {};
+  const lastStep = patternSteps - 1;
   // let velocityTracks = {};
   for(const [id,t] of Object.entries(pattern.tracks))
   {
@@ -84,6 +85,17 @@ const createSequenceCallback = (pattern, sampleSource) =>
       samplesReady = sampleSource.samplesReady();
       // just don't play the samples, if they aren't ready!
       // if(!samplesReady){ return; }
+    }
+    if ((indexFromStart === lastStep) && sampleSource.onPatternEndCallback)
+    {     
+      Tone.getDraw().schedule(
+        ()=>{
+          sampleSource.onPatternEndCallback();
+        },
+        // Seems to work on my laptop at varying tempos. 
+        // Might vary dependent on pattern complexity?
+        (time + AUDIO_DELAY + (patternTimeResolution * 0.5))
+      );
     }
     if(window.trace)
     {
@@ -220,9 +232,11 @@ class ToneController
 
     for( let p of patterns )
     {
+      const resolution = Audio.determineMinResolution(instrumentIndex, p.instrumentTracks );
+      const length = Audio.determineTrackLength(instrumentIndex, p.instrumentTracks );
       this.patternDetails[p.name] = {
-        resolution: Audio.determineMinResolution(instrumentIndex, p.instrumentTracks ),
-        length : Audio.determineTrackLength(instrumentIndex, p.instrumentTracks ),
+        resolution,
+        length,
         name: p.name,
         tracks: p.instrumentTracks,
         pattern: p
@@ -231,7 +245,7 @@ class ToneController
     }
     this.currentPatternName = null;
     this.instrumentIndex = instrumentIndex;
-
+    this.onPatternEndCallback = null;
     if(failures.length > 0 && onLoadError)
     {
       const sortedFailures = createSortedUnique(failures);
@@ -499,14 +513,18 @@ class ToneController
   {
     const patternResolution = this.patternDetails[pattern.name].resolution;
     const patternLength = this.patternDetails[pattern.name].length;
+    const requiredKeys = [...Array(patternLength / patternResolution).keys()];
+    const patternTimeResolution = Tone.Time("4n") * ( patternResolution / 48.0 );
     const callback = createSequenceCallback(
       this.patternDetails[pattern.name],
-      this
+      this,
+      requiredKeys.length,
+      patternTimeResolution
     );
     let seq = new Tone.Sequence(
       callback,
-      [...Array(patternLength / patternResolution).keys()],
-      Tone.Time("4n") * ( patternResolution / 48.0 )
+      requiredKeys,
+      patternTimeResolution
     );
     // start the sequence, but the ticks won't be triggered when muted
     // note: setting mute on the sequence directly seems to have no effect
@@ -585,6 +603,11 @@ class ToneController
     {
       this.play();
     }
+  }
+
+  setPatternEndCallback(patternEndCallback)
+  {
+    this.onPatternEndCallback = patternEndCallback;
   }
 
   isPlaying()
@@ -726,6 +749,8 @@ class ToneController
       tempo: Math.round(Tone.getTransport().bpm.value)
     };
   }
+
+
 };
 
 
