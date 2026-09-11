@@ -977,9 +977,13 @@ class SongView extends React.Component
         const nowLocked = !state.locked;
         if(!nowLocked && this.audio){ this.audio.stop(); }
         // if we're unlocking the patterns, pop open the pattern drawer
+        // TODO: It seems logical to clear the patternTime here
+        // but somehow that causes the highlight to persist
+        // so I guess keep the version with good behaviour
         return Object.assign(
+          {},
           nowLocked ? {} : {nextTransition: null},
-          {locked: nowLocked, patternsOpen: state.patternsOpen || !nowLocked, patternTime: null}
+          {locked: nowLocked, patternsOpen: state.patternsOpen || !nowLocked}
         );
       }
     );
