@@ -960,7 +960,7 @@ class SongView extends React.Component
     if(this.audio){ this.audio.stop(); }
     // this in most cases seems to be already covered by the animation
     // but not all cases
-    this.setState({patternTime: null});
+    this.setState({patternTime: null, nextTransition: null});
   }
 
   onSetTempo = (tempo) => {
@@ -977,7 +977,10 @@ class SongView extends React.Component
         const nowLocked = !state.locked;
         if(!nowLocked && this.audio){ this.audio.stop(); }
         // if we're unlocking the patterns, pop open the pattern drawer
-        return {locked: nowLocked, patternsOpen: state.patternsOpen || !nowLocked};
+        return Object.assign(
+          nowLocked ? {} : {nextTransition: null},
+          {locked: nowLocked, patternsOpen: state.patternsOpen || !nowLocked, patternTime: null}
+        );
       }
     );
   }
@@ -1160,6 +1163,7 @@ class SongView extends React.Component
           onRemove={!this.state.locked ? this.removePattern : undefined}
           onAdd={!this.state.locked ? this.openPatternCreateDialog : undefined}
           onQueue={this.state.locked ? queuePattern : undefined}
+          queuedTransition={this.state.nextTransition}
           showHelp={this.state.showHelp}
           patternDisplayOrder={this.state.songData.patternDisplayOrder}       
           setPatternDisplayOrder={!this.state.locked ? this.setPatternDisplayOrder : undefined }

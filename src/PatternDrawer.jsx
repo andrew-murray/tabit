@@ -33,7 +33,8 @@ const PatternListItem = (props) =>
     pattern,
     onQueue,
     onRemove,
-    dragEnabled
+    dragEnabled,
+    transitionMode
   } = props;
   const selectCallback = React.useCallback(
     ()=>{
@@ -78,7 +79,10 @@ const PatternListItem = (props) =>
     }
     else if (onQueue)
     {
-
+      const transitionProps = !transitionMode ? {}
+        : {
+          color: "secondary"
+        };
       return <Tooltip
         title="Play Next"
         show={props.showHelp}
@@ -88,6 +92,14 @@ const PatternListItem = (props) =>
           size="small"
           onClick={queueCallback}
           aria-label={`Play ${pattern.name} next`}
+          color={transitionMode ? "secondary" : undefined}
+          sx={
+            !transitionMode ? {}
+            : {
+              border: 1,
+              borderColor: "secondary"
+            }
+          }
         >
           <PlaylistAddIcon
             fontSize="small"
@@ -162,6 +174,7 @@ const DraggablePatternListItem = (props) =>
         dragSetActivatorNodeRef={setActivatorNodeRef}
         dragEnabled={props.dragEnabled}
         onQueue={props.onQueue}
+        transitionMode={props.transitionMode}
       />
     </div>
   );
@@ -176,7 +189,8 @@ const DNDSwitcher = (props) => {
     selectPattern,
     showHelp,
     onRemove,
-    onQueue
+    onQueue,
+    queuedTransition
   } = props;
   const sensors = useSensors(
     useSensor(PointerSensor)
@@ -207,8 +221,16 @@ const DNDSwitcher = (props) => {
   if(disabled)
   {
     return <React.Fragment>
-      {(items).map( (pattern, index) =>
-        <DraggablePatternListItem
+      {(items).map( (pattern, index) => {
+        let transitionMode = undefined;
+        if (queuedTransition)
+        {
+          transitionMode = (
+            queuedTransition.kind === "next"
+            && queuedTransition.patternIndex === index
+          );
+        }
+        return <DraggablePatternListItem
           pattern={pattern}
           key={pattern.name}
           id={pattern.name}
@@ -218,7 +240,9 @@ const DNDSwitcher = (props) => {
           selectPattern={selectPattern}
           showHelp={showHelp}
           dragEnabled={!disabled}
+          transitionMode={transitionMode}
         />
+        }
       )}
     </React.Fragment>
   }
@@ -276,6 +300,7 @@ function DrawerContent(props)
           showHelp={props.showHelp}
           onRemove={props.onRemove}
           onQueue={props.onQueue}
+          queuedTransition={props.queuedTransition}
         />
         {props.onAdd &&
           <ListItem
@@ -317,16 +342,16 @@ function PatternDrawer(props)
 
   return (
     <SwipeableDrawer
-    disableBackdropTransition={!iOS} disableDiscovery={iOS}
-    variant={isMobile ? undefined : "persistent"}
-    open={props.open}
-    onOpen={props.onOpen}
-    onClose={props.onClose}
-    // we insist that the component not be created from scratch,
-    // as this causes a horrible lag in the component rendering/sound stutter
-    ModalProps={{
-      keepMounted: true,
-    }}
+      disableBackdropTransition={!iOS} disableDiscovery={iOS}
+      variant={isMobile ? undefined : "persistent"}
+      open={props.open}
+      onOpen={props.onOpen}
+      onClose={props.onClose}
+      // we insist that the component not be created from scratch,
+      // as this causes a horrible lag in the component rendering/sound stutter
+      ModalProps={{
+        keepMounted: true,
+      }}
     >
       <MemoizedDrawerContent
         patterns={props.patterns}
@@ -334,6 +359,7 @@ function PatternDrawer(props)
         selectPattern={props.selectPattern}
         onAdd={props.onAdd}
         onQueue={props.onQueue}
+        queuedTransition={props.queuedTransition}
         showHelp={props.showHelp}
         patternDisplayOrder={props.patternDisplayOrder}
         setPatternDisplayOrder={props.setPatternDisplayOrder}
