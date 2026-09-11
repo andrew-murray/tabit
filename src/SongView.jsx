@@ -51,6 +51,7 @@ class SongView extends React.Component
       patternDisplayOrder: this.props.songData.patternDisplayOrder,
       title: this.props.songData.title
     },
+    nextTransition: null,
     settingsOpen: false,
     patternsOpen: true,
     sharingDialogOpen: false,
@@ -931,6 +932,26 @@ class SongView extends React.Component
     this.setState({sharingDialogOpen:false});
   }
 
+  onPatternEnd = () => {
+    if (this.state.nextTransition)
+    {
+      if (this.state.nextTransition.kind === "next")
+      {
+        const nextPattern = this.state.nextTransition.patternIndex;
+        if (nextPattern >= 0 && nextPattern < this.state.songData.patterns.length)
+        {
+          this.selectPatternDisplayIndex(nextPattern);
+        }
+      }
+    }
+    this.clearPatternEnd();
+  }
+
+  clearPatternEnd = () => {
+    this.setState({nextTransition: null});
+    this.audio.setPatternEndCallback(null);
+  }
+
   onPlay = () => {
     if(this.audio){ this.audio.play(); }
   }
@@ -1027,13 +1048,17 @@ class SongView extends React.Component
     };
 
     const queuePattern = (index) => {
-      const setPattern = () => {
-        if (index >= 0 && index < this.state.songData.patterns.length)
+      this.setState(
         {
-          this.selectPattern(index);
+          nextTransition: {
+            kind: "next",
+            patternIndex: index
+          }
+        },
+        () => {
+          this.audio.setPatternEndCallback(this.onPatternEnd);
         }
-      };
-      this.audio.setPatternEndCallback(setPattern);
+      )
     };
     return (
       <Box className="App">
