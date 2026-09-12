@@ -15,6 +15,9 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import CustomTransferList from "./CustomTransferList";
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import Divider from '@mui/material/Divider'
 
 function PatternCreateDialog(props)
 {
@@ -32,12 +35,14 @@ function PatternCreateDialog(props)
   let [combineExpanded, setCombineExpanded] = React.useState(false);
   let [rearrangeExpanded, setRearrangeExpanded] = React.useState(false);
   let [combineSynchronous, setCombineSynchronous] = React.useState(false);
+  let [patternTransition, setPatternTransition] = React.useState(null);
 
   const resetState = () => {
     setPatternNameCombine(null);
     setPatternNameCreate(null);
     setPatternRecipe([]);
     setPatternReorder([]);
+    setPatternTransition(null);
 
     // we could change these to a default, but this and combineSynchronous
     // are more helpful as persistent modes.
@@ -65,7 +70,12 @@ function PatternCreateDialog(props)
       // validate all fields and generate errors
       if(patternRecipe && patternNameCombine)
       {
-        props.onChange({name: patternNameCombine, recipe: patternRecipe, synchronous: combineSynchronous});
+        props.onChange({
+          name: patternNameCombine,
+          recipe: patternRecipe,
+          synchronous: combineSynchronous,
+          transition: patternTransition
+        });
         resetState();
       }
     }
@@ -121,7 +131,6 @@ function PatternCreateDialog(props)
     const sync = e.target.value === synchronousString;
     setCombineSynchronous(sync);
   };
-
   return <Dialog
     open={props.open}
     onClose={props.onClose}
@@ -166,6 +175,37 @@ function PatternCreateDialog(props)
           selectedItems={patternRecipe}
           onChange={setPatternRecipe}
         />
+        <Box style={{display: "flex", flexDirection: "column", alignContent: "flex-end"}}>
+          <Typography
+            style={{ display:"inline"}}
+          >
+            Transitions to:
+          </Typography>
+          <Select
+            labelId="pattern-transition-select"
+            id="pattern-transition-select"
+            label="Transitions to:"
+            value={patternTransition ?? ""}
+            // style={{alignSelf: "flex-end"}}
+            onChange={(event) => {
+              setPatternTransition(event.target.value === "" ? null : event.target.value);
+            }}
+          >
+            <MenuItem
+              key={"null-transition-select"}
+              value={""}
+              style={{minHeight: "1.5rem"}}
+            />
+            <Divider />
+            {patternChoices.map(item => <MenuItem
+                key={"transition-select-" + item.value.toString()}
+                value={item.value}
+            >
+              {item.label}
+            </MenuItem>
+            )}
+          </Select>
+        </Box>
         <Box style={{display: "flex", flexDirection: "row"}}>
           <Box style={{flexGrow: 1}} />
           <Box style={{display: "flex", flexDirection: "column", justifyContent: "center"}}>
