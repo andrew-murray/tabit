@@ -52,6 +52,7 @@ class SongView extends React.Component
       title: this.props.songData.title
     },
     nextTransition: null,
+    transitionMessage: null,
     settingsOpen: false,
     patternsOpen: true,
     sharingDialogOpen: false,
@@ -948,7 +949,7 @@ class SongView extends React.Component
   }
 
   clearPatternEnd = () => {
-    this.setState({nextTransition: null});
+    this.setState({nextTransition: null, transitionMessage: null});
     this.audio.setPatternEndCallback(null);
   }
 
@@ -1060,7 +1061,8 @@ class SongView extends React.Component
           nextTransition: {
             kind: "next",
             patternIndex: index
-          }
+          },
+          transitionMessage: `Pattern ${this.state.songData.patterns[index].name} queued.`
         },
         () => {
           this.audio.setPatternEndCallback(this.onPatternEnd);
@@ -1200,6 +1202,19 @@ class SongView extends React.Component
           onChange={this.handleCreate}
           patterns={[...this.state.songData.patterns.keys()].map(index=>this.state.songData.patterns[index].name)}
         />
+        {this.state.transitionMessage && 
+          <Snackbar severity="info"
+            open={true}
+            autoHideDuration={3000}
+            message={this.state.transitionMessage}
+          >
+          <Alert severity="info">
+              <Box>
+                {this.state.transitionMessage}
+              </Box>
+            </Alert>
+          </Snackbar>
+        }
       </Box>
     );
   }
