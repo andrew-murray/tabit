@@ -163,3 +163,22 @@ test('h2 parsing - pangolin', async () => {
   const expectedJSON = String(fs.readFileSync(testJSON));
   return expect(normalizeNewlines(resultJSON)).toEqual(normalizeNewlines(expectedJSON));
 });
+
+// crazy tsig is a very simple example that contains a pattern-length of 193
+// (192 would be 4/4)
+// This came up as a real case!
+test('h2 parsing - crazy tsig', async () => {
+  const testXml = fs.readFileSync("./test_data/crazy-tsig.h2song");
+  const testJSON = "./test_data/crazy-tsig.json";
+  const resultJSONPromise = h2.parseHydrogenPromise(testXml.toString()).then(result =>
+  {
+    return JSON.stringify(result, null, 4);
+  });
+  const resultJSON = await resultJSONPromise;
+  if(updateSerialisations)
+  {
+    fs.writeFileSync(testJSON, resultJSON);
+  }
+  const expectedJSON = String(fs.readFileSync(testJSON));
+  return expect(normalizeNewlines(resultJSON)).toEqual(normalizeNewlines(expectedJSON));
+});
