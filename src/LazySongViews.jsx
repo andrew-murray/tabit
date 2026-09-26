@@ -15,6 +15,23 @@ class ExampleSongView extends React.Component
     songData: null
   }
 
+  componentDidCatch(err, info) {
+    const navigateHomeWithError = (err) => {
+      window.loadError = err;
+      window.error = err;
+      this.setState(
+        {
+          error: "Failed to load example data. " +
+          "This likely represents a bug - please raise an issue in github!"
+        }
+      );
+      recordAnalyticsEvent("Song Load Error [Example]", {
+        error: err === undefined ? undefined : err.toString()
+      });
+    };
+    navigateHomeWithError();
+  }
+
   componentDidMount()
   {
     const navigateHomeWithError = (err) => {
@@ -71,6 +88,24 @@ class FileImportSongView extends React.Component
 {
   state = {
     songData: null
+  }
+
+  componentDidCatch(err, info) {
+    const navigateHomeWithError = (err) => {
+      window.loadError = err;
+      window.error = err;
+      this.setState(
+        {
+          error: "Failed to load " + this.props.filename + ". " +
+          "If you're sure this is a Hydrogen file, please consider raising an issue in github!"
+        }
+      );
+      recordAnalyticsEvent("Song Load Error [File]", {
+        filename: this.props.filename,
+        error: err === undefined ? undefined : err.toString()
+      });
+    };
+    navigateHomeWithError();
   }
 
   componentDidMount()
@@ -157,6 +192,26 @@ class SongStorageSongView extends React.Component
     songData: null
   }
 
+  componentDidCatch(err, info) {
+    const navigateHomeWithError = (err) => {
+      window.loadError = err;
+      window.error = err;
+      this.setState(
+        {
+          error: "Failed to load song " + this.props.songID + " from database. " +
+          "This could represent a corrupted entry/a bug in our software. Please consider raising an issue in github!" +
+          "Reported Error:\n" + err
+        }
+      );
+      recordAnalyticsEvent("Song Load Error [SongStorage]", {
+        id: this.props.songID,
+        error: err === undefined ? undefined : err.toString(),
+        url: this.props.songStorage.formatURL(this.props.songID)
+      });
+    };
+    navigateHomeWithError();
+  }
+
   componentDidMount()
   {
     const setState = (songData) => {
@@ -217,6 +272,25 @@ class LocalStorageSongView extends React.Component
 {
   state = {
     songData: null
+  }
+
+  componentDidCatch(err, info) {
+    const navigateHomeWithError = (err) => {
+      window.loadError = err;
+      window.error = err;
+      this.setState(
+        {
+          error: "Failed to load recently viewed song " + this.props.name + ". " +
+          "This could represent a corrupted entry/a bug in our software. Please consider raising an issue in github!" +
+          "Reported Error:\n" + err
+        }
+      );
+      recordAnalyticsEvent("Song Load Error [LocalStorage]", {
+        id: this.props.songID,
+        error: err === undefined ? undefined : err.toString()
+      });
+    };
+    navigateHomeWithError();
   }
 
   componentDidMount()
