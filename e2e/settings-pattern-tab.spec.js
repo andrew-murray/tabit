@@ -22,7 +22,7 @@ async function openSettingsDrawer(page) {
 async function switchToPatternTab(page) {
   await page.getByRole("tab", { name: "Pattern" }).click();
   // "lineResolution" control appears in the Pattern tab
-  await expect(page.getByTestId("settings-control-lineResolution")).toBeVisible();
+  await expect(page.getByTestId("settings-control-lineResolution-local")).toBeVisible();
 }
 
 // --- lineResolution ----------------------------------------------------------
@@ -54,7 +54,7 @@ test.describe("Pattern tab - lineResolution", () => {
     await switchToPatternTab(page);
 
     // Change from 8 beats/line to 4 beats/line
-    await page.getByTestId("settings-control-lineResolution").locator('[aria-haspopup="listbox"]').click();
+    await page.getByTestId("settings-control-lineResolution-local").locator('[aria-haspopup="listbox"]').click();
     await page.getByRole("option", { name: "4" }).click();
 
     // Beat 4 and beat 5 are now on different lines - "|4---|5---" no longer appears
@@ -72,14 +72,14 @@ test.describe("Pattern tab - lineResolution", () => {
     await switchToPatternTab(page);
 
     // Change to 4 beats/line
-    await page.getByTestId("settings-control-lineResolution").locator('[aria-haspopup="listbox"]').click();
+    await page.getByTestId("settings-control-lineResolution-local").locator('[aria-haspopup="listbox"]').click();
     await page.getByRole("option", { name: "4" }).click();
 
     const firstPart = page.getByTestId("instrument-part").first();
     await expect(firstPart).not.toContainText("|4---|5---");
 
     // Revert to 8 beats/line
-    await page.getByTestId("settings-control-lineResolution").locator('[aria-haspopup="listbox"]').click();
+    await page.getByTestId("settings-control-lineResolution-local").locator('[aria-haspopup="listbox"]').click();
     await page.getByRole("option", { name: "8" }).click();
 
     await expect(firstPart).toContainText("|1---|2---|3---|4---|5---|");

@@ -217,7 +217,7 @@ test.describe("Notation display settings", () => {
 
     // Revert via settings drawer dropdown
     await openSettingsDrawer(page);
-    await page.getByTestId("settings-control-restMark").locator('[aria-haspopup="listbox"]').click();
+    await page.getByTestId("settings-control-restMark-global").locator('[aria-haspopup="listbox"]').click();
     await page.getByRole("option", { name: "-" }).click();
 
     await expect(firstPart).toContainText("O-O-");
@@ -240,7 +240,7 @@ test.describe("Notation display settings", () => {
 
     // Revert via settings drawer dropdown
     await openSettingsDrawer(page);
-    await page.getByTestId("settings-control-numberRestMark").locator('[aria-haspopup="listbox"]').click();
+    await page.getByTestId("settings-control-numberRestMark-global").locator('[aria-haspopup="listbox"]').click();
     await page.getByRole("option", { name: "-" }).click();
 
     await expect(firstPart).toContainText("|1---");
@@ -295,14 +295,14 @@ test.describe("Notation display settings", () => {
 
     // Change undefinedMark from "3" to "#"
     await openSettingsDrawer(page);
-    await page.getByTestId("settings-control-undefinedMark").locator('[aria-haspopup="listbox"]').click();
+    await page.getByTestId("settings-control-undefinedMark-global").locator('[aria-haspopup="listbox"]').click();
     await page.getByRole("option", { name: "#" }).click();
 
     await expect(firstPart).toContainText("|O##-|");
     await expect(firstPart).not.toContainText("|O33-|");
 
     // Revert to "3"
-    await page.getByTestId("settings-control-undefinedMark").locator('[aria-haspopup="listbox"]').click();
+    await page.getByTestId("settings-control-undefinedMark-global").locator('[aria-haspopup="listbox"]').click();
     await page.getByRole("option", { name: "3" }).click();
 
     await expect(firstPart).toContainText("|O33-|");
