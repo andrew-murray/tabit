@@ -4,7 +4,6 @@
 const { test, expect } = require("@playwright/test");
 const fs = require("fs");
 const path = require("path");
-const { makeHistoryEntry, seedHistory, readHistory, decodeState } = require("./storage-helpers");
 
 const crazyTSIG = fs.readFileSync(path.join(__dirname, "../test_data/crazy-tsig.h2song"));
 
