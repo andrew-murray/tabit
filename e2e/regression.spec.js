@@ -8,6 +8,8 @@ const { makeHistoryEntry, seedHistory, readHistory, decodeState } = require("./s
 
 const crazyTSIG = fs.readFileSync(path.join(__dirname, "../test_data/crazy-tsig.h2song"));
 
+const github_issues_link = "https://github.com/andrew-murray/tabit/issues";
+
 test.describe("SongView - regression cases", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto("/");
@@ -25,7 +27,11 @@ test.describe("SongView - regression cases", () => {
       buffer: Buffer.from(crazyTSIG),
     });
     await expect(page.getByText("Something went wrong")).toBeVisible();
-    await expect(page.getByText(/Failed to load recently viewed song/)).toBeVisible();
+    const errorDialog = page.getByTestId("global-error-dialog");
+    await expect(errorDialog).toBeVisible();
+    await expect(errorDialog).toContainText(github_issues_link)
+    await expect(errorDialog).toContainText("FileImportSongView");
+    await expect(errorDialog).toContainText("crazy-tsig.h2song");
   });
 
   test("non-json-file creates useful error", async ({
@@ -37,6 +43,10 @@ test.describe("SongView - regression cases", () => {
       buffer: Buffer.from("I'm not json"),
     });
     await expect(page.getByText("Something went wrong")).toBeVisible();
-    await expect(page.getByText(/Failed to load recently viewed song/)).toBeVisible();
+    const errorDialog = page.getByTestId("global-error-dialog");
+    await expect(errorDialog).toBeVisible();
+    await expect(errorDialog).toContainText(github_issues_link)
+    await expect(errorDialog).toContainText("FileImportSongView");
+    await expect(errorDialog).toContainText("test-data");
   });
 });

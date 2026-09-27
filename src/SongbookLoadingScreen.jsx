@@ -11,23 +11,31 @@ export default class SongbookLoadingScreen extends React.Component
     songbookData: null
   }
 
+  navigateHomeWithError = (err) => {
+    window.loadError = err;
+    window.error = err;
+    const errorString = "Failed to load songbook with id '" + this.props.songbookID + "'. " +
+        "This could represent a corrupted songbook or a bug in tabit. Please consider raising an issue in github!" +
+        "https://github.com/andrew-murray/tabit/issues\n" +
+        "Please provide this as context:\n" +
+        JSON.stringify({err: err.toString(), component: "SongbookLoadingScreen"})
+    this.setState(
+      {
+        error: errorString
+      }
+    );
+    recordAnalyticsEvent("Songbook Load Error", {
+      songbookID: this.props.songbookID,
+      error: err === undefined ? undefined : err.toString()
+    });
+  }
+
+  componentDidCatch = (err, info) => {
+    this.navigateHomeWithError(err);
+  }
+
   componentDidMount()
   {
-    const navigateHomeWithError = (err) => {
-      window.loadError = err;
-      window.error = err;
-      this.setState(
-        {
-          error: "Failed to load songbook with id '" + this.props.songbookID + "'. " +
-          "This could represent a corrupted entry/a bug in our software. Please consider raising an issue in github!" +
-          "Reported Error:\n" + err
-        }
-      );
-      recordAnalyticsEvent("Songbook Load Error", {
-        songbookID: this.props.songbookID,
-        error: err === undefined ? undefined : err.toString()
-      });
-    };
     const setState = (songbookData) => {
       this.setState(
         { songbookData : songbookData }
@@ -37,7 +45,7 @@ export default class SongbookLoadingScreen extends React.Component
 
     this.props.storage.get(this.props.songbookID)
       .then(setState)
-      .catch(navigateHomeWithError);
+      .catch(this.navigateHomeWithError);
   }
 
   render()

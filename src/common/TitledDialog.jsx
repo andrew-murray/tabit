@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 function TitledDialog(props) {
 
   return (
-    <Dialog open={props.open} onClose={props.onClose}>
+    <Dialog open={props.open} onClose={props.onClose} data-testid={props.testid}>
       <DialogTitle id="text-dialog-title">{props.title}</DialogTitle>
       <DialogContent>
         <DialogContentText>
@@ -29,7 +29,8 @@ function TitledDialog(props) {
 TitledDialog.propTypes = {
   title: PropTypes.string,
   open: PropTypes.bool.isRequired,
-  onClose: PropTypes.func
+  onClose: PropTypes.func,
+  testid: PropTypes.string
 };
 
 export default TitledDialog;

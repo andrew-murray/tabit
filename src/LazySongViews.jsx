@@ -15,38 +15,29 @@ class ExampleSongView extends React.Component
     songData: null
   }
 
-  componentDidCatch(err, info) {
-    const navigateHomeWithError = (err) => {
-      window.loadError = err;
-      window.error = err;
-      this.setState(
-        {
-          error: "Failed to load example data. " +
-          "This likely represents a bug - please raise an issue in github!"
-        }
-      );
-      recordAnalyticsEvent("Song Load Error [Example]", {
-        error: err === undefined ? undefined : err.toString()
-      });
-    };
-    navigateHomeWithError();
+  navigateHomeWithError = (err) => {
+    window.loadError = err;
+    window.error = err;
+    this.setState(
+      {
+        error: "Failed to load example data. " +
+        "This could represent an important bug - please consider raising an issue in github!\n" +
+        "https://github.com/andrew-murray/tabit/issues\n" +
+        "Please provide this as context:\n" +
+        + JSON.stringify({err, component: "ExampleSongView"})
+      }
+    );
+    recordAnalyticsEvent("Song Load Error [Example]", {
+      error: err === undefined ? undefined : err.toString()
+    });
+  }
+
+  componentDidCatch = (err, info) => {
+    this.navigateHomeWithError(err);
   }
 
   componentDidMount()
   {
-    const navigateHomeWithError = (err) => {
-      window.loadError = err;
-      window.error = err;
-      this.setState(
-        {
-          error: "Failed to load example data. " +
-          "This likely represents a bug - please raise an issue in github!"
-        }
-      );
-      recordAnalyticsEvent("Song Load Error [Example]", {
-        error: err === undefined ? undefined : err.toString()
-      });
-    };
     SongLoaders.LoadExample().then(
       (songData) => {
         this.setState(
@@ -56,7 +47,7 @@ class ExampleSongView extends React.Component
       }
     )
     .then((songData) => recordAnalyticsEvent("Song Load [Example]", {}))
-    .catch(navigateHomeWithError);
+    .catch(this.navigateHomeWithError);
   }
 
   render()
@@ -90,22 +81,27 @@ class FileImportSongView extends React.Component
     songData: null
   }
 
-  componentDidCatch(err, info) {
-    const navigateHomeWithError = (err) => {
-      window.loadError = err;
-      window.error = err;
-      this.setState(
-        {
-          error: "Failed to load " + this.props.filename + ". " +
-          "If you're sure this is a Hydrogen file, please consider raising an issue in github!"
-        }
-      );
-      recordAnalyticsEvent("Song Load Error [File]", {
-        filename: this.props.filename,
-        error: err === undefined ? undefined : err.toString()
-      });
-    };
-    navigateHomeWithError();
+  navigateHomeWithError = (err) => {
+    window.loadError = err;
+    window.error = err;
+    const errorString = "Failed to load " + this.props.filename + ". " +
+        "If you think this should work, please consider raising an issue in github!\n" +
+        "https://github.com/andrew-murray/tabit/issues\n" +
+        "Please provide this as context:\n" +
+        JSON.stringify({err: err.toString(), component: "FileImportSongView"}, null, 2);
+    this.setState(
+      {
+        error: errorString
+      }
+    );
+    recordAnalyticsEvent("Song Load Error [File]", {
+      filename: this.props.filename,
+      error: err === undefined ? undefined : err.toString()
+    });
+  }
+
+  componentDidCatch = (err, info) => {
+    this.navigateHomeWithError(err);
   }
 
   componentDidMount()
@@ -119,20 +115,6 @@ class FileImportSongView extends React.Component
         filename: this.props.filename
       });
       return songData;
-    };
-    const navigateHomeWithError = (err) => {
-      window.loadError = err;
-      window.error = err;
-      this.setState(
-        {
-          error: "Failed to load " + this.props.filename + ". " +
-          "If you're sure this is a Hydrogen file, please consider raising an issue in github!"
-        }
-      );
-      recordAnalyticsEvent("Song Load Error [File]", {
-        filename: this.props.filename,
-        error: err === undefined ? undefined : err.toString()
-      });
     };
     // if we haven't been provided a filename, early out and
     // redirect home in the render pass
@@ -154,7 +136,7 @@ class FileImportSongView extends React.Component
           );
         })
         .then(setState)
-        .catch(navigateHomeWithError);
+        .catch(this.navigateHomeWithError);
     }
     else
     {
@@ -172,7 +154,7 @@ class FileImportSongView extends React.Component
           );
         } )
         .then(setState)
-        .catch(navigateHomeWithError);
+        .catch(this.navigateHomeWithError);
     }
   }
 
@@ -192,24 +174,29 @@ class SongStorageSongView extends React.Component
     songData: null
   }
 
-  componentDidCatch(err, info) {
-    const navigateHomeWithError = (err) => {
-      window.loadError = err;
-      window.error = err;
-      this.setState(
-        {
-          error: "Failed to load song " + this.props.songID + " from database. " +
-          "This could represent a corrupted entry/a bug in our software. Please consider raising an issue in github!" +
-          "Reported Error:\n" + err
-        }
-      );
-      recordAnalyticsEvent("Song Load Error [SongStorage]", {
-        id: this.props.songID,
-        error: err === undefined ? undefined : err.toString(),
-        url: this.props.songStorage.formatURL(this.props.songID)
-      });
-    };
-    navigateHomeWithError();
+  navigateHomeWithError = (err) =>
+  {
+    window.loadError = err;
+    window.error = err;
+    const errorString = "Failed to load song " + this.props.songID + " from database. " +
+        "This could represent a corrupted entry/a bug in tabit - please consider raising an issue in github!\n" +
+        "https://github.com/andrew-murray/tabit/issues\n" +
+        "Please provide this as context:\n" +
+        JSON.stringify({err: err.toString(), component: "SongStorageSongView"}, null, 2);
+    this.setState(
+      {
+        error: errorString
+      }
+    );
+    recordAnalyticsEvent("Song Load Error [SongStorage]", {
+      id: this.props.songID,
+      error: err === undefined ? undefined : err.toString(),
+      url: this.props.songStorage.formatURL(this.props.songID)
+    });
+  }
+
+  componentDidCatch = (err, info) => {
+    this.navigateHomeWithError(err);
   }
 
   componentDidMount()
@@ -224,22 +211,6 @@ class SongStorageSongView extends React.Component
         url: this.props.songStorage.formatURL(this.props.songID)
       });
     };
-    const navigateHomeWithError = (err) => {
-      window.loadError = err;
-      window.error = err;
-      this.setState(
-        {
-          error: "Failed to load song " + this.props.songID + " from database. " +
-          "This could represent a corrupted entry/a bug in our software. Please consider raising an issue in github!" +
-          "Reported Error:\n" + err
-        }
-      );
-      recordAnalyticsEvent("Song Load Error [SongStorage]", {
-        id: this.props.songID,
-        error: err === undefined ? undefined : err.toString(),
-        url: this.props.songStorage.formatURL(this.props.songID)
-      });
-    };
     this.props.songStorage.get(this.props.songID)
       .then( data => {
         return SongLoaders.LoadJSON(
@@ -250,7 +221,7 @@ class SongStorageSongView extends React.Component
         );
       } )
       .then(setState)
-      .catch(navigateHomeWithError);
+      .catch(this.navigateHomeWithError);
   }
 
 
@@ -274,43 +245,33 @@ class LocalStorageSongView extends React.Component
     songData: null
   }
 
-  componentDidCatch(err, info) {
-    const navigateHomeWithError = (err) => {
-      window.loadError = err;
-      window.error = err;
-      this.setState(
-        {
-          error: "Failed to load recently viewed song " + this.props.name + ". " +
-          "This could represent a corrupted entry/a bug in our software. Please consider raising an issue in github!" +
-          "Reported Error:\n" + err
-        }
-      );
-      recordAnalyticsEvent("Song Load Error [LocalStorage]", {
-        id: this.props.songID,
-        error: err === undefined ? undefined : err.toString()
-      });
-    };
-    navigateHomeWithError();
+  navigateHomeWithError = (err) =>
+  {
+    window.loadError = err;
+    window.error = err;
+    const errorString = "Failed to load recently viewed song " + this.props.name + ". " +
+        "This could represent a corrupted entry/a bug in tabit - please consider raising an issue in github!\n" +
+        "https://github.com/andrew-murray/tabit/issues\n" +
+        "Please provide this as context:\n" +
+        + JSON.stringify({err, component: "LocalStorageSongView"}, null, 2);
+    this.setState(
+      {
+        error: errorString
+      }
+    );
+    recordAnalyticsEvent("Song Load Error [LocalStorage]", {
+      id: this.props.songID,
+      error: err === undefined ? undefined : err.toString()
+    });
+  }
+
+  componentDidCatch = (err, info)  => {
+    this.navigateHomeWithError(err);
   }
 
   componentDidMount()
   {
-    console.log("Fetching local record")
-    const navigateHomeWithError = (err) => {
-      window.loadError = err;
-      window.error = err;
-      this.setState(
-        {
-          error: "Failed to load recently viewed song " + this.props.name + ". " +
-          "This could represent a corrupted entry/a bug in our software. Please consider raising an issue in github!" +
-          "Reported Error:\n" + err
-        }
-      );
-      recordAnalyticsEvent("Song Load Error [LocalStorage]", {
-        id: this.props.songID,
-        error: err === undefined ? undefined : err.toString()
-      });
-    };
+    console.log("Fetching local record");
     const setState = (songData) => {
       this.setState(
         { songData : songData }
@@ -322,7 +283,8 @@ class LocalStorageSongView extends React.Component
     const matches = history.filter( song => ( song.id === this.props.songID ) );
     if(matches.length < 1)
     {
-      navigateHomeWithError();
+      // TODO: Need a direct method? To flag it as less-of-an-error?
+      this.navigateHomeWithError("Attempted to load song that didn't exist");
     }
 
     Promise.resolve(matches[0])

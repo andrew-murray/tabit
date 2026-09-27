@@ -168,6 +168,7 @@ class TitleScreen extends React.Component
             title="Something went wrong."
             open={!!this.state.error}
             onClose={()=>{this.setState({error: null})}}
+            testid="global-error-dialog"
           >
             {this.state.error}
           </TitledDialog>
