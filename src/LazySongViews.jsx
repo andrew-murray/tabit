@@ -24,7 +24,7 @@ class ExampleSongView extends React.Component
         "This could represent an important bug - please consider raising an issue in github!\n" +
         "https://github.com/andrew-murray/tabit/issues\n" +
         "Please provide this as context:\n" +
-        + JSON.stringify({err, component: "ExampleSongView"})
+        + JSON.stringify({err: err.toString(), component: "ExampleSongView"})
       }
     );
     recordAnalyticsEvent("Song Load Error [Example]", {
@@ -36,7 +36,7 @@ class ExampleSongView extends React.Component
     this.navigateHomeWithError(err);
   }
 
-  componentDidMount()
+  componentDidMount = () =>
   {
     SongLoaders.LoadExample().then(
       (songData) => {
@@ -104,7 +104,7 @@ class FileImportSongView extends React.Component
     this.navigateHomeWithError(err);
   }
 
-  componentDidMount()
+  componentDidMount = () =>
   {
     const setState = (songData) => {
       this.setState(
@@ -199,7 +199,7 @@ class SongStorageSongView extends React.Component
     this.navigateHomeWithError(err);
   }
 
-  componentDidMount()
+  componentDidMount = () =>
   {
     const setState = (songData) => {
       this.setState(
@@ -253,7 +253,7 @@ class LocalStorageSongView extends React.Component
         "This could represent a corrupted entry/a bug in tabit - please consider raising an issue in github!\n" +
         "https://github.com/andrew-murray/tabit/issues\n" +
         "Please provide this as context:\n" +
-        + JSON.stringify({err, component: "LocalStorageSongView"}, null, 2);
+        JSON.stringify({err: err.toString(), component: "LocalStorageSongView"}, null, 2);
     this.setState(
       {
         error: errorString
@@ -269,7 +269,7 @@ class LocalStorageSongView extends React.Component
     this.navigateHomeWithError(err);
   }
 
-  componentDidMount()
+  componentDidMount = () =>
   {
     console.log("Fetching local record");
     const setState = (songData) => {
@@ -304,7 +304,7 @@ class LocalStorageSongView extends React.Component
           false // fromHydrogen
         );
       }).then(setState)
-      .catch(navigateHomeWithError);
+      .catch(this.navigateHomeWithError);
     }
 
     render()
