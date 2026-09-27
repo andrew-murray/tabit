@@ -16,6 +16,7 @@ class ExampleSongView extends React.Component
   }
 
   navigateHomeWithError = (err) => {
+    // FIXME: example error-handling isn't error-tested!
     window.loadError = err;
     window.error = err;
     this.setState(
@@ -24,7 +25,7 @@ class ExampleSongView extends React.Component
         "This could represent an important bug - please consider raising an issue in github!\n" +
         "https://github.com/andrew-murray/tabit/issues\n" +
         "Please provide this as context:\n" +
-        + JSON.stringify({err: err.toString(), component: "ExampleSongView"})
+        JSON.stringify({err: err.toString(), component: "ExampleSongView"})
       }
     );
     recordAnalyticsEvent("Song Load Error [Example]", {
@@ -176,6 +177,7 @@ class SongStorageSongView extends React.Component
 
   navigateHomeWithError = (err) =>
   {
+    // FIXME: Remote storage error-handling isn't error-tested!
     window.loadError = err;
     window.error = err;
     const errorString = "Failed to load song " + this.props.songID + " from database. " +
