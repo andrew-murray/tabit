@@ -356,6 +356,67 @@ class notation
     return outputCharacter;
   }
 
+  static validateRenderSetup(
+    instrument,
+    tracks,
+    resolution,
+    config
+  )
+  {
+
+    console.log({instrument: JSON.stringify(instrument), tracks: JSON.stringify(tracks), config: JSON.stringify(config)})
+    const tracksAreSparse = tracks[0].isSparse();
+    if(!tracksAreSparse)
+    {
+      if(tracks[0].resolution !== this.props.resolution)
+      {
+        throw new Error("Expected tracks with the correct resolution, when rendering dense patterns");
+      }
+    }
+    // don't support a multi-line pattern, that doesn't divide the beatResolution
+    // because it's a nightmare!
+
+    // Note that because tracks have already been split by line, this should be a somewhat redundant assertion
+    if( (config.lineResolution % config.beatResolution) !== 0
+        && ( tracks[0].length() > config.lineResolution ) )
+    {
+      throw new Error("This code only supports a beatResolution that divides the lineResolution");
+    }
+
+    // ==== check all the config-symbols are valid ====
+    const markKeys = [
+      "restMark",
+      "beatMark",
+      "undefinedMark",
+      "lineMark",
+      "numberRestMark"
+    ];
+    const checkValidMark = (name, value) => {
+      if (!value)
+      {
+        throw new Error(`${name} was null/undefined/empty!`);
+      }
+      if (!value.length)
+      {
+        throw new Error(`${name} had no length!`);
+      }
+      if (value.length !== 1)
+      {
+        throw new Error(`${name} "${value}" must be length=1`);
+      }
+    };
+    for (const k of markKeys)
+    {
+      checkValidMark(`config.${k}`, config[k]);
+    }
+    // ==== check any symbols configured in the instruments are valid ====
+    for (const [name, inst] of Object.entries(instrument))
+    {
+      // todo: don't have access to the instrument-name here?
+      checkValidMark("Configured instrument-symbol", inst);
+    }
+  }
+
   static formatBeatSparse(
     instrument,
     trackDict,

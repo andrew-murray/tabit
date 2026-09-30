@@ -105,22 +105,15 @@ class PartByBeat extends React.Component
     {
       return <React.Fragment />
     }
-    const tracksAreSparse = tracks[0].isSparse();
-    if(!tracksAreSparse)
-    {
-      if(tracks[0].resolution !== this.props.resolution)
-      {
-        throw new Error("Expected tracks with the correct resolution, when rendering dense patterns");
-      }
-    }
-    // don't support a multi-line pattern, that doesn't divide the beatResolution
-    // because it's a nightmare!
-    if( (this.props.config.lineResolution % this.props.config.beatResolution) !== 0
-        && ( tracks[0].length() > this.props.config.lineResolution ) )
-    {
-      throw new Error("This code only supports a beatResolution that divides the lineResolution");
-    }
-
+    // throws... if bad things
+    // TODO: Very possible this should be moved higher
+    // TODO: Use effect? Avoid re-validating constantly
+    notation.validateRenderSetup(
+      this.props.instrument,
+      tracks,
+      this.props.resolution,
+      this.props.config
+    );
     const patternLength = tracks[0].length();
     const Typo = this.props.dense ? DensePreTypography : PreTypography;
     const tracksForEachLine = splitTracksIntoLines(this.props.instrument, this.props.tracks, this.props.config.lineResolution);

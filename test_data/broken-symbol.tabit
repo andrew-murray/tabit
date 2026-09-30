@@ -1,0 +1,138 @@
+{
+    "instruments": [
+        [
+            "Snare",
+            {
+                "2": "@",
+                "14": "@"
+            },
+            {
+                "shortName": "Sn"
+            },
+            {
+                "muted": false,
+                "volume": 0.8
+            }
+        ]
+    ],
+    "instrumentIndex": [
+        {
+            "id": 14,
+            "name": "M Snare",
+            "volume": 1,
+            "muted": true,
+            "drumkit": "TR808EmulationKit",
+            "pitchShift": 0
+        }
+    ],
+    "patterns": [
+        {
+            "size": 192,
+            "name": "Pattern 1",
+            "notes": [
+                {
+                    "position": 0,
+                    "instrument": 14,
+                    "velocity": 0.8
+                },
+                {
+                    "position": 96,
+                    "instrument": 14,
+                    "velocity": 0.8
+                },
+                {
+                    "position": 132,
+                    "instrument": 14,
+                    "velocity": 0.8
+                },
+                {
+                    "position": 144,
+                    "instrument": 14,
+                    "velocity": 0.8
+                }
+            ],
+            "resolution": 12,
+            "instrumentTracks": {
+                "1": {
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
+                },
+                "2": {
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
+                },
+                "7": {
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
+                },
+                "9": {
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
+                },
+                "14": {
+                    "points": [
+                        0,
+                        96,
+                        132,
+                        144
+                    ],
+                    "length_": 192,
+                    "velocity": [
+                        0.8,
+                        0.8,
+                        0.8,
+                        0.8
+                    ]
+                },
+                "15": {
+                    "points": [],
+                    "length_": 192,
+                    "velocity": []
+                }
+            }
+        }
+    ],
+    "patternDisplayOrder": [
+        0
+    ],
+    "songName": "title",
+    "formatSettings": {
+        "restMark": "-",
+        "beatMark": "|",
+        "undefinedMark": "?",
+        "lineMark": "|",
+        "numberRestMark": "-",
+        "beatResolution": 48,
+        "showBeatMark": true,
+        "showBeatNumbers": true,
+        "hideEmptyParts": true,
+        "hideMutedParts": true,
+        "expandRepeatedLines": false,
+        "smartTupletFormatting": true,
+        "compactDisplay": false,
+        "lineResolution": 192
+    },
+    "patternSettings": [
+        {
+            "lineResolution": 192,
+            "beatResolution": 48,
+            "primaryResolution": 12,
+            "individualResolutions": [
+                {
+                    "index": "0",
+                    "name": "Snare",
+                    "resolution": 12
+                }
+            ],
+            "useIndividualResolution": false
+        }
+    ],
+    "audioState": {
+        "tempo": 100
+    },
+    "version": "1.3.0"
+}

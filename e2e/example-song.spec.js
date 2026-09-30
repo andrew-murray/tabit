@@ -134,6 +134,7 @@ test.describe("Notation rendered for each pattern", () => {
     test(`${patternName} - correct instruments visible and notation correct`, async ({
       page,
     }) => {
+      // TODO: But ... are there extra patterns?
       await page.getByTestId("pattern-list").getByRole("button", { name: patternName, exact: true }).click();
 
       page.on("console", (msg) => console.log(msg.text()));
