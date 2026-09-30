@@ -180,6 +180,11 @@ function loadAudioState(audioState)
   };
 };
 
+function validateSongData(songData)
+{
+  // TODO: Error, in some cases
+}
+
 function LoadJSON(jsonData, title, filename, fromHydrogen)
 {
   return new Promise((resolve) =>
@@ -216,7 +221,8 @@ function LoadJSON(jsonData, title, filename, fromHydrogen)
       // if we don't have a pre-existing array order, then generate [0,1,2,3,...]
       const patternDisplayOrder = jsonData.patternDisplayOrder ?? [...patterns.keys()];
       const audioState = jsonData.audioState ? loadAudioState(jsonData.audioState) : { tempo : 100.0 };
-      resolve( new SongData(
+
+      const songData = new SongData(
         title,
         filename,
         instruments,
@@ -229,7 +235,13 @@ function LoadJSON(jsonData, title, filename, fromHydrogen)
         audioState
         // timestamps will mean continuous generation of new saves ... TODO
         // , jsonData.timestamp !== undefined ? new Date(jsonData.timestamp) : Date.now()
-      ) );
+      );
+
+      // all paths go through this LoadJSON, so it's a convenient point for validation
+
+      validateSongData( songData );
+
+      resolve(songData);
     }
   );
 
