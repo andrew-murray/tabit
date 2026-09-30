@@ -105,15 +105,6 @@ class PartByBeat extends React.Component
     {
       return <React.Fragment />
     }
-    // throws... if bad things
-    // TODO: Very possible this should be moved higher
-    // TODO: Use effect? Avoid re-validating constantly
-    notation.validateRenderSetup(
-      this.props.instrument,
-      tracks,
-      this.props.resolution,
-      this.props.config
-    );
     const patternLength = tracks[0].length();
     const Typo = this.props.dense ? DensePreTypography : PreTypography;
     const tracksForEachLine = splitTracksIntoLines(this.props.instrument, this.props.tracks, this.props.config.lineResolution);

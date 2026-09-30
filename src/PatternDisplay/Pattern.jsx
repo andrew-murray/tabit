@@ -2,6 +2,7 @@ import React from 'react';
 import Part from "./Part";
 import PartWithTitle from "./PartWithTitle";
 import { withStyles } from '@mui/styles';
+import notation from "../data/notation"
 
 const useStyles = theme => ({
   root: {
@@ -36,16 +37,174 @@ const now = ()=>{
   return ((date.getHours() < 10)?"0":"") + date.getHours() +":"+ ((date.getMinutes() < 10)?"0":"") + date.getMinutes() +":"+ ((date.getSeconds() < 10)?"0":"") + date.getSeconds();
 };
 
-const Pattern = React.memo((props)=>
+const Pattern = React.memo((props) =>
 {
   if(window.trace)
   {
     window.trace(now() + " rendering pattern");
   }
 
-  const instrumentIndices = [...props.instruments.keys()];
-  const shortNameLengths = props.instruments.map( inst => inst[2].shortName.length );
-  const maxShortNameLength = Math.max( ...shortNameLengths );
+  const {
+    instrumentIndices,
+    instrumentShouldBeHidden,
+    tracksForResolution,
+    resolutionForInstruments,
+  } = React.useMemo(() => {
+
+    const instrumentIndices = [...props.instruments.keys()];
+
+    const shortNameLengths = props.instruments.map(
+      inst => inst[2].shortName.length
+    );
+
+    const maxShortNameLength = Math.max(...shortNameLengths);
+
+    const formatShortTitle = (s) => {
+      return s + ' '.repeat(maxShortNameLength - s.length);
+    };
+
+    // Determine which instruments should be hidden.
+    let instrumentShouldBeHidden = props.config.hideMutedParts
+      ? props.instruments.map(inst => inst[3].muted)
+      : Array(props.instruments.length).fill(false);
+
+    if(props.config.hideEmptyParts)
+    {
+      for(const instIndex of Object.keys(props.instruments))
+      {
+        const inst = props.instruments[instIndex];
+        const instrumentIDs = Object.keys(inst[1]);
+
+        let partIsEmpty = true;
+
+        for(const instID of instrumentIDs)
+        {
+          if(!props.tracks[instID].empty())
+          {
+            partIsEmpty = false;
+            break;
+          }
+        }
+
+        instrumentShouldBeHidden[instIndex] |= partIsEmpty;
+      }
+    }
+
+    const tracksAreDense = Object.values(props.tracks)[0].isDense();
+
+    let tracksForResolution = new Map();
+    let resolutionForInstruments = [];
+
+    for(const instIndex of Object.keys(props.instruments))
+    {
+      if(instrumentShouldBeHidden[instIndex])
+      {
+        // Skip work, insert dummy number that shouldn't be used.
+        resolutionForInstruments.push(1);
+      }
+      else
+      {
+        const resolutionForInstrument = props.config.useIndividualResolution
+          ? props.config.individualResolutions[instIndex].resolution
+          : props.config.primaryResolution;
+
+        resolutionForInstruments.push(resolutionForInstrument);
+      }
+    }
+
+    if(tracksAreDense)
+    {
+      const toResolution = (track, resolutionS) => {
+        if(!resolutionS) return track;
+
+        const resolution = parseInt(resolutionS);
+
+        if(track.resolution === resolution)
+          return track;
+
+        const compatible = track.compatible(resolution);
+
+        return compatible ? track.format(resolution) : track;
+      };
+
+      for(const instIndex of Object.keys(props.instruments))
+      {
+        if(instrumentShouldBeHidden[instIndex])
+        {
+          // Skip work, because the instrument won't get shown.
+          continue;
+        }
+
+        const inst = props.instruments[instIndex];
+        const instrumentIDs = Object.keys(inst[1]);
+        const resolutionForInstrument =
+          resolutionForInstruments[instIndex];
+
+        let instrumentIsCompatible = true;
+
+        for(const instID of instrumentIDs)
+        {
+          instrumentIsCompatible &=
+            props.tracks[instID].compatible(resolutionForInstrument);
+        }
+
+        for(const instID of instrumentIDs)
+        {
+          tracksForResolution[instID] = instrumentIsCompatible
+            ? toResolution(
+                props.tracks[instID],
+                resolutionForInstrument
+              )
+            : props.tracks[instID];
+        }
+      }
+    }
+    else
+    {
+      tracksForResolution = props.tracks;
+    }
+
+    /*
+     * Validate the render setup once for the whole Pattern.
+     *
+     * This is inside the memo because validation depends only on
+     * these immutable inputs. A re-render caused by something else
+     * won't cause validation to run again.
+     */
+    const tracks = Object.values(tracksForResolution);
+
+    if(tracks.length !== 0)
+    {
+      for(const instrumentIndex of instrumentIndices)
+      {
+        notation.validateRenderSetup(
+          props.instruments[instrumentIndex][1],
+          tracks,
+          resolutionForInstruments[instrumentIndex],
+          props.config
+        );
+      }
+    }
+
+    return {
+      instrumentIndices,
+      instrumentShouldBeHidden,
+      tracksForResolution,
+      resolutionForInstruments,
+    };
+
+  }, [
+    props.instruments,
+    props.tracks,
+    props.config,
+  ]);
+
+  const shortNameLengths = props.instruments.map(
+    inst => inst[2].shortName.length
+  );
+
+  const maxShortNameLength = Math.max(...shortNameLengths);
+
   const formatShortTitle = (s) => {
     return s + ' '.repeat(maxShortNameLength - s.length);
   };
@@ -55,104 +214,41 @@ const Pattern = React.memo((props)=>
   // ... it has to be a facet of rendering it, inside the notation
   // that ... or ... the part just has to accept a string to render and not worry about most of the stuff
 
-
-  let instrumentShouldBeHidden = props.config.hideMutedParts ? props.instruments.map(inst => inst[3].muted)
-                                                             : Array(props.instruments.length).fill(false);
-  if(props.config.hideEmptyParts)
-  {
-    for(const instIndex of [...Object.keys(props.instruments)])
-    {
-      const inst = props.instruments[instIndex];
-      const instrumentIDs = Object.keys(inst[1]);
-      let partIsEmpty = true;
-      for( const instID of instrumentIDs )
-      {
-        if(!props.tracks[instID].empty())
-        {
-          partIsEmpty = false;
-          break;
-        }
-      }
-      instrumentShouldBeHidden[instIndex] |= partIsEmpty;
-    }
-  }
-
-  const tracksAreDense = Object.values(props.tracks)[0].isDense();
-  let tracksForResolution = new Map();
-  let resolutionForInstruments = [];
-  for(const instIndex of [...Object.keys(props.instruments)])
-  {
-    if(instrumentShouldBeHidden[instIndex])
-    {
-      // skip work, insert dummy number that shouldn't be used
-      resolutionForInstruments.push(1);
-    }
-    else
-    {
-      const resolutionForInstrument = props.config.useIndividualResolution ?
-        props.config.individualResolutions[instIndex].resolution
-        : props.config.primaryResolution;
-      resolutionForInstruments.push(resolutionForInstrument);
-    }
-  }
-
-  if(tracksAreDense)
-  {
-    const toResolution = (track, resolutionS) => {
-      if(!resolutionS) return track;
-      const resolution = parseInt(resolutionS);
-      if(track.resolution === resolution) return track;
-      const compatible = track.compatible(resolution);
-      return compatible ? track.format(resolution) : track;
-    };
-    for(const instIndex of [...Object.keys(props.instruments)])
-    {
-      if(instrumentShouldBeHidden[instIndex])
-      {
-        // skip work, because the instrument won't get shown
-        // note that, tracksForResolution is a dictionary by each-track
-        // but the tracks can only be assigned to one instrument, so it's fine to skip here
-        continue;
-      }
-
-      const inst = props.instruments[instIndex];
-      const instrumentIDs = Object.keys(inst[1]);
-      const resolutionForInstrument = resolutionForInstruments[instIndex];
-      let instrumentIsCompatible = true;
-      for( const instID of instrumentIDs )
-      {
-        instrumentIsCompatible &= props.tracks[instID].compatible(resolutionForInstrument);
-      }
-      for( const instID of instrumentIDs )
-      {
-        // TODO: Support rendering an undefined symbol for incompatible resolutions
-        tracksForResolution[instID] = instrumentIsCompatible ?
-          toResolution(props.tracks[instID], resolutionForInstrument)
-          : props.tracks[instID];
-      }
-    }
-  }
-  else
-  {
-    tracksForResolution = props.tracks;
-  }
-
   if(props.config.compactDisplay)
   {
     return (
       <div style={{"margin": "auto"}}>
-        { instrumentIndices.filter(ix => !instrumentShouldBeHidden[ix]).map(
-            (instrumentIndex) => ( <Part
-              key={"part-" + instrumentIndex.toString()}
-              instrument={props.instruments[instrumentIndex][1]}
-              tracks={tracksForResolution}
-              resolution={resolutionForInstruments[instrumentIndex]}
-              config={makeCompactConfig(props.config, instrumentIndex)}
-              modifyPatternLocation={props.modifyPatternLocation}
-              prefix={formatShortTitle(props.instruments[instrumentIndex][2].shortName)}
-            />
+        {
+          instrumentIndices
+            .filter(ix => !instrumentShouldBeHidden[ix])
+            .map(
+              (instrumentIndex) => (
+                <Part
+                  key={"part-" + instrumentIndex.toString()}
+                  instrument={
+                    props.instruments[instrumentIndex][1]
+                  }
+                  tracks={tracksForResolution}
+                  resolution={
+                    resolutionForInstruments[instrumentIndex]
+                  }
+                  config={
+                    makeCompactConfig(
+                      props.config,
+                      instrumentIndex
+                    )
+                  }
+                  modifyPatternLocation={
+                    props.modifyPatternLocation
+                  }
+                  prefix={
+                    formatShortTitle(
+                      props.instruments[instrumentIndex][2].shortName
+                    )
+                  }
+                />
+              )
             )
-          )
         }
       </div>
     );
@@ -161,18 +257,31 @@ const Pattern = React.memo((props)=>
   {
     return (
       <div style={{"margin": "auto"}}>
-        { instrumentIndices.filter(ix => !instrumentShouldBeHidden[ix]).map(
-            (instrumentIndex) => ( <PartWithTitle
-              key={"part-" + instrumentIndex.toString()}
-              instrumentName={props.instruments[instrumentIndex][0]}
-              instrument={props.instruments[instrumentIndex][1]}
-              tracks={tracksForResolution}
-              resolution={resolutionForInstruments[instrumentIndex]}
-              config={props.config}
-              modifyPatternLocation={props.modifyPatternLocation}
-              dense
-            /> )
-          )
+        {
+          instrumentIndices
+            .filter(ix => !instrumentShouldBeHidden[ix])
+            .map(
+              (instrumentIndex) => (
+                <PartWithTitle
+                  key={"part-" + instrumentIndex.toString()}
+                  instrumentName={
+                    props.instruments[instrumentIndex][0]
+                  }
+                  instrument={
+                    props.instruments[instrumentIndex][1]
+                  }
+                  tracks={tracksForResolution}
+                  resolution={
+                    resolutionForInstruments[instrumentIndex]
+                  }
+                  config={props.config}
+                  modifyPatternLocation={
+                    props.modifyPatternLocation
+                  }
+                  dense
+                />
+              )
+            )
         }
       </div>
     );
