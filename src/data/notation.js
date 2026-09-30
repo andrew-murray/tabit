@@ -511,7 +511,7 @@ class notation
       // in order to calculate resolution globally
       const expand = true;
       const megaTrack = instrumentTracks.reduce( (a,b)=>a.aggregate(b, expand) );
-      patternResolution = megaTrack.getResolution();
+      patternResolution = megaTrack.empty() ? 48 : megaTrack.getResolution();
       patternSize = megaTrack.length();
       patternArray = notation.formatPatternStringSparse(
         instrument,

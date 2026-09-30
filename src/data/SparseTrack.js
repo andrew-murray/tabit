@@ -151,27 +151,21 @@ class SparseTrack
   getResolution()
   {
     const points = this.points;
-    const relevantPoints = points.length > 0 && points[0] === 0 ? points.slice(1) : points;
-    if(relevantPoints.length === 0)
-    {
-      return 48;
-    }
-    else if(relevantPoints.length === 1)
+    const relevantPointsFromTrack = points.length > 0 && points[0] === 0 ? points.slice(1) : points;
+    const relevantPoints = relevantPointsFromTrack.concat([this.length_]);
+    if(relevantPoints.length === 1)
     {
       return relevantPoints[0];
     }
-    else
+    let candidate = findHCF(relevantPoints[0], relevantPoints[1]);
+    let problemPoints = relevantPoints.filter( p => p % candidate !== 0);
+    while(problemPoints.length > 0)
     {
-      let candidate = findHCF(relevantPoints[0], relevantPoints[1]);
-      let problemPoints = relevantPoints.filter( p => p % candidate !== 0);
-      while(problemPoints.length > 0)
-      {
-        const latestCandidate = findHCF(candidate, problemPoints[0]);
-        problemPoints = relevantPoints.filter( p => p % latestCandidate !== 0);
-        candidate = latestCandidate;
-      }
-      return candidate;
+      const latestCandidate = findHCF(candidate, problemPoints[0]);
+      problemPoints = relevantPoints.filter( p => p % latestCandidate !== 0);
+      candidate = latestCandidate;
     }
+    return candidate;
   }
 
   queryRange(lo, hi)
