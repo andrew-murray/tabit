@@ -292,7 +292,7 @@ const BlocoSambaraCollection = {
       name: "Enredo"
     },
     {
-      id: "6a823566f5f4af5e291e3855",
+      id: "6ade8919ac6210605a51bbdc",
       name: "Magalenha"
     },
     {
@@ -308,7 +308,7 @@ const BlocoSambaraCollection = {
       name: "Samba Reggae"
     },
     {
-      id: "6a8c8e94f5f4af5e293d4c27",
+      id: "6ade8053ac6210605a51b137",
       name: "Tudo"
     }
   ]
@@ -325,7 +325,7 @@ const PublicSongbooks = {
 
 const Songbooks = Object.assign(
   {
-    "bloco": BlocoSambaraCollection
+    "sambara": BlocoSambaraCollection
   },
   PublicSongbooks
 )

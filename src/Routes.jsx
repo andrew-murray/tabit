@@ -202,6 +202,10 @@ export default function TabitRoutes(props) {
             path="/bloco"
             element={<Navigate to="/songbook/static/bloco/" />}
           />
+          <Route
+            path="/sambara"
+            element={<Navigate to="/songbook/static/sambara/" />}
+          />
         </Routes>
       </ThemeProvider>
     </Router>
