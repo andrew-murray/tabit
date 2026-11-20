@@ -292,11 +292,11 @@ const BlocoSambaraCollection = {
       name: "Enredo"
     },
     {
-      id: "6ade8919ac6210605a51bbdc",
+      id: "6ae10ac8ffd5d16053910290",
       name: "Magalenha"
     },
     {
-      id: "6a8c8cc0da38895dfe0bb4c6",
+      id: "6aef52f3ac6210605a75aeba",
       name:  "Ouro Em Lata"
     },
     {
@@ -304,11 +304,11 @@ const BlocoSambaraCollection = {
       name: "Reggae"
     },
     {
-      id: "6a8c975ada38895dfe0bdb13",
+      id: "6b00dd01ac6210605a98a655",
       name: "Samba Reggae"
     },
     {
-      id: "6ade8053ac6210605a51b137",
+      id: "6aef59f9ffd5d16053af6ee9",
       name: "Tudo"
     }
   ]
