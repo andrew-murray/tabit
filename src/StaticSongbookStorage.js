@@ -304,7 +304,7 @@ const BlocoSambaraCollection = {
       name: "Reggae"
     },
     {
-      id: "6b00dd01ac6210605a98a655",
+      id: "6b018e5eac6210605a99a9b0",
       name: "Samba Reggae"
     },
     {
